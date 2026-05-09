@@ -23,13 +23,28 @@ try {
   await page.waitForLoadState('networkidle');
 
   await page.evaluate(() => {
-    window.__mudBuddyStorageWrites = 0;
-    for (const store of [window.localStorage, window.sessionStorage]) {
-      const originalSetItem = store.setItem.bind(store);
-      store.setItem = (...args) => {
-        window.__mudBuddyStorageWrites += 1;
-        return originalSetItem(...args);
+    window.__mudBuddyPrivacyEvents = [];
+    const record = (kind, detail = '') => window.__mudBuddyPrivacyEvents.push(`${kind}:${detail}`);
+    const originalSetItem = Storage.prototype.setItem;
+    Storage.prototype.setItem = function patchedSetItem(key, value) {
+      record('storage', key);
+      return originalSetItem.call(this, key, value);
+    };
+    const originalBeacon = navigator.sendBeacon?.bind(navigator);
+    if (originalBeacon) {
+      navigator.sendBeacon = (...args) => {
+        record('beacon', String(args[0]));
+        return originalBeacon(...args);
       };
+    }
+    for (const name of ['WebSocket', 'EventSource', 'Worker']) {
+      const Original = window[name];
+      if (Original) {
+        window[name] = function patchedConstructor(...args) {
+          record(name, String(args[0]));
+          return new Original(...args);
+        };
+      }
     }
   });
 
@@ -38,17 +53,20 @@ try {
   await page.getByText('Try sample data').first().click();
   await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
 
-  const sampleRequests = requests.filter((requestUrl) => requestUrl.includes('/examples/sample-ebmud-usage.csv'));
+  const sampleRequests = requests.filter((requestUrl) => {
+    const parsed = new URL(requestUrl);
+    return parsed.origin === new URL(url).origin && parsed.pathname === '/examples/sample-ebmud-usage.csv';
+  });
   const unexpected = requests.filter((requestUrl) => (
     !requestUrl.startsWith('data:') &&
     !requestUrl.startsWith('blob:') &&
-    !requestUrl.includes('/examples/sample-ebmud-usage.csv')
+    !(new URL(requestUrl).origin === new URL(url).origin && new URL(requestUrl).pathname === '/examples/sample-ebmud-usage.csv')
   ));
   if (sampleRequests.length !== 1) throw new Error(`Expected exactly one sample CSV fetch, found ${sampleRequests.length}`);
   if (unexpected.length) throw new Error(`Unexpected network request after sample button:\n${unexpected.join('\n')}`);
 
-  const storageWrites = await page.evaluate(() => window.__mudBuddyStorageWrites || 0);
-  if (storageWrites !== 0) throw new Error(`Sample data path wrote to browser storage ${storageWrites} time(s)`);
+  const privacyEvents = await page.evaluate(() => window.__mudBuddyPrivacyEvents || []);
+  if (privacyEvents.length) throw new Error(`Sample data path used forbidden APIs:\n${privacyEvents.join('\n')}`);
 
   await browser.close();
   console.log('sample-data-network: OK sample button fetched only the local synthetic CSV and wrote no storage');

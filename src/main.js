@@ -3,7 +3,6 @@ import '@material/web/button/filled-tonal-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/button/text-button.js';
 import '@material/web/chips/assist-chip.js';
-import '@material/web/checkbox/checkbox.js';
 import '@material/web/dialog/dialog.js';
 import '@material/web/divider/divider.js';
 import '@material/web/icon/icon.js';
@@ -17,6 +16,9 @@ import './styles.css';
 import { parseEbmudCsv } from './ebmud-csv.js';
 import { analyzeWaterUse } from './water-analysis.js';
 import { renderBrowserReport } from './browser-report.js';
+
+const MAX_CSV_BYTES = 5 * 1024 * 1024;
+const MAX_CSV_ROWS = 5000;
 
 const sampleModes = {
   normal: {
@@ -45,13 +47,6 @@ const sampleModes = {
   }
 };
 
-const checklist = [
-  'No name or service address',
-  'No account number or meter ID',
-  'No raw CSV rows or local file paths',
-  'No exact vacation or absence pattern',
-  'Footer says not affiliated with EBMUD'
-];
 
 const ebmudResources = [
   { icon: 'home', title: 'Customers hub', href: 'https://www.ebmud.com/customers', text: 'Start with official customer topics, account help, conservation, alerts, water quality, and assistance.' },
@@ -81,7 +76,6 @@ class MudBuddyApp extends HTMLElement {
     this.render();
     this.bind();
     this.updateMode('normal');
-    this.updateChecklist();
   }
 
   render() {
@@ -217,13 +211,25 @@ class MudBuddyApp extends HTMLElement {
 
         <section class="shell savings-section" id="savings">
           <div class="section-head">
-            <h2>Where useful next checks can come from.</h2>
+            <h2>What to check next.</h2>
             <p>Mud Buddy does not diagnose leaks or certify savings. It helps households notice patterns that are worth checking before wasted water quietly becomes normal.</p>
           </div>
           <div class="savings-grid">
-            <article class="material-card"><img src="assets/irrigation-season-story.webp" alt="Synthetic irrigation season story" loading="lazy" /><h3>Irrigation schedule fixes</h3><p>Spot seasonal lift, controller drift, overwatering, and yard changes that deserve a walk-through.</p></article>
-            <article class="material-card"><img src="assets/leak-check-next-steps.webp" alt="Synthetic leak check next steps" loading="lazy" /><h3>Simple fixture checks</h3><p>Turn baseline creep into practical checks: toilet dye test, meter test, fixtures, and irrigation off-cycle review.</p></article>
-            <article class="material-card"><img src="assets/public-sharing-checklist-card.svg" alt="Synthetic public sharing checklist" loading="lazy" /><h3>Privacy-safe sharing</h3><p>Most reports stay private. If someone shares, public mode and the checklist reduce sensitive household clues.</p></article>
+            <article class="material-card"><img src="assets/irrigation-season-story.webp" alt="Synthetic irrigation story" loading="lazy" /><h3>Irrigation walk-through</h3><p>Check controller schedules, stuck zones, runoff, overwatering, and thirsty planting areas.</p></article>
+            <article class="material-card"><img src="assets/leak-check-next-steps.webp" alt="Synthetic leak check next steps" loading="lazy" /><h3>Simple fixture checks</h3><p>Use normal use that slowly rises as a prompt for a toilet dye test, meter test, and fixture walk-through.</p></article>
+            <article class="material-card"><img src="assets/ebmud-resource-directory.svg" alt="Synthetic official resource directory" loading="lazy" /><h3>Official next steps</h3><p>Use EBMUD directly for billing, outage, pressure, water-quality, rebate, assistance, or emergency questions.</p></article>
+          </div>
+        </section>
+
+
+        <section class="resource-band" id="resources">
+          <div class="shell resource-layout">
+            <div class="resource-copy">
+              <h2>Official EBMUD resources, right where the questions show up.</h2>
+              <p>Mud Buddy is a private interpretation layer. When the next step is official, urgent, billing-related, pressure/outage-related, water-quality-related, rebate, or assistance related, use EBMUD's public customer resources.</p>
+              <img class="resource-art visual-asset" src="assets/ebmud-resource-directory.svg" alt="Synthetic official EBMUD resource directory illustration" loading="lazy" />
+            </div>
+            <div class="resource-grid" aria-label="Official EBMUD resources">${resourceCards}</div>
           </div>
         </section>
 
@@ -244,60 +250,28 @@ class MudBuddyApp extends HTMLElement {
         </section>
 
 
-        <section class="resource-band" id="resources">
-          <div class="shell resource-layout">
-            <div class="resource-copy">
-              <h2>Official EBMUD resources, right where the questions show up.</h2>
-              <p>Mud Buddy is a private interpretation layer. When the next step is official, urgent, billing-related, pressure/outage-related, water-quality-related, rebate, or assistance related, use EBMUD's public customer resources.</p>
-              <img class="resource-art visual-asset" src="assets/ebmud-resource-directory.svg" alt="Synthetic official EBMUD resource directory illustration" loading="lazy" />
-            </div>
-            <div class="resource-grid" aria-label="Official EBMUD resources">${resourceCards}</div>
-          </div>
-        </section>
-
         <section class="privacy-band" id="privacy">
           <div class="shell split reverse">
-            <div class="material-card checklist-card">
-              <h3>Public-share checklist</h3>
-              <p>Most homeowners should keep reports private. If you intentionally share a report, use <code>--public</code> and this checklist first.</p>
-              ${checklist.map((item, idx) => `<label><md-checkbox data-check="${idx}"></md-checkbox><span>${item}</span></label>`).join('')}
-              <md-divider></md-divider>
-              <md-linear-progress id="shareProgress" value="0"></md-linear-progress>
-              <p id="shareStatus">Check every item before publishing a public artifact.</p>
-              <md-text-button id="resetChecklist">Reset checklist</md-text-button>
-            </div>
             <div>
               <img class="privacy-art visual-asset" src="assets/privacy-local-first.svg" alt="Synthetic local-first privacy illustration" loading="lazy" />
               <h2>Private by default, careful by design.</h2>
-              <p>Credentials, MFA, cookies, browser storage, session tokens, and billing settings are outside the tool boundary. Browser assistance only starts after the user logs in manually and stops if the portal is unclear.</p>
+              <p>Your CSV is read in this browser and is not uploaded. Credentials, MFA, cookies, browser storage, session tokens, and billing settings are outside the tool boundary.</p>
               <div class="doc-actions">
                 <md-outlined-button href="docs/privacy.md">Privacy notes</md-outlined-button>
                 <md-outlined-button href="docs/security-review.md">Security review</md-outlined-button>
+                <md-outlined-button href="docs/public-sharing-checklist.md">Sharing checklist</md-outlined-button>
               </div>
             </div>
           </div>
         </section>
 
-        <section class="shell install-section" id="install">
-          <div class="install-copy">
-            <h2>Advanced local generator and AI-agent assist.</h2>
-            <p>Most homeowners can use the browser analyzer above. Developers and AI-tool users can also run the Python generator locally or install the Codex skill for a supervised manual-login, CSV-download, local-analysis workflow.</p>
-            <img class="handoff-art visual-asset" src="assets/ai-agent-safe-handoff.svg" alt="Synthetic safe AI-agent handoff illustration" loading="lazy" />
-          </div>
-          <div class="terminal-card material-card">
-            <div><span></span><span></span><span></span></div>
-            <pre><code>$ python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "my-water-report"
-$ python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "my-public-report" --public
-$skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/skills/ebmud-buddy</code></pre>
-          </div>
-        </section>
       </main>
 
       <footer>
         <div class="shell footer-grid">
           <p><strong>Mud Buddy for EBMUD - by Dan O'Leary</strong><br />A private browser-local water-use helper for EBMUD exports.</p>
           <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.</p>
-          <p><a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a> | <a href="mud-buddy-by-danno.zip">Download ZIP</a></p>
+          <p><a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
         </div>
       </footer>
 
@@ -314,11 +288,6 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
   bind() {
     this.querySelectorAll('md-primary-tab').forEach((tab) => tab.addEventListener('click', () => this.updateMode(tab.dataset.mode)));
     this.querySelector('#openChecklist').addEventListener('click', () => this.querySelector('#checklistDialog').show());
-    this.querySelectorAll('md-checkbox').forEach((box) => box.addEventListener('change', () => this.updateChecklist()));
-    this.querySelector('#resetChecklist').addEventListener('click', () => {
-      this.querySelectorAll('md-checkbox').forEach((box) => { box.checked = false; });
-      this.updateChecklist();
-    });
 
     const input = this.querySelector('#csvInput');
     const openPicker = () => input.click();
@@ -361,6 +330,10 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
       this.setUploadState('That does not look like a CSV. Please choose the EBMUD billing usage export.', 0, true);
       return;
     }
+    if (file.size > MAX_CSV_BYTES) {
+      this.setUploadState('That CSV is too large for the browser demo. Please use an EBMUD billing usage export under 5 MB.', 0, true);
+      return;
+    }
     this.setUploadState('Reading the selected CSV locally in your browser...', 0.35);
     try {
       const text = await file.text();
@@ -385,6 +358,9 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
   analyzeCsvText(text, options) {
     this.setUploadState('Analyzing water-use patterns locally...', 0.72);
     const parsed = parseEbmudCsv(text);
+    if (parsed.rows.length + parsed.invalidRows.length > MAX_CSV_ROWS) {
+      throw new Error('That CSV has too many rows for the browser demo. Please use an EBMUD billing usage export with fewer than 5,000 rows.');
+    }
     const analysis = analyzeWaterUse(parsed.rows, parsed.invalidRows, parsed.warnings);
     renderBrowserReport(this.querySelector('#browserReport'), analysis, options);
     this.classList.add('has-browser-report');
@@ -409,15 +385,14 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
     this.querySelector('#modeInsight').textContent = data.insight;
     this.querySelectorAll('md-primary-tab').forEach((tab) => { tab.active = tab.dataset.mode === mode; });
     const max = Math.max(...data.bars);
-    this.querySelector('#chart').innerHTML = data.bars.map((value, index) => `<span style="--h:${Math.max(18, (value / max) * 100)}%" title="Month ${index + 1}: ${value} synthetic GPD"></span>`).join('');
-  }
-
-  updateChecklist() {
-    const boxes = [...this.querySelectorAll('md-checkbox')];
-    const complete = boxes.filter((box) => box.checked).length;
-    const ratio = complete / boxes.length;
-    this.querySelector('#shareProgress').value = ratio;
-    this.querySelector('#shareStatus').textContent = ratio === 1 ? 'Public-safe checklist complete.' : `${complete} of ${boxes.length} checks complete.`;
+    const chart = this.querySelector('#chart');
+    chart.replaceChildren();
+    data.bars.forEach((value, index) => {
+      const bar = document.createElement('span');
+      bar.style.setProperty('--h', `${Math.max(18, (value / max) * 100)}%`);
+      bar.title = `Month ${index + 1}: ${value} synthetic GPD`;
+      chart.append(bar);
+    });
   }
 }
 

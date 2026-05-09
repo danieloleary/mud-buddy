@@ -2,54 +2,46 @@
 
 ## Completed For 1.0.0 Release Candidate
 
-- Homeowner-first landing page and README.
-- `Help save 1 million gallons this year` mission and gallon-savings methodology.
-- Material Web polish with ripples, tonal buttons, dividers, checklist reset, and clearer sample-mode accessibility.
-- Public-safe synthetic SVG asset set for report preview, CSV boundary, sharing checklist, irrigation, leak checks, AI handoff, and GitHub social sharing.
-- Official EBMUD customer-resource directory and routing language.
-- Synthetic dataset factory with 20 EBMUD-style flavors.
-- Local-only real CSV gate for Dan's private export.
-- Public ZIP packaging, package policy tests, and redaction scan hardening.
-- GitHub issue templates, PR template, Dependabot, support docs, code of conduct, and citation metadata.
-
-## Implemented, Pending Validation And Live Deploy
-
-- Browser-local upload UI accepts an EBMUD CSV and renders an in-page report without a server.
-- Browser parser and analysis modules that mirror conservative Python summary behavior.
-- Tests for parser correctness, browser upload rendering, privacy leakage, no network after upload, and JS/Python parity.
-- README, roadmap, launch plan, and social copy updated so the website is the product, not just a demo.
+- Homeowner-first browser app on GitHub Pages: upload an EBMUD CSV, analyze it locally in the browser, and render an in-page report.
+- Browser parser and analysis modules with JS/Python parity checks.
+- Material Web landing/results UI with homeowner wording, official EBMUD resource routing, and clear privacy language.
+- Public-safe synthetic visual assets and sample report.
+- Synthetic dataset factory with 20 EBMUD-style flavors under ignored `tests/output/`.
+- Local-only real CSV gate for Dan's private export when `MUD_BUDDY_REAL_CSV` is explicitly set.
+- Privacy, redaction, package-policy, no-network, synthetic-source, and browser-upload test coverage.
+- GitHub issue templates, PR template, Dependabot, support docs, code of conduct, citation metadata, CI, and Pages workflows.
 
 ## Must Finish Before Broad Launch
 
-- `npm run validate` passes locally and in CI.
-- `npm run test:local-real-csv` passes locally and Dan's CSV remains private.
-- GitHub Pages deploy succeeds for the release commit.
-- Live browser upload works with sample data and Dan's private local CSV.
-- Live site, sample report, docs, approved visual assets, social card, sample CSV, and ZIP return `200`.
-- Public scans find no real CSV, address, account number, meter ID, local path, browser trace, private report, authenticated screenshot, or private filename.
+- Run `npm run validate` on the final release commit.
+- Run `MUD_BUDDY_REAL_CSV="path/to/private.csv" npm run test:local-real-csv` locally.
+- Confirm GitHub Actions CI and Pages deploy pass on `main`.
+- Run live smoke checks for homepage, browser upload, sample data, sample report, docs, approved visual assets, social card, and ZIP.
+- Confirm public scans find no real CSV, address, account number, meter ID, local path, browser trace, private report, authenticated screenshot, or private filename.
+- Do a final mobile/desktop read-through as a homeowner, not a maintainer.
 
-## Next Up After Launch
+## Near-Term Product Polish
 
-- Add Chrome Downloads helper that lists recent CSV candidates and asks before processing.
-- Add first-run wizard for Claude Code, Codex, Lovable, and non-technical homeowners.
-- Add a public/private report badge that is visible above the fold.
-- Add manual real-portal checklist screenshots made from mock pages only.
-- Add printable/PDF export from the browser-local report.
+- Add a first-run wizard for non-technical homeowners: `Download CSV`, `Analyze my CSV`, `Review next checks`, `Share safely`.
+- Add clearer print/PDF styling for the browser report.
+- Add baseline-confidence labels and fixture/toilet check worksheets.
+- Add optional household and landscaping context form that stays local.
+- Add a helped-save worksheet that stays local and avoids certified-savings claims.
+- Add public examples gallery using synthetic scenarios only.
 
-## Analysis Improvements
+## Maintainer Cleanup After 1.0
 
-- Add irrigation-season comparison by water year.
-- Add baseline-confidence labels.
-- Add fixture/toilet check worksheet.
-- Add optional household context form that stays local.
-- Add stronger household-size and landscaping-context explanations.
-- Add optional helped-save estimate worksheet that stays local and avoids certified-savings claims.
+- Consider merging overlapping privacy tests once launch risk drops.
+- Add a live-site smoke script for post-deploy checks.
+- Consolidate release docs if they start drifting.
+- Add community feedback triage and a 1M-gallon progress page.
 
-## Distribution
+## Later
 
-- Publish through GitHub Pages and a GitHub release once CI and Pages are green.
-- Add Show HN, X, LinkedIn, and local East Bay launch checklist.
-- Consider Product Hunt after the README, screenshots, issue templates, and first external feedback are clean.
+- Support smart-meter/hourly exports if available.
+- Support additional utilities with similar CSV or Green Button exports.
+- Build utility-template abstractions for other local-first civic data tools.
+- Explore optional hosted services only if users ask for them and privacy/security requirements are fully defined.
 
 ## Not Planned For 1.0
 
@@ -57,4 +49,3 @@
 - EBMUD credential automation.
 - Certified leak, plumbing, billing, conservation, or official utility diagnosis.
 - Storage of user CSVs on a server.
-

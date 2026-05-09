@@ -17,6 +17,8 @@ const files = [
   'docs/release-checklist.md',
   'docs/acceptance-criteria.md',
   'docs/backlog.md',
+  'docs/data-schema.md',
+  'docs/plan-and-status.md',
   'skills/ebmud-buddy/references/browser_workflow.md'
 ];
 
@@ -38,6 +40,11 @@ for (const rel of ['browser-control-safety.md', 'use-with-ai-tools.md']) {
   if (source !== mirror) throw new Error('public docs mirror is stale: ' + rel);
 }
 
+for (const rel of ['.github/workflows/ci.yml', '.github/workflows/pages.yml']) {
+  const workflow = await fs.readFile(path.join(root, rel), 'utf8');
+  if (!workflow.includes('npm run validate')) throw new Error(`${rel} must use npm run validate as the release gate`);
+}
+
 const required = [
   '--public',
   'Ask before controlling',
@@ -51,6 +58,8 @@ const required = [
   'Official EBMUD resources',
   'browser-local',
   'Analyze my CSV',
+  'MUD_BUDDY_REAL_CSV',
+  'committed synthetic sample CSV',
   'https://x.com/danieloleary',
   'https://www.linkedin.com/in/danieloleary/',
   "Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.",
@@ -78,10 +87,12 @@ const forbidden = [
   'Public sharing should use `--redact`',
   'Publishing is opt-in and should use redacted output.',
   'Generate a redacted public report only',
+  'Implemented, Pending Validation',
+  "The generator may read Dan's local CSV",
   visibleBom
 ];
 for (const phrase of forbidden) {
   if (combined.includes(phrase)) throw new Error('Outdated docs phrase remains: ' + phrase);
 }
 
-console.log('docs-consistency: OK v0.5 official resources, browser safety, public-mode docs, and mirrors are aligned');
+console.log('docs-consistency: OK 1.0 app-first docs, browser safety, public-mode docs, and mirrors are aligned');

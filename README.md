@@ -30,21 +30,6 @@ You can also choose `Try sample data` on the site to see the flow with synthetic
 - Which billing period deserves attention first?
 - Do the patterns suggest a toilet dye test, meter test, irrigation walk-through, or official EBMUD resource?
 
-## Mission: help save 1 million gallons this year
-
-Mud Buddy's first public mission is to help East Bay households find **1 million gallons of potential water savings** this year.
-
-That means helped-save or potential savings, not a verified EBMUD conservation total. The goal is to help people notice patterns sooner: irrigation schedules, baseline creep, running toilets, fixture checks, meter tests, and yard-water decisions.
-
-| Goal math | Why it matters |
-| --- | --- |
-| `1,000,000 gallons` | Clear public rallying goal. |
-| `~1,337 CCF` | EBMUD defines 1 CCF as 748 gallons. |
-| `~3.1 acre-feet` | A tangible water-supply scale. |
-| `200 households x 5,000 gallons` | A realistic community path. |
-
-Source context: EBMUD serves about 1.4 million people in a 332-square-mile water service area, and EBMUD rate materials define 1 CCF as 748 gallons. See [EBMUD service area](https://www.ebmud.com/about-us/who-we-are/service-area), [EBMUD FY2026 rate document](https://www.ebmud.com/download_file/force/34400/702?Rate_Document_for_FY_2026_Web.pdf=), and [docs/gallon-savings-methodology.md](docs/gallon-savings-methodology.md).
-
 ## Privacy boundary
 
 Water usage can reveal household routines, so the default workflow is intentionally private.
@@ -53,7 +38,7 @@ Water usage can reveal household routines, so the default workflow is intentiona
 - No Mud Buddy account is required.
 - Mud Buddy does not display the private filename, account number, meter ID, raw CSV rows, or local file path in the browser report.
 - Do not paste EBMUD credentials into Codex, Claude Code, Lovable, or any chat tool.
-- Browser assistance starts only after you log into EBMUD manually.
+- Optional browser help starts only after you log into EBMUD manually.
 - Public sharing should use `--public`; `--redact` removes direct identifiers but is not full anonymization.
 
 ![Synthetic public sharing checklist](public/assets/public-sharing-checklist-card.svg)
@@ -89,6 +74,22 @@ Use Mud Buddy when you want to understand patterns in your exported usage CSV be
 | Water-quality reports and safety information | [Water quality](https://www.ebmud.com/water/about-your-water/water-quality) |
 | Bill support for eligible customers | [Customer Assistance Program](https://www.ebmud.com/customers/customer-assistance-program) |
 | Contact, emergency, and official support | [Contact / emergency](https://www.ebmud.com/contact-us) |
+
+## Mission: help save 1 million gallons this year
+
+Mud Buddy's first public mission is to help East Bay households find **1 million gallons of potential water savings** this year.
+
+That means helped-save or potential savings, not a verified EBMUD conservation total. The goal is to help people notice patterns sooner: irrigation schedules, normal use slowly rising, running toilets, fixture checks, meter tests, and yard-water decisions.
+
+| Goal math | Why it matters |
+| --- | --- |
+| `1,000,000 gallons` | Clear public rallying goal. |
+| `~1,337 CCF` | EBMUD defines 1 CCF as 748 gallons. |
+| `~3.1 acre-feet` | A tangible water-supply scale. |
+| `200 households x 5,000 gallons` | A realistic community path. |
+
+Source context: EBMUD serves about 1.4 million people in a 332-square-mile water service area, and EBMUD rate materials define 1 CCF as 748 gallons. See [EBMUD service area](https://www.ebmud.com/about-us/who-we-are/service-area), [EBMUD FY2026 rate document](https://www.ebmud.com/download_file/force/34400/702?Rate_Document_for_FY_2026_Web.pdf=), and [docs/gallon-savings-methodology.md](docs/gallon-savings-methodology.md).
+
 
 ## Advanced local generator
 

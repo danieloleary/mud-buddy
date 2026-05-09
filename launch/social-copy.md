@@ -4,7 +4,7 @@
 
 I built Mud Buddy for EBMUD - a free browser-local tool for East Bay water customers.
 
-Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English report about high bills, irrigation season, baseline creep, and possible next checks.
+Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English report about high bills, outdoor watering, normal use changes, and simple next checks.
 
 No EBMUD password. No server upload. Not affiliated with EBMUD.
 
@@ -18,7 +18,7 @@ https://danieloleary.github.io/mud-buddy/
 
 2/ The app is simple: download your EBMUD usage CSV, upload it to Mud Buddy, and get a browser-local explanation of what changed.
 
-3/ It looks for patterns worth checking: baseline creep, irrigation-season lift, unusual periods, peer context, and possible fixture/toilet clues.
+3/ It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, similar-home context, and possible fixture/toilet clues.
 
 4/ It is not affiliated with EBMUD, not a leak detector, not billing advice, and not a plumbing inspection. Official account/billing/emergency/rebate actions happen on EBMUD's site.
 

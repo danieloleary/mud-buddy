@@ -1,44 +1,34 @@
 ﻿# Plan And Status
 
-Version target: browser-local 1.0 launch candidate.
-
 ## Current status
 
-Mud Buddy has shipped the v1 foundation and is being upgraded from a polished project/demo site into a usable homeowner web app:
+Mud Buddy is a 1.0.0 release candidate. The public product is the browser-local GitHub Pages app: a homeowner downloads an EBMUD usage CSV, uploads it in the browser, and receives a private plain-English report without a server upload.
 
-- Browser-local upload and analysis is now the primary release blocker.
-- Homeowner-first landing page and README.
-- Public-safe synthetic visual system.
-- Official EBMUD resource routing.
-- Manual-login-only browser workflow docs.
-- Local report generator with `--public`, `--redact`, and `--summary-json`.
-- Synthetic 20-flavor dataset factory.
-- Local-only Dan CSV E2E harness.
-- Redaction, package policy, docs, browser-flow, and subpath tests.
+Last known green release gate:
+
+- `npm run validate`
+- Explicit local real-CSV gate with `MUD_BUDDY_REAL_CSV`
+- GitHub CI and Pages deploy on `main`
+- Live landing and browser-upload smoke checks
 
 ## Product goal
 
-Help East Bay households find `1 million gallons` of potential water savings this year.
+Help East Bay households understand their own EBMUD water-use data, find practical next checks, and identify potential savings without asking for credentials or sending private CSVs to a server.
 
-This is a helped-save/product-impact goal, not a verified EBMUD conservation total.
+## Final launch gates
 
-## Remaining release gates
-
-- Run `npm run validate`.
-- Run `npm run test:local-real-csv`.
-- Confirm browser upload works with the synthetic sample and Dan's private local CSV.
-- Confirm uploaded CSV analysis makes no network requests after file selection.
-- Confirm Dan's real CSV remains private and ignored.
-- Push release commit to `main`.
-- Confirm GitHub Pages deploy passes.
-- Verify live site, browser upload, sample report, docs, approved visual assets, social card, sample CSV, and ZIP URLs return `200`.
-- Tag only after the release gates are green.
+- Run `npm run validate` on the final release commit.
+- Run `MUD_BUDDY_REAL_CSV="path/to/private.csv" npm run test:local-real-csv` locally.
+- Confirm GitHub Actions CI and Pages are green.
+- Confirm live Pages loads the app, sample report, docs, assets, social card, sample CSV, and ZIP.
+- Confirm no public artifact includes real CSVs, service addresses, account numbers, meter IDs, local paths, private reports, traces, or authenticated screenshots.
 
 ## Deferred beyond this launch
 
-- Hosted CSV upload backend.
 - Chrome Downloads helper.
 - First-run wizard.
-- PDF export.
-- More detailed household context modeling.
-
+- Browser report PDF polish.
+- Baseline-confidence labels.
+- Fixture/toilet worksheets.
+- Optional local household context form.
+- Helped-save worksheet and community progress page.

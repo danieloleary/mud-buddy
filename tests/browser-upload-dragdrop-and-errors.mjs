@@ -33,6 +33,8 @@ const missing = await writeFixture('missing.csv', 'Reading Date,CCF\n2026-01-01,
 const allInvalid = await writeFixture('all-invalid.csv', 'Reading Date,Days in Read Period,CCF,Customer GPD\n2026-01-01,30,N/A,N/A\n');
 const wrongType = await writeFixture('usage.txt', 'not a csv');
 const quoted = await writeFixture('quoted.csv', '\uFEFFAccount Number,Reading Date,Days in Read Period,Meter Reading,CCF,Customer GPD,Average Households GPD,Top 20% GPD,WaterScore,Meter Class,Meter\nPUBLIC-SAMPLE,2026-01-01,30,,"6.5","162","150","90","average","SFR","MTR,QUOTED"\nPUBLIC-SAMPLE,2026-02-01,30,,N/A,N/A,150,90,average,SFR,"MTR,QUOTED"\nPUBLIC-SAMPLE,2026-03-01,30,,7,175,152,91,average,SFR,"MTR,QUOTED"\n');
+const tooLarge = await writeFixture('too-large.csv', `Reading Date,Days in Read Period,CCF,Customer GPD\n2026-01-01,30,6,150\n${' '.repeat(5 * 1024 * 1024)}\n`);
+const tooManyRows = await writeFixture('too-many-rows.csv', `Reading Date,Days in Read Period,CCF,Customer GPD\n${Array.from({ length: 5001 }, (_, index) => `2026-01-${String((index % 28) + 1).padStart(2, '0')},30,6,150`).join('\n')}\n`);
 
 const url = 'http://127.0.0.1:4185/';
 const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4185'], { stdio: 'ignore' });
@@ -54,6 +56,10 @@ try {
   await expectStatus(page, 'Missing required EBMUD column');
   await page.locator('#csvInput').setInputFiles(allInvalid);
   await expectStatus(page, 'No valid EBMUD usage rows');
+  await page.locator('#csvInput').setInputFiles(tooLarge);
+  await expectStatus(page, 'too large');
+  await page.locator('#csvInput').setInputFiles(tooManyRows);
+  await expectStatus(page, 'too many rows');
   await page.locator('#csvInput').setInputFiles(quoted);
   await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
   let reportText = await page.locator('[data-testid="browser-report"]').innerText();
@@ -70,7 +76,7 @@ try {
   reportText = await page.locator('[data-testid="browser-report"]').innerText();
   if (!reportText.toLowerCase().includes('uploaded csv analyzed locally')) throw new Error('Drag/drop valid CSV did not recover to uploaded report');
   await browser.close();
-  console.log('browser-upload-dragdrop-and-errors: OK drag/drop, invalid inputs, quoted CSV, N/A, and recovery');
+  console.log('browser-upload-dragdrop-and-errors: OK drag/drop, invalid inputs, limits, quoted CSV, N/A, and recovery');
 } finally {
   server.kill();
 }

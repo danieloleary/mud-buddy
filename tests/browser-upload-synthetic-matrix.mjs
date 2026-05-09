@@ -56,6 +56,9 @@ try {
       { timeout: 8000 }
     );
     const reportText = await page.locator('[data-testid="browser-report"]').innerText();
+    const outer = await page.locator('html').evaluate((node) => node.outerHTML);
+    const bodyText = await page.locator('body').innerText();
+    const combined = `${outer}\n${bodyText}`;
     for (const required of [
       `${expected.baselineGpd} GPD`,
       `${expected.seasonalLift} GPD`,
@@ -76,10 +79,14 @@ try {
       'Billing Usage',
       firstRawDataRow
     ]) {
-      if (forbidden && reportText.includes(forbidden)) {
+      if (forbidden && combined.includes(forbidden)) {
         throw new Error(`${item.flavor} browser report leaked private/synthetic source text: ${forbidden}`);
       }
     }
+    for (const pattern of [/[A-Za-z]:\\Users\\[^\s'"<>]+/i, /Account Number,Reading Date/i]) {
+      if (pattern.test(combined)) throw new Error(`${item.flavor} browser DOM leaked forbidden pattern: ${pattern}`);
+    }
+    if (/\b\d{10,}\b/.test(reportText)) throw new Error(`${item.flavor} browser report leaked account-like long number`);
   }
 
   await browser.close();

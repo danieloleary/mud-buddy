@@ -53,9 +53,7 @@ try {
     'assets/ebmud-resource-directory.svg',
     'assets/report-preview-redacted.webp',
     'assets/irrigation-season-story.webp',
-    'assets/leak-check-next-steps.webp',
-    'assets/public-sharing-checklist-card.svg',
-    'assets/ai-agent-safe-handoff.svg'
+    'assets/leak-check-next-steps.webp'
   ];
   for (const asset of assets) {
     const image = page.locator(`img[src="${asset}"]`).first();
@@ -78,10 +76,11 @@ try {
   await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
   if (!(await page.locator('.browser-report').isVisible())) throw new Error('Sample browser report did not render');
   if ((await page.locator('[data-testid="primary-kpis"]').count()) !== 1) throw new Error('Sample browser report missing primary KPI section');
-  await page.locator('md-checkbox').first().click();
-  await page.getByText('Reset checklist').click();
-  const progressValue = Number(await page.locator('#shareProgress').evaluate((node) => node.value));
-  if (progressValue !== 0) throw new Error('Checklist reset did not return progress to zero');
+  await page.getByText('Sharing checklist').click();
+  if (!page.url().includes('docs/public-sharing-checklist.md')) throw new Error('Sharing checklist link did not navigate to docs');
+  await page.goto(url);
+  await page.getByText('Try sample data').first().click();
+  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
   await page.keyboard.press('Tab');
   await page.keyboard.press('Tab');
   await page.keyboard.press('Tab');

@@ -11,6 +11,7 @@ const py = process.env.PYTHON || 'python';
 
 async function findCsv() {
   if (process.env.MUD_BUDDY_REAL_CSV) return process.env.MUD_BUDDY_REAL_CSV;
+  if (process.env.MUD_BUDDY_ALLOW_DOWNLOADS_DISCOVERY !== '1') return null;
   const downloads = path.join(os.homedir(), 'Downloads');
   try {
     const candidates = (await fs.readdir(downloads))

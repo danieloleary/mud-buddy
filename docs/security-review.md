@@ -35,7 +35,7 @@ Mud Buddy refuses to ask for, store, scrape, log, export, or transmit EBMUD user
 
 ## Browser Session Risks
 
-Browser assistance can accidentally expose sensitive account pages. The safe path is a mock-tested workflow plus real-portal restraint: user-supervised login, official CSV download controls only, no setting changes, no billing changes, no unattended scraping, and no screenshots of authenticated pages for public launch assets.
+Optional browser help can accidentally expose sensitive account pages. The safe path is a mock-tested workflow plus real-portal restraint: user-supervised login, official CSV download controls only, no setting changes, no billing changes, no unattended scraping, and no screenshots of authenticated pages for public launch assets.
 
 ## Redaction Checklist
 
