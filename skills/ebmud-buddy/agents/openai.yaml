@@ -1,0 +1,4 @@
+﻿display_name: EBMUD Buddy
+short_description: Analyze EBMUD water-use exports
+default_prompt: Analyze this EBMUD water usage export and create a clear visual report explaining household baseline, irrigation lift, anomalies, and next actions.
+

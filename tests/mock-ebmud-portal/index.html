@@ -1,0 +1,40 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mock EBMUD Portal - Synthetic Only</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: #f4fbfb; color: #16313d; }
+    main { width: min(920px, calc(100% - 32px)); margin: 48px auto; }
+    .card { background: white; border: 1px solid #cfe0e5; border-radius: 24px; padding: 28px; box-shadow: 0 18px 50px rgba(0,70,90,.12); }
+    button, a.download { min-height: 48px; border: 0; border-radius: 999px; padding: 0 22px; background: #006879; color: white; font-weight: 800; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+    .muted { color: #60747a; }
+    .hidden { display: none; }
+    .warning { background: #fff7df; border: 1px solid #ead28a; padding: 14px; border-radius: 16px; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card" id="login">
+      <h1>Mock EBMUD Login Boundary</h1>
+      <p class="warning">Synthetic local test page. Do not enter real credentials here or anywhere in Mud Buddy automation.</p>
+      <p class="muted">This button simulates the human finishing login, MFA, CAPTCHA, and consent screens.</p>
+      <button id="manualLogin" data-testid="manual-login-complete">Manual login complete</button>
+    </section>
+    <section class="card hidden" id="dashboard">
+      <h1>Track Usage</h1>
+      <p class="muted">Account: Synthetic Public Sample. Service address: Redacted Test Home.</p>
+      <p>Billing period: May 2024 through May 2026</p>
+      <a class="download" data-testid="download-csv" download="ebmud-usage-2026-05-08.csv" href="data:text/csv;charset=utf-8,Reading%20Date%2CDays%20in%20Read%20Period%2CCCF%2CCustomer%20GPD%2CAverage%20Households%20GPD%2CTop%2020%25%20GPD%2CWaterScore%2CAccount%20Number%0A2026-01-30%2C30%2C5.8%2C145%2C198%2C102%2CGood%2CPUBLIC-SAMPLE%0A2026-02-28%2C30%2C6.1%2C152%2C205%2C105%2CGood%2CPUBLIC-SAMPLE%0A2026-03-30%2C30%2C7.4%2C184%2C231%2C120%2CWatch%2CPUBLIC-SAMPLE%0A2026-04-30%2C31%2C8.2%2C198%2C252%2C135%2CWatch%2CPUBLIC-SAMPLE%0A2026-05-30%2C30%2C%2CN%2FA%2C252%2C135%2CInvalid%2CPUBLIC-SAMPLE%0A">Download usage CSV</a>
+    </section>
+  </main>
+  <script>
+    document.querySelector('#manualLogin').addEventListener('click', () => {
+      document.querySelector('#login').classList.add('hidden');
+      document.querySelector('#dashboard').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
+

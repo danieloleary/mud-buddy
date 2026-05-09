@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="760" viewBox="0 0 1500 760">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#263238}.title{font-size:30px;font-weight:700}.sub{font-size:17px;fill:#6d7780}.small{font-size:13px;fill:#6d7780}.label{font-size:15px}.bold{font-weight:700}.grid{stroke:#e8edf1;stroke-width:1}.axis{stroke:#ccd5dc;stroke-width:1}.note{font-size:14px;fill:#6d7780}</style>
+<text x="60.0" y="60.0" class="title" text-anchor="start">Estimated Driver Stack</text>
+<text x="60.0" y="90.0" class="sub" text-anchor="start">Separates likely household baseline from seasonal/outdoor lift.</text>
+<line x1="105.0" y1="615.0" x2="1395.0" y2="615.0" stroke="#d9e0e5" stroke-width="1"/>
+<text x="93.0" y="620.0" class="small" text-anchor="end">0</text>
+<line x1="105.0" y1="525.0" x2="1395.0" y2="525.0" stroke="#d9e0e5" stroke-width="1"/>
+<text x="93.0" y="530.0" class="small" text-anchor="end">60</text>
+<line x1="105.0" y1="435.0" x2="1395.0" y2="435.0" stroke="#d9e0e5" stroke-width="1"/>
+<text x="93.0" y="440.0" class="small" text-anchor="end">120</text>
+<line x1="105.0" y1="345.0" x2="1395.0" y2="345.0" stroke="#d9e0e5" stroke-width="1"/>
+<text x="93.0" y="350.0" class="small" text-anchor="end">180</text>
+<line x1="105.0" y1="255.0" x2="1395.0" y2="255.0" stroke="#d9e0e5" stroke-width="1"/>
+<text x="93.0" y="260.0" class="small" text-anchor="end">240</text>
+<line x1="105.0" y1="165.0" x2="1395.0" y2="165.0" stroke="#d9e0e5" stroke-width="1"/>
+<text x="93.0" y="170.0" class="small" text-anchor="end">300</text>
+<line x1="105.0" y1="615.0" x2="1395.0" y2="615.0" stroke="#ccd5dc" stroke-width="1.2"/>
+<line x1="105.0" y1="165.0" x2="105.0" y2="615.0" stroke="#ccd5dc" stroke-width="1.2"/>
+<polygon points="105.0,615.0 105.0,424.5 146.1,409.5 186.5,342.0 227.6,342.0 268.7,342.0 313.3,408.0 354.4,372.0 395.5,409.5 435.9,342.0 477.0,342.0 518.1,342.0 563.3,394.5 604.4,390.0 645.5,427.5 685.9,342.0 727.0,342.0 768.8,342.0 812.7,439.5 855.2,397.5 894.2,399.0 936.7,342.0 977.1,342.0 1018.9,342.0 1063.4,342.0 1105.2,342.0 1144.9,345.0 1186.7,342.0 1227.8,342.0 1268.9,342.0 1315.6,351.0 1355.3,384.0 1395.0,342.0 1395.0,615.0" fill="#39b9c6" opacity="0.82"/>
+<polygon points="105.0,424.5 146.1,409.5 186.5,342.0 227.6,342.0 268.7,342.0 313.3,408.0 354.4,372.0 395.5,409.5 435.9,342.0 477.0,342.0 518.1,342.0 563.3,394.5 604.4,390.0 645.5,427.5 685.9,342.0 727.0,342.0 768.8,342.0 812.7,439.5 855.2,397.5 894.2,399.0 936.7,342.0 977.1,342.0 1018.9,342.0 1063.4,342.0 1105.2,342.0 1144.9,345.0 1186.7,342.0 1227.8,342.0 1268.9,342.0 1315.6,351.0 1355.3,384.0 1395.0,342.0 1395.0,325.5 1355.3,384.0 1315.6,351.0 1268.9,261.0 1227.8,166.5 1186.7,247.5 1144.9,345.0 1105.2,303.0 1063.4,339.0 1018.9,283.5 977.1,196.5 936.7,289.5 894.2,399.0 855.2,397.5 812.7,439.5 768.8,283.5 727.0,204.0 685.9,273.0 645.5,427.5 604.4,390.0 563.3,394.5 518.1,334.5 477.0,259.5 435.9,310.5 395.5,409.5 354.4,372.0 313.3,408.0 268.7,334.5 227.6,279.0 186.5,310.5 146.1,409.5 105.0,424.5" fill="#f2b31b" opacity="0.82"/>
+<path d="M 105.0 424.5 L 146.1 409.5 L 186.5 310.5 L 227.6 279.0 L 268.7 334.5 L 313.3 408.0 L 354.4 372.0 L 395.5 409.5 L 435.9 310.5 L 477.0 259.5 L 518.1 334.5 L 563.3 394.5 L 604.4 390.0 L 645.5 427.5 L 685.9 273.0 L 727.0 204.0 L 768.8 283.5 L 812.7 439.5 L 855.2 397.5 L 894.2 399.0 L 936.7 289.5 L 977.1 196.5 L 1018.9 283.5 L 1063.4 339.0 L 1105.2 303.0 L 1144.9 345.0 L 1186.7 247.5 L 1227.8 166.5 L 1268.9 261.0 L 1315.6 351.0 L 1355.3 384.0 L 1395.0 325.5" fill="none" stroke="#18324a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="1030.0" y="125.0" width="330.0" height="115.0" rx="8" fill="#f5f7f8" stroke="#d5dde3"/>
+<text x="1050.0" y="158.0" class="label" text-anchor="start" style="fill:#18324a;font-weight:700">How to read this</text>
+<text x="1050.0" y="190.0" class="small" text-anchor="start">Teal = household baseline</text>
+<text x="1050.0" y="212.0" class="small" text-anchor="start">Gold = likely outdoor lift</text>
+</svg>

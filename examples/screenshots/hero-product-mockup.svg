@@ -1,0 +1,22 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#eef8f5"/>
+  <rect x="70" y="70" width="1260" height="760" rx="18" fill="#fff" stroke="#d9e5e1"/>
+  <rect x="110" y="110" width="1180" height="140" rx="14" fill="#123b5d"/>
+  <text x="150" y="175" font-family="Georgia, serif" font-size="48" font-weight="700" fill="#fff">Mud Buddy Sample Report</text>
+  <text x="150" y="215" font-family="Arial, sans-serif" font-size="22" fill="#c9e7e9">Public-safe report generated from synthetic EBMUD-style data.</text>
+  <rect x="110" y="290" width="730" height="410" rx="12" fill="#fbfcfa" stroke="#d9e5e1"/>
+  <line x1="170" y1="630" x2="780" y2="630" stroke="#d9e5e1" stroke-width="2"/>
+  <line x1="170" y1="350" x2="170" y2="630" stroke="#d9e5e1" stroke-width="2"/>
+  <path d="M180 575 C250 550 270 445 350 470 S470 585 545 505 660 375 770 420" fill="none" stroke="#39b9c6" stroke-width="10" stroke-linecap="round"/>
+  <path d="M180 610 C250 590 270 510 350 530 S470 635 545 570 660 505 770 535" fill="none" stroke="#2166a5" stroke-width="5" stroke-linecap="round"/>
+  <rect x="890" y="290" width="400" height="118" rx="12" fill="#f5fbfa" stroke="#d9e5e1"/>
+  <rect x="890" y="436" width="400" height="118" rx="12" fill="#fff7df" stroke="#efd484"/>
+  <rect x="890" y="582" width="400" height="118" rx="12" fill="#f5fbfa" stroke="#d9e5e1"/>
+  <text x="925" y="338" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#123b5d">Trend clarity</text>
+  <text x="925" y="485" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#123b5d">Seasonal lift</text>
+  <text x="925" y="631" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#123b5d">Next checks</text>
+  <text x="925" y="374" font-family="Arial, sans-serif" font-size="18" fill="#66777a">GPD normalized across bills.</text>
+  <text x="925" y="521" font-family="Arial, sans-serif" font-size="18" fill="#66777a">Summer/fall outdoor pattern.</text>
+  <text x="925" y="667" font-family="Arial, sans-serif" font-size="18" fill="#66777a">Toilets, meter, controller.</text>
+</svg>
+

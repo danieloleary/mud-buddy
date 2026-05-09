@@ -1,0 +1,45 @@
+﻿# Browser-Assisted EBMUD Workflow
+
+Use this workflow only when the user explicitly asks Codex to help fetch their EBMUD data. Keep the trust boundary simple: the user logs into EBMUD directly; Codex helps only after login.
+
+## Secure Sequence
+
+1. Tell the user: "Please log into EBMUD yourself. Do not paste your password into Codex."
+2. Open the official EBMUD My Water Report entry point or the user's already-open portal tab.
+3. Wait until the user confirms they are logged in.
+4. Navigate only to usage/reporting/export screens such as `Track Usage`.
+5. Prefer official buttons labeled like `Download your data`, `Export`, or `CSV`.
+6. After download, show the local CSV path and ask for permission before processing it.
+7. Generate a local report first. Generate a redacted public report only when the user asks to share or publish.
+8. At the end, remind the user to log out of EBMUD if this is a shared computer.
+
+## Browser-Control Script Contract
+
+- Automation may open the portal and wait.
+- The human completes username, password, MFA, CAPTCHA, security questions, consent screens, and "remember this device" choices.
+- Automation resumes only after user confirmation or a clearly post-login usage page.
+- Prefer download-event detection over scraping tables from authenticated pages.
+- If a CSV is downloaded, process the local file with the same report generator used by manual workflows.
+
+## Hard Stops
+
+- Do not ask for or store usernames, passwords, MFA codes, cookies, localStorage, sessionStorage, auth headers, or session tokens.
+- Do not bypass CAPTCHA, MFA, rate limits, bot detection, or access controls.
+- Do not scrape account pages if the official CSV export is available.
+- Do not alter billing, autopay, contact, household-profile, service, or account settings.
+- Do not publish raw CSV files, screenshots of logged-in pages, account numbers, meter IDs, service addresses, or exact absence/vacation patterns.
+- If the portal layout changes or a page is unclear, stop and ask the user to manually download the CSV.
+
+## Public Sharing Checklist
+
+Before publishing or sharing a report, verify:
+
+- No name.
+- No service address.
+- No account number.
+- No meter ID.
+- No raw CSV.
+- No local file paths.
+- No exact absence/vacation pattern.
+- Footer says the report is not affiliated with EBMUD and is not a formal water audit.
+
