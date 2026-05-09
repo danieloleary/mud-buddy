@@ -399,6 +399,7 @@ def write_index(out_dir, rows, invalid, baseline, args):
     .stat {{ border:1px solid var(--line); border-radius:8px; padding:14px; background:#fff; }}
     .stat strong {{ display:block; font-size:23px; color:var(--navy); }}
     .stat span {{ display:block; color:var(--muted); font-size:13px; margin-top:3px; }}
+    .summary {{ margin-top:18px; border:1px solid var(--line); border-radius:12px; padding:16px 18px; background:#fffaf0; color:#5e542d; max-width:920px; font-size:16px; }}
     main {{ padding:28px 24px 70px; }}
     section {{ background:#fff; border:1px solid var(--line); border-radius:8px; margin-bottom:28px; overflow:hidden; }}
     .head {{ padding:24px 28px 10px; border-bottom:1px solid var(--line); }}
@@ -422,6 +423,7 @@ def write_index(out_dir, rows, invalid, baseline, args):
       <div class="stat"><strong>{len(rows)}</strong><span>Valid billing periods</span></div>
       <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{baseline:.0f} GPD</strong><span>{"Baseline bucket" if getattr(args, "public_mode", False) else "Baseline estimate"}</span></div>
     </div>
+    <p class="summary">What this means: use the charts below to separate everyday baseline from seasonal lift, then pick one practical next check. This is explanatory pattern-finding, not a certified audit, leak diagnosis, billing decision, or official EBMUD analysis.</p>
   </div></header>
   <main>
 """

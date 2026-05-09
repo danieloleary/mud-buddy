@@ -51,6 +51,14 @@ KNOWN_PUBLIC_ASSETS = {
     "ebmud-resource-directory.svg",
     "readme-banner.svg",
     "social-card.svg",
+    "github-social-card.svg",
+    "report-preview-redacted.svg",
+    "csv-export-boundary.svg",
+    "public-sharing-checklist-card.svg",
+    "sample-report-montage.svg",
+    "irrigation-season-story.svg",
+    "leak-check-next-steps.svg",
+    "ai-agent-safe-handoff.svg",
 }
 DENY_NAMES = {"node_modules", "dist", "generated", "public-site", ".herenow", ".git", "test-results", "playwright-report", "__pycache__"}
 DENY_SUFFIXES = {".zip", ".har", ".trace", ".webm", ".png", ".jpg", ".jpeg", ".gif", ".webp"}

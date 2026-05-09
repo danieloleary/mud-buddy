@@ -1,4 +1,5 @@
-import '@material/web/button/filled-button.js';
+﻿import '@material/web/button/filled-button.js';
+import '@material/web/button/filled-tonal-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/button/text-button.js';
 import '@material/web/chips/assist-chip.js';
@@ -9,31 +10,32 @@ import '@material/web/icon/icon.js';
 import '@material/web/iconbutton/icon-button.js';
 import '@material/web/progress/circular-progress.js';
 import '@material/web/progress/linear-progress.js';
+import '@material/web/ripple/ripple.js';
 import '@material/web/tabs/primary-tab.js';
 import '@material/web/tabs/tabs.js';
 import './styles.css';
 
 const modes = {
   normal: {
-    label: 'Normal household',
-    title: 'Baseline looks honest, not wasteful.',
-    metric: '148 GPD',
+    label: 'Steady household use',
+    title: 'Your baseline looks explainable.',
+    metric: '148 gallons/day',
     helper: 'Example pattern: steady indoor use, mild garden lift, and no obvious continuous-use clue.',
     bars: [48, 50, 55, 52, 57, 60, 62, 59, 54, 51, 49, 48],
     insight: 'Good first check: compare winter/spring baseline before judging summer watering.'
   },
   irrigation: {
     label: 'Irrigation season',
-    title: 'The yard is doing most of the talking.',
-    metric: '236 GPD',
+    title: 'Outdoor watering appears to explain most of the lift.',
+    metric: '236 gallons/day',
     helper: 'Example pattern: summer and fall lift rise far above indoor baseline, then cool back down.',
     bars: [45, 47, 54, 67, 74, 88, 96, 94, 84, 70, 55, 47],
     insight: 'Best next move: audit controller zones and leaks before ripping out plants.'
   },
   leak: {
     label: 'Possible leak clue',
-    title: 'A quiet baseline creep deserves a dye test.',
-    metric: '192 GPD',
+    title: 'A rising baseline is worth a simple fixture check.',
+    metric: '192 gallons/day',
     helper: 'Example pattern: winter usage stays higher than expected, which can point to fixtures or toilets.',
     bars: [62, 64, 66, 69, 70, 76, 78, 77, 75, 73, 71, 70],
     insight: 'Not a diagnosis: it is a pattern worth checking with the meter and toilet dye tests.'
@@ -64,6 +66,7 @@ const ebmudResources = [
 
 const resourceCards = ebmudResources.map((item) => `
   <a class="resource-card material-card" href="${item.href}" target="_blank" rel="noreferrer">
+    <md-ripple></md-ripple>
     <md-icon>${item.icon}</md-icon>
     <span>${item.title}</span>
     <p>${item.text}</p>
@@ -86,9 +89,11 @@ class MudBuddyApp extends HTMLElement {
         </a>
         <nav aria-label="Main navigation">
           <a href="#how">How it works</a>
+          <a href="#mission">1M gallon goal</a>
+          <a href="#example">Example report</a>
           <a href="#resources">Official resources</a>
           <a href="#privacy">Privacy</a>
-          <a href="#install">Power users</a>
+          <a href="#install">Local setup</a>
         </nav>
         <md-filled-button href="sample-report/index.html" target="_blank">Example report</md-filled-button>
       </header>
@@ -100,8 +105,8 @@ class MudBuddyApp extends HTMLElement {
             <p class="lede">Mud Buddy turns your EBMUD usage export into a private, plain-English report about high bills, irrigation season, baseline creep, family changes, possible leak clues, and what to check next.</p>
             <div class="hero-actions">
               <md-filled-button href="sample-report/index.html" target="_blank">See example report</md-filled-button>
-              <md-outlined-button href="#install">Create my private report</md-outlined-button>
-              <md-text-button href="#how">How to get your EBMUD CSV</md-text-button>
+              <md-filled-tonal-button href="#install">Make a private report</md-filled-tonal-button>
+              <md-text-button href="#how">Get your EBMUD CSV</md-text-button>
             </div>
             <div class="trust-row" aria-label="Trust promises">
               <span><md-icon>verified_user</md-icon>Free to use</span>
@@ -112,7 +117,7 @@ class MudBuddyApp extends HTMLElement {
             <div class="question-cards" aria-label="Homeowner questions Mud Buddy helps answer">
               <article><md-icon>receipt_long</md-icon><strong>My bill jumped.</strong><span>Was it one period, a new baseline, or outdoor use?</span></article>
               <article><md-icon>yard</md-icon><strong>My yard is thirsty.</strong><span>How much looks like irrigation season?</span></article>
-              <article><md-icon>wc</md-icon><strong>We flush a lot.</strong><span>What does normal household use look like now?</span></article>
+              <article><md-icon>groups</md-icon><strong>Our household changed.</strong><span>What does normal household use look like now?</span></article>
               <article><md-icon>plumbing</md-icon><strong>Could it be a leak?</strong><span>Which patterns deserve a meter or toilet dye check?</span></article>
             </div>
             <img class="hero-art visual-asset" src="assets/hero-civic-water.svg" alt="Synthetic civic water dashboard illustration" loading="eager" />
@@ -124,18 +129,19 @@ class MudBuddyApp extends HTMLElement {
                 <span>Mud Buddy sample</span>
                 <md-icon-button aria-label="Open public share checklist" id="openChecklist"><md-icon>shield</md-icon></md-icon-button>
               </div>
+              <md-divider></md-divider>
               <md-tabs id="modeTabs" aria-label="Sample usage modes">
-                <md-primary-tab active data-mode="normal">Normal</md-primary-tab>
+                <md-primary-tab active data-mode="normal">Steady</md-primary-tab>
                 <md-primary-tab data-mode="irrigation">Irrigation</md-primary-tab>
                 <md-primary-tab data-mode="leak">Leak clue</md-primary-tab>
               </md-tabs>
-              <div class="mode-card">
+              <div class="mode-card" aria-live="polite">
                 <div>
-                  <p class="overline" id="modeLabel">Normal household</p>
-                  <h2 id="modeTitle">Baseline looks honest, not wasteful.</h2>
+                  <p class="overline" id="modeLabel">Steady household use</p>
+                  <h2 id="modeTitle">Your baseline looks explainable.</h2>
                   <p id="modeHelper"></p>
                 </div>
-                <div class="metric-pill"><strong id="modeMetric">148 GPD</strong><span>sample peak</span></div>
+                <div class="metric-pill"><strong id="modeMetric">148 gallons/day</strong><span>GPD = gallons/day</span></div>
               </div>
               <div class="chart" id="chart" aria-label="Synthetic monthly water usage chart"></div>
               <div class="insight-strip">
@@ -151,15 +157,32 @@ class MudBuddyApp extends HTMLElement {
           </div>
         </section>
 
-        <section class="river-band" id="try">
+        <section class="mission-band" id="mission">
+          <div class="shell mission-layout">
+            <div>
+              <h2>Help save 1 million gallons this year.</h2>
+              <p>Mud Buddy's 1.0 mission is to help East Bay households find potential water savings sooner. That means helped-save or potential savings, not a certified EBMUD conservation total.</p>
+              <p class="official-line">EBMUD serves about 1.4 million people in a 332-square-mile water service area. One EBMUD billing unit, or CCF, is 748 gallons.</p>
+            </div>
+            <div class="mission-grid" aria-label="One million gallon goal math">
+              <article class="material-card"><md-ripple></md-ripple><strong>1,000,000</strong><span>gallons helped-save goal</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>~1,337</strong><span>CCF, using 748 gallons per CCF</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>~3.1</strong><span>acre-feet of water</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>200 x 5k</strong><span>one realistic household path</span></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="river-band" id="how">
           <div class="shell split">
             <div>
-              <h2>From confusing CSV to homeowner clarity.</h2>
+              <h2>How it works, without account access or a server.</h2>
               <p>Download your EBMUD usage CSV, run Mud Buddy locally, and get a scrollable visual report that separates household baseline, yard watering lift, peer benchmarks, unusual periods, and practical next checks.</p>
               <p class="official-line">Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.</p>
             </div>
             <div class="workflow-panel material-card">
               <img class="workflow-art visual-asset" src="assets/workflow-csv-report.svg" alt="Synthetic CSV to report workflow" loading="lazy" />
+              <img class="workflow-art visual-asset" src="assets/csv-export-boundary.svg" alt="Synthetic manual login and CSV boundary" loading="lazy" />
               <div class="steps">
                 <article><md-icon>download</md-icon><span>Get your CSV</span><p>You log into EBMUD yourself and download the official usage export from Track Usage.</p></article>
                 <article><md-icon>analytics</md-icon><span>Read the pattern</span><p>Mud Buddy processes only the CSV you explicitly provide and explains the drivers in plain English.</p></article>
@@ -169,16 +192,30 @@ class MudBuddyApp extends HTMLElement {
           </div>
         </section>
 
-        <section class="shell sample-section" id="how">
+        <section class="shell savings-section" id="savings">
+          <div class="section-head">
+            <h2>Where the water savings can come from.</h2>
+            <p>Mud Buddy does not diagnose leaks or certify savings. It helps households notice patterns that are worth checking before wasted water quietly becomes normal.</p>
+          </div>
+          <div class="savings-grid">
+            <article class="material-card"><img src="assets/irrigation-season-story.svg" alt="Synthetic irrigation season story" loading="lazy" /><h3>Irrigation schedule fixes</h3><p>Spot seasonal lift, controller drift, overwatering, and yard changes that deserve a walk-through.</p></article>
+            <article class="material-card"><img src="assets/leak-check-next-steps.svg" alt="Synthetic leak check next steps" loading="lazy" /><h3>Simple fixture checks</h3><p>Turn baseline creep into practical checks: toilet dye test, meter test, fixtures, and irrigation off-cycle review.</p></article>
+            <article class="material-card"><img src="assets/public-sharing-checklist-card.svg" alt="Synthetic public sharing checklist" loading="lazy" /><h3>Privacy-safe sharing</h3><p>Most reports stay private. If someone shares, public mode and the checklist reduce sensitive household clues.</p></article>
+          </div>
+        </section>
+
+        <section class="shell sample-section" id="example">
           <div class="section-head">
             <h2>See what a homeowner report looks like.</h2>
             <p>Preview the output style with public-safe sample data: timelines, baseline clues, seasonal lift, year-over-year change, and simple next checks.</p>
           </div>
+          <img class="report-preview-art visual-asset" src="assets/report-preview-redacted.svg" alt="Synthetic redacted report preview" loading="lazy" />
+          <img class="report-montage-art visual-asset" src="assets/sample-report-montage.svg" alt="Synthetic sample report montage" loading="lazy" />
           <div class="report-frame material-card">
             <iframe src="sample-report/index.html" title="Mud Buddy sample report"></iframe>
             <div class="frame-actions">
               <md-filled-button href="sample-report/index.html" target="_blank">Open full report</md-filled-button>
-              <md-outlined-button href="assets/social-card.svg" target="_blank">Social card</md-outlined-button>
+              <md-filled-tonal-button href="assets/github-social-card.svg" target="_blank">Social card</md-filled-tonal-button>
             </div>
           </div>
         </section>
@@ -207,13 +244,16 @@ class MudBuddyApp extends HTMLElement {
           <div class="shell split reverse">
             <div class="material-card checklist-card">
               <h3>Public-share checklist</h3>
+              <p>Most homeowners should keep reports private. If you intentionally share a report, use <code>--public</code> and this checklist first.</p>
               ${checklist.map((item, idx) => `<label><md-checkbox data-check="${idx}"></md-checkbox><span>${item}</span></label>`).join('')}
+              <md-divider></md-divider>
               <md-linear-progress id="shareProgress" value="0"></md-linear-progress>
               <p id="shareStatus">Check every item before publishing a public artifact.</p>
+              <md-text-button id="resetChecklist">Reset checklist</md-text-button>
             </div>
             <div>
               <img class="privacy-art visual-asset" src="assets/privacy-local-first.svg" alt="Synthetic local-first privacy illustration" loading="lazy" />
-              <h2>Secure by default, skeptical by design.</h2>
+              <h2>Private by default, careful by design.</h2>
               <p>Credentials, MFA, cookies, browser storage, session tokens, and billing settings are outside the tool boundary. Browser assistance only starts after the user logs in manually and stops if the portal is unclear.</p>
               <div class="doc-actions">
                 <md-outlined-button href="docs/privacy.md">Privacy notes</md-outlined-button>
@@ -225,8 +265,10 @@ class MudBuddyApp extends HTMLElement {
 
         <section class="shell install-section" id="install">
           <div class="install-copy">
-            <h2>Create your private report, or use the AI-agent workflow.</h2>
-            <p>Homeowners can run one local command against an EBMUD CSV. Power users can install the ebmud-buddy skill so Codex or Claude Code can guide the manual-login, CSV-download, local-analysis workflow.</p>
+            <h2>Make your private report.</h2>
+            <p>You need an EBMUD login you control, a downloaded usage CSV, and a computer where you or a trusted helper can run a local command. Mud Buddy does not log into EBMUD for you and does not need your password.</p>
+            <p>Already use Codex or Claude Code? The optional ebmud-buddy skill can guide the manual-login, CSV-download, local-analysis workflow.</p>
+            <img class="handoff-art visual-asset" src="assets/ai-agent-safe-handoff.svg" alt="Synthetic safe AI-agent handoff illustration" loading="lazy" />
           </div>
           <div class="terminal-card material-card">
             <div><span></span><span></span><span></span></div>
@@ -239,7 +281,7 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
 
       <footer>
         <div class="shell footer-grid">
-          <p><strong>Mud Buddy by Danno</strong><br />A local-first water report skill for EBMUD exports.</p>
+          <p><strong>Mud Buddy by Danno</strong><br />A private, local-first water-use report for EBMUD exports.</p>
           <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis. Official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.</p>
           <p><a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="mud-buddy-by-danno.zip">Download ZIP</a></p>
         </div>
@@ -261,6 +303,10 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
     this.querySelectorAll('md-primary-tab').forEach((tab) => tab.addEventListener('click', () => this.updateMode(tab.dataset.mode)));
     this.querySelector('#openChecklist').addEventListener('click', () => this.querySelector('#checklistDialog').show());
     this.querySelectorAll('md-checkbox').forEach((box) => box.addEventListener('change', () => this.updateChecklist()));
+    this.querySelector('#resetChecklist').addEventListener('click', () => {
+      this.querySelectorAll('md-checkbox').forEach((box) => { box.checked = false; });
+      this.updateChecklist();
+    });
   }
 
   updateMode(mode) {
@@ -285,3 +331,5 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
 }
 
 customElements.define('mud-buddy-app', MudBuddyApp);
+
+

@@ -1,67 +1,39 @@
-# Release Management
+﻿# Release Management
 
-Mud Buddy releases should be boring, repeatable, and privacy-safe.
+Mud Buddy uses the `package.json` version as the canonical app/release version, even though the package is private and not published to npm.
 
-## Release Types
+## Current target
 
-- Patch: docs, tests, styling, small parser fixes, or safety wording.
-- Minor: new report sections, new import workflows, new AI-tool instructions, or new browser-flow helpers.
-- Major: hosted upload backend, account system, or any change that alters privacy defaults.
+- Version: `1.0.0`
+- Release window: weekend release candidate
+- Canonical deployment: GitHub Pages
+- Public mission: help East Bay households find `1 million gallons` of potential water savings this year
 
-The package is currently `private: true`; releases are GitHub/GitHub Pages releases, not npm releases.
+## Release gates
 
-## Pre-Release Gate
-
-Run this before tagging, pushing launch copy, or sharing public artifacts:
+Every public release must pass:
 
 ```bash
 npm ci
 npx playwright install chromium
-npm run generate:synthetic
-npm run test:synthetic
 npm run validate
+npm run test:local-real-csv
 ```
 
-Confirm:
+`test:local-real-csv` is local-only and skip-safe when no private CSV is present. Dan's real CSV must never be committed, packaged, hosted, pasted into docs, or included in screenshots.
 
-- CI passes on GitHub.
-- Pages deploy passes.
-- `https://danieloleary.github.io/mud-buddy/` loads.
-- Sample report, docs, social card, and ZIP links load.
-- Public ZIP extraction scan passes.
-- No raw private CSVs, real account numbers, service addresses, meter IDs, local paths, browser traces, HAR files, or `.herenow` state files are included.
+## Version policy
 
-## Release Checklist
+- Patch releases fix docs, copy, tests, or small bugs.
+- Minor releases add user-visible features while the product is still evolving.
+- `1.0.0` means the local-first EBMUD CSV workflow, public-safe sample report, redaction/package scans, docs, and GitHub Pages site are stable enough for public sharing.
 
-1. Update `CHANGELOG.md` with user-facing changes.
-2. Run `npm run validate` locally.
-3. Review `docs/public-sharing-checklist.md`.
-4. Commit with a concise release message.
-5. Push `main`.
-6. Verify CI and Pages.
-7. Create a GitHub release only after Pages is green.
-8. Share X/LinkedIn copy only after public URLs return `200`.
+## Public release checklist
 
-## Browser Workflow Acceptance
-
-Real EBMUD browser testing is manual-login assist only:
-
-- The human logs in manually.
-- Agent uses only official usage/export/download controls after confirmation.
-- Agent detects or asks for the CSV path.
-- Agent asks before processing the CSV.
-- Agent generates a private report first.
-- Agent generates public artifacts only with `--public` and scan confirmation.
-
-Automated CI must use the mock portal and synthetic data only.
-
-## Synthetic Data Gate
-
-Before release, regenerate the ignored synthetic flavor suite and run the E2E synthetic test. Confirm generated CSVs remain under `tests/output/`, contain no private source identifiers, and are excluded from public ZIPs.
-
-## Version 0.5.0 release notes
-
-- Update package metadata and changelog before tagging v0.5.0.
-- Regenerate public docs, public site, sample report, and ZIP through `npm run validate`.
-- Confirm official EBMUD resource links are public pages, not authenticated/session URLs.
-- Confirm README, Pages, social card, and ZIP include only known synthetic SVG assets.
+- Version updated in `package.json` and lockfile.
+- README and changelog updated.
+- `docs/gallon-savings-methodology.md` reviewed if mission or savings language changes.
+- Public artifacts include only approved synthetic assets.
+- GitHub Pages workflow passes.
+- Live site smoke check passes.
+- GitHub release notes avoid certified leak, billing, conservation, or official utility claims.

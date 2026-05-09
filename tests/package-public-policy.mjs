@@ -27,7 +27,9 @@ for (const expected of [
   '.github/ISSUE_TEMPLATE/bug_report.yml',
   '.github/pull_request_template.md',
   '.github/dependabot.yml',
-  'public/assets/social-card.svg'
+  'public/assets/social-card.svg',
+  'public/assets/github-social-card.svg',
+  'public/assets/report-preview-redacted.svg'
 ]) {
   if (!has(expected)) throw new Error(`public ZIP missing expected file: ${expected}`);
 }
@@ -37,7 +39,7 @@ for (const name of names) {
   if (/\.csv$/i.test(name) && name !== 'examples/sample-ebmud-usage.csv') throw new Error(`public ZIP includes non-sample CSV: ${name}`);
   if (/\.(har|trace|webm|png|jpe?g|gif|webp)$/i.test(name)) throw new Error(`public ZIP includes forbidden artifact/image: ${name}`);
   if (/\.svg$/i.test(name) && name.startsWith('public/assets/')) {
-    const allowed = new Set(['hero-civic-water.svg', 'workflow-csv-report.svg', 'privacy-local-first.svg', 'ebmud-resource-directory.svg', 'readme-banner.svg', 'social-card.svg']);
+    const allowed = new Set(['hero-civic-water.svg', 'workflow-csv-report.svg', 'privacy-local-first.svg', 'ebmud-resource-directory.svg', 'readme-banner.svg', 'social-card.svg', 'github-social-card.svg', 'report-preview-redacted.svg', 'csv-export-boundary.svg', 'public-sharing-checklist-card.svg', 'sample-report-montage.svg', 'irrigation-season-story.svg', 'leak-check-next-steps.svg', 'ai-agent-safe-handoff.svg']);
     if (!allowed.has(path.basename(name))) throw new Error(`public ZIP includes unknown SVG asset: ${name}`);
   }
 }

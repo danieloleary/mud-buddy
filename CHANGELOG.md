@@ -1,5 +1,13 @@
-# Changelog
+﻿# Changelog
 
+## 1.0.0 - Weekend release candidate
+
+- Added the `Help save 1 million gallons this year` mission and gallon-savings methodology.
+- Reframed the landing page and README around homeowner needs, EBMUD CSV privacy, and official-resource boundaries.
+- Added public-safe synthetic SVG assets for report preview, CSV handoff, sharing checklist, irrigation, leak checks, AI-agent handoff, and GitHub social sharing.
+- Deepened Material Web usage with tonal buttons, ripples, rendered dividers, checklist reset behavior, and clearer sample-mode accessibility.
+- Kept the product local-first: no hosted CSV upload backend, no credential automation, and no server-side data storage.
+- Preserved local-only real CSV testing and strict public package/redaction scans.
 ## 0.5.0
 
 - Added launch-ready synthetic SVG visuals for the landing page, README, and social preview.
@@ -16,3 +24,4 @@
 - Added mock EBMUD browser-flow test harness.
 - Added security, privacy, methodology, and browser-control safety docs.
 - Added AI-tool instructions for Claude Code, Codex, and Lovable.
+

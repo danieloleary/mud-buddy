@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+﻿import { spawn } from 'node:child_process';
 import { chromium } from '@playwright/test';
 
 const suppliedUrl = process.env.MUD_BUDDY_URL;
@@ -32,7 +32,9 @@ try {
   for (const required of [
     'Find out what changed in your water use.',
     'My bill jumped.',
-    'The yard is doing most of the talking.',
+    'Help save 1 million gallons this year.',
+    'Outdoor watering appears to explain most of the lift.',
+    'GPD = gallons/day',
     'No password needed',
     'Official EBMUD resources',
     "Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.",
@@ -43,8 +45,15 @@ try {
   const assets = [
     'assets/hero-civic-water.svg',
     'assets/workflow-csv-report.svg',
+    'assets/csv-export-boundary.svg',
     'assets/privacy-local-first.svg',
-    'assets/ebmud-resource-directory.svg'
+    'assets/ebmud-resource-directory.svg',
+    'assets/report-preview-redacted.svg',
+    'assets/sample-report-montage.svg',
+    'assets/irrigation-season-story.svg',
+    'assets/leak-check-next-steps.svg',
+    'assets/public-sharing-checklist-card.svg',
+    'assets/ai-agent-safe-handoff.svg'
   ];
   for (const asset of assets) {
     const image = page.locator(`img[src="${asset}"]`).first();
@@ -59,15 +68,26 @@ try {
   for (const href of resourceLinks) {
     if (!href.startsWith('https://www.ebmud.com/')) throw new Error(`Official resource link is not a public EBMUD URL: ${href}`);
   }
+  if ((await page.locator('md-ripple').count()) < 11) throw new Error('Expected Material ripples on resource cards');
+  if ((await page.locator('md-divider').count()) < 2) throw new Error('Expected rendered Material dividers');
+  if ((await page.locator('md-filled-tonal-button').count()) < 2) throw new Error('Expected Material filled tonal buttons');
+  await page.locator('md-checkbox').first().click();
+  await page.getByText('Reset checklist').click();
+  const progressValue = Number(await page.locator('#shareProgress').evaluate((node) => node.value));
+  if (progressValue !== 0) throw new Error('Checklist reset did not return progress to zero');
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
   const links = await page.$$eval('a[href]', (anchors) => anchors.map((a) => a.getAttribute('href')));
   for (const href of links) {
     if (href && href.startsWith('/')) throw new Error(`Root-relative link is not Pages-safe: ${href}`);
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  if (!(await page.getByText('Create my private report').first().isVisible())) throw new Error('Mobile CTA not visible');
+  if (!(await page.getByText('Make a private report').first().isVisible())) throw new Error('Mobile CTA not visible');
   await browser.close();
   if (errors.length) throw new Error('Console errors: ' + errors.join('\n'));
   console.log('landing-smoke: OK desktop/mobile visuals, resources, and Material interaction passed');
 } finally {
   if (server) server.kill();
 }
+

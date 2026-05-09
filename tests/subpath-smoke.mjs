@@ -39,7 +39,7 @@ try {
   if (!body.includes('Mud Buddy by Danno')) throw new Error('Subpath landing failed to render');
   if (!body.includes('Official EBMUD resources')) throw new Error('Subpath landing missing official resources section');
   const links = await page.$$eval('a[href], img[src], script[src], link[href]', (nodes) => nodes.map((node) => node.getAttribute('href') || node.getAttribute('src')).filter(Boolean));
-  const internal = new Set(['', 'sample-report/index.html', 'docs/privacy.md', 'docs/browser-control-safety.md', 'assets/social-card.svg', 'assets/readme-banner.svg', 'assets/hero-civic-water.svg', 'assets/workflow-csv-report.svg', 'assets/privacy-local-first.svg', 'assets/ebmud-resource-directory.svg', 'mud-buddy-by-danno.zip']);
+  const internal = new Set(['', 'sample-report/index.html', 'docs/privacy.md', 'docs/browser-control-safety.md', 'assets/social-card.svg', 'assets/github-social-card.svg', 'assets/readme-banner.svg', 'assets/hero-civic-water.svg', 'assets/workflow-csv-report.svg', 'assets/privacy-local-first.svg', 'assets/ebmud-resource-directory.svg', 'assets/report-preview-redacted.svg', 'assets/csv-export-boundary.svg', 'assets/public-sharing-checklist-card.svg', 'assets/sample-report-montage.svg', 'assets/irrigation-season-story.svg', 'assets/leak-check-next-steps.svg', 'assets/ai-agent-safe-handoff.svg', 'mud-buddy-by-danno.zip']);
   for (const href of links) {
     if (href.startsWith('#')) continue;
     if (href.startsWith('/')) throw new Error(`root-relative subpath link: ${href}`);

@@ -8,9 +8,38 @@ Mud Buddy turns an EBMUD water-use CSV into a private, plain-English report for 
 
 It is free, local-first, and independent. Mud Buddy never needs your EBMUD password.
 
-This project is not affiliated with EBMUD. It is not a formal water audit, plumbing inspection, leak detector, billing tool, or official EBMUD analysis.
+This project is not affiliated with EBMUD. It is not a formal water audit, plumbing inspection, leak detector, billing tool, certified conservation measurement, or official EBMUD analysis.
 
 Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
+
+## 1.0 mission: help save 1 million gallons this year
+
+Mud Buddy's first public mission is to help East Bay households find **1 million gallons of potential water savings** this year.
+
+That means helped-save or potential savings, not a verified EBMUD conservation total. The goal is to help people notice patterns sooner: irrigation schedules, baseline creep, running toilets, fixture checks, meter tests, and yard-water decisions.
+
+Useful scale:
+
+| Goal math | Why it matters |
+| --- | --- |
+| `1,000,000 gallons` | Clear public rallying goal. |
+| `~1,337 CCF` | EBMUD defines 1 CCF as 748 gallons. |
+| `~3.1 acre-feet` | A tangible water-supply scale. |
+| `200 households x 5,000 gallons` | A realistic community path. |
+
+Source context: EBMUD serves about 1.4 million people in a 332-square-mile water service area, and EBMUD rate materials define 1 CCF as 748 gallons. See [EBMUD service area](https://www.ebmud.com/about-us/who-we-are/service-area), [EBMUD FY2026 rate document](https://www.ebmud.com/download_file/force/34400/702?Rate_Document_for_FY_2026_Web.pdf=), and [docs/gallon-savings-methodology.md](docs/gallon-savings-methodology.md).
+
+## For homeowners
+
+Mud Buddy is for answering: "Why did our water use change, and what should we check next?"
+
+You will need:
+
+- An EBMUD account you can log into yourself.
+- A downloaded EBMUD usage CSV.
+- A computer where you can run a local command, or a trusted helper who can run it with you.
+
+Mud Buddy does not log into EBMUD for you, does not need your password, and does not replace EBMUD customer support.
 
 ## What Mud Buddy helps answer
 
@@ -20,12 +49,23 @@ Mud Buddy helps interpret your exported CSV; official account, billing, emergenc
 - Which billing period deserves attention first?
 - Do the patterns suggest a toilet dye test, meter test, irrigation walk-through, or official EBMUD resource?
 
-## Private local report in 5 steps
+## When to use EBMUD directly
+
+Use EBMUD directly for urgent issues, billing disputes, payment help, outages, pressure problems, water-quality concerns, rebates, assistance programs, or anything that needs an official account action.
+
+Use Mud Buddy when you want to understand patterns in your exported usage CSV before deciding what to check next.
+
+## Make a private local report
 
 1. Log into EBMUD yourself in a normal browser session.
 2. Download the official usage CSV from the Track Usage/export area.
 3. Provide or upload the CSV to Mud Buddy only when you explicitly want it analyzed.
-4. Run `python scripts/generate_report.py path/to/your-ebmud-export.csv --out generated/my-private-report`.
+4. Run the report generator locally:
+
+```bash
+python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "generated/my-private-report"
+```
+
 5. Open `generated/my-private-report/index.html` locally.
 
 For a shareable public summary, regenerate with `--public` and review [docs/public-sharing-checklist.md](docs/public-sharing-checklist.md):
@@ -35,11 +75,17 @@ python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "my-publ
 npm run test:redaction
 ```
 
+Private by default. Public sharing requires a separate public/redacted workflow.
+
 ## What it looks like
+
+![Synthetic redacted report preview](public/assets/report-preview-redacted.svg)
 
 | Local analysis | Safe workflow | Official next steps |
 | --- | --- | --- |
-| ![Synthetic civic water dashboard](public/assets/hero-civic-water.svg) | ![Synthetic CSV to report workflow](public/assets/workflow-csv-report.svg) | ![Synthetic official resource directory](public/assets/ebmud-resource-directory.svg) |
+| ![Synthetic civic water dashboard](public/assets/hero-civic-water.svg) | ![Synthetic CSV boundary](public/assets/csv-export-boundary.svg) | ![Synthetic official resource directory](public/assets/ebmud-resource-directory.svg) |
+
+![Synthetic sample report montage](public/assets/sample-report-montage.svg)
 
 ## Try it
 
@@ -62,6 +108,8 @@ Water usage can reveal household routines, so the default workflow is intentiona
 
 If you ask an AI coding tool to help with browser control, tell it to wait while you log in manually, ask before operating an authenticated browser tab, and stop if the EBMUD portal is unclear.
 
+![Synthetic public sharing checklist](public/assets/public-sharing-checklist-card.svg)
+
 ## Official EBMUD resources
 
 Mud Buddy is a private interpretation layer, not an official utility action center. If the issue looks urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related, use official EBMUD resources instead of over-interpreting Mud Buddy data.
@@ -80,15 +128,19 @@ Mud Buddy is a private interpretation layer, not an official utility action cent
 | Bill support for eligible customers | [Customer Assistance Program](https://www.ebmud.com/customers/customer-assistance-program) |
 | Contact, emergency, and official support | [Contact / emergency](https://www.ebmud.com/contact-us) |
 
-## Optional AI-agent workflow
+## Optional: use with Codex, Claude Code, or other AI coding tools
 
-Mud Buddy can also be used with Codex, Claude Code, or Lovable-style project builders. The safe workflow is still manual-login first, explicit CSV approval second, local analysis third.
+This is only for people who already use AI coding tools. Homeowners do not need this workflow to understand a report.
+
+The safe workflow is still manual-login first, explicit CSV approval second, local analysis third.
 
 - AI tool guide: [docs/use-with-ai-tools.md](docs/use-with-ai-tools.md)
 - Codex agent rules: [AGENTS.md](AGENTS.md)
 - Claude Code notes: [CLAUDE.md](CLAUDE.md)
 - Browser-control safety: [docs/browser-control-safety.md](docs/browser-control-safety.md)
 - Codex skill folder: [skills/ebmud-buddy](skills/ebmud-buddy)
+
+![Synthetic AI-agent handoff](public/assets/ai-agent-safe-handoff.svg)
 
 Install the Codex skill:
 
@@ -128,4 +180,4 @@ Release and QA docs:
 
 ## Launch status
 
-Version 0.5.0 release candidate. Feedback welcome from EBMUD customers, East Bay homeowners, renters, gardeners, conservation folks, civic-tech builders, and AI-tool power users.
+Version 1.0.0 weekend release candidate. Feedback welcome from EBMUD customers, East Bay homeowners, renters, gardeners, conservation folks, civic-tech builders, and AI-tool power users.
