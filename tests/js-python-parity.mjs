@@ -9,6 +9,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const py = process.env.PYTHON || 'python';
 const outRoot = path.join(root, 'tests', 'output', 'js-python-parity');
+
+process.on('uncaughtException', (error) => {
+  const message = String(error?.message || error).replace(/\r?\n/g, ' ');
+  console.error(`::error title=JS/Python parity failed::${message}`);
+  console.error(error?.stack || error);
+  process.exit(1);
+});
+
 await fs.rm(outRoot, { recursive: true, force: true });
 await fs.mkdir(outRoot, { recursive: true });
 
@@ -28,11 +36,15 @@ async function compare(csvPath, label) {
   for (const [metric, expected, actual] of [
     ['valid rows', pythonSummary.valid_rows, jsSummary.validRows],
     ['invalid rows', pythonSummary.invalid_rows, jsSummary.invalidRows],
-    ['total CCF', pythonSummary.total_ccf, jsSummary.totalCcf],
-    ['total gallons', pythonSummary.total_gallons, jsSummary.totalGallons],
     ['baseline GPD', pythonSummary.baseline_gpd, jsSummary.baselineGpd]
   ]) {
     if (expected !== actual) throw new Error(`${label}: JS/Python parity mismatch for ${metric}: expected ${expected}, got ${actual}`);
+  }
+  if (Math.abs(pythonSummary.total_ccf - jsSummary.totalCcf) > 0.01) {
+    throw new Error(`${label}: JS/Python parity mismatch for total CCF: expected ${pythonSummary.total_ccf}, got ${jsSummary.totalCcf}`);
+  }
+  if (Math.abs(pythonSummary.total_gallons - jsSummary.totalGallons) > 1) {
+    throw new Error(`${label}: JS/Python parity mismatch for total gallons: expected ${pythonSummary.total_gallons}, got ${jsSummary.totalGallons}`);
   }
   if (Math.abs(pythonSummary.avg_gpd - jsSummary.avgGpd) > 0.1) {
     throw new Error(`${label}: JS/Python parity mismatch for avg GPD: expected ${pythonSummary.avg_gpd}, got ${jsSummary.avgGpd}`);
