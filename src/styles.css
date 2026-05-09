@@ -253,6 +253,21 @@ mud-buddy-app.has-browser-report .mascot-card img { width: 80px; }
 .browser-summary-card .icon-glyph { width: 48px; height: 48px; display: grid; place-items: center; border-radius: var(--radius-sm); color: white; background: var(--terracotta); font-size: 30px; }
 .browser-summary-card span { display: block; margin-bottom: var(--space-sm); color: var(--terracotta-dark); font-size: 12px; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
 .browser-summary-card p { margin-bottom: 0; }
+.expert-note-list {
+  display: grid;
+  gap: var(--space-sm);
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.expert-note-list li {
+  padding-left: var(--space-md);
+  border-left: 3px solid color-mix(in srgb, var(--terracotta) 52%, var(--line));
+  color: var(--reservoir);
+  font-size: 14px;
+  font-weight: 760;
+  line-height: 1.35;
+}
 .insight-panel, .next-checks-card, .key-numbers-card, .browser-warning-card, .method-details, .glossary-card, .browser-official-card { margin-top: var(--space-md); padding: var(--space-lg); }
 .insight-list { display: grid; gap: var(--space-sm); }
 .insight-list article { display: grid; grid-template-columns: 34px 1fr; gap: var(--space-md); align-items: start; }

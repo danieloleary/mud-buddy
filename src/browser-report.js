@@ -6,7 +6,9 @@ function el(tag, attrs = {}, children = []) {
     else if (key === 'dataset') Object.assign(node.dataset, value);
     else node.setAttribute(key, value);
   }
-  for (const child of children) node.append(child);
+  for (const child of children) {
+    if (child !== null && child !== undefined) node.append(child);
+  }
   return node;
 }
 
@@ -90,6 +92,9 @@ function confidenceFor(analysis) {
 }
 
 function nextChecksFor(analysis) {
+  if (Array.isArray(analysis.recommendedChecks) && analysis.recommendedChecks.length) {
+    return analysis.recommendedChecks;
+  }
   const checks = [];
   if (analysis.seasonalLift >= 45) {
     checks.push('Check irrigation first: run zones, look for overspray, stuck valves, runoff, broken heads, and thirsty planting areas.');
@@ -108,6 +113,13 @@ function nextChecksFor(analysis) {
   }
   checks.push('Use EBMUD directly for billing, rebates, outages, water quality, assistance, or emergency service questions.');
   return checks.slice(0, 4);
+}
+
+function renderExpertNotes(analysis) {
+  if (!Array.isArray(analysis.expertNotes) || !analysis.expertNotes.length) return null;
+  const list = el('ul', { class: 'expert-note-list' });
+  for (const note of analysis.expertNotes.slice(0, 3)) list.append(el('li', { text: note }));
+  return list;
 }
 
 function renderNextChecks(analysis) {
@@ -157,7 +169,8 @@ function renderMethodDetails(analysis) {
   return el('details', { class: 'method-details' }, [
     el('summary', { text: 'Confidence and method' }),
     el('p', { text: confidenceFor(analysis) }),
-    el('p', { text: `How Mud Buddy decides this: it estimates normal daily use from winter and spring periods, compares warmer-season use against that estimate, highlights the highest-use billing period, and reports ${analysis.invalidRows} skipped row${analysis.invalidRows === 1 ? '' : 's'} from this export.` }),
+    el('p', { text: `How Mud Buddy decides this: it estimates normal daily use from winter and spring periods, compares warmer-season use against that estimate, checks whether the baseline is drifting, highlights the highest-use billing period, and reports ${analysis.invalidRows} skipped row${analysis.invalidRows === 1 ? '' : 's'} from this export.` }),
+    el('p', { text: 'GPD is averaged across each billing period, so one row is not proof of what happened on one exact day.' }),
     el('p', { text: 'These are heuristic pattern clues. They are not official EBMUD classifications, normalized customer comparisons, leak diagnoses, billing findings, plumbing inspections, or certified conservation measurements.' })
   ]);
 }
@@ -213,7 +226,8 @@ export function renderBrowserReport(container, analysis, options = {}) {
     el('div', {}, [
       el('span', { text: 'Start here' }),
       el('h3', { text: topInsight.title }),
-      el('p', { text: topInsight.text })
+      el('p', { text: topInsight.text }),
+      renderExpertNotes(analysis)
     ])
   ]));
 

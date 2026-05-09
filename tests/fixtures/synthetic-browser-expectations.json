@@ -1,11 +1,11 @@
 {
   "irrigation-summer-heavy": [
     "Outdoor watering appears to drive the lift.",
-    "Check irrigation first"
+    "Run each irrigation zone for 3 minutes"
   ],
   "possible-toilet-leak": [
     "Normal daily use is rising.",
-    "Run a toilet dye test"
+    "toilet dye test"
   ],
   "usage-drop-conservation": [
     "Usage is lower than earlier periods.",
