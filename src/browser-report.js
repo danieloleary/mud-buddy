@@ -32,20 +32,20 @@ function renderTimeline(analysis) {
   const sx = (index) => pad + (index / Math.max(1, rows.length - 1)) * (width - pad * 2);
   const sy = (value) => height - pad - (value / max) * (height - pad * 2);
   const svg = svgEl('svg', { viewBox: `0 0 ${width} ${height}`, role: 'img', 'aria-label': 'Water usage timeline chart' });
-  svg.append(svgEl('rect', { width, height, rx: 30, fill: 'var(--chart-bg, #f7fbfb)' }));
+  svg.append(svgEl('rect', { width, height, rx: 18, fill: 'var(--chart-bg, #f8f7f3)' }));
   for (let i = 0; i <= 4; i += 1) {
     const y = pad + (i / 4) * (height - pad * 2);
-    svg.append(svgEl('line', { x1: pad, y1: y, x2: width - pad, y2: y, stroke: 'var(--chart-grid, #dbe8e9)', 'stroke-width': 1 }));
+    svg.append(svgEl('line', { x1: pad, y1: y, x2: width - pad, y2: y, stroke: 'var(--chart-grid, #e7ebef)', 'stroke-width': 1 }));
   }
   const baselineY = sy(analysis.baselineGpd);
-  svg.append(svgEl('line', { x1: pad, y1: baselineY, x2: width - pad, y2: baselineY, stroke: 'var(--chart-baseline, #f2b31b)', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.88 }));
+  svg.append(svgEl('line', { x1: pad, y1: baselineY, x2: width - pad, y2: baselineY, stroke: 'var(--chart-baseline, #b7791f)', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.88 }));
   const line = rows.map((row, index) => `${index === 0 ? 'M' : 'L'} ${sx(index).toFixed(1)} ${sy(row.gpd).toFixed(1)}`).join(' ');
-  svg.append(svgEl('path', { d: line, fill: 'none', stroke: 'var(--chart-primary, #006879)', 'stroke-width': 4, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
+  svg.append(svgEl('path', { d: line, fill: 'none', stroke: 'var(--chart-primary, #c96442)', 'stroke-width': 4, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
   rows.forEach((row, index) => {
-    svg.append(svgEl('circle', { cx: sx(index), cy: sy(row.gpd), r: 5, fill: 'var(--chart-dot, #39b9c6)', stroke: '#ffffff', 'stroke-width': 2 }));
+    svg.append(svgEl('circle', { cx: sx(index), cy: sy(row.gpd), r: 5, fill: 'var(--chart-dot, #7fced4)', stroke: '#ffffff', 'stroke-width': 2 }));
   });
-  const label = svgEl('text', { x: pad, y: height - 15, fill: 'var(--chart-label, #516366)', 'font-size': 13, 'font-weight': 700 });
-  label.textContent = 'GPD = gallons per day. Gold line = estimated household baseline.';
+  const label = svgEl('text', { x: pad, y: height - 15, fill: 'var(--chart-label, #5d6978)', 'font-size': 13, 'font-weight': 700 });
+  label.textContent = 'GPD = gallons per day. Gold line = estimated normal daily use.';
   svg.append(label);
   return svg;
 }
@@ -65,10 +65,8 @@ function renderSeasonBars(analysis) {
   return wrapper;
 }
 
-function chip(label, icon = '') {
-  const chipNode = el('md-assist-chip', { label });
-  if (icon) chipNode.setAttribute('aria-label', `${icon} ${label}`);
-  return chipNode;
+function chip(label) {
+  return el('md-assist-chip', { label });
 }
 
 function iconGlyph(name) {
@@ -81,9 +79,98 @@ const officialLinks = [
   ['Alerts and outages', 'https://www.ebmud.com/customers/alerts'],
   ['Water quality', 'https://www.ebmud.com/water/about-your-water/water-quality'],
   ['Conservation and rebates', 'https://www.ebmud.com/water/conservation-and-rebates'],
-  ['Customer assistance', 'https://www.ebmud.com/customers/customer-assistance-program'],
   ['Contact / emergency', 'https://www.ebmud.com/contact-us']
 ];
+
+function confidenceFor(analysis) {
+  const warningLoad = analysis.warnings.length + analysis.invalidRows;
+  if (analysis.validRows < 6 || warningLoad >= 3) return 'Limited data: treat the findings as prompts to review, not conclusions.';
+  if (analysis.validRows >= 10 && warningLoad === 0) return 'Good signal: the export has enough clean billing history for useful pattern clues.';
+  return 'Usable signal: compare the findings with household and yard context.';
+}
+
+function nextChecksFor(analysis) {
+  const checks = [];
+  if (analysis.seasonalLift >= 45) {
+    checks.push('Check irrigation first: run zones, look for overspray, stuck valves, runoff, broken heads, and thirsty planting areas.');
+  } else {
+    checks.push('Compare the highest-use period with weather, guests, laundry, showers, and any yard or controller changes.');
+  }
+  if (analysis.baselineChange >= 30) {
+    checks.push('Run a toilet dye test and a meter-stillness check before assuming the increase is only lifestyle or irrigation.');
+  } else if (analysis.baselineChange <= -25) {
+    checks.push('Write down what changed: fixture repairs, controller settings, travel, landscaping, or conservation habits.');
+  } else {
+    checks.push('Use the normal daily use estimate as a reference point when the next bill arrives.');
+  }
+  if (analysis.invalidRows || analysis.warnings.length) {
+    checks.push('Review CSV notes and billing-period length before comparing one period too literally.');
+  }
+  checks.push('Use EBMUD directly for billing, rebates, outages, water quality, assistance, or emergency service questions.');
+  return checks.slice(0, 4);
+}
+
+function renderNextChecks(analysis) {
+  const list = el('ol', { class: 'next-check-list' });
+  for (const check of nextChecksFor(analysis)) list.append(el('li', { text: check }));
+  return el('section', { class: 'next-checks-card' }, [
+    el('h3', { text: 'Recommended next checks' }),
+    el('p', { text: 'Start with low-drama checks that can explain the pattern before assuming there is one single cause.' }),
+    list
+  ]);
+}
+
+function renderInsightList(analysis) {
+  const list = el('div', { class: 'insight-list' });
+  for (const insight of analysis.insights) {
+    list.append(el('article', {}, [
+      iconGlyph(insight.icon),
+      el('div', {}, [
+        el('strong', { text: insight.title }),
+        el('p', { text: insight.text })
+      ])
+    ]));
+  }
+  return el('section', { class: 'insight-panel' }, [
+    el('h3', { text: 'What likely changed' }),
+    list
+  ]);
+}
+
+function renderCsvNotes(analysis) {
+  const notes = el('div', { class: 'csv-notes-body' });
+  notes.append(el('p', { text: `${analysis.validRows} billing period${analysis.validRows === 1 ? '' : 's'} analyzed. ${analysis.invalidRows} row${analysis.invalidRows === 1 ? '' : 's'} skipped.` }));
+  if (analysis.warnings.length) {
+    const warningList = el('ul', { class: 'browser-warnings' });
+    for (const warning of analysis.warnings.slice(0, 4)) warningList.append(el('li', { text: warning }));
+    notes.append(warningList);
+  }
+  return el('section', { class: 'browser-warning-card', 'data-testid': 'data-quality' }, [
+    el('h3', { text: 'CSV notes' }),
+    notes
+  ]);
+}
+
+function renderMethodDetails(analysis) {
+  return el('details', { class: 'method-details' }, [
+    el('summary', { text: 'Confidence and method' }),
+    el('p', { text: confidenceFor(analysis) }),
+    el('p', { text: `How Mud Buddy decides this: it estimates normal daily use from winter and spring periods, compares warmer-season use against that estimate, highlights the highest-use billing period, and reports ${analysis.invalidRows} skipped row${analysis.invalidRows === 1 ? '' : 's'} from this export.` }),
+    el('p', { text: 'These are heuristic pattern clues. They are not official EBMUD classifications, normalized customer comparisons, leak diagnoses, billing findings, plumbing inspections, or certified conservation measurements.' })
+  ]);
+}
+
+function renderGlossary() {
+  return el('section', { class: 'glossary-card' }, [
+    el('h3', { text: 'Quick glossary' }),
+    el('dl', {}, [
+      el('dt', { text: 'GPD' }), el('dd', { text: 'Gallons per day.' }),
+      el('dt', { text: 'CCF' }), el('dd', { text: 'One billing unit. EBMUD rate materials define 1 CCF as 748 gallons.' }),
+      el('dt', { text: 'Normal daily use' }), el('dd', { text: 'A rough baseline estimated from lower outdoor-watering periods.' }),
+      el('dt', { text: 'Benchmark' }), el('dd', { text: 'The average-household benchmark included in your export, not an official normalized comparison.' })
+    ])
+  ]);
+}
 
 function renderOfficialNextSteps() {
   const links = el('div', { class: 'browser-official-links' });
@@ -97,81 +184,13 @@ function renderOfficialNextSteps() {
   ]);
 }
 
-function confidenceFor(analysis, type) {
-  const warningLoad = analysis.warnings.length + analysis.invalidRows;
-  if (analysis.validRows < 6 || warningLoad >= 3) return ['Needs manual review', 'This export has limited clean history, so treat the clue as a prompt to look closer.'];
-  if (type === 'outdoor' && analysis.seasonalLift < 20) return ['Limited data', 'Outdoor watering does not stand out strongly in this export.'];
-  if (type === 'baseline' && Math.abs(analysis.baselineChange) < 18) return ['Good signal', 'The normal-use estimate is relatively steady across the export.'];
-  if (analysis.validRows >= 10 && warningLoad === 0) return ['Good signal', 'There is enough clean billing history for a useful pattern clue.'];
-  return ['Limited data', 'The export is usable, but the finding should be checked against household context.'];
-}
-
-function nextChecksFor(analysis) {
-  const checks = [];
-  if (analysis.seasonalLift >= 45) {
-    checks.push('Walk irrigation zones while they run: look for overspray, stuck valves, runoff, broken heads, and thirsty planting areas.');
-  } else {
-    checks.push('Compare the highest-use period with weather, guests, laundry, showers, and any yard or controller changes.');
-  }
-  if (analysis.baselineChange >= 30) {
-    checks.push('Run a toilet dye test and a meter-stillness check before assuming the increase is only lifestyle or irrigation.');
-  } else if (analysis.baselineChange <= -25) {
-    checks.push('Write down what changed: fixture repairs, controller settings, travel, landscaping, or conservation habits.');
-  } else {
-    checks.push('Use the normal daily use estimate as a practical reference point when the next bill arrives.');
-  }
-  if (analysis.invalidRows || analysis.warnings.length) {
-    checks.push('Review CSV notes and billing-period length before comparing one period too literally.');
-  }
-  checks.push('Use EBMUD directly for billing, rebates, outages, water quality, assistance, or emergency service questions.');
-  return checks.slice(0, 4);
-}
-
-function renderConfidencePanel(analysis) {
-  const items = [
-    ['Normal daily use', ...confidenceFor(analysis, 'baseline')],
-    ['Outdoor watering clue', ...confidenceFor(analysis, 'outdoor')],
-    ['Peak period', analysis.validRows >= 3 ? 'Good signal' : 'Needs manual review', 'The highest-use period is selected from the clean rows in this export.']
-  ];
-  const grid = el('div', { class: 'confidence-grid' });
-  for (const [label, confidence, note] of items) {
-    grid.append(el('article', {}, [
-      el('span', { text: confidence }),
-      el('strong', { text: label }),
-      el('p', { text: note })
-    ]));
-  }
-  return el('section', { class: 'confidence-panel' }, [
-    el('h3', { text: 'Confidence' }),
-    grid
-  ]);
-}
-
-function renderNextChecks(analysis) {
-  const list = el('ol', { class: 'next-check-list' });
-  for (const check of nextChecksFor(analysis)) list.append(el('li', { text: check }));
-  return el('section', { class: 'next-checks-card' }, [
-    el('h3', { text: 'Recommended next steps' }),
-    el('p', { text: 'Start with low-drama checks that can explain the pattern before assuming there is one single cause.' }),
-    list
-  ]);
-}
-
-function renderDecisionPanel(analysis) {
-  return el('section', { class: 'decision-panel' }, [
-    el('h3', { text: 'How Mud Buddy decides this' }),
-    el('p', { text: `Mud Buddy estimates normal daily use from winter and spring periods, compares warmer-season use against that estimate, highlights the highest-use billing period, and reports ${analysis.invalidRows} skipped row${analysis.invalidRows === 1 ? '' : 's'} from this export.` }),
-    el('p', { text: 'These are heuristic pattern clues. They are not official EBMUD classifications, normalized customer comparisons, leak diagnoses, billing findings, plumbing inspections, or certified conservation measurements.' })
-  ]);
-}
-
 export function renderBrowserReport(container, analysis, options = {}) {
   container.replaceChildren();
   const sourceLabel = options.sample ? 'Synthetic sample CSV analyzed locally' : 'Uploaded CSV analyzed locally';
   const topInsight = analysis.insights[0];
   const root = el('section', { class: 'browser-report material-card', tabindex: '-1', 'data-testid': 'browser-report' });
 
-  const header = el('div', { class: 'browser-report-head' }, [
+  root.append(el('div', { class: 'browser-report-head' }, [
     el('div', {}, [
       el('p', { class: 'overline', text: sourceLabel }),
       el('h2', { text: 'Your private browser report is ready.' }),
@@ -184,75 +203,55 @@ export function renderBrowserReport(container, analysis, options = {}) {
         el('md-outlined-button', { id: 'printReport', text: 'Print or save PDF' })
       ])
     ])
-  ]);
-  root.append(header);
+  ]));
   root.append(el('md-divider'));
 
   root.append(el('article', { class: 'browser-summary-card', 'data-testid': 'browser-summary' }, [
     iconGlyph(topInsight.icon),
     el('div', {}, [
-      el('span', { text: 'What should I check first?' }),
+      el('span', { text: 'Start here' }),
       el('h3', { text: topInsight.title }),
       el('p', { text: topInsight.text })
     ])
   ]));
 
-  root.append(el('div', { class: 'primary-kpis', 'data-testid': 'primary-kpis' }, [
-    stat('Normal daily use estimate', `${analysis.baselineGpd} GPD`, 'kpi-baseline', true),
-    stat('Pattern suggests outdoor watering', `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
-    stat('Highest-use period', `${analysis.peakPeriod.label} (${analysis.peakPeriod.gpd} GPD)`, 'kpi-peak', true)
-  ]));
-  root.append(el('p', { class: 'browser-kpi-note', text: 'GPD means gallons per day.' }));
-  root.append(renderConfidencePanel(analysis));
+  root.append(renderInsightList(analysis));
   root.append(renderNextChecks(analysis));
 
-  root.append(el('div', { class: 'data-quality-card', 'data-testid': 'data-quality' }, [
-    stat('Water use in this CSV', `${analysis.totalCcf.toLocaleString()} CCF`, 'stat-total-ccf'),
-    stat('Approx. gallons used', `${Math.round(analysis.totalGallons / 1000).toLocaleString()}k`, 'stat-total-gallons'),
-    stat('Billing periods analyzed', String(analysis.validRows), 'stat-valid-rows'),
-    stat('Rows skipped', String(analysis.invalidRows), 'stat-invalid-rows')
-  ]));
-
-  root.append(el('md-divider'));
-  const chartGrid = el('div', { class: 'browser-chart-grid' });
-  chartGrid.append(el('div', { class: 'browser-chart-card' }, [
-    el('div', { class: 'chart-card-head' }, [
-      el('h3', { text: 'Water use over time' }),
-      el('div', { class: 'report-chip-row chart-legend' }, [chip('Usage'), chip('Baseline'), chip('GPD')])
+  root.append(el('section', { class: 'key-numbers-card' }, [
+    el('div', { class: 'section-title-row' }, [
+      el('h3', { text: 'Key numbers' }),
+      el('p', { text: 'GPD means gallons per day.' })
     ]),
-    renderTimeline(analysis)
+    el('div', { class: 'primary-kpis', 'data-testid': 'primary-kpis' }, [
+      stat('Normal daily use estimate', `${analysis.baselineGpd} GPD`, 'kpi-baseline', true),
+      stat('Pattern suggests outdoor watering', `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
+      stat('Highest-use period', `${analysis.peakPeriod.label} (${analysis.peakPeriod.gpd} GPD)`, 'kpi-peak', true)
+    ]),
+    el('div', { class: 'data-quality-card' }, [
+      stat('Water use in this CSV', `${analysis.totalCcf.toLocaleString()} CCF`, 'stat-total-ccf'),
+      stat('Approx. gallons used', `${Math.round(analysis.totalGallons / 1000).toLocaleString()}k`, 'stat-total-gallons')
+    ])
   ]));
-  chartGrid.append(el('div', { class: 'browser-chart-card' }, [
-    el('h3', { text: 'Average use by season' }),
-    renderSeasonBars(analysis),
-    el('p', { text: `Compared with the average-household benchmark in your export: ${analysis.peerComparison}.` })
+
+  root.append(el('div', { class: 'browser-chart-grid' }, [
+    el('div', { class: 'browser-chart-card' }, [
+      el('div', { class: 'chart-card-head' }, [
+        el('h3', { text: 'Water use over time' }),
+        el('div', { class: 'report-chip-row chart-legend' }, [chip('Usage'), chip('Baseline'), chip('GPD')])
+      ]),
+      renderTimeline(analysis)
+    ]),
+    el('div', { class: 'browser-chart-card' }, [
+      el('h3', { text: 'Average use by season' }),
+      renderSeasonBars(analysis),
+      el('p', { text: `Compared with the average-household benchmark in your export: ${analysis.peerComparison}.` })
+    ])
   ]));
-  root.append(chartGrid);
 
-  root.append(el('md-divider'));
-  const insights = el('div', { class: 'browser-insights' });
-  for (const insight of analysis.insights) {
-    insights.append(el('article', {}, [
-      iconGlyph(insight.icon),
-      el('div', {}, [
-        el('h3', { text: insight.title }),
-        el('p', { text: insight.text })
-      ])
-    ]));
-  }
-  root.append(insights);
-
-  if (analysis.warnings.length) {
-    const warningList = el('ul', { class: 'browser-warnings' });
-    for (const warning of analysis.warnings.slice(0, 4)) warningList.append(el('li', { text: warning }));
-    root.append(el('div', { class: 'browser-warning-card' }, [
-      el('h3', { text: 'CSV notes' }),
-      warningList
-    ]));
-  }
-
-  root.append(renderDecisionPanel(analysis));
-  root.append(el('md-divider'));
+  root.append(renderCsvNotes(analysis));
+  root.append(renderMethodDetails(analysis));
+  root.append(renderGlossary());
   root.append(renderOfficialNextSteps());
 
   root.append(el('p', {

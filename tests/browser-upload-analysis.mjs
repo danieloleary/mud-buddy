@@ -1,4 +1,4 @@
-﻿import { spawn } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from '@playwright/test';
@@ -37,9 +37,8 @@ try {
   const lowerBody = body.toLowerCase();
   for (const required of [
     'Uploaded CSV analyzed locally',
-    'Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.',
-    'Billing periods analyzed',
-    'Rows skipped',
+    'Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
+    'CSV notes',
     'Water use over time',
     'Average use by season',
     'This is explanatory pattern-finding'
@@ -56,4 +55,3 @@ try {
 } finally {
   if (server) server.kill();
 }
-

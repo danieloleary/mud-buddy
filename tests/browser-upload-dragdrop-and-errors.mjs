@@ -1,4 +1,4 @@
-﻿import { spawn } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -66,7 +66,7 @@ try {
   await page.locator('#csvInput').setInputFiles(quoted);
   await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
   let reportText = await page.locator('[data-testid="browser-report"]').innerText();
-  if (!reportText.includes('Rows skipped') || !reportText.includes('1')) throw new Error('Quoted/N/A fixture did not render invalid-row note');
+  if (!reportText.toLowerCase().includes('row skipped') || !reportText.includes('1')) throw new Error('Quoted/N/A fixture did not render invalid-row note');
 
   const validText = await fs.readFile(valid, 'utf8');
   const dataTransfer = await page.evaluateHandle((text) => {
@@ -83,4 +83,3 @@ try {
 } finally {
   server.kill();
 }
-

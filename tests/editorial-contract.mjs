@@ -30,11 +30,9 @@ try {
     'Try sample data',
     'How to get the CSV',
     'Built with love in Lafayette, CA.',
-    'Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.',
-    'How to get your EBMUD CSV.',
-    'Official EBMUD resources',
-    'For EBMUD review',
-    'Independent today. Feedback-ready if EBMUD wants to review it.'
+    'Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
+    'Download from EBMUD, then come back here.',
+    'Official EBMUD resources'
   ]) {
     if (!body.includes(required)) throw new Error(`Missing homeowner-facing text: ${required}`);
   }
@@ -45,7 +43,10 @@ try {
     'synthetic flavors',
     'package scan',
     'release gate',
-    'Download project ZIP'
+    'Download project ZIP',
+    'For EBMUD review',
+    'agent assist',
+    'artifact'
   ]) {
     if (body.toLowerCase().includes(junk.toLowerCase())) throw new Error(`Homepage still exposes maintainer/demo copy: ${junk}`);
   }
@@ -53,20 +54,19 @@ try {
     if (body.includes(iconToken)) throw new Error(`Homepage body text leaked decorative icon token: ${iconToken}`);
   }
 
-  await page.getByText('Try sample data').first().click();
+  await page.getByRole('button', { name: 'Try sample data' }).first().click();
   await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   const reportTextLower = reportText.toLowerCase();
   for (const required of [
-    'What should I check first?',
+    'Start here',
     'Normal daily use estimate',
     'Pattern suggests outdoor watering',
     'Compared with the average-household benchmark in your export',
     'When to use EBMUD directly',
     'Billing questions',
-    'Confidence',
-    'Recommended next steps',
-    'How Mud Buddy decides this',
+    'Recommended next checks',
+    'Confidence and method',
     'Print or save PDF'
   ]) {
     if (!reportTextLower.includes(required.toLowerCase())) throw new Error(`Browser report still needs homeowner wording: ${required}`);
@@ -79,7 +79,7 @@ try {
   }
 
   await browser.close();
-  console.log('editorial-contract: OK homepage and browser report are homeowner-first');
+  console.log('editorial-contract: OK simplified app and report are homeowner-first');
 } finally {
   server.kill();
 }
