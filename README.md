@@ -20,11 +20,13 @@ Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pat
 
 ## Use Mud Buddy in 3 steps
 
-1. Log into EBMUD yourself and download your usage file from Track Usage or My Water Report.
+1. Log into EBMUD yourself and download your usage file from Track Usage or My Water Report. You do not need to understand the file.
 2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Create my report`.
-3. Review the browser-local report: normal daily use, likely outdoor watering, the peak period, Usage file notes, and practical next checks.
+3. Review the browser-local report: normal daily use, likely outdoor watering, the peak period, usage file notes, practical next checks, and a simple weekend checklist.
 
 You can also choose `Try sample report` on the site to see the flow with synthetic public-safe data.
+
+The file step usually takes about 3 minutes. Mud Buddy does not change your EBMUD account.
 
 ## Quiet beta ask
 

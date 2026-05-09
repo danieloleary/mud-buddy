@@ -4,7 +4,7 @@
 
 Prove that a normal EBMUD customer can use Mud Buddy without Dan explaining it live:
 
-1. get or understand how to get the EBMUD usage file;
+1. get or understand how to get the EBMUD usage file without feeling technical;
 2. upload it safely in the browser;
 3. understand the report;
 4. know what to check next;
@@ -45,7 +45,7 @@ Privacy note: the CSV is read in your browser and is not uploaded to a Mud Buddy
 
 - What did you think Mud Buddy does before clicking anything?
 - Did the privacy promise feel clear and believable?
-- Could you find how to get the EBMUD CSV?
+- Could you find how to get the EBMUD usage file?
 - Did the report tell you what changed?
 - Did the report tell you what to check first?
 - Did anything sound too official, too diagnostic, or too technical?

@@ -39,6 +39,7 @@ try {
     'Usage file analyzed locally',
     'Runs in this browser. Your usage file is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
     'Usage file notes',
+    'This weekend',
     'What Mud Buddy sees',
     'This is a pattern read from your usage file, not an official EBMUD finding.',
     'What would make this more certain',

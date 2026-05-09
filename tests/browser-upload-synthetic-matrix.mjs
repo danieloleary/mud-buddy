@@ -76,6 +76,7 @@ try {
     }
     for (const required of [
       'Recommended next checks',
+      'This weekend',
       'Use EBMUD directly',
       'What Mud Buddy sees',
       'This is a pattern read from your usage file, not an official EBMUD finding.',

@@ -135,6 +135,22 @@ function renderNextChecks(analysis) {
   ]);
 }
 
+function renderWeekendChecklist() {
+  const items = [
+    'Run the irrigation zones and look for obvious waste: overspray, runoff, broken heads, or soggy spots.',
+    'Do a toilet dye test on the toilets that get used most.',
+    'Turn off water inside and outside, then watch the meter for movement.',
+    'Print or save this report and compare it with the next EBMUD bill.'
+  ];
+  const list = el('ul', { class: 'weekend-list' });
+  for (const item of items) list.append(el('li', { text: item }));
+  return el('section', { class: 'weekend-checklist-card' }, [
+    el('h3', { text: 'This weekend' }),
+    el('p', { text: 'If you only have 20 minutes, do these small checks first.' }),
+    list
+  ]);
+}
+
 function renderEvidencePanel(analysis) {
   if (!Array.isArray(analysis.evidencePoints) || !analysis.evidencePoints.length) return null;
   const list = el('div', { class: 'evidence-grid' });
@@ -263,6 +279,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
   if (insightList) root.append(insightList);
   root.append(renderEvidencePanel(analysis));
   root.append(renderNextChecks(analysis));
+  root.append(renderWeekendChecklist());
 
   root.append(el('section', { class: 'key-numbers-card' }, [
     el('div', { class: 'section-title-row' }, [

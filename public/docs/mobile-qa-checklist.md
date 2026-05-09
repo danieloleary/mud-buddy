@@ -23,7 +23,7 @@ https://danieloleary.github.io/mud-buddy/
 - Tap `Try sample report`.
 - Report renders without console-visible breakage or layout jump.
 - `Create another report` and `Print or save PDF` are visible in the report.
-- Report sections are readable: `Start here`, `Other clues`, `Recommended next checks`, `Key numbers`, charts, `Usage file notes`, and `When to use EBMUD directly`.
+- Report sections are readable: `Start here`, `Other clues`, `Recommended next checks`, `This weekend`, `Key numbers`, charts, `Usage file notes`, and `When to use EBMUD directly`.
 
 ## Real CSV flow
 

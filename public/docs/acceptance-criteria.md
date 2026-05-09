@@ -5,6 +5,7 @@
 - GitHub Pages landing page loads on desktop and mobile.
 - A homeowner can choose `Create my report`, select an EBMUD billing usage file, and see an in-page private report.
 - `Try sample report` loads only the committed synthetic sample CSV.
+- The app explains that the usage-file step usually takes about 3 minutes, does not require understanding the file, and does not change the user's EBMUD account.
 - The page clearly says the CSV is read in the browser and is not uploaded.
 - The page clearly says Mud Buddy is not affiliated with EBMUD and is not an official audit, leak detector, billing tool, or EBMUD analysis.
 - GPD is defined as gallons per day near the first metric/report context.
@@ -12,9 +13,10 @@
 
 ## Browser Report
 
-- Report includes a `What should I check first?` summary.
+- Report includes a `Start here` summary that tells the household what to check first.
 - Report includes confidence labels, recommended next steps, a `What Mud Buddy sees` evidence panel, and a short `How Mud Buddy decides this` explanation.
-- Report includes a visible caution that the summary is a pattern read from the CSV, not an official EBMUD finding.
+- Report includes a visible caution that the summary is a pattern read from the usage file, not an official EBMUD finding.
+- Report includes a short `This weekend` checklist with practical household checks.
 - Report includes normal daily use estimate, likely outdoor watering, highest-use period, water use over time, average use by season, and data-quality notes.
 - Browser report does not render private filename, account number, meter ID, service address, local path, raw usage file rows, or exact private identifiers.
 - Oversized usage files and unusually large row counts are rejected with clear messages.

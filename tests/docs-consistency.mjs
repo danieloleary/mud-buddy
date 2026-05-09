@@ -86,7 +86,7 @@ const required = [
   'recommended next steps',
   '1.2.0',
   'visible evidence layer',
-  'pattern read from the CSV',
+  'pattern read from the usage file',
   'urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related',
   'Never ask for, store, paste, scrape, log, export, or transmit',
   'https://www.ebmud.com/customers',

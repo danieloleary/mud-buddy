@@ -13,7 +13,7 @@ Important wording:
 - Say `potential savings`, `helped-save`, and `patterns worth checking`.
 - Do not say certified savings, official EBMUD analysis, leak diagnosis, billing advice, or plumbing inspection.
 - Do not imply EBMUD affiliation, approval, endorsement, partnership, or co-branding unless EBMUD authorizes it in writing.
-- Lead with the app: `Create my report`, `Try sample report`, and `How to get your usage file`.
+- Lead with the app: `Create my report`, `Try sample report`, and `Where do I get this file?`.
 - Lead with privacy: no EBMUD password, no server upload, no credential automation, public sharing only with `--public`.
 
 ## Launch assets
@@ -117,7 +117,7 @@ https://danieloleary.github.io/mud-buddy/
 
 1. I built Mud Buddy because my own EBMUD usage data was confusing, and household context mattered: kids, daytime use, irrigation, and a yard that needs work.
 
-2. The app is simple: download your EBMUD usage file, upload it to Mud Buddy, and get a browser-local explanation of what changed.
+2. The app is simple: download your EBMUD usage file, drop it into Mud Buddy, and get a browser-local explanation of what changed plus a weekend checklist.
 
 3. It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, average-household benchmark context, and fixture/toilet patterns worth checking.
 

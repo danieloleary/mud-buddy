@@ -144,7 +144,7 @@ p { color: var(--muted); font-size: 16px; line-height: 1.55; }
   grid-template-columns: minmax(0, 1fr) minmax(340px, 450px);
   align-items: start;
   gap: clamp(24px, 4vw, 48px);
-  padding-block: clamp(26px, 4vw, 48px) 28px;
+  padding-block: clamp(24px, 3.2vw, 40px) 28px;
 }
 .hero-actions, .upload-actions, .helper-actions, .report-actions { display: flex; flex-wrap: wrap; gap: var(--space-md); }
 .hero-actions { margin-top: var(--space-xl); }
@@ -180,7 +180,7 @@ p { color: var(--muted); font-size: 16px; line-height: 1.55; }
 .sr-only-file { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .dropzone {
   width: 100%;
-  min-height: 210px;
+  min-height: 178px;
   display: grid;
   place-items: center;
   gap: var(--space-md);
@@ -274,7 +274,7 @@ mud-buddy-app.has-browser-report .mascot-card img { width: 80px; }
   font-weight: 760;
   line-height: 1.35;
 }
-.insight-panel, .evidence-card, .next-checks-card, .key-numbers-card, .browser-warning-card, .method-details, .glossary-card, .browser-official-card { margin-top: var(--space-md); padding: var(--space-lg); }
+.insight-panel, .evidence-card, .next-checks-card, .weekend-checklist-card, .key-numbers-card, .browser-warning-card, .method-details, .glossary-card, .browser-official-card { margin-top: var(--space-md); padding: var(--space-lg); }
 .evidence-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-sm); }
 .evidence-prompt { margin: 0 0 var(--space-md); font-size: 14px; font-weight: 720; }
 .evidence-grid article { padding: var(--space-md); border: 1px solid var(--line); border-radius: var(--radius-sm); background: color-mix(in srgb, white 92%, var(--paper)); }
@@ -288,6 +288,11 @@ mud-buddy-app.has-browser-report .mascot-card img { width: 80px; }
 .next-checks-card p, .method-details p, .browser-official-card p { margin-bottom: 0; }
 .next-check-list { display: grid; gap: var(--space-sm); margin: var(--space-md) 0 0; padding-left: 22px; color: var(--muted); font-size: 15px; font-weight: 700; }
 .next-check-list li::marker { color: var(--terracotta); font-weight: 900; }
+.weekend-checklist-card { background: color-mix(in srgb, white 86%, var(--md-sys-color-tertiary-container)); }
+.weekend-checklist-card p { margin-bottom: 0; }
+.weekend-list { display: grid; gap: var(--space-sm); margin: var(--space-md) 0 0; padding: 0; list-style: none; }
+.weekend-list li { position: relative; padding-left: 30px; color: var(--reservoir); font-size: 15px; font-weight: 760; line-height: 1.4; }
+.weekend-list li::before { content: ''; position: absolute; left: 0; top: .18em; width: 18px; height: 18px; border: 2px solid var(--terracotta); border-radius: var(--radius-sm); background: white; }
 .section-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-md); margin-bottom: var(--space-md); }
 .section-title-row p { margin: 0; font-size: 14px; font-weight: 750; }
 .primary-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); }
@@ -323,6 +328,7 @@ mud-buddy-app.has-browser-report .mascot-card img { width: 80px; }
 .support-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: var(--space-lg); padding-block: var(--space-xxl); }
 .helper-card { padding: var(--space-xl); }
 .helper-card h2 { font-size: clamp(24px, 3vw, 34px); }
+.helper-reassurance { color: var(--reservoir); font-size: 15px; font-weight: 760; }
 .mini-steps { display: grid; gap: var(--space-sm); margin-top: var(--space-lg); }
 .mini-steps span { display: flex; gap: var(--space-sm); align-items: center; color: var(--muted); font-weight: 750; }
 .mini-steps strong { width: 28px; height: 28px; display: grid; place-items: center; border-radius: var(--radius-sm); color: white; background: var(--terracotta); }
@@ -342,6 +348,11 @@ footer strong, footer a { color: white; }
 .reveal { animation: rise .55s cubic-bezier(.2,0,0,1) both; }
 .delay-1 { animation-delay: .08s; }
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+md-dialog { max-width: min(560px, calc(100vw - 32px)); }
+.dialog-lede, .dialog-note { color: var(--reservoir); font-weight: 720; }
+.dialog-steps { display: grid; gap: var(--space-sm); margin: var(--space-lg) 0; padding-left: 24px; color: var(--muted); font-size: 15px; font-weight: 720; }
+.dialog-steps li::marker { color: var(--terracotta); font-weight: 900; }
 
 @media (max-width: 980px) {
   .topbar nav { display: none; }

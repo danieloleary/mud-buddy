@@ -68,6 +68,10 @@ try {
     'Drop your EBMUD usage file here',
     'Create my report',
     'Try sample report',
+    'Where do I get this file?',
+    'This usually takes about 3 minutes.',
+    'This will not change your EBMUD account.',
+    'Show me the steps',
     'Built with love in Lafayette, CA.',
     'Goal: save millions of gallons, one home at a time.',
     'Runs in this browser. Your usage file is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
@@ -77,6 +81,10 @@ try {
   ]) {
     if (!text.includes(required)) throw new Error(`Missing required text: ${required}`);
   }
+  await page.getByText('Where do I get this file?').click();
+  if (!(await page.getByText('How to get your EBMUD usage file').isVisible())) throw new Error('Usage file guide dialog did not open');
+  if (!(await page.getByText('You do not need to understand the file.').isVisible())) throw new Error('Usage file guide is not spouse-proof');
+  await page.getByRole('button', { name: 'Close' }).click();
   for (const clutter of ['For EBMUD review', 'Independent today', 'Download project ZIP', 'synthetic flavors', 'release gate']) {
     if (text.toLowerCase().includes(clutter.toLowerCase())) throw new Error(`Landing still exposes clutter text: ${clutter}`);
   }
@@ -96,7 +104,7 @@ try {
   if (!(await page.locator('.browser-report').isVisible())) throw new Error('Sample browser report did not render');
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   const reportTextLower = reportText.toLowerCase();
-  for (const required of ['Start here', 'Recommended next checks', 'Key numbers', 'Water use over time', 'Usage file notes', 'When to use EBMUD directly', 'Print or save PDF']) {
+  for (const required of ['Start here', 'Recommended next checks', 'This weekend', 'Key numbers', 'Water use over time', 'Usage file notes', 'When to use EBMUD directly', 'Print or save PDF']) {
     if (!reportTextLower.includes(required.toLowerCase())) throw new Error(`Sample browser report missing section: ${required}`);
   }
   if (!reportTextLower.includes('average-household benchmark in your usage file')) throw new Error('Sample browser report missing softened benchmark wording');

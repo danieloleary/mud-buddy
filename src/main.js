@@ -70,7 +70,7 @@ class MudBuddyApp extends HTMLElement {
             <div class="hero-actions">
               <md-filled-button id="heroAnalyze">Create my report</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample report</md-filled-tonal-button>
-              <md-text-button href="#how">Get my usage file</md-text-button>
+              <md-text-button data-file-guide="true">Where do I get it?</md-text-button>
             </div>
             <div class="trust-row" aria-label="Trust promises">
               <md-assist-chip label="Runs in your browser"></md-assist-chip>
@@ -99,6 +99,7 @@ class MudBuddyApp extends HTMLElement {
               <div class="upload-actions">
                 <md-filled-button id="chooseCsv">Create my report</md-filled-button>
                 <md-filled-tonal-button id="trySample">Try sample report</md-filled-tonal-button>
+                <md-text-button data-file-guide="true">Where do I get this file?</md-text-button>
               </div>
               <div class="local-proof" id="privacy">
                 <span class="icon-glyph" aria-hidden="true" data-icon="verified_user"></span>
@@ -116,11 +117,17 @@ class MudBuddyApp extends HTMLElement {
           <article class="material-card helper-card">
             <p class="overline">Get your usage file</p>
             <h2>Download from EBMUD, then create your report.</h2>
-            <p>Log into EBMUD yourself, open Track Usage or My Water Report, and download your billing usage file. It may be labeled CSV or export. Mud Buddy never needs your login, MFA code, or browser session.</p>
+            <p>This usually takes about 3 minutes. Log into EBMUD yourself, open Track Usage or My Water Report, and download your billing usage file. It may be labeled CSV or export.</p>
+            <p class="helper-reassurance">This will not change your EBMUD account. Mud Buddy never needs your login, MFA code, or browser session.</p>
             <div class="mini-steps">
               <span><strong>1</strong> Log into EBMUD yourself</span>
-              <span><strong>2</strong> Download your usage file</span>
-              <span><strong>3</strong> Create your private report here</span>
+              <span><strong>2</strong> Open Track Usage or My Water Report</span>
+              <span><strong>3</strong> Download your usage file</span>
+              <span><strong>4</strong> Come back and create your private report</span>
+            </div>
+            <div class="helper-actions">
+              <md-filled-tonal-button data-file-guide="true">Show me the steps</md-filled-tonal-button>
+              <md-outlined-button href="https://www.ebmud.com/customers/account" target="_blank" rel="noreferrer">Open EBMUD account page</md-outlined-button>
             </div>
           </article>
 
@@ -158,13 +165,39 @@ class MudBuddyApp extends HTMLElement {
         <form slot="content" method="dialog">
           <p>The analyzer reads the selected usage file with your browser's file picker. It does not post the file, store it in browser storage, put it in a URL, or show the filename in the report.</p>
         </form>
-        <div slot="actions"><md-text-button formmethod="dialog">Close</md-text-button></div>
+        <div slot="actions"><md-text-button id="closeChecklist">Close</md-text-button></div>
+      </md-dialog>
+
+      <md-dialog id="usageFileDialog" aria-label="How to get your EBMUD usage file">
+        <div slot="headline">How to get your EBMUD usage file</div>
+        <form slot="content" method="dialog">
+          <p class="dialog-lede">You do not need to understand the file. Just download it from EBMUD and drop it into Mud Buddy.</p>
+          <ol class="dialog-steps">
+            <li>Log into your EBMUD account yourself.</li>
+            <li>Open Track Usage or My Water Report.</li>
+            <li>Look for Download your data, Export, or CSV.</li>
+            <li>Save the usage file, then come back here and choose Create my report.</li>
+          </ol>
+          <p class="dialog-note">Mud Buddy does not change your EBMUD account and never needs your password, MFA code, cookies, or browser session.</p>
+        </form>
+        <div slot="actions">
+          <md-text-button id="closeUsageFileGuide">Close</md-text-button>
+          <md-filled-tonal-button href="https://www.ebmud.com/customers/account" target="_blank" rel="noreferrer">Open EBMUD</md-filled-tonal-button>
+        </div>
       </md-dialog>
     `;
   }
 
   bind() {
     this.querySelector('#openChecklist').addEventListener('click', () => this.querySelector('#checklistDialog').show());
+    this.querySelector('#closeChecklist').addEventListener('click', () => this.querySelector('#checklistDialog').close());
+    this.querySelector('#closeUsageFileGuide').addEventListener('click', () => this.querySelector('#usageFileDialog').close());
+    this.querySelectorAll('[data-file-guide="true"]').forEach((node) => {
+      node.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.querySelector('#usageFileDialog').show();
+      });
+    });
 
     const input = this.querySelector('#csvInput');
     const openPicker = () => input.click();
