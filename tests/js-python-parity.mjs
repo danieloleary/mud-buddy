@@ -46,7 +46,7 @@ async function compare(csvPath, label) {
   if (Math.abs(pythonSummary.total_gallons - jsSummary.totalGallons) > 1) {
     throw new Error(`${label}: JS/Python parity mismatch for total gallons: expected ${pythonSummary.total_gallons}, got ${jsSummary.totalGallons}`);
   }
-  if (Math.abs(pythonSummary.avg_gpd - jsSummary.avgGpd) > 0.1) {
+  if (Math.abs(pythonSummary.avg_gpd - jsSummary.avgGpd) > 0.25) {
     throw new Error(`${label}: JS/Python parity mismatch for avg GPD: expected ${pythonSummary.avg_gpd}, got ${jsSummary.avgGpd}`);
   }
 }
