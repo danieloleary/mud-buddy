@@ -33,7 +33,7 @@ try {
     'How to get your EBMUD CSV.',
     'Official EBMUD resources',
     'For EBMUD review',
-    'Independent today. Collaboration-ready if EBMUD wants to explore it.'
+    'Independent today. Feedback-ready if EBMUD wants to review it.'
   ]) {
     if (!body.includes(required)) throw new Error(`Missing homeowner-facing text: ${required}`);
   }
@@ -59,7 +59,7 @@ try {
   for (const required of [
     'What should I check first?',
     'Normal daily use estimate',
-    'Likely outdoor watering',
+    'Pattern suggests outdoor watering',
     'Compared with the average-household benchmark in your export',
     'When to use EBMUD directly',
     'Billing questions',

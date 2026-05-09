@@ -19,7 +19,7 @@ I designed the prototype with conservative boundaries:
 
 This is not presented as a leak detector, billing tool, formal audit, or official EBMUD analysis. It is a customer education and usage-interpretation prototype.
 
-I would value EBMUD's feedback on whether this kind of browser-local tool could help customers understand high bills, irrigation-season usage, fixture checks, and conservation opportunities. If useful, I would be happy to explore a review, pilot, or co-release path with the appropriate EBMUD team.
+I would value EBMUD's feedback on whether this kind of browser-local tool could help customers understand high bills, irrigation-season usage, fixture checks, and conservation opportunities. If useful, I would be happy to explore a review or pilot path with the appropriate EBMUD team.
 
 Live prototype: https://danieloleary.github.io/mud-buddy/
 
@@ -28,4 +28,3 @@ GitHub repo: https://github.com/danieloleary/mud-buddy
 Thank you,
 
 Dan O'Leary
-

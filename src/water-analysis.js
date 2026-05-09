@@ -55,13 +55,13 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   if (seasonalLift >= 45) {
     insights.push({
       icon: 'yard',
-      title: 'Outdoor watering appears to explain most of the lift.',
-      text: 'The summer/fall average sits well above the winter/spring baseline. First check irrigation schedules, controller zones, runoff, and stressed planting areas.'
+      title: 'Pattern suggests outdoor watering is driving the lift.',
+      text: 'The summer/fall average sits well above normal daily use. Start with irrigation schedules, controller zones, runoff, and stressed planting areas.'
     });
   } else {
     insights.push({
       icon: 'home',
-      title: 'Seasonal outdoor lift looks modest.',
+      title: 'Outdoor watering does not stand out strongly.',
       text: 'The pattern does not scream irrigation by itself. Compare household routines, guests, laundry, showers, fixtures, and read-period length.'
     });
   }

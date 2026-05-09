@@ -178,9 +178,9 @@ export function renderBrowserReport(container, analysis, options = {}) {
       el('p', { text: 'Mud Buddy read the CSV in this page and created this report without uploading the file to a server.' })
     ]),
     el('div', { class: 'report-action-panel' }, [
-      el('div', { class: 'report-chip-row' }, [chip('Local only'), chip('CSV not uploaded'), chip('Private report')]),
-        el('div', { class: 'report-actions' }, [
-          el('md-filled-tonal-button', { id: 'analyzeAnother', 'data-testid': 'analyze-another', text: 'Analyze another CSV' }),
+      el('p', { class: 'report-action-note', text: 'Local only. CSV not uploaded. Private report.' }),
+      el('div', { class: 'report-actions' }, [
+        el('md-filled-tonal-button', { id: 'analyzeAnother', 'data-testid': 'analyze-another', text: 'Analyze another CSV' }),
         el('md-outlined-button', { id: 'printReport', text: 'Print or save PDF' })
       ])
     ])
@@ -199,7 +199,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
 
   root.append(el('div', { class: 'primary-kpis', 'data-testid': 'primary-kpis' }, [
     stat('Normal daily use estimate', `${analysis.baselineGpd} GPD`, 'kpi-baseline', true),
-    stat('Likely outdoor watering', `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
+    stat('Pattern suggests outdoor watering', `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
     stat('Highest-use period', `${analysis.peakPeriod.label} (${analysis.peakPeriod.gpd} GPD)`, 'kpi-peak', true)
   ]));
   root.append(el('p', { class: 'browser-kpi-note', text: 'GPD means gallons per day.' }));

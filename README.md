@@ -65,7 +65,7 @@ Use Mud Buddy when you want to understand patterns in your exported usage CSV be
 
 ## For EBMUD review
 
-Mud Buddy is independent today, but it is designed to be reviewable. If EBMUD wants to explore a customer-education, conservation, or co-release path, the guardrails are documented:
+Mud Buddy is independent today, but it is designed to be reviewable. If EBMUD wants to explore a customer-education, conservation, review, or pilot path, the guardrails are documented:
 
 - [EBMUD review brief](docs/ebmud-review-brief.md)
 - [Co-release proposal](docs/co-release-proposal.md)

@@ -73,13 +73,13 @@ try {
     'Try sample data',
     'High bill?',
     'Help save 1 million gallons this year.',
-    'Outdoor watering appears to explain most of the lift.',
+    'Pattern suggests outdoor watering is driving the lift.',
     'GPD = gallons/day',
     'No EBMUD password needed',
     'Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.',
     'Official EBMUD resources',
     'For EBMUD review',
-    'Independent today. Collaboration-ready if EBMUD wants to explore it.',
+    'Independent today. Feedback-ready if EBMUD wants to review it.',
     "Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.",
     'Not affiliated with EBMUD'
   ]) {

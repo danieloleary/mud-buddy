@@ -31,7 +31,7 @@ const sampleModes = {
   },
   irrigation: {
     label: 'Irrigation season',
-    title: 'Outdoor watering appears to explain most of the lift.',
+    title: 'Pattern suggests outdoor watering is driving the lift.',
     metric: '236 gallons/day',
     helper: 'Example pattern: summer and fall lift rise far above indoor baseline, then cool back down.',
     bars: [45, 47, 54, 67, 74, 88, 96, 94, 84, 70, 55, 47],
@@ -262,7 +262,7 @@ class MudBuddyApp extends HTMLElement {
           <div class="shell review-layout">
             <div>
               <p class="overline">For EBMUD review</p>
-              <h2>Independent today. Collaboration-ready if EBMUD wants to explore it.</h2>
+              <h2>Independent today. Feedback-ready if EBMUD wants to review it.</h2>
               <p>Mud Buddy is a working browser-local prototype for EBMUD customers. It is designed to help people understand their own exported usage data while routing official billing, emergency, rebate, assistance, outage, pressure, and water-quality questions back to EBMUD.</p>
               <p class="official-line">No EBMUD logo, partnership, endorsement, approval, or official status is claimed unless EBMUD explicitly authorizes it.</p>
             </div>
