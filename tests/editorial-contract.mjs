@@ -66,7 +66,10 @@ try {
     'When to use EBMUD directly',
     'Billing questions',
     'Recommended next checks',
+    'What Mud Buddy sees',
+    'This is a pattern read from your CSV, not an official EBMUD finding.',
     'Confidence and method',
+    'What would make this more certain',
     'Print or save PDF'
   ]) {
     if (!reportTextLower.includes(required.toLowerCase())) throw new Error(`Browser report still needs homeowner wording: ${required}`);
@@ -77,9 +80,12 @@ try {
   for (const oldLabel of ['Baseline estimate', 'Seasonal lift clue', 'Peer context:', 'Read-period notes', 'Print / save', 'Compared with similar homes', 'similar-home context', "for EBMUD - by Dan O'Leary", "for EBMUD Customers - by Dan O'Leary"]) {
     if (reportText.includes(oldLabel)) throw new Error(`Browser report still contains old jargon: ${oldLabel}`);
   }
+  for (const risky of ['appears to drive', 'proof of a leak', 'definitely a leak', 'official classification', 'Keep minutes steady']) {
+    if (reportTextLower.includes(risky.toLowerCase())) throw new Error(`Browser report sounds too definitive or stale: ${risky}`);
+  }
 
   await browser.close();
-  console.log('editorial-contract: OK simplified app and report are homeowner-first');
+  console.log('editorial-contract: OK v1.2 app and report are homeowner-first, evidence-based, and EBMUD-safe');
 } finally {
   server.kill();
 }

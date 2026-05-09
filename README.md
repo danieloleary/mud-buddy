@@ -45,6 +45,7 @@ Do not send raw CSVs publicly. Water-use data can reveal household routines.
 - Is the jump mostly yard watering or irrigation season?
 - Did our normal daily use change as the household changed?
 - Which billing period deserves attention first?
+- What evidence supports the top finding?
 - Do the patterns suggest a toilet dye test, meter test, irrigation walk-through, or official EBMUD resource?
 
 ## Privacy boundary

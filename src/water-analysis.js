@@ -24,6 +24,11 @@ function roundHalfEven(value) {
   return Math.round(value);
 }
 
+function signedGpd(value) {
+  const rounded = Math.round(value);
+  return `${rounded > 0 ? '+' : ''}${rounded} GPD`;
+}
+
 function formatMonth(date) {
   return new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' }).format(date);
 }
@@ -77,7 +82,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   if (hasPartialData) {
     addInsight({
       icon: 'query_stats',
-      priority: 110,
+      priority: 55,
       title: 'This is a short snapshot.',
       text: 'There is enough data for a first read, but not enough history for a confident trend. Treat the result as a starting hypothesis.'
     });
@@ -87,8 +92,8 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     insights.push({
       icon: 'yard',
       priority: 100 + Math.min(25, seasonalLift / 8),
-      title: 'Outdoor watering appears to drive the lift.',
-      text: `${peakSeasonOutdoor ? `The peak lands in ${peak.season.toLowerCase()}` : 'Warm-season use stands out'}, and the outdoor-season average is about ${seasonalLift} GPD above winter/spring. Check schedules, zones, runoff, overspray, and stressed planting areas.`
+      title: 'Outdoor watering is the first thing to check.',
+      text: `${peakSeasonOutdoor ? `The peak lands in ${peak.season.toLowerCase()}` : 'Warm-season use stands out'}, and warmer-season use averages about ${seasonalLift} GPD above winter/spring. That pattern often starts with irrigation schedules, zones, runoff, overspray, or stressed planting areas.`
     });
   } else {
     insights.push({
@@ -145,10 +150,55 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       icon: 'groups',
       priority: 58 + Math.min(18, (peerRatio - 1) * 40),
       title: 'Usage runs above the export benchmark.',
-      text: 'The benchmark in the CSV is context, not an official classification. Household size, daytime occupancy, irrigation, and leaks can all change the comparison.'
+      text: 'The benchmark in the CSV is context, not an EBMUD label. Household size, daytime occupancy, irrigation, and fixture issues can all change the comparison.'
     });
   }
   insights.sort((a, b) => b.priority - a.priority);
+
+  const dataQualityNote = `${rows.length} usable billing period${rows.length === 1 ? '' : 's'}; ${invalidRows.length} skipped row${invalidRows.length === 1 ? '' : 's'}.`;
+  const confidence = hasPartialData || invalidRows.length + warnings.length >= 3
+    ? {
+        label: 'Limited',
+        reason: 'There is enough to form a first hypothesis, but not enough clean history to treat any pattern as settled.'
+      }
+    : rows.length >= 12 && !warnings.length && invalidRows.length === 0
+      ? {
+          label: 'Useful',
+          reason: 'The export has enough clean billing periods for practical pattern clues and next checks.'
+        }
+      : {
+          label: 'Usable',
+          reason: 'The export is good enough for a homeowner read, but household context still matters.'
+        };
+
+  const evidencePoints = [
+    {
+      label: 'Peak vs normal',
+      value: `${formatMonth(peak.date)} is ${Math.max(0, peakDelta)} GPD above normal daily use.`
+    },
+    {
+      label: 'Outdoor signal',
+      value: seasonalLift > 0
+        ? `Summer/fall averages ${seasonalLift} GPD above winter/spring.`
+        : 'Summer/fall does not sit above winter/spring in this export.'
+    },
+    {
+      label: 'Normal-use drift',
+      value: Math.abs(baselineChange) >= 10
+        ? `Later periods are ${signedGpd(baselineChange)} versus earlier periods.`
+        : 'Earlier and later periods are close enough to look steady.'
+    },
+    {
+      label: 'Data quality',
+      value: dataQualityNote
+    }
+  ];
+
+  const uncertaintyNotes = [
+    'Confirm the timing against real life: guests, kids home, travel, landscaping, repairs, rain, heat, or controller changes.',
+    'Use simple field checks before assuming a cause: irrigation walk-through, toilet dye test, and meter-stillness check.',
+    'Use official EBMUD channels for billing, emergency, pressure, outage, rebate, assistance, or water-quality questions.'
+  ];
 
   const expertNotes = [
     `Peak period: ${formatMonth(peak.date)} at ${Math.round(peak.gpd)} GPD, about ${Math.max(0, peakDelta)} GPD above normal daily use.`,
@@ -157,9 +207,10 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   ];
 
   const recommendedChecks = [];
+  const officialCheck = 'Use EBMUD directly for billing, rebates, outages, pressure, water quality, assistance, emergency service, or official account questions.';
   if (irrigationLikely) {
     recommendedChecks.push('Run each irrigation zone for 3 minutes. Look for wet spots, broken or leaning heads, misting, weak spray, clogged drip emitters, runoff, and overspray onto pavement.');
-    recommendedChecks.push('Keep minutes steady but adjust watering days by season. Summer usually needs more days; fall rains should reduce the schedule.');
+    recommendedChecks.push('Compare your controller schedule with current EBMUD watering guidance and recent weather. Look for too many watering days, rain-delay misses, runoff, or zones running longer than the yard needs.');
   } else {
     recommendedChecks.push(`Start with ${formatMonth(peak.date)}: note guests, laundry, showers, weather, landscaping, pools/spas, or any controller changes.`);
   }
@@ -173,7 +224,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   if (erraticPattern) recommendedChecks.push('Check for controller schedule drift, stuck valves, skipped rain-delay settings, or one-off household events before assuming a permanent trend.');
   if (flatlinePattern) recommendedChecks.push('If usage looks weirdly flat, compare read periods and consider a meter check if the pattern does not match real life.');
   if (invalidRows.length || warnings.length) recommendedChecks.push('Review CSV notes and billing-period length before comparing one period too literally.');
-  recommendedChecks.push('Use EBMUD directly for billing, rebates, outages, pressure, water quality, assistance, emergency service, or official account questions.');
+  recommendedChecks.push(officialCheck);
 
   return {
     validRows: rows.length,
@@ -190,8 +241,11 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     },
     peerComparison: peerRatio === null ? 'not enough benchmark data in this export' : `${Math.round(peerRatio * 100)}% of the average-household benchmark in this export`,
     baselineChange: Math.round(baselineChange),
+    confidence,
+    evidencePoints,
     expertNotes,
-    recommendedChecks: recommendedChecks.slice(0, 4),
+    uncertaintyNotes,
+    recommendedChecks: [...recommendedChecks.filter((check) => check !== officialCheck).slice(0, 3), officialCheck],
     variabilityGpd: Math.round(gpdStdDev),
     seasonAverages: {
       Winter: Math.round(seasonAverage(rows, 'Winter')),

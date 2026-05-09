@@ -85,6 +85,9 @@ const officialLinks = [
 ];
 
 function confidenceFor(analysis) {
+  if (analysis.confidence?.label && analysis.confidence?.reason) {
+    return `${analysis.confidence.label}: ${analysis.confidence.reason}`;
+  }
   const warningLoad = analysis.warnings.length + analysis.invalidRows;
   if (analysis.validRows < 6 || warningLoad >= 3) return 'Limited data: treat the findings as prompts to review, not conclusions.';
   if (analysis.validRows >= 10 && warningLoad === 0) return 'Good signal: the export has enough clean billing history for useful pattern clues.';
@@ -132,6 +135,25 @@ function renderNextChecks(analysis) {
   ]);
 }
 
+function renderEvidencePanel(analysis) {
+  if (!Array.isArray(analysis.evidencePoints) || !analysis.evidencePoints.length) return null;
+  const list = el('div', { class: 'evidence-grid' });
+  for (const item of analysis.evidencePoints.slice(0, 4)) {
+    list.append(el('article', {}, [
+      el('span', { text: item.label }),
+      el('strong', { text: item.value })
+    ]));
+  }
+  return el('section', { class: 'evidence-card' }, [
+    el('div', { class: 'section-title-row' }, [
+      el('h3', { text: 'What Mud Buddy sees' }),
+      el('p', { text: analysis.confidence?.label ? `Confidence: ${analysis.confidence.label}` : 'Pattern clues, not diagnosis.' })
+    ]),
+    el('p', { class: 'evidence-prompt', text: 'What would make this more certain: match these clues against household changes, recent weather, and simple field checks.' }),
+    list
+  ]);
+}
+
 function renderInsightList(analysis) {
   const supportingInsights = analysis.insights.slice(1);
   if (!supportingInsights.length) return null;
@@ -166,12 +188,17 @@ function renderCsvNotes(analysis) {
 }
 
 function renderMethodDetails(analysis) {
+  const certaintyList = el('ul', { class: 'certainty-list' });
+  const notes = Array.isArray(analysis.uncertaintyNotes) ? analysis.uncertaintyNotes : [];
+  for (const note of notes.slice(0, 3)) certaintyList.append(el('li', { text: note }));
   return el('details', { class: 'method-details' }, [
     el('summary', { text: 'Confidence and method' }),
     el('p', { text: confidenceFor(analysis) }),
     el('p', { text: `How Mud Buddy decides this: it estimates normal daily use from winter and spring periods, compares warmer-season use against that estimate, checks whether the baseline is drifting, highlights the highest-use billing period, and reports ${analysis.invalidRows} skipped row${analysis.invalidRows === 1 ? '' : 's'} from this export.` }),
+    el('h4', { text: 'What would make this more certain' }),
+    certaintyList,
     el('p', { text: 'GPD is averaged across each billing period, so one row is not proof of what happened on one exact day.' }),
-    el('p', { text: 'These are heuristic pattern clues. They are not official EBMUD classifications, normalized customer comparisons, leak diagnoses, billing findings, plumbing inspections, or certified conservation measurements.' })
+    el('p', { text: 'These are heuristic pattern clues. They are not EBMUD labels, normalized customer comparisons, leak diagnoses, billing findings, plumbing inspections, or certified conservation measurements.' })
   ]);
 }
 
@@ -227,12 +254,14 @@ export function renderBrowserReport(container, analysis, options = {}) {
       el('span', { text: 'Start here' }),
       el('h3', { text: topInsight.title }),
       el('p', { text: topInsight.text }),
+      el('p', { class: 'report-caution', text: 'This is a pattern read from your CSV, not an official EBMUD finding.' }),
       renderExpertNotes(analysis)
     ])
   ]));
 
   const insightList = renderInsightList(analysis);
   if (insightList) root.append(insightList);
+  root.append(renderEvidencePanel(analysis));
   root.append(renderNextChecks(analysis));
 
   root.append(el('section', { class: 'key-numbers-card' }, [

@@ -74,6 +74,29 @@ try {
     for (const required of goldenExpectations[item.flavor] || []) {
       if (!reportText.includes(required)) throw new Error(`${item.flavor} browser report missing golden expectation: ${required}`);
     }
+    for (const required of [
+      'Recommended next checks',
+      'Use EBMUD directly',
+      'What Mud Buddy sees',
+      'This is a pattern read from your CSV, not an official EBMUD finding.',
+      'Pattern clues only',
+      'Not affiliated with EBMUD'
+    ]) {
+      if (!reportText.toLowerCase().includes(required.toLowerCase())) {
+        throw new Error(`${item.flavor} report missing safety/usefulness language: ${required}`);
+      }
+    }
+    for (const forbiddenTone of [
+      'appears to drive',
+      'proof of a leak',
+      'definitely a leak',
+      'official classification',
+      'Keep minutes steady'
+    ]) {
+      if (reportText.toLowerCase().includes(forbiddenTone.toLowerCase())) {
+        throw new Error(`${item.flavor} report sounds too official/diagnostic or stale: ${forbiddenTone}`);
+      }
+    }
     const firstRawDataRow = csvText.split(/\r?\n/).find((line, index) => index > 0 && line.trim()) || '';
     for (const forbidden of [
       item.file,

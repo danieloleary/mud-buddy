@@ -1,10 +1,11 @@
 # Roadmap
 
-## 1.1 EBMUD Review Readiness
+## 1.2 EBMUD Review Readiness
 
 - Make **Mud Buddy** the product hero; keep Dan O'Leary as maker/maintainer attribution in supporting areas.
 - Add EBMUD-review docs: review brief, responsible use, browser-local proof, co-release proposal, and outreach email draft.
-- Add browser report confidence labels, recommended next steps, and a short methodology explainer.
+- Add browser report confidence labels, recommended next steps, a short methodology explainer, and a visible evidence layer for why the top finding was chosen.
+- Soften report findings into heuristic pattern clues: first checks, evidence, and uncertainty, not official classifications or diagnoses.
 - Keep co-release language conservative: no official, approved, endorsed, partner, or co-branded wording unless EBMUD authorizes it in writing.
 - Validate with `npm run validate`, explicit Dan-local CSV QA, GitHub Actions, Pages deploy, and live smoke checks before outreach.
 

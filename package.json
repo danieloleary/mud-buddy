@@ -1,6 +1,6 @@
 {
   "name": "mud-buddy-by-danno",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "description": "Mud Buddy: a private browser-local water-use report for EBMUD customers.",

@@ -33,7 +33,7 @@ Lovable is best for prototyping UI ideas from a concise app brief. Do not assume
 Pasteable app brief:
 
 ```text
-Build a local-first static web app called Mud Buddy. It helps EBMUD customers understand an exported usage CSV with trends, seasonal irrigation lift, possible leak clues, and public-safe summaries. The app must say it is not affiliated with EBMUD and must never ask for passwords or session data. Include clear instructions to download the CSV manually from EBMUD, analyze locally, and use --public/redaction checks before sharing. Add official EBMUD resource links for account, billing, leaks/high bills, conservation/rebates, WaterSmart gardener, alerts/outages, water quality, customer assistance, and contact/emergency.
+Build a local-first static web app called Mud Buddy. It helps EBMUD customers understand an exported usage CSV with trends, seasonal irrigation lift, fixture/leak patterns worth checking, and public-safe summaries. The app must say it is not affiliated with EBMUD and must never ask for passwords or session data. Include clear instructions to download the CSV manually from EBMUD, analyze locally, and use --public/redaction checks before sharing. Add official EBMUD resource links for account, billing, leaks/high bills, conservation/rebates, WaterSmart gardener, alerts/outages, water quality, customer assistance, and contact/emergency.
 ```
 
 ## Common setup and validation

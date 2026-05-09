@@ -39,6 +39,10 @@ try {
     'Uploaded CSV analyzed locally',
     'Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
     'CSV notes',
+    'What Mud Buddy sees',
+    'This is a pattern read from your CSV, not an official EBMUD finding.',
+    'What would make this more certain',
+    'Use EBMUD directly',
     'Water use over time',
     'Average use by season',
     'Pattern clues only'

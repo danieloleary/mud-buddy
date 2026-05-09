@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0 - Report intelligence and EBMUD-safe evidence layer
+
+- Added a compact evidence layer to the browser report so customers can see why Mud Buddy chose the top finding.
+- Added visible non-official caution directly in the report summary.
+- Softened outdoor-watering language from diagnostic claims to first-check pattern clues.
+- Preserved official EBMUD routing inside recommended next checks even when several household checks are present.
+- Added v1.2 test assertions for evidence, official-routing, non-diagnostic language, and synthetic scenario coverage.
+- Kept the app browser-local, credential-free, independent, and focused on practical homeowner next checks.
+
 ## 1.1.0 - EBMUD review readiness
 
 - Shifted public branding to product-first `Mud Buddy`, with Dan attribution limited to maintainer/contact context.

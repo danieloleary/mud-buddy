@@ -1,6 +1,6 @@
 # Backlog
 
-## Completed For 1.1.0 Review Candidate
+## Completed For 1.2.0 Review Candidate
 
 - Homeowner-first browser app on GitHub Pages: upload an EBMUD CSV, analyze it locally in the browser, and render an in-page report.
 - Browser parser and analysis modules with JS/Python parity checks.
@@ -13,6 +13,7 @@
 - Product-first branding: Mud Buddy is the app, with Dan as maker/maintainer attribution.
 - EBMUD-review docs: review brief, responsible use, browser-local proof, co-release proposal, and outreach email draft.
 - Browser report confidence labels, recommended next steps, and plain-English methodology explainer.
+- Browser report evidence layer: peak-vs-normal, outdoor signal, normal-use drift, data quality, and visible non-official caution.
 
 ## Must Finish Before Broad Launch
 

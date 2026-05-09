@@ -119,7 +119,7 @@ https://danieloleary.github.io/mud-buddy/
 
 2. The app is simple: download your EBMUD usage CSV, upload it to Mud Buddy, and get a browser-local explanation of what changed.
 
-3. It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, average-household benchmark context, and possible fixture/toilet clues.
+3. It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, average-household benchmark context, and fixture/toilet patterns worth checking.
 
 4. It is not affiliated with EBMUD, not a leak detector, not billing advice, and not a plumbing inspection. Official account/billing/emergency/rebate actions happen on EBMUD's site.
 
@@ -133,7 +133,7 @@ https://danieloleary.github.io/mud-buddy/
 
 I shipped Mud Buddy, a free browser-local tool for EBMUD customers.
 
-It turns an exported EBMUD water-use CSV into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, possible fixture checks, and practical next steps.
+It turns an exported EBMUD water-use CSV into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, fixture checks worth considering, and practical next steps.
 
 The goal is not to replace EBMUD, plumbers, or conservation experts. Mud Buddy is an interpretation layer that helps people understand their own usage data before deciding what to check next.
 
@@ -167,7 +167,7 @@ Comment:
 ```text
 Hi HN, I built Mud Buddy after digging into my own EBMUD water-use data and realizing the raw CSV was hard to interpret without household context.
 
-It turns an EBMUD usage export into a browser-local, plain-English report: gallons-per-day trends, baseline changes, irrigation lift, peer context, possible fixture/leak clues, and practical next checks.
+It turns an EBMUD usage export into a browser-local, plain-English report: gallons-per-day trends, baseline changes, irrigation lift, peer context, fixture/leak patterns worth checking, and practical next checks.
 
 The privacy boundary is important: no EBMUD password, no credential automation, no server upload for the primary flow. It is not affiliated with EBMUD and is not a leak detector, billing tool, or official utility analysis.
 

@@ -13,7 +13,8 @@
 ## Browser Report
 
 - Report includes a `What should I check first?` summary.
-- Report includes confidence labels, recommended next steps, and a short `How Mud Buddy decides this` explanation.
+- Report includes confidence labels, recommended next steps, a `What Mud Buddy sees` evidence panel, and a short `How Mud Buddy decides this` explanation.
+- Report includes a visible caution that the summary is a pattern read from the CSV, not an official EBMUD finding.
 - Report includes normal daily use estimate, likely outdoor watering, highest-use period, water use over time, average use by season, and data-quality notes.
 - Browser report does not render private filename, account number, meter ID, service address, local path, raw CSV rows, or exact private identifiers.
 - Oversized CSVs and unusually large row counts are rejected with clear messages.
