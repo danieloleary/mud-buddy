@@ -44,8 +44,17 @@ jobs:
       - name: Generate release artifacts
         run: npm run generate:sample && npm run generate:synthetic && npm run generate:visuals && npm run build && npm run package:public
 
-      - name: Browser-local analyzer tests
-        run: npm run test:csv-parser && npm run test:js-python-parity && npm run test:landing && npm run test:browser-upload && npm run test:browser-upload-synthetic && npm run test:browser-upload-errors && npm run test:browser-upload-privacy && npm run test:browser-upload-hardened-privacy && npm run test:browser-upload-network
+      - name: Browser parser and parity tests
+        run: npm run test:csv-parser && npm run test:js-python-parity
+
+      - name: Landing and upload smoke tests
+        run: npm run test:landing && npm run test:browser-upload
+
+      - name: Browser upload matrix and error tests
+        run: npm run test:browser-upload-synthetic && npm run test:browser-upload-errors
+
+      - name: Browser upload privacy and network tests
+        run: npm run test:browser-upload-privacy && npm run test:browser-upload-hardened-privacy && npm run test:browser-upload-network
 
       - name: Report and mock browser-flow tests
         run: npm run test:synthetic-report-results && npm run test:report && npm run test:browser-flow && npm run test:browser-flow-safety && npm run test:privacy && npm run test:csv-provision && npm run test:synthetic && npm run test:data-contract
