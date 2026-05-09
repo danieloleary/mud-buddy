@@ -1,5 +1,18 @@
 # Launch Copy
 
+## Quiet Beta DM
+
+I built a small browser-local tool called Mud Buddy for EBMUD customers.
+
+Could you try it for 5-10 minutes?
+
+1. Open https://danieloleary.github.io/mud-buddy/
+2. Click `Try sample data` first.
+3. If you are comfortable, download your own EBMUD usage CSV and upload it.
+4. Tell me where you got stuck, what the report made clear, and what still felt confusing.
+
+Privacy note: the CSV is read in your browser and is not uploaded to a Mud Buddy server. Please do not send me your raw CSV unless you explicitly want private help debugging it.
+
 ## X Single Post
 
 I built Mud Buddy - a free browser-local tool for East Bay water customers.

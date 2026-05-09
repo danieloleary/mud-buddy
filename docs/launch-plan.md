@@ -63,6 +63,12 @@ Share privately with 3-5 trusted people and ask:
 
 Fix only launch-blocking confusion, broken links, or privacy concerns.
 
+Use [beta-test-plan.md](beta-test-plan.md) as the script and [mobile-qa-checklist.md](mobile-qa-checklist.md) for phone checks.
+
+Do not broaden launch until at least one non-Dan real CSV has worked through the live browser app.
+
+Do not add a backend, accounts, analytics, credential automation, or certified savings claims during quiet beta.
+
 ### Phase 2: Personal social launch
 
 Post first on X, then LinkedIn, from Dan's personal account.

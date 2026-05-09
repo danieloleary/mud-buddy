@@ -26,6 +26,19 @@ Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pat
 
 You can also choose `Try sample data` on the site to see the flow with synthetic public-safe data.
 
+## Quiet beta ask
+
+Mud Buddy is ready for a small real-user beta before broad launch. If you are an EBMUD customer, try the sample flow first, then upload your own usage CSV if you are comfortable.
+
+Please share:
+
+- where you got stuck;
+- whether the privacy promise was clear;
+- whether the report helped you know what to check first;
+- whether anything sounded too official, too technical, or too confident.
+
+Do not send raw CSVs publicly. Water-use data can reveal household routines.
+
 ## What Mud Buddy helps answer
 
 - Did our water use actually change, or was the bill period just longer?
@@ -68,6 +81,7 @@ Use Mud Buddy when you want to understand patterns in your exported usage CSV be
 Mud Buddy is independent today, but it is designed to be reviewable. If EBMUD wants to explore a customer-education, conservation, review, or pilot path, the guardrails are documented:
 
 - [EBMUD review brief](docs/ebmud-review-brief.md)
+- [EBMUD outreach packet](docs/ebmud-outreach-packet.md)
 - [Co-release proposal](docs/co-release-proposal.md)
 - [Responsible use](docs/responsible-use.md)
 - [Browser-local proof](docs/browser-local-proof.md)
@@ -179,6 +193,8 @@ Release and QA docs:
 
 - [docs/release-management.md](docs/release-management.md)
 - [docs/release-checklist.md](docs/release-checklist.md)
+- [docs/beta-test-plan.md](docs/beta-test-plan.md)
+- [docs/mobile-qa-checklist.md](docs/mobile-qa-checklist.md)
 - [docs/acceptance-criteria.md](docs/acceptance-criteria.md)
 - [docs/backlog.md](docs/backlog.md)
 - [SECURITY.md](SECURITY.md)

@@ -22,6 +22,9 @@
 - Run live smoke checks for homepage, browser upload, sample data, sample report, docs, approved visual assets, social card, and ZIP.
 - Confirm public scans find no real CSV, address, account number, meter ID, local path, browser trace, private report, authenticated screenshot, or private filename.
 - Do a final mobile/desktop read-through as a homeowner, not a maintainer.
+- Run quiet beta with 3-5 trusted EBMUD customers.
+- Confirm at least one non-Dan real CSV works through the live browser app.
+- Review feedback for launch-blocking CSV-download, privacy, report-language, and mobile issues.
 
 ## Near-Term Product Polish
 
