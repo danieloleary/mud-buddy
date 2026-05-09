@@ -6,12 +6,23 @@ if (!args.length) {
   process.exit(1);
 }
 
-const command = process.platform === 'win32' ? 'python' : 'python3';
-const result = spawnSync(command, args, { stdio: 'inherit' });
+const commands = process.env.PYTHON
+  ? [process.env.PYTHON]
+  : (process.platform === 'win32' ? ['python'] : ['python', 'python3']);
 
-if (result.error) {
-  console.error(`Failed to run ${command}: ${result.error.message}`);
-  process.exit(1);
+let lastError;
+for (const command of commands) {
+  const result = spawnSync(command, args, { stdio: 'inherit' });
+  if (result.error?.code === 'ENOENT') {
+    lastError = result.error;
+    continue;
+  }
+  if (result.error) {
+    console.error(`Failed to run ${command}: ${result.error.message}`);
+    process.exit(1);
+  }
+  process.exit(result.status ?? 1);
 }
 
-process.exit(result.status ?? 1);
+console.error(`Failed to run Python: ${lastError?.message || 'no executable found'}`);
+process.exit(1);

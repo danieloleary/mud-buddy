@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.platform === 'win32' ? 'python' : 'python3';
+const py = process.env.PYTHON || 'python';
 const zipPath = path.join(root, 'public-site', 'mud-buddy-by-danno.zip');
 try { await fs.access(zipPath); } catch { throw new Error('public ZIP missing; run npm run package:public first'); }
 const code = `import json\nfrom zipfile import ZipFile\nwith ZipFile(r'''${zipPath}''') as z:\n    print(json.dumps(sorted(z.namelist())))\n`;

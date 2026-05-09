@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const flavorsDir = path.join(root, 'tests', 'output', 'synthetic-flavors');
 const summaryDir = path.join(root, 'tests', 'output', 'synthetic-summary-contract');
-const py = process.platform === 'win32' ? 'python' : 'python3';
+const py = process.env.PYTHON || 'python';
 
 function parseCsv(text) {
   const rows = [];

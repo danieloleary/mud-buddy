@@ -7,7 +7,7 @@ import { analyzeWaterUse } from '../src/water-analysis.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.platform === 'win32' ? 'python' : 'python3';
+const py = process.env.PYTHON || 'python';
 const outRoot = path.join(root, 'tests', 'output', 'js-python-parity');
 await fs.rm(outRoot, { recursive: true, force: true });
 await fs.mkdir(outRoot, { recursive: true });

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.platform === 'win32' ? 'python' : 'python3';
+const py = process.env.PYTHON || 'python';
 const portalPath = path.join(root, 'tests', 'mock-ebmud-portal', 'index.html');
 const html = await fs.readFile(portalPath, 'utf8');
 for (const forbidden of [/type=["']password/i, /localStorage\s*[.=]/, /sessionStorage\s*[.=]/, /document\.cookie/i, /Authorization:\s*Bearer/i]) {

@@ -1,4 +1,4 @@
-﻿import { spawn } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const flavorsDir = path.join(root, 'tests', 'output', 'synthetic-flavors');
 const manifestPath = path.join(flavorsDir, 'manifest.json');
-const py = process.platform === 'win32' ? 'python' : 'python3';
+const py = process.env.PYTHON || 'python';
 
 try {
   await fs.access(manifestPath);

@@ -1,4 +1,4 @@
-﻿import fs from 'node:fs/promises';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { spawn } from 'node:child_process';
@@ -55,7 +55,7 @@ await copyIfExists(path.join(root, 'docs'), path.join(publicDir, 'docs'));
 await fs.rm(staging, { recursive: true, force: true });
 await copyFiltered(root, staging);
 await fs.rm(zipPath, { force: true });
-await run(process.platform === 'win32' ? 'python' : 'python3', [
+await run(process.env.PYTHON || 'python', [
   '-c',
   'import pathlib, sys, zipfile; root=pathlib.Path(sys.argv[1]); out=pathlib.Path(sys.argv[2]); out.parent.mkdir(parents=True, exist_ok=True); z=zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED); [z.write(p, p.relative_to(root).as_posix()) for p in root.rglob("*") if p.is_file()]; z.close()',
   staging,

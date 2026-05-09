@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.platform === 'win32' ? 'python' : 'python3';
+const py = process.env.PYTHON || 'python';
 
 async function findCsv() {
   if (process.env.MUD_BUDDY_REAL_CSV) return process.env.MUD_BUDDY_REAL_CSV;

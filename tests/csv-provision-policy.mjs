@@ -14,7 +14,7 @@ await fs.writeFile(csvPath, `Account Number,Reading Date,Days in Read Period,Met
 
 const privateOut = path.join(output, 'private-report');
 await new Promise((resolve, reject) => {
-  const child = spawn(process.platform === 'win32' ? 'python' : 'python3', ['scripts/generate_report.py', csvPath, '--out', privateOut], { cwd: root, stdio: 'inherit' });
+  const child = spawn(process.env.PYTHON || 'python', ['scripts/generate_report.py', csvPath, '--out', privateOut], { cwd: root, stdio: 'inherit' });
   child.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`private report generator exited ${code}`)));
 });
 const html = await fs.readFile(path.join(privateOut, 'index.html'), 'utf8');

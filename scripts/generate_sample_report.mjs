@@ -1,4 +1,4 @@
-﻿import { spawn } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -13,7 +13,7 @@ await fs.rm(dest, { recursive: true, force: true });
 await fs.mkdir(tmp, { recursive: true });
 await fs.mkdir(path.dirname(dest), { recursive: true });
 await new Promise((resolve, reject) => {
-  const child = spawn(process.platform === 'win32' ? 'python' : 'python3', ['scripts/generate_report.py', 'examples/sample-ebmud-usage.csv', '--out', tmp, '--public'], { cwd: root, stdio: 'inherit' });
+  const child = spawn(process.env.PYTHON || 'python', ['scripts/generate_report.py', 'examples/sample-ebmud-usage.csv', '--out', tmp, '--public'], { cwd: root, stdio: 'inherit' });
   child.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`report generator exited ${code}`)));
 });
 await fs.cp(tmp, dest, { recursive: true });

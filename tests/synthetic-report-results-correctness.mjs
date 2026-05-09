@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.platform === 'win32' ? 'python' : 'python3';
+const py = process.env.PYTHON || 'python';
 const flavorsDir = path.join(root, 'tests', 'output', 'synthetic-flavors');
 const reportsDir = path.join(root, 'tests', 'output', 'synthetic-results-correctness');
 const manifestPath = path.join(flavorsDir, 'manifest.json');

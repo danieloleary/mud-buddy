@@ -1,4 +1,4 @@
-﻿import { spawn } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { chromium } from '@playwright/test';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -28,7 +28,7 @@ if (!stat.size) throw new Error('Downloaded CSV was empty');
 const reportOut = path.join(output, 'mock-report');
 await fs.rm(reportOut, { recursive: true, force: true });
 await new Promise((resolve, reject) => {
-  const child = spawn(process.platform === 'win32' ? 'python' : 'python3', ['scripts/generate_report.py', csvPath, '--out', reportOut, '--public'], { cwd: root, stdio: 'inherit' });
+  const child = spawn(process.env.PYTHON || 'python', ['scripts/generate_report.py', csvPath, '--out', reportOut, '--public'], { cwd: root, stdio: 'inherit' });
   child.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`report generator exited ${code}`)));
 });
 await fs.access(path.join(reportOut, 'index.html'));

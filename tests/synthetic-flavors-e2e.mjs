@@ -1,4 +1,4 @@
-﻿import { spawn } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,7 +22,7 @@ async function readManifest() {
   try {
     return JSON.parse(await fs.readFile(manifestPath, 'utf8'));
   } catch {
-    await run(process.platform === 'win32' ? 'python' : 'python3', ['scripts/generate_synthetic_flavors.py']);
+    await run(process.env.PYTHON || 'python', ['scripts/generate_synthetic_flavors.py']);
     return JSON.parse(await fs.readFile(manifestPath, 'utf8'));
   }
 }
@@ -46,8 +46,8 @@ for (const item of manifest.flavors) {
 
   const privateOut = path.join(reportsDir, item.flavor, 'private');
   const publicOut = path.join(reportsDir, item.flavor, 'public');
-  await run(process.platform === 'win32' ? 'python' : 'python3', ['scripts/generate_report.py', csvPath, '--out', privateOut]);
-  await run(process.platform === 'win32' ? 'python' : 'python3', ['scripts/generate_report.py', csvPath, '--out', publicOut, '--public']);
+  await run(process.env.PYTHON || 'python', ['scripts/generate_report.py', csvPath, '--out', privateOut]);
+  await run(process.env.PYTHON || 'python', ['scripts/generate_report.py', csvPath, '--out', publicOut, '--public']);
 
   for (const out of [privateOut, publicOut]) {
     await fs.access(path.join(out, 'index.html'));
