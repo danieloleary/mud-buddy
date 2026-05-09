@@ -19,6 +19,15 @@ process.on('uncaughtException', (error) => {
 
 await fs.rm(outRoot, { recursive: true, force: true });
 await fs.mkdir(outRoot, { recursive: true });
+const strictNumericFixture = path.join(outRoot, 'strict-numeric-fixture.csv');
+await fs.writeFile(strictNumericFixture, `Account Number,Reading Date,Days in Read Period,Meter Reading,CCF,Customer GPD,Average Households GPD,Top 20% GPD,WaterScore,Meter Class,Meter
+PUBLIC-SAMPLE,2026-01-01,30,,0,0,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-02-01,30,,6,150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-03-01,0,,6,150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-04-01,30,,-6,150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-05-01,30,,0x10,150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-06-01,30,,6,1e3,150,90,average,SFR,MTR
+`, 'utf8');
 
 function runSummary(csvPath, label) {
   const out = path.join(outRoot, label.replace(/[^a-z0-9_-]/gi, '-'));
@@ -52,6 +61,7 @@ async function compare(csvPath, label) {
 }
 
 await compare(path.join(root, 'examples', 'sample-ebmud-usage.csv'), 'sample');
+await compare(strictNumericFixture, 'strict-numeric');
 const manifestPath = path.join(root, 'tests', 'output', 'synthetic-flavors', 'manifest.json');
 try {
   await fs.access(manifestPath);

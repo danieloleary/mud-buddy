@@ -55,7 +55,7 @@
 - [ ] Disclaimer is visible.
 - [ ] Privacy language is visible.
 - [ ] EBMUD-review section is visible and does not imply endorsement, approval, partnership, or official status.
-- [ ] 1M-gallon mission language is present and framed as potential/helped-save.
+- [ ] Millions-of-gallons mission language is present and framed as potential/helped-save, with 1M gallons as the first milestone.
 
 ## Release
 

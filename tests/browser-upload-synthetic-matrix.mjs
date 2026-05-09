@@ -10,6 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const flavorsDir = path.join(root, 'tests', 'output', 'synthetic-flavors');
 const manifestPath = path.join(flavorsDir, 'manifest.json');
+const expectationsPath = path.join(root, 'tests', 'fixtures', 'synthetic-browser-expectations.json');
 const py = process.env.PYTHON || 'python';
 
 try {
@@ -38,6 +39,7 @@ const server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'previe
 try {
   await waitFor(url);
   const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+  const goldenExpectations = JSON.parse(await fs.readFile(expectationsPath, 'utf8'));
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   const errors = [];
@@ -68,6 +70,9 @@ try {
       expected.insights[0].title
     ]) {
       if (!reportText.includes(required)) throw new Error(`${item.flavor} browser report missing expected value: ${required}`);
+    }
+    for (const required of goldenExpectations[item.flavor] || []) {
+      if (!reportText.includes(required)) throw new Error(`${item.flavor} browser report missing golden expectation: ${required}`);
     }
     const firstRawDataRow = csvText.split(/\r?\n/).find((line, index) => index > 0 && line.trim()) || '';
     for (const forbidden of [

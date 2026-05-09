@@ -6,10 +6,12 @@ export const REQUIRED_COLUMNS = [
   'CCF',
   'Customer GPD'
 ];
+export const TOO_MANY_ROWS_MESSAGE = 'That CSV has too many rows for the browser demo. Please use an EBMUD billing usage export with fewer than 5,000 rows.';
 
 export function num(value) {
   const text = String(value ?? '').trim();
   if (!text || ['N/A', 'NA'].includes(text.toUpperCase())) return null;
+  if (!/^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(text)) return null;
   const parsed = Number(text.replace(/,/g, ''));
   return Number.isFinite(parsed) ? parsed : null;
 }
@@ -21,12 +23,16 @@ export function seasonFor(month) {
   return 'Fall';
 }
 
-export function parseCsv(text) {
+export function parseCsv(text, { maxRows = Infinity } = {}) {
   const input = String(text ?? '').replace(/^\uFEFF/, '');
   const rows = [];
   let row = [];
   let cell = '';
   let quoted = false;
+  const pushRow = () => {
+    rows.push(row);
+    if (rows.length > maxRows) throw new Error(TOO_MANY_ROWS_MESSAGE);
+  };
 
   for (let i = 0; i < input.length; i += 1) {
     const ch = input[i];
@@ -48,7 +54,7 @@ export function parseCsv(text) {
       cell = '';
     } else if (ch === '\n') {
       row.push(cell.replace(/\r$/, ''));
-      rows.push(row);
+      pushRow();
       row = [];
       cell = '';
     } else {
@@ -57,7 +63,7 @@ export function parseCsv(text) {
   }
   if (cell || row.length) {
     row.push(cell.replace(/\r$/, ''));
-    rows.push(row);
+    pushRow();
   }
   return rows.filter((cells) => cells.some((value) => String(value).trim()));
 }
@@ -81,8 +87,8 @@ function parseStrictDate(dateText) {
   return date;
 }
 
-export function parseEbmudCsv(csvText) {
-  const table = parseCsv(csvText);
+export function parseEbmudCsv(csvText, options = {}) {
+  const table = parseCsv(csvText, options);
   if (table.length < 2) {
     throw new Error('This CSV does not include enough rows to analyze.');
   }
@@ -105,8 +111,8 @@ export function parseEbmudCsv(csvText) {
     const ccf = num(record.CCF);
     const gpd = num(record['Customer GPD']);
     const days = num(record['Days in Read Period']);
-    const avg = num(record['Average Households GPD']);
-    const top = num(record['Top 20% GPD']);
+    let avg = num(record['Average Households GPD']);
+    let top = num(record['Top 20% GPD']);
 
     if (!date || ccf === null || gpd === null || days === null) {
       invalidRows.push({
@@ -115,6 +121,22 @@ export function parseEbmudCsv(csvText) {
       });
       continue;
     }
+    if (days <= 0) {
+      invalidRows.push({
+        rowNumber: index + 1,
+        reason: 'Invalid read period length'
+      });
+      continue;
+    }
+    if (ccf < 0 || gpd < 0) {
+      invalidRows.push({
+        rowNumber: index + 1,
+        reason: 'Invalid negative usage value'
+      });
+      continue;
+    }
+    if (avg !== null && avg < 0) avg = null;
+    if (top !== null && top < 0) top = null;
 
     if (days < 25 || days > 75) {
       warnings.push(`Row ${index + 1} has an unusual ${days}-day read period.`);
@@ -139,6 +161,9 @@ export function parseEbmudCsv(csvText) {
   rows.sort((a, b) => a.date - b.date);
   if (!rows.length) {
     throw new Error('No valid EBMUD usage rows were found. Check that this is the billing usage CSV export.');
+  }
+  if (!rows.some((row) => row.ccf > 0 || row.gpd > 0)) {
+    throw new Error('No positive water usage values were found. Check that this is the billing usage CSV export.');
   }
 
   return { rows, invalidRows, warnings };

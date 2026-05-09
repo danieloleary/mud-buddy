@@ -7,7 +7,7 @@ Mud Buddy uses the `package.json` version as the canonical app/release version, 
 - Version: `1.1.0`
 - Release window: weekend release candidate
 - Canonical deployment: GitHub Pages
-- Public mission: help East Bay households find `1 million gallons` of potential water savings this year
+- Public mission: help East Bay households find millions of gallons of potential water savings, starting with a `1 million gallons` first milestone
 
 ## Release gates
 
@@ -17,7 +17,7 @@ Every public release must pass:
 npm ci
 npx playwright install chromium
 npm run validate
-npm run test:local-real-csv
+MUD_BUDDY_REAL_CSV="path/to/private.csv" npm run test:local-real-csv
 ```
 
 `test:local-real-csv` is local-only and skip-safe when no private CSV is present. Dan's real CSV must never be committed, packaged, hosted, pasted into docs, or included in screenshots.
@@ -36,4 +36,5 @@ npm run test:local-real-csv
 - Public artifacts include only approved synthetic assets.
 - GitHub Pages workflow passes.
 - Live site smoke check passes.
+- Post-deploy live smoke can be run with `MUD_BUDDY_URL="https://danieloleary.github.io/mud-buddy/" npm run test:live-site`.
 - GitHub release notes avoid certified leak, billing, conservation, or official utility claims.

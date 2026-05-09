@@ -12,6 +12,12 @@ const code = `import json\nfrom zipfile import ZipFile\nwith ZipFile(r'''${zipPa
 const result = spawnSync(py, ['-c', code], { cwd: root, encoding: 'utf8' });
 if (result.status !== 0) throw new Error(result.stderr || result.stdout);
 const names = JSON.parse(result.stdout);
+const policyResult = spawnSync(py, ['scripts/public_release_policy.py'], { cwd: root, encoding: 'utf8' });
+if (policyResult.status !== 0) throw new Error(policyResult.stderr || policyResult.stdout);
+const policy = JSON.parse(policyResult.stdout);
+const allowedRaster = new Set(policy.knownPublicAssets.filter((name) => /\.(png|jpe?g|gif|webp)$/i.test(name)));
+const allowedSvg = new Set(policy.knownPublicAssets.filter((name) => /\.svg$/i.test(name)));
+const allowedCsvPaths = new Set(policy.allowedCsvPaths);
 const has = (name) => names.includes(name);
 for (const expected of [
   'README.md',
@@ -41,13 +47,11 @@ for (const expected of [
 for (const name of names) {
   if (/^(node_modules|dist|generated|public-site|\.git|\.herenow|tests\/output|test-results|playwright-report)\//.test(name)) throw new Error(`public ZIP includes forbidden path: ${name}`);
   if (/Billing Usage/i.test(name)) throw new Error(`public ZIP includes billing export filename: ${name}`);
-  if (/\.csv$/i.test(name) && name !== 'examples/sample-ebmud-usage.csv') throw new Error(`public ZIP includes non-sample CSV: ${name}`);
-  const allowedRaster = new Set(['hero-civic-water.webp', 'github-social-card.png', 'report-preview-redacted.webp', 'sample-report-montage.webp', 'irrigation-season-story.webp', 'leak-check-next-steps.webp', 'privacy-local-first.webp', 'ebmud-resource-directory.webp', 'favicon-32.png', 'apple-touch-icon.png']);
+  if (/\.csv$/i.test(name) && !allowedCsvPaths.has(name)) throw new Error(`public ZIP includes non-sample CSV: ${name}`);
   if (/\.(har|trace|webm)$/i.test(name)) throw new Error(`public ZIP includes forbidden artifact/image: ${name}`);
   if (/\.(png|jpe?g|gif|webp)$/i.test(name) && !(name.startsWith('public/assets/') && allowedRaster.has(path.basename(name)))) throw new Error(`public ZIP includes forbidden raster image: ${name}`);
   if (/\.svg$/i.test(name) && name.startsWith('public/assets/')) {
-    const allowed = new Set(['hero-civic-water.svg', 'workflow-csv-report.svg', 'privacy-local-first.svg', 'ebmud-resource-directory.svg', 'readme-banner.svg', 'social-card.svg', 'github-social-card.svg', 'report-preview-redacted.svg', 'csv-export-boundary.svg', 'public-sharing-checklist-card.svg', 'sample-report-montage.svg', 'irrigation-season-story.svg', 'leak-check-next-steps.svg', 'ai-agent-safe-handoff.svg']);
-    if (!allowed.has(path.basename(name))) throw new Error(`public ZIP includes unknown SVG asset: ${name}`);
+    if (!allowedSvg.has(path.basename(name))) throw new Error(`public ZIP includes unknown SVG asset: ${name}`);
   }
 }
 console.log(`package-public-policy: OK ${names.length} ZIP entries satisfy public package policy`);

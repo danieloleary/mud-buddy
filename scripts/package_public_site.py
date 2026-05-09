@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+from public_release_policy import ALLOWED_CSV_PATHS, DENY_NAMES, IMAGE_SUFFIXES, KNOWN_PUBLIC_ASSETS, PACKAGE_DENY_SUFFIXES
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "public-site"
@@ -45,37 +46,6 @@ EXPLICIT_FILES = [
     ".github/dependabot.yml",
     ".github/pull_request_template.md",
 ]
-KNOWN_PUBLIC_ASSETS = {
-    "hero-civic-water.svg",
-    "workflow-csv-report.svg",
-    "privacy-local-first.svg",
-    "ebmud-resource-directory.svg",
-    "readme-banner.svg",
-    "social-card.svg",
-    "github-social-card.svg",
-    "report-preview-redacted.svg",
-    "csv-export-boundary.svg",
-    "public-sharing-checklist-card.svg",
-    "sample-report-montage.svg",
-    "irrigation-season-story.svg",
-    "leak-check-next-steps.svg",
-    "ai-agent-safe-handoff.svg",
-    "hero-civic-water.webp",
-    "github-social-card.png",
-    "report-preview-redacted.webp",
-    "sample-report-montage.webp",
-    "irrigation-season-story.webp",
-    "leak-check-next-steps.webp",
-    "privacy-local-first.webp",
-    "ebmud-resource-directory.webp",
-    "favicon-32.png",
-    "apple-touch-icon.png",
-}
-DENY_NAMES = {"node_modules", "dist", "generated", "public-site", ".herenow", ".git", "test-results", "playwright-report", "__pycache__"}
-DENY_SUFFIXES = {".zip", ".har", ".trace", ".webm", ".png", ".jpg", ".jpeg", ".gif", ".webp"}
-IMAGE_SUFFIXES = {".svg", ".png", ".jpg", ".jpeg", ".gif", ".webp"}
-
-
 def _force_remove(func, path, exc_info):
     try:
         os.chmod(path, stat.S_IWRITE)
@@ -100,11 +70,11 @@ def allowed_file(path: Path) -> bool:
         return False
     if path.suffix.lower() in IMAGE_SUFFIXES and not is_known_public_asset(rel):
         return False
-    if path.suffix.lower() in DENY_SUFFIXES and not is_known_public_asset(rel):
+    if path.suffix.lower() in PACKAGE_DENY_SUFFIXES and not is_known_public_asset(rel):
         return False
     if path.name.startswith(".") and path.name not in {"ci.yml", "pages.yml"}:
         return False
-    if path.suffix.lower() == ".csv" and rel.as_posix() != "examples/sample-ebmud-usage.csv":
+    if path.suffix.lower() == ".csv" and rel.as_posix() not in ALLOWED_CSV_PATHS:
         return False
     if path.name.lower().startswith("billing usage"):
         return False

@@ -91,39 +91,33 @@ class MudBuddyApp extends HTMLElement {
           <span><strong>Mud Buddy</strong><small>for EBMUD customers</small></span>
         </a>
         <nav aria-label="Main navigation">
-          <a href="#app">Analyze CSV</a>
+          <a href="#app">Upload</a>
           <a href="#how">Get CSV</a>
-          <a href="#example">Example</a>
-          <a href="#resources">EBMUD resources</a>
-          <a href="#review">For review</a>
-          <a href="#privacy">Privacy</a>
+          <a href="#example">Sample</a>
+          <a href="#mission">Mission</a>
         </nav>
-        <md-filled-button id="topAnalyze">Analyze my CSV</md-filled-button>
+        <md-filled-button id="topAnalyze">Upload my usage data</md-filled-button>
       </header>
 
       <main id="top">
         <section class="hero shell" id="app">
           <div class="hero-copy reveal">
-            <h1>Upload your EBMUD CSV. See what changed.</h1>
-            <p class="lede">Mud Buddy reads your EBMUD usage export in this browser and turns it into a plain-English report about high bills, outdoor watering, normal daily use, household changes, and simple next checks.</p>
+            <h1>Upload your EBMUD usage data. Get beautiful analysis, recommendations, and more.</h1>
+            <p class="lede">Mud Buddy turns your EBMUD CSV into a private, browser-local report that explains what changed, what likely drove the change, and what to check first around the house.</p>
             <div class="hero-actions">
-              <md-filled-button id="heroAnalyze">Analyze my CSV</md-filled-button>
+              <md-filled-button id="heroAnalyze">Upload my usage data</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample data</md-filled-tonal-button>
-              <md-text-button href="#how">How to download your EBMUD CSV</md-text-button>
+              <md-text-button href="#how">How to get the CSV</md-text-button>
             </div>
             <div class="trust-row" aria-label="Trust promises">
               <span><span class="icon-glyph" aria-hidden="true" data-icon="computer"></span>Runs in your browser</span>
               <span><span class="icon-glyph" aria-hidden="true" data-icon="cloud_off"></span>No server upload</span>
               <span><span class="icon-glyph" aria-hidden="true" data-icon="key_off"></span>No EBMUD password needed</span>
             </div>
-            <div class="question-cards" aria-label="Homeowner questions Mud Buddy helps answer">
-              <article><span class="icon-glyph" aria-hidden="true" data-icon="receipt_long"></span><strong>High bill?</strong><span>See whether the jump is one period, outdoor watering, or a new normal.</span></article>
-              <article><span class="icon-glyph" aria-hidden="true" data-icon="yard"></span><strong>Yard or irrigation?</strong><span>Estimate how much of the lift looks seasonal.</span></article>
-              <article><span class="icon-glyph" aria-hidden="true" data-icon="plumbing"></span><strong>Worth a quick check?</strong><span>Find patterns that point to a meter, fixture, or toilet dye test.</span></article>
-            </div>
+            <p class="hero-note">Built for high bills, irrigation surprises, fixture checks, family changes, and smarter next steps.</p>
             <figure class="homeowner-scene">
               <img src="assets/hero-civic-water.webp" alt="Synthetic browser-local water report on a patio with a garden hose" />
-              <figcaption>Built for real homeowner questions: bill jumps, watering changes, family growth, fixtures, and next checks.</figcaption>
+              <figcaption>Designed for homeowners who want a clear read before they start guessing.</figcaption>
             </figure>
           </div>
 
@@ -137,11 +131,11 @@ class MudBuddyApp extends HTMLElement {
               <input id="csvInput" class="sr-only-file" type="file" accept=".csv,text/csv" />
               <button class="dropzone" id="dropzone" type="button">
                 <span class="icon-glyph" aria-hidden="true" data-icon="upload_file"></span>
-                <strong>Drop your EBMUD CSV here</strong>
+                <strong>Drop your EBMUD usage CSV here</strong>
                 <span>or click to choose the billing usage export</span>
               </button>
               <div class="upload-actions">
-                <md-filled-button id="chooseCsv">Analyze my CSV</md-filled-button>
+                <md-filled-button id="chooseCsv">Upload my usage data</md-filled-button>
                 <md-filled-tonal-button id="trySample">Try sample data</md-filled-tonal-button>
               </div>
               <div class="local-proof">
@@ -245,15 +239,16 @@ class MudBuddyApp extends HTMLElement {
         <section class="mission-band" id="mission">
           <div class="shell mission-layout">
             <div>
-              <h2>Help save 1 million gallons this year.</h2>
-              <p>Mud Buddy's mission is to help East Bay households find potential water savings sooner. That means helped-save or potential savings, not a certified EBMUD conservation total.</p>
+              <h2>Save millions of gallons, one home at a time.</h2>
+              <p>Mud Buddy helps East Bay households catch waste earlier: overwatering, stuck irrigation schedules, running toilets, rising normal use, and confusing bill-period changes.</p>
+              <p class="official-line">Savings are estimates and prompts for action, not certified EBMUD conservation totals.</p>
               <p class="official-line">EBMUD serves about 1.4 million people in a 332-square-mile water service area. One EBMUD billing unit, or CCF, is 748 gallons.</p>
             </div>
             <div class="mission-grid" aria-label="One million gallon goal math">
-              <article class="material-card"><md-ripple></md-ripple><strong>1,000,000</strong><span>gallons helped-save goal</span></article>
-              <article class="material-card"><md-ripple></md-ripple><strong>~1,337</strong><span>CCF, using 748 gallons per CCF</span></article>
-              <article class="material-card"><md-ripple></md-ripple><strong>~3.1</strong><span>acre-feet of water</span></article>
-              <article class="material-card"><md-ripple></md-ripple><strong>200 x 5k</strong><span>one realistic household path</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>Millions</strong><span>of gallons worth noticing sooner</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>One CSV</strong><span>private analysis in your browser</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>One home</strong><span>clear next checks before panic</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>East Bay</strong><span>built with local context</span></article>
             </div>
           </div>
         </section>
@@ -311,7 +306,7 @@ class MudBuddyApp extends HTMLElement {
         <div class="shell footer-grid">
           <p><strong>Mud Buddy</strong><br />A private browser-local water-use helper for EBMUD customers.</p>
           <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.</p>
-          <p>Built by Dan O'Leary. <a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
+          <p>Built with love in Lafayette, CA. <a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
         </div>
       </footer>
 
@@ -397,10 +392,7 @@ class MudBuddyApp extends HTMLElement {
 
   analyzeCsvText(text, options) {
     this.setUploadState('Analyzing water-use patterns locally...', 0.72);
-    const parsed = parseEbmudCsv(text);
-    if (parsed.rows.length + parsed.invalidRows.length > MAX_CSV_ROWS) {
-      throw new Error('That CSV has too many rows for the browser demo. Please use an EBMUD billing usage export with fewer than 5,000 rows.');
-    }
+    const parsed = parseEbmudCsv(text, { maxRows: MAX_CSV_ROWS + 1 });
     const analysis = analyzeWaterUse(parsed.rows, parsed.invalidRows, parsed.warnings);
     renderBrowserReport(this.querySelector('#browserReport'), analysis, options);
     this.classList.add('has-browser-report');

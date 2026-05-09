@@ -9,7 +9,7 @@
 - Kept the app browser-local, static, credential-free, and independent unless EBMUD explicitly authorizes a future collaboration.
 ## 1.0.0 - Weekend release candidate
 
-- Added the `Help save 1 million gallons this year` mission and gallon-savings methodology.
+- Added the millions-of-gallons potential-savings mission and gallon-savings methodology.
 - Reframed the landing page and README around homeowner needs, EBMUD CSV privacy, and official-resource boundaries.
 - Added public-safe synthetic SVG assets for report preview, CSV handoff, sharing checklist, irrigation, leak checks, AI-agent handoff, and GitHub social sharing.
 - Deepened Material Web usage with tonal buttons, ripples, rendered dividers, checklist reset behavior, and clearer sample-mode accessibility.

@@ -3,7 +3,7 @@
 ## Browser App
 
 - GitHub Pages landing page loads on desktop and mobile.
-- A homeowner can choose `Analyze my CSV`, select an EBMUD billing usage CSV, and see an in-page private report.
+- A homeowner can choose `Upload my usage data`, select an EBMUD billing usage CSV, and see an in-page private report.
 - `Try sample data` loads only the committed synthetic sample CSV.
 - The page clearly says the CSV is read in the browser and is not uploaded.
 - The page clearly says Mud Buddy is not affiliated with EBMUD and is not an official audit, leak detector, billing tool, or EBMUD analysis.

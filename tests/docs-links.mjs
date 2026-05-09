@@ -62,7 +62,13 @@ try {
     if (a !== b) throw new Error(`public docs mirror is stale: ${name}`);
   }
 } catch {}
-const validate = packageJson.scripts.validate || '';
+const validate = [
+  packageJson.scripts.validate || '',
+  packageJson.scripts['validate:build'] || '',
+  packageJson.scripts['validate:unit'] || '',
+  packageJson.scripts['validate:browser'] || '',
+  packageJson.scripts['validate:docs-package'] || ''
+].join(' ');
 for (const required of ['test:data-contract', 'test:redaction-fixtures', 'test:package-policy', 'test:browser-flow-safety', 'test:docs-links']) {
   if (!validate.includes(required)) throw new Error(`validate does not include ${required}`);
 }

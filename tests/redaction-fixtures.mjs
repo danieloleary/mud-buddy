@@ -25,6 +25,17 @@ async function expectFail(name, setup) {
   const result = scan(dir);
   if (result.status === 0) throw new Error(`${name} fixture unexpectedly passed redaction scan`);
 }
+async function expectFailMessage(name, setup, expectedMessage) {
+  const dir = path.join(out, name);
+  await fs.rm(dir, { recursive: true, force: true });
+  await fs.mkdir(dir, { recursive: true });
+  await setup(dir);
+  const result = scan(dir);
+  if (result.status === 0) throw new Error(`${name} fixture unexpectedly passed redaction scan`);
+  if (!`${result.stdout}\n${result.stderr}`.includes(expectedMessage)) {
+    throw new Error(`${name} did not report ${expectedMessage}:\n${result.stdout}\n${result.stderr}`);
+  }
+}
 
 await fs.rm(out, { recursive: true, force: true });
 await fs.mkdir(out, { recursive: true });
@@ -45,6 +56,19 @@ await expectFail('zip-leakage', async (dir) => {
   const result = spawnSync(py, ['-c', code], { encoding: 'utf8' });
   if (result.status !== 0) throw new Error(result.stderr || result.stdout);
 });
+for (const [name, member] of [
+  ['zip-traversal-parent', '../escape.txt'],
+  ['zip-traversal-absolute', '/tmp/escape.txt'],
+  ['zip-traversal-drive', 'C:/Users/Dan/private.txt'],
+  ['zip-traversal-nested', 'nested/../../escape.txt']
+]) {
+  await expectFailMessage(name, async (dir) => {
+    const zipPath = path.join(dir, 'leaky.zip');
+    const code = `from zipfile import ZipFile\nwith ZipFile(r'''${zipPath}''','w') as z:\n    z.writestr(r'''${member}''','private')\n`;
+    const result = spawnSync(py, ['-c', code], { encoding: 'utf8' });
+    if (result.status !== 0) throw new Error(result.stderr || result.stdout);
+  }, 'unsafe ZIP member');
+}
 
 const good = path.join(out, 'good-standalone-report');
 await fs.mkdir(good, { recursive: true });

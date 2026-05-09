@@ -65,14 +65,15 @@ try {
   await page.getByText('Irrigation', { exact: true }).click();
   const text = await page.locator('body').innerText();
   for (const required of [
-    'Upload your EBMUD CSV. See what changed.',
+    'Upload your EBMUD usage data. Get beautiful analysis, recommendations, and more.',
     'for EBMUD customers',
     'Browser-local CSV analyzer',
-    'Drop your EBMUD CSV here',
-    'Analyze my CSV',
+    'Drop your EBMUD usage CSV here',
+    'Upload my usage data',
     'Try sample data',
-    'High bill?',
-    'Help save 1 million gallons this year.',
+    'high bills, irrigation surprises, fixture checks',
+    'Save millions of gallons, one home at a time.',
+    'Built with love in Lafayette, CA.',
     'Pattern suggests outdoor watering is driving the lift.',
     'GPD = gallons/day',
     'No EBMUD password needed',

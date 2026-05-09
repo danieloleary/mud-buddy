@@ -15,7 +15,11 @@
     "test:browser-flow": "node tests/browser-flow.mjs",
     "test:redaction": "node scripts/run_python.mjs scripts/check_public_redaction.py --path public-site --strict",
     "package:public": "node scripts/run_python.mjs scripts/package_public_site.py",
-    "validate": "npm run generate:sample && npm run test:synthetic-source-policy && npm run generate:synthetic && npm run generate:visuals && npm run build && npm run package:public && npm run test:csv-parser && npm run test:js-python-parity && npm run test:landing && npm run test:editorial-contract && npm run test:browser-upload && npm run test:browser-upload-synthetic && npm run test:browser-upload-errors && npm run test:browser-upload-privacy && npm run test:browser-upload-hardened-privacy && npm run test:browser-upload-network && npm run test:sample-data-network && npm run test:browser-golden-e2e && npm run test:synthetic-report-results && npm run test:report && npm run test:browser-flow && npm run test:browser-flow-safety && npm run test:privacy && npm run test:csv-provision && npm run test:synthetic && npm run test:data-contract && npm run test:docs && npm run test:docs-links && npm run test:redaction && npm run test:redaction-fixtures && npm run test:package-policy && npm run test:subpath",
+    "validate:build": "npm run generate:sample && npm run test:synthetic-source-policy && npm run generate:synthetic && npm run generate:visuals && npm run build && npm run package:public",
+    "validate:unit": "npm run test:csv-parser && npm run test:js-python-parity && npm run test:synthetic-report-results && npm run test:synthetic && npm run test:data-contract",
+    "validate:browser": "npm run test:landing && npm run test:editorial-contract && npm run test:browser-upload && npm run test:browser-upload-synthetic && npm run test:browser-upload-errors && npm run test:browser-upload-privacy && npm run test:browser-upload-network && npm run test:sample-data-network && npm run test:browser-golden-e2e && npm run test:report && npm run test:browser-flow && npm run test:browser-flow-safety && npm run test:privacy && npm run test:csv-provision && npm run test:subpath",
+    "validate:docs-package": "npm run test:docs && npm run test:docs-links && npm run test:redaction && npm run test:redaction-fixtures && npm run test:package-policy",
+    "validate": "npm run validate:build && npm run validate:unit && npm run validate:browser && npm run validate:docs-package",
     "test:subpath": "node tests/subpath-smoke.mjs",
     "test:privacy": "node tests/privacy-behavior.mjs",
     "test:docs": "node tests/docs-consistency.mjs",
@@ -41,7 +45,8 @@
     "test:browser-upload-synthetic": "node tests/browser-upload-synthetic-matrix.mjs",
     "test:browser-upload-errors": "node tests/browser-upload-dragdrop-and-errors.mjs",
     "test:browser-upload-hardened-privacy": "node tests/browser-upload-hardened-privacy.mjs",
-    "test:synthetic-report-results": "node tests/synthetic-report-results-correctness.mjs"
+    "test:synthetic-report-results": "node tests/synthetic-report-results-correctness.mjs",
+    "test:live-site": "node tests/live-site-smoke.mjs"
   },
   "dependencies": {
     "@material/web": "^2.4.0",

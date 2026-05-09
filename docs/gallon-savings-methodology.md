@@ -1,6 +1,6 @@
 ﻿# Gallon Savings Methodology
 
-Mud Buddy's 1.0 public mission is to help East Bay households find **1 million gallons of potential water savings** this year.
+Mud Buddy's public mission is to help East Bay households find **millions of gallons of potential water savings**, starting with the first milestone of **1 million gallons**.
 
 This is a rallying goal and product-impact estimate, not a verified EBMUD conservation total.
 
@@ -16,7 +16,7 @@ Sources:
 
 ## Goal math
 
-- `1,000,000 gallons / 748 gallons per CCF = ~1,337 CCF`.
+- First milestone: `1,000,000 gallons / 748 gallons per CCF = ~1,337 CCF`.
 - `1 acre-foot = 325,851 gallons`, so `1,000,000 gallons = ~3.1 acre-feet`.
 - Example community path: `200 households x 5,000 gallons = 1,000,000 gallons`.
 

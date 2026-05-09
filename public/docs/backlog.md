@@ -25,19 +25,19 @@
 
 ## Near-Term Product Polish
 
-- Add a first-run wizard for non-technical homeowners: `Download CSV`, `Analyze my CSV`, `Review next checks`, `Share safely`.
+- Add a first-run wizard for non-technical homeowners: `Download CSV`, `Upload my usage data`, `Review next checks`, `Share safely`.
 - Add clearer print/PDF styling for the browser report.
 - Add fixture/toilet check worksheets.
 - Add optional household and landscaping context form that stays local.
 - Add a helped-save worksheet that stays local and avoids certified-savings claims.
 - Add public examples gallery using synthetic scenarios only.
 
-## Maintainer Cleanup After 1.0
+## Maintainer Cleanup After Broad Launch
 
 - Consider merging overlapping privacy tests once launch risk drops.
-- Add a live-site smoke script for post-deploy checks.
+- Keep improving the live-site smoke script for post-deploy checks.
 - Consolidate release docs if they start drifting.
-- Add community feedback triage and a 1M-gallon progress page.
+- Add community feedback triage and a helped-save progress page.
 
 ## Later
 
@@ -46,7 +46,7 @@
 - Build utility-template abstractions for other local-first civic data tools.
 - Explore optional hosted services only if users ask for them and privacy/security requirements are fully defined.
 
-## Not Planned For 1.0
+## Not Planned For Current Launch
 
 - Hosted CSV upload backend.
 - EBMUD credential automation.

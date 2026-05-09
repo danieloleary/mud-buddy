@@ -6,7 +6,7 @@ A browser-local water-use helper for EBMUD customers.
 
 [![CI](https://github.com/danieloleary/mud-buddy/actions/workflows/ci.yml/badge.svg)](https://github.com/danieloleary/mud-buddy/actions/workflows/ci.yml) [![GitHub Pages](https://github.com/danieloleary/mud-buddy/actions/workflows/pages.yml/badge.svg)](https://github.com/danieloleary/mud-buddy/actions/workflows/pages.yml)
 
-Mud Buddy turns an EBMUD water-use CSV into a private, plain-English water report for homeowners, renters, gardeners, and East Bay households asking a simple question: what changed in my water use, and what should I check first?
+Mud Buddy lets you upload your EBMUD usage data and get beautiful private analysis, recommendations, and next checks for homeowners, renters, gardeners, and East Bay households asking a simple question: what changed in my water use, and what should I check first?
 
 Use it here: [https://danieloleary.github.io/mud-buddy/](https://danieloleary.github.io/mud-buddy/)
 
@@ -21,7 +21,7 @@ Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pat
 ## Use Mud Buddy in 3 steps
 
 1. Log into EBMUD yourself and download your usage CSV from Track Usage or My Water Report.
-2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Analyze my CSV`.
+2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Upload my usage data`.
 3. Review the browser-local report: normal daily use, likely outdoor watering, the peak period, CSV notes, and practical next checks.
 
 You can also choose `Try sample data` on the site to see the flow with synthetic public-safe data.
@@ -91,11 +91,11 @@ Dan's role is maker and maintainer. The app is the star.
 | Bill support for eligible customers | [Customer Assistance Program](https://www.ebmud.com/customers/customer-assistance-program) |
 | Contact, emergency, and official support | [Contact / emergency](https://www.ebmud.com/contact-us) |
 
-## Mission: help save 1 million gallons this year
+## Mission: save millions of gallons, one home at a time
 
-Mud Buddy's first public mission is to help East Bay households find **1 million gallons of potential water savings** this year.
+Mud Buddy's public mission is to help East Bay households find **millions of gallons of potential water savings**, starting with the first milestone of **1 million gallons**.
 
-That means helped-save or potential savings, not a verified EBMUD conservation total. The goal is to help people notice patterns sooner: irrigation schedules, normal use slowly rising, running toilets, fixture checks, meter tests, and yard-water decisions.
+That means helped-save or potential savings, not a verified EBMUD conservation total. The goal is to help people notice patterns sooner: irrigation schedules, normal use slowly rising, running toilets, fixture checks, meter tests, yard-water decisions, and official EBMUD next steps.
 
 | Goal math | Why it matters |
 | --- | --- |
@@ -147,6 +147,8 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
 - Sample report: [https://danieloleary.github.io/mud-buddy/sample-report/index.html](https://danieloleary.github.io/mud-buddy/sample-report/index.html)
 - Maintainer: [Dan O'Leary](https://www.linkedin.com/in/danieloleary/)
 - X: [@danieloleary](https://x.com/danieloleary)
+
+Built with love in Lafayette, CA.
 
 ## For maintainers
 

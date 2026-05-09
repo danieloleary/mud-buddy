@@ -8,7 +8,7 @@ Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English
 
 No EBMUD password. No server upload. Not affiliated with EBMUD.
 
-First goal: help households find 1M gallons of potential savings this year.
+Goal: help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons.
 
 https://danieloleary.github.io/mud-buddy/
 
@@ -24,7 +24,7 @@ https://danieloleary.github.io/mud-buddy/
 
 5/ The privacy boundary is the whole point: no EBMUD password, no credential automation, no server upload by default. Your CSV is read in your browser.
 
-6/ First public mission: help East Bay households find 1M gallons of potential savings this year. Not certified savings, just practical patterns people can act on.
+6/ Public mission: help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons. Not certified savings, just practical patterns people can act on.
 
 7/ This feels like a good use of AI: helping people understand their own household data and make better water/money decisions. Try the sample data or your own CSV and send feedback.
 
@@ -47,7 +47,7 @@ The privacy boundary is intentional:
 - Public sharing uses redacted/public output.
 - Not affiliated with EBMUD.
 
-The first public mission: help East Bay households find 1 million gallons of potential water savings this year.
+The public mission: help East Bay households find millions of gallons of potential water savings, starting with the first 1 million gallons.
 
 This feels like a useful direction for AI: not replacing institutions, but helping people understand their own data and make better household decisions.
 
@@ -59,7 +59,7 @@ https://danieloleary.github.io/mud-buddy/
 
 Open Mud Buddy.
 
-Choose `Try sample data` to see the flow, or download your EBMUD usage CSV and choose `Analyze my CSV`.
+Choose `Try sample data` to see the flow, or download your EBMUD usage CSV and choose `Upload my usage data`.
 
 Mud Buddy reads the CSV in the browser and renders a plain-English report: baseline estimate, gallons-per-day trends, seasonal irrigation lift, unusual periods, and practical next checks.
 

@@ -2,18 +2,18 @@
 
 ## Launch thesis
 
-Mud Buddy is a small, useful example of AI-assisted civic tech: a browser-local tool that helps EBMUD customers understand their own water-use CSV, spot patterns worth checking, and maybe save water and money.
+Mud Buddy is a small, useful example of AI-assisted civic tech: a browser-local tool that helps EBMUD customers upload their usage data, get beautiful analysis and recommendations, spot patterns worth checking, and maybe save water and money.
 
 Core message:
 
-> I built Mud Buddy so East Bay households can upload an EBMUD usage CSV in their browser, get a private plain-English water report, and find practical next checks without sending the CSV to a server.
+> I built Mud Buddy so East Bay households can upload EBMUD usage data in their browser, get beautiful private analysis, recommendations, and next checks, and help find millions of gallons of potential water savings without sending the CSV to a server.
 
 Important wording:
 
 - Say `potential savings`, `helped-save`, and `patterns worth checking`.
 - Do not say certified savings, official EBMUD analysis, leak diagnosis, billing advice, or plumbing inspection.
 - Do not imply EBMUD affiliation, approval, endorsement, partnership, or co-branding unless EBMUD authorizes it in writing.
-- Lead with the app: `Analyze my CSV`, `Try sample data`, and `How to download your EBMUD CSV`.
+- Lead with the app: `Upload my usage data`, `Try sample data`, and `How to get the CSV`.
 - Lead with privacy: no EBMUD password, no server upload, no credential automation, public sharing only with `--public`.
 
 ## Launch assets
@@ -32,7 +32,7 @@ Important wording:
 Required gates:
 
 - `npm run validate`
-- `npm run test:local-real-csv`
+- `MUD_BUDDY_REAL_CSV="path/to/private.csv" npm run test:local-real-csv`
 - Browser upload test proves a homeowner can upload a CSV and see the in-page report.
 - Editorial contract proves the public page leads with upload, sample data, CSV help, privacy, and official EBMUD resources instead of maintainer/test language.
 - Synthetic source policy proves default QA fixtures come from committed sample data, not Dan's Downloads folder.
@@ -41,12 +41,12 @@ Required gates:
 - No-network-after-upload test proves uploaded CSV analysis does not make network requests.
 - GitHub Actions CI green on `main`.
 - GitHub Pages deploy green on `main`.
-- Live site smoke check: landing, browser upload, sample data, sample report, docs, approved visual assets, ZIP.
+- Live site smoke check: `MUD_BUDDY_URL="https://danieloleary.github.io/mud-buddy/" npm run test:live-site`.
 
 Manual checks:
 
 - Open the live site on mobile and desktop and read it like a homeowner.
-- Click `Analyze my CSV`, `Try sample data`, `How to download your EBMUD CSV`, official resources, X, and LinkedIn links.
+- Click `Upload my usage data`, `Try sample data`, `How to get the CSV`, official resources, X, and LinkedIn links.
 - Run the real EBMUD workflow manually once: user logs in, downloads CSV, browser-local report renders.
 - Download the ZIP and confirm it does not include private CSVs, private reports, local paths, traces, screenshots, or deployment state.
 
@@ -99,11 +99,11 @@ Community rules:
 
 I built Mud Buddy - a free browser-local tool for East Bay water customers.
 
-Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English report about high bills, outdoor watering, normal use changes, and simple next checks.
+Upload your EBMUD usage data, analyze it in your browser, and get beautiful plain-English analysis, recommendations, and next checks for high bills, outdoor watering, normal use changes, and simple fixture checks.
 
 No EBMUD password. No server upload. Not affiliated with EBMUD.
 
-First goal: help households find 1M gallons of potential savings this year.
+Goal: help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons.
 
 https://danieloleary.github.io/mud-buddy/
 
@@ -119,7 +119,7 @@ https://danieloleary.github.io/mud-buddy/
 
 5. The privacy boundary is the whole point: no EBMUD password, no credential automation, no server upload by default. Your CSV is read in your browser.
 
-6. The first public mission is to help East Bay households find 1 million gallons of potential savings this year. Not certified savings, but practical patterns people can act on.
+6. The public mission is to help East Bay households find millions of gallons of potential savings, starting with the first 1 million gallons. Not certified savings, but practical patterns people can act on.
 
 7. This feels like a good use of AI: helping people understand their own household data and make better water/money decisions. Try the sample data or your own CSV and send feedback.
 
@@ -140,7 +140,7 @@ The privacy boundary is intentional:
 - Public sharing uses redacted/public output.
 - Not affiliated with EBMUD.
 
-The first public mission: help East Bay households find 1 million gallons of potential water savings this year.
+The public mission: help East Bay households find millions of gallons of potential water savings, starting with the first 1 million gallons.
 
 This feels like a useful direction for AI: not replacing institutions, but helping people understand their own data and make better household decisions.
 
@@ -165,13 +165,13 @@ It turns an EBMUD usage export into a browser-local, plain-English report: gallo
 
 The privacy boundary is important: no EBMUD password, no credential automation, no server upload for the primary flow. It is not affiliated with EBMUD and is not a leak detector, billing tool, or official utility analysis.
 
-The first public goal is to help East Bay households find 1M gallons of potential savings this year. I would love feedback on the product, privacy model, and whether this pattern could work for other utility data.
+The public goal is to help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons. I would love feedback on the product, privacy model, and whether this pattern could work for other utility data.
 ```
 
 ## Launch day checklist
 
 - Confirm `npm run validate` passed on the release commit.
-- Confirm `npm run test:local-real-csv` passed locally.
+- Confirm explicit `MUD_BUDDY_REAL_CSV=... npm run test:local-real-csv` passed locally.
 - Confirm GitHub Actions CI and Pages are green.
 - Confirm live browser upload works with sample data and one private local CSV.
 - Confirm live URLs return `200`.

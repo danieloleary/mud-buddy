@@ -13,10 +13,12 @@ import html
 import json
 import math
 import os
+import re
 from datetime import datetime
 from pathlib import Path
 
 GAL_PER_CCF = 748
+DECIMAL_RE = re.compile(r"^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$")
 
 C = {
     "teal": "#39b9c6",
@@ -35,6 +37,8 @@ C = {
 def num(value):
     text = "" if value is None else str(value).strip()
     if not text or text.upper() in {"N/A", "NA"}:
+        return None
+    if not DECIMAL_RE.match(text):
         return None
     try:
         return float(text.replace(",", ""))
@@ -66,6 +70,13 @@ def parse_rows(csv_path: Path):
         if ccf is None or gpd is None or days is None or not date_text:
             invalid.append(r)
             continue
+        if days <= 0 or ccf < 0 or gpd < 0:
+            invalid.append(r)
+            continue
+        if avg is not None and avg < 0:
+            avg = None
+        if top is not None and top < 0:
+            top = None
         try:
             date = datetime.strptime(date_text, "%Y-%m-%d")
         except ValueError:
@@ -90,6 +101,8 @@ def parse_rows(csv_path: Path):
     rows.sort(key=lambda r: r["date"])
     if not rows:
         raise SystemExit("No valid EBMUD usage rows found.")
+    if not any(r["ccf"] > 0 or r["gpd"] > 0 for r in rows):
+        raise SystemExit("No positive water usage values found.")
     return raw, rows, invalid
 
 

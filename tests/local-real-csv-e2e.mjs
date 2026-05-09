@@ -4,6 +4,7 @@ import fssync from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parseCsv } from '../src/ebmud-csv.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -34,10 +35,10 @@ function parseSummary(stdout) {
   if (start < 0) throw new Error('summary-json output missing JSON');
   return JSON.parse(stdout.slice(start));
 }
-function parseCsv(text) {
-  const lines = text.trim().split(/\r?\n/);
-  const headers = lines.shift().split(',');
-  return lines.map((line) => Object.fromEntries(line.split(',').map((value, i) => [headers[i], value])));
+function rowsFromCsv(text) {
+  const table = parseCsv(text);
+  const headers = table[0].map((header) => String(header ?? '').replace(/^\uFEFF/, '').trim());
+  return table.slice(1).map((values) => Object.fromEntries(headers.map((header, i) => [header, values[i] ?? ''])));
 }
 function assertNoLeak(text, pattern, label) {
   if (pattern.test(text)) throw new Error(`public real-CSV report leaked ${label}`);
@@ -49,8 +50,11 @@ if (!source || !fssync.existsSync(source)) {
   process.exit(0);
 }
 
-const rows = parseCsv(await fs.readFile(source, 'utf8'));
+const rows = rowsFromCsv(await fs.readFile(source, 'utf8'));
 const accounts = [...new Set(rows.map((row) => row['Account Number']).filter(Boolean))];
+if (rows[0] && Object.prototype.hasOwnProperty.call(rows[0], 'Account Number') && accounts.length === 0) {
+  throw new Error('local real-CSV account sentinel extraction found Account Number header but no account values');
+}
 const outRoot = path.join(root, 'tests', 'output', 'dan-real-csv');
 await fs.rm(outRoot, { recursive: true, force: true });
 await fs.mkdir(outRoot, { recursive: true });

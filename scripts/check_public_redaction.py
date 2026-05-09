@@ -5,6 +5,7 @@ import re
 import tempfile
 from pathlib import Path
 from zipfile import ZipFile, BadZipFile
+from public_release_policy import ALLOWED_CSV_PATHS, BROWSER_ARTIFACT_SUFFIXES, DENY_NAMES, IMAGE_SUFFIXES, KNOWN_PUBLIC_ASSETS
 
 TEXT_SUFFIXES = {
     ".html", ".css", ".js", ".mjs", ".py", ".md", ".json", ".yml", ".yaml",
@@ -19,56 +20,6 @@ SESSION_TERM_ALLOWED = {
     "ebmud_workflow_docs.yml", "bug_report.yml", "feature_request.yml", "pull_request_template.md",
     "responsible-use.md", "browser-local-proof.md", "outreach-email-draft.md", "ebmud-review-brief.md",
     "co-release-proposal.md"
-}
-ALLOWED_SVG_ASSETS = {
-    "assets/hero-civic-water.svg",
-    "assets/workflow-csv-report.svg",
-    "assets/privacy-local-first.svg",
-    "assets/ebmud-resource-directory.svg",
-    "assets/readme-banner.svg",
-    "assets/social-card.svg",
-    "assets/github-social-card.svg",
-    "assets/report-preview-redacted.svg",
-    "assets/csv-export-boundary.svg",
-    "assets/public-sharing-checklist-card.svg",
-    "assets/sample-report-montage.svg",
-    "assets/irrigation-season-story.svg",
-    "assets/leak-check-next-steps.svg",
-    "assets/ai-agent-safe-handoff.svg",
-    "assets/hero-civic-water.webp",
-    "assets/github-social-card.png",
-    "assets/report-preview-redacted.webp",
-    "assets/sample-report-montage.webp",
-    "assets/irrigation-season-story.webp",
-    "assets/leak-check-next-steps.webp",
-    "assets/privacy-local-first.webp",
-    "assets/ebmud-resource-directory.webp",
-    "assets/favicon-32.png",
-    "assets/apple-touch-icon.png",
-    "public/assets/hero-civic-water.svg",
-    "public/assets/workflow-csv-report.svg",
-    "public/assets/privacy-local-first.svg",
-    "public/assets/ebmud-resource-directory.svg",
-    "public/assets/readme-banner.svg",
-    "public/assets/social-card.svg",
-    "public/assets/github-social-card.svg",
-    "public/assets/report-preview-redacted.svg",
-    "public/assets/csv-export-boundary.svg",
-    "public/assets/public-sharing-checklist-card.svg",
-    "public/assets/sample-report-montage.svg",
-    "public/assets/irrigation-season-story.svg",
-    "public/assets/leak-check-next-steps.svg",
-    "public/assets/ai-agent-safe-handoff.svg",
-    "public/assets/hero-civic-water.webp",
-    "public/assets/github-social-card.png",
-    "public/assets/report-preview-redacted.webp",
-    "public/assets/sample-report-montage.webp",
-    "public/assets/irrigation-season-story.webp",
-    "public/assets/leak-check-next-steps.webp",
-    "public/assets/privacy-local-first.webp",
-    "public/assets/ebmud-resource-directory.webp",
-    "public/assets/favicon-32.png",
-    "public/assets/apple-touch-icon.png",
 }
 FORBIDDEN_LITERALS = []
 PATTERNS = [
@@ -89,8 +40,6 @@ SESSION_PATTERNS = [
     ("session_storage", re.compile(r"\bsessionStorage\b", re.I)),
     ("auth_header", re.compile(r"Authorization:\s*Bearer", re.I)),
 ]
-BROWSER_ARTIFACT_SUFFIXES = {".har", ".trace", ".webm", ".zip"}
-IMAGE_SUFFIXES = {".svg", ".png", ".jpg", ".jpeg", ".gif", ".webp"}
 CSV_HEADER_PATTERNS = [
     re.compile(r"Reading Date,Days in Read Period", re.I),
     re.compile(r"Customer GPD", re.I),
@@ -110,7 +59,8 @@ def should_allow_session_terms(path: Path) -> bool:
 
 
 def is_allowed_image(rel: str) -> bool:
-    if rel in ALLOWED_SVG_ASSETS:
+    rel_path = Path(rel)
+    if rel_path.name in KNOWN_PUBLIC_ASSETS and rel_path.as_posix().startswith(("assets/", "public/assets/")):
         return True
     if re.match(r"(?:sample-report/)?0[1-5]_[a-z_]+\.svg$", rel):
         return True
@@ -124,12 +74,12 @@ def scan_file(path: Path, root: Path, failures: list[str]) -> None:
         failures.append(f"unapproved public image asset present: {rel}")
     if path.suffix.lower() in BROWSER_ARTIFACT_SUFFIXES and lower != "mud-buddy-by-danno.zip":
         failures.append(f"browser/test artifact present: {rel}")
-    if path.suffix.lower() == ".csv" and rel != "examples/sample-ebmud-usage.csv":
+    if path.suffix.lower() == ".csv" and rel not in ALLOWED_CSV_PATHS:
         failures.append(f"non-sample CSV present: {rel}")
     if lower.startswith("billing usage"):
         failures.append(f"real-looking billing export filename present: {rel}")
     parts = rel.split("/")
-    forbidden_dirs = {".herenow", "node_modules", "dist", "generated", "test-results", "playwright-report"}
+    forbidden_dirs = DENY_NAMES
     has_tests_output = any(parts[i] == "tests" and i + 1 < len(parts) and parts[i + 1] == "output" for i in range(len(parts)))
     if any(part in forbidden_dirs for part in parts) or has_tests_output:
         failures.append(f"generated/private directory artifact present: {rel}")
@@ -167,13 +117,37 @@ def scan_tree(root: Path, failures: list[str]) -> None:
 def scan_zip(zip_path: Path, failures: list[str]) -> None:
     try:
         with tempfile.TemporaryDirectory() as tmp:
+            tmp_root = Path(tmp).resolve()
             with ZipFile(zip_path) as z:
                 names = z.namelist()
                 bad = [n for n in names if n.startswith(("node_modules/", "dist/", "generated/", "public-site/", ".herenow/"))]
                 for n in bad:
                     failures.append(f"forbidden ZIP member: {n}")
-                z.extractall(tmp)
-            scan_tree(Path(tmp), failures)
+                for info in z.infolist():
+                    name = info.filename
+                    if info.is_dir():
+                        continue
+                    parts = Path(name).parts
+                    mode = (info.external_attr >> 16) & 0o170000
+                    unsafe = (
+                        "\\" in name
+                        or Path(name).is_absolute()
+                        or ".." in parts
+                        or bool(re.match(r"^[A-Za-z]:", name))
+                        or mode == 0o120000
+                    )
+                    target = (tmp_root / name).resolve()
+                    try:
+                        target.relative_to(tmp_root)
+                    except ValueError:
+                        unsafe = True
+                    if unsafe:
+                        failures.append(f"unsafe ZIP member: {name}")
+                        continue
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    with z.open(info) as src, target.open("wb") as dst:
+                        dst.write(src.read())
+            scan_tree(tmp_root, failures)
     except BadZipFile:
         failures.append(f"bad ZIP file: {zip_path}")
 

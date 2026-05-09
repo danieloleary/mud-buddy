@@ -1,0 +1,18 @@
+{
+  "irrigation-summer-heavy": [
+    "Pattern suggests outdoor watering is driving the lift.",
+    "Walk irrigation zones while they run"
+  ],
+  "possible-toilet-leak": [
+    "A rising baseline is worth a simple fixture check.",
+    "Run a toilet dye test"
+  ],
+  "usage-drop-conservation": [
+    "Usage appears lower than the earlier baseline.",
+    "Write down what changed"
+  ],
+  "flatline-meter-check": [
+    "Outdoor watering does not stand out strongly.",
+    "Your baseline looks explainable."
+  ]
+}

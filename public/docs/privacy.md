@@ -13,9 +13,9 @@ Mud Buddy is designed as a browser-local and local-first utility data workflow. 
 
 ## Browser-local analyzer
 
-The live site supports `Analyze my CSV` and `Try sample data`.
+The live site supports `Upload my usage data` and `Try sample data`.
 
-- `Analyze my CSV` reads the selected file in memory and renders an in-page report.
+- `Upload my usage data` reads the selected file in memory and renders an in-page report.
 - The report uses a generic source label and does not display the private filename.
 - Identifier columns such as account number, meter, service address, name, email, and phone are ignored for browser display.
 - Raw CSV rows are not rendered into the page.

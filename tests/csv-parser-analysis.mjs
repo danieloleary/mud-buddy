@@ -31,6 +31,42 @@ const quotedParsed = parseEbmudCsv(quoted);
 assert(quotedParsed.rows.length === 2, 'quoted CSV should parse valid rows');
 assert(quotedParsed.invalidRows.length === 1, 'quoted CSV should track invalid N/A row');
 
+const malformedNumbers = `Account Number,Reading Date,Days in Read Period,Meter Reading,CCF,Customer GPD,Average Households GPD,Top 20% GPD,WaterScore,Meter Class,Meter
+PUBLIC-SAMPLE,2026-01-01,30,,0,0,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-02-01,30,,6,150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-03-01,0,,6,150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-04-01,-30,,6,150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-05-01,30,,-6,150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-06-01,30,,6,-150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-07-01,30,,0x10,150,150,90,average,SFR,MTR
+PUBLIC-SAMPLE,2026-08-01,30,,6,1e3,150,90,average,SFR,MTR
+`;
+const malformedParsed = parseEbmudCsv(malformedNumbers);
+assert(malformedParsed.rows.length === 2, 'zero-use and positive rows should remain valid');
+assert(malformedParsed.invalidRows.length === 6, 'malformed, negative, and zero-day rows should be invalid');
+
+let allZeroError = '';
+try {
+  parseEbmudCsv(`Reading Date,Days in Read Period,CCF,Customer GPD
+2026-01-01,30,0,0
+2026-02-01,30,0,0
+`);
+} catch (error) {
+  allZeroError = error.message;
+}
+assert(allZeroError.includes('No positive water usage values'), 'all-zero exports should produce a clear error');
+
+let maxRowsError = '';
+try {
+  parseEbmudCsv(`Reading Date,Days in Read Period,CCF,Customer GPD
+2026-01-01,30,6,150
+2026-02-01,30,6,150
+`, { maxRows: 2 });
+} catch (error) {
+  maxRowsError = error.message;
+}
+assert(maxRowsError.includes('too many rows'), 'parser should enforce maxRows during parsing');
+
 const quotedNewline = `Account Number,Reading Date,Days in Read Period,Meter Reading,CCF,Customer GPD,Average Households GPD,Top 20% GPD,WaterScore,Meter Class,Meter
 "PUBLIC-SAMPLE","2026-01-01","30","","6.5","162","150","90","average","SFR","MTR
 LINE"
@@ -54,4 +90,4 @@ try {
 }
 assert(missingError.includes('Missing required EBMUD column'), 'missing columns should produce a clear error');
 
-console.log('csv-parser-analysis: OK browser parser handles sample, BOM, quoted values/newlines, N/A, strict dates, and missing columns');
+console.log('csv-parser-analysis: OK browser parser handles sample, BOM, quoted values/newlines, N/A, malformed values, row caps, strict dates, and missing columns');

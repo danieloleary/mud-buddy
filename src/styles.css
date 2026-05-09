@@ -141,7 +141,7 @@ md-icon {
   gap: clamp(28px, 4vw, 56px);
   padding-block: clamp(30px, 5vw, 58px) clamp(36px, 5vw, 58px);
 }
-h1, h2, h3 { font-family: var(--md-ref-typeface-brand), ui-sans-serif, system-ui, sans-serif; color: var(--ink); margin: 0; letter-spacing: -.035em; }
+h1, h2, h3 { font-family: var(--md-ref-typeface-brand), ui-sans-serif, system-ui, sans-serif; color: var(--ink); margin: 0; letter-spacing: -.035em; overflow-wrap: break-word; }
 h1 { font-size: clamp(46px, 5.2vw, 66px); line-height: 1.04; max-width: 660px; font-weight: 700; }
 h2 { font-size: clamp(34px, 4vw, 52px); line-height: 1.08; font-weight: 700; }
 h3 { font-size: 22px; line-height: 1.18; font-weight: 650; }
@@ -151,6 +151,17 @@ p { color: var(--muted); font-size: 18px; line-height: 1.55; }
 .trust-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; color: var(--reservoir); font-weight: 800; }
 .trust-row span { display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 999px; background: rgba(255,255,255,.78); border: 1px solid var(--line); }
 .trust-row md-icon, .trust-row .icon-glyph { color: #317d47; font-size: 20px; }
+.hero-note {
+  max-width: 600px;
+  margin: 22px 0 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--md-sys-shape-corner-large);
+  background: rgba(255,255,255,.74);
+  color: var(--reservoir);
+  font-size: 16px;
+  font-weight: 800;
+}
 .question-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
 .question-cards article {
   display: grid;
@@ -295,9 +306,9 @@ p { color: var(--muted); font-size: 18px; line-height: 1.55; }
 .review-card strong { color: var(--reservoir); font-size: 19px; font-weight: 950; }
 .review-card p { margin: 0; font-size: 15px; line-height: 1.42; }
 .privacy-art { margin-bottom: 24px; border-radius: 12px; box-shadow: var(--shadow-1); }
-.mission-band { padding-block: 90px; background: linear-gradient(135deg, rgba(0,63,92,.96), rgba(0,104,121,.9)); color: white; border-block: 1px solid rgba(255,255,255,.18); }
-.mission-band h2, .mission-band p { color: white; }
-.mission-band .official-line { color: var(--reservoir); }
+.mission-band { padding-block: 90px; margin-top: 24px; background: linear-gradient(135deg, #f8f7f3, #fffaf0); color: var(--ink); border-block: 1px solid var(--line); }
+.mission-band h2, .mission-band p { color: var(--ink); }
+.mission-band .official-line { color: var(--ink); }
 .mission-layout { display: grid; grid-template-columns: .86fr 1.14fr; gap: 44px; align-items: center; }
 .mission-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .mission-grid article { position: relative; overflow: hidden; padding: 26px; background: rgba(255,255,255,.94); box-shadow: var(--shadow-3); }
@@ -338,7 +349,7 @@ footer strong, footer a { color: white; }
   .shell { width: min(100% - 28px, 1180px); }
   .topbar { padding-inline: 14px; }
   .topbar md-filled-button { display: none; }
-  h1, .hero-copy h1 { font-size: clamp(40px, 12vw, 52px); }
+  h1, .hero-copy h1 { font-size: clamp(38px, 10.8vw, 46px); }
   .hero-art { transform: none; }
   .mode-card { grid-template-columns: 1fr; }
   .metric-pill { text-align: left; }
@@ -831,17 +842,6 @@ mud-buddy-app.has-browser-report .dropzone strong { font-size: clamp(24px, 3vw, 
 .browser-stat strong {
   letter-spacing: -.025em;
 }
-.mission-band {
-  margin-top: 24px;
-  background: linear-gradient(135deg, #f8f7f3, #fffaf0);
-}
-.mission-band h2,
-.mission-band p {
-  color: var(--ink);
-}
-.mission-band .official-line {
-  color: var(--ink);
-}
 .browser-summary-card span {
   color: var(--reservoir);
 }
@@ -879,17 +879,6 @@ mud-buddy-app.has-browser-report .dropzone strong { font-size: clamp(24px, 3vw, 
 
 
 
-/* Release QA polish: keep the product action dominant on small screens and after analysis. */
-@media (max-width: 860px) {
-  .upload-panel {
-    order: -1;
-  }
-
-  .hero-copy {
-    order: 0;
-  }
-}
-
 .has-browser-report .homeowner-scene {
   display: none;
 }
@@ -901,14 +890,6 @@ mud-buddy-app.has-browser-report .dropzone strong { font-size: clamp(24px, 3vw, 
 .browser-warning-card,
 .browser-disclaimer {
   border-radius: var(--radius-lg);
-}
-
-/* Keep the headline inside the first mobile viewport for visual-gate stability. */
-@media (max-width: 860px) {
-  .upload-panel,
-  .hero-copy {
-    order: initial;
-  }
 }
 
 .browser-official-card {
@@ -937,4 +918,21 @@ mud-buddy-app.has-browser-report .dropzone strong { font-size: clamp(24px, 3vw, 
 .browser-official-links a:hover {
   border-color: var(--md-sys-color-primary);
   color: var(--md-sys-color-primary);
+}
+
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero-copy,
+  .upload-panel {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .product-card,
+  md-tabs {
+    min-width: 0;
+    max-width: 100%;
+  }
 }
