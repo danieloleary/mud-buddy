@@ -39,8 +39,11 @@ jobs:
       - name: Generate release artifacts
         run: npm run generate:sample && npm run generate:synthetic && npm run generate:visuals && npm run build && npm run package:public
 
-      - name: Browser parser and parity tests
-        run: npm run test:csv-parser && npm run test:js-python-parity
+      - name: Browser CSV parser tests
+        run: npm run test:csv-parser
+
+      - name: JS/Python parity tests
+        run: npm run test:js-python-parity
 
       - name: Landing and upload smoke tests
         run: npm run test:landing && npm run test:browser-upload
