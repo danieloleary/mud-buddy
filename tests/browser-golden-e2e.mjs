@@ -8,7 +8,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const outDir = path.join(root, 'tests', 'output', 'browser-golden-e2e');
 const sampleCsv = path.join(root, 'examples', 'sample-ebmud-usage.csv');
-const syntheticCsv = path.join(root, 'tests', 'output', 'synthetic-flavors', 'irrigation-summer-heavy.csv');
+const syntheticDir = path.join(root, 'tests', 'output', 'synthetic-flavors');
+const syntheticCsv = path.join(syntheticDir, 'irrigation-summer-heavy.csv');
+const scenarioCsvs = [
+  'irrigation-summer-heavy.csv',
+  'possible-toilet-leak.csv',
+  'usage-drop-conservation.csv',
+  'flatline-meter-check.csv'
+];
 const url = 'http://127.0.0.1:4189/';
 
 await fs.mkdir(outDir, { recursive: true });
@@ -42,11 +49,14 @@ try {
   const errors = [];
   page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
   await page.goto(url);
+  await page.addStyleTag({ content: '*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.topbar{position:static!important}' });
+  await page.waitForTimeout(250);
   await page.screenshot({ path: path.join(outDir, 'desktop-landing.png'), fullPage: false });
 
   await page.locator('#csvInput').setInputFiles(sampleCsv);
   await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
   await page.screenshot({ path: path.join(outDir, 'desktop-sample-upload-report.png'), fullPage: false });
+  await page.locator('[data-testid="browser-report"]').screenshot({ path: path.join(outDir, 'desktop-sample-full-report.png') });
 
   let reportText = await page.locator('[data-testid="browser-report"]').innerText();
   let reportTextLower = reportText.toLowerCase();
@@ -62,10 +72,24 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('[data-testid="analyze-another"]').scrollIntoViewIfNeeded();
   await page.screenshot({ path: path.join(outDir, 'mobile-synthetic-upload-report.png'), fullPage: false });
+  await page.locator('[data-testid="browser-report"]').screenshot({ path: path.join(outDir, 'mobile-synthetic-full-report.png') });
+
+  await page.setViewportSize({ width: 1280, height: 900 });
+  for (const scenario of scenarioCsvs) {
+    const scenarioPath = path.join(syntheticDir, scenario);
+    const scenarioName = scenario.replace(/\.csv$/i, '');
+    await page.locator('#csvInput').setInputFiles(scenarioPath);
+    await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Uploaded CSV analyzed locally'), null, { timeout: 6000 });
+    const scenarioText = await page.locator('[data-testid="browser-report"]').innerText();
+    for (const required of ['What should I check first?', 'Normal daily use estimate', 'Likely outdoor watering', 'Water use over time']) {
+      if (!scenarioText.toLowerCase().includes(required.toLowerCase())) throw new Error(`${scenarioName} report missing: ${required}`);
+    }
+    await page.locator('[data-testid="browser-report"]').screenshot({ path: path.join(outDir, `scenario-${scenarioName}-full-report.png`) });
+  }
 
   if (errors.length) throw new Error(`Console errors:\n${errors.join('\n')}`);
   await browser.close();
-  console.log('browser-golden-e2e: OK desktop/mobile synthetic upload flow screenshots captured');
+  console.log(`browser-golden-e2e: OK desktop/mobile and ${scenarioCsvs.length} synthetic scenario report screenshots captured`);
 } finally {
   server.kill();
 }
