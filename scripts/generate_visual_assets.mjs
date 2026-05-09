@@ -19,6 +19,23 @@ const specs = [
   { file: 'apple-touch-icon.png', width: 180, height: 180, title: '', subtitle: '', mood: 'icon', type: 'png' }
 ];
 
+if (process.env.CI === 'true' && process.env.MUD_BUDDY_REGENERATE_VISUALS !== '1') {
+  const missing = [];
+  for (const spec of specs) {
+    try {
+      await fs.access(path.join(outDir, spec.file));
+    } catch {
+      missing.push(spec.file);
+    }
+  }
+  if (missing.length) {
+    console.error(`CI visual asset check failed. Missing committed assets: ${missing.join(', ')}`);
+    process.exit(1);
+  }
+  console.log(`CI visual asset check passed: ${specs.length} committed public-safe assets present`);
+  process.exit(0);
+}
+
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage();
 
