@@ -1,4 +1,6 @@
-# Mud Buddy for EBMUD Customers - by Dan O'Leary
+# Mud Buddy
+
+A browser-local water-use helper for EBMUD customers.
 
 ![Mud Buddy banner](public/assets/readme-banner.svg)
 
@@ -10,7 +12,7 @@ Use it here: [https://danieloleary.github.io/mud-buddy/](https://danieloleary.gi
 
 It is free, browser-local, and independent. Mud Buddy never needs your EBMUD password. Your CSV is read in your browser and is not uploaded to a Mud Buddy server.
 
-This project is not affiliated with EBMUD. It is not a formal water audit, plumbing inspection, leak detector, billing tool, certified conservation measurement, or official EBMUD analysis.
+This project is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It is not a formal water audit, plumbing inspection, leak detector, billing tool, certified conservation measurement, or official EBMUD analysis.
 
 Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
 
@@ -60,6 +62,18 @@ Water usage can reveal household routines, so the default workflow is intentiona
 Use EBMUD directly for urgent issues, billing disputes, payment help, outages, pressure problems, water-quality concerns, rebates, assistance programs, or anything that needs an official account action.
 
 Use Mud Buddy when you want to understand patterns in your exported usage CSV before deciding what to check next.
+
+## For EBMUD review
+
+Mud Buddy is independent today, but it is designed to be reviewable. If EBMUD wants to explore a customer-education, conservation, or co-release path, the guardrails are documented:
+
+- [EBMUD review brief](docs/ebmud-review-brief.md)
+- [Co-release proposal](docs/co-release-proposal.md)
+- [Responsible use](docs/responsible-use.md)
+- [Browser-local proof](docs/browser-local-proof.md)
+- [Outreach email draft](docs/outreach-email-draft.md)
+
+Dan's role is maker and maintainer. The app is the star.
 
 ## Official EBMUD resources
 
@@ -131,8 +145,8 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
 - Live app: [https://danieloleary.github.io/mud-buddy/](https://danieloleary.github.io/mud-buddy/)
 - GitHub repo: [https://github.com/danieloleary/mud-buddy](https://github.com/danieloleary/mud-buddy)
 - Sample report: [https://danieloleary.github.io/mud-buddy/sample-report/index.html](https://danieloleary.github.io/mud-buddy/sample-report/index.html)
+- Maintainer: [Dan O'Leary](https://www.linkedin.com/in/danieloleary/)
 - X: [@danieloleary](https://x.com/danieloleary)
-- LinkedIn: [Dan O'Leary](https://www.linkedin.com/in/danieloleary/)
 
 ## For maintainers
 

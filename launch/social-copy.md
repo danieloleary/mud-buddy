@@ -2,7 +2,7 @@
 
 ## X Single Post
 
-I built Mud Buddy for EBMUD Customers - a free browser-local tool for East Bay water customers.
+I built Mud Buddy - a free browser-local tool for East Bay water customers.
 
 Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English report about high bills, outdoor watering, normal use changes, and simple next checks.
 
@@ -32,7 +32,7 @@ https://danieloleary.github.io/mud-buddy/
 
 ## LinkedIn Post
 
-I shipped Mud Buddy for EBMUD Customers - by Dan O'Leary, a free browser-local tool for EBMUD customers.
+I shipped Mud Buddy, a free browser-local tool for EBMUD customers.
 
 It turns an exported EBMUD water-use CSV into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, possible fixture checks, and practical next steps.
 

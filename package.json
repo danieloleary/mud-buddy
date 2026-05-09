@@ -1,9 +1,9 @@
 {
   "name": "mud-buddy-by-danno",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
-  "description": "Mud Buddy by Danno: a private homeowner water-use report for EBMUD CSV exports.",
+  "description": "Mud Buddy: a private browser-local water-use report for EBMUD customers.",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",

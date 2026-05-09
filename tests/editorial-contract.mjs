@@ -23,14 +23,17 @@ try {
   const body = await page.locator('body').innerText();
 
   for (const required of [
-    "Mud Buddy for EBMUD Customers - by Dan O'Leary",
+    'Mud Buddy',
+    'for EBMUD customers',
     'Upload your EBMUD CSV. See what changed.',
     'Analyze my CSV',
     'Try sample data',
     'How to download your EBMUD CSV',
     'Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.',
     'How to get your EBMUD CSV.',
-    'Official EBMUD resources'
+    'Official EBMUD resources',
+    'For EBMUD review',
+    'Independent today. Collaboration-ready if EBMUD wants to explore it.'
   ]) {
     if (!body.includes(required)) throw new Error(`Missing homeowner-facing text: ${required}`);
   }
@@ -60,6 +63,9 @@ try {
     'Compared with the average-household benchmark in your export',
     'When to use EBMUD directly',
     'Billing questions',
+    'Confidence',
+    'Recommended next steps',
+    'How Mud Buddy decides this',
     'Print or save PDF'
   ]) {
     if (!reportTextLower.includes(required.toLowerCase())) throw new Error(`Browser report still needs homeowner wording: ${required}`);
@@ -67,7 +73,7 @@ try {
   for (const iconToken of ['query_stats', 'task_alt']) {
     if (reportText.includes(iconToken)) throw new Error(`Browser report body text leaked decorative icon token: ${iconToken}`);
   }
-  for (const oldLabel of ['Baseline estimate', 'Seasonal lift clue', 'Peer context:', 'Read-period notes', 'Print / save', 'Compared with similar homes', 'similar-home context', "for EBMUD - by Dan O'Leary"]) {
+  for (const oldLabel of ['Baseline estimate', 'Seasonal lift clue', 'Peer context:', 'Read-period notes', 'Print / save', 'Compared with similar homes', 'similar-home context', "for EBMUD - by Dan O'Leary", "for EBMUD Customers - by Dan O'Leary"]) {
     if (reportText.includes(oldLabel)) throw new Error(`Browser report still contains old jargon: ${oldLabel}`);
   }
 

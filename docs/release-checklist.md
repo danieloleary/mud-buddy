@@ -6,6 +6,8 @@
 - [ ] Backlog items for this release are closed or explicitly deferred.
 - [ ] Version updated in `package.json` and `package-lock.json` if the release version changes.
 - [ ] CHANGELOG.md updated.
+- [ ] EBMUD review brief, responsible-use, browser-local proof, co-release proposal, and outreach draft reviewed.
+- [ ] Product-first branding confirmed: Mud Buddy is the app hero; Dan is maker/maintainer attribution.
 - [ ] README quick links still match the live repo/site.
 - [ ] X and LinkedIn links verified: `https://x.com/danieloleary` and `https://www.linkedin.com/in/danieloleary/`.
 - [ ] Launch copy reviewed for non-affiliation, potential-savings wording, and no certified claims.
@@ -52,6 +54,7 @@
 - [ ] Subpath routing/assets work.
 - [ ] Disclaimer is visible.
 - [ ] Privacy language is visible.
+- [ ] EBMUD-review section is visible and does not imply endorsement, approval, partnership, or official status.
 - [ ] 1M-gallon mission language is present and framed as potential/helped-save.
 
 ## Release

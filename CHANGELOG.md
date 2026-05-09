@@ -1,5 +1,12 @@
-﻿# Changelog
+# Changelog
 
+## 1.1.0 - EBMUD review readiness
+
+- Shifted public branding to product-first `Mud Buddy`, with Dan attribution limited to maintainer/contact context.
+- Added EBMUD-review, co-release, responsible-use, browser-local proof, and outreach email draft docs.
+- Added a review-ready site section with privacy, non-affiliation, and collaboration guardrails.
+- Improved browser report usefulness with confidence labels, recommended next steps, and a plain-English methodology panel.
+- Kept the app browser-local, static, credential-free, and independent unless EBMUD explicitly authorizes a future collaboration.
 ## 1.0.0 - Weekend release candidate
 
 - Added the `Help save 1 million gallons this year` mission and gallon-savings methodology.
@@ -18,7 +25,7 @@
 
 ## 0.2.0
 
-- Added Material 3 landing app for Mud Buddy by Danno.
+- Added Material 3 landing app for Mud Buddy.
 - Added synthetic sample report generation.
 - Added public-safe redaction mode and redaction scan.
 - Added mock EBMUD browser-flow test harness.

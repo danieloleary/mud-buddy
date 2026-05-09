@@ -88,13 +88,14 @@ class MudBuddyApp extends HTMLElement {
               <path d="M18.3 31.2c1.2 3.4 3.7 5.2 7.4 5.2" />
             </svg>
           </span>
-          <span><strong>Mud Buddy</strong><small>for EBMUD Customers - by Dan O'Leary</small></span>
+          <span><strong>Mud Buddy</strong><small>for EBMUD customers</small></span>
         </a>
         <nav aria-label="Main navigation">
           <a href="#app">Analyze CSV</a>
           <a href="#how">Get CSV</a>
           <a href="#example">Example</a>
           <a href="#resources">EBMUD resources</a>
+          <a href="#review">For review</a>
           <a href="#privacy">Privacy</a>
         </nav>
         <md-filled-button id="topAnalyze">Analyze my CSV</md-filled-button>
@@ -257,6 +258,37 @@ class MudBuddyApp extends HTMLElement {
           </div>
         </section>
 
+        <section class="review-band" id="review">
+          <div class="shell review-layout">
+            <div>
+              <p class="overline">For EBMUD review</p>
+              <h2>Independent today. Collaboration-ready if EBMUD wants to explore it.</h2>
+              <p>Mud Buddy is a working browser-local prototype for EBMUD customers. It is designed to help people understand their own exported usage data while routing official billing, emergency, rebate, assistance, outage, pressure, and water-quality questions back to EBMUD.</p>
+              <p class="official-line">No EBMUD logo, partnership, endorsement, approval, or official status is claimed unless EBMUD explicitly authorizes it.</p>
+            </div>
+            <div class="review-cards">
+              <a class="material-card review-card" href="docs/ebmud-review-brief.md">
+                <md-ripple></md-ripple>
+                <span class="icon-glyph" aria-hidden="true" data-icon="fact_check"></span>
+                <strong>Review brief</strong>
+                <p>Purpose, customer benefit, privacy model, methodology limits, and feedback ask.</p>
+              </a>
+              <a class="material-card review-card" href="docs/browser-local-proof.md">
+                <md-ripple></md-ripple>
+                <span class="icon-glyph" aria-hidden="true" data-icon="lock"></span>
+                <strong>Browser-local proof</strong>
+                <p>Static-site boundary, no backend CSV upload, no storage writes, and test evidence.</p>
+              </a>
+              <a class="material-card review-card" href="docs/co-release-proposal.md">
+                <md-ripple></md-ripple>
+                <span class="icon-glyph" aria-hidden="true" data-icon="handshake"></span>
+                <strong>Collaboration options</strong>
+                <p>Low-risk review, pilot, educational use, or conservation-partner paths.</p>
+              </a>
+            </div>
+          </div>
+        </section>
+
 
         <section class="privacy-band" id="privacy">
           <div class="shell split reverse">
@@ -277,9 +309,9 @@ class MudBuddyApp extends HTMLElement {
 
       <footer>
         <div class="shell footer-grid">
-          <p><strong>Mud Buddy for EBMUD Customers - by Dan O'Leary</strong><br />A private browser-local water-use helper for EBMUD exports.</p>
+          <p><strong>Mud Buddy</strong><br />A private browser-local water-use helper for EBMUD customers.</p>
           <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.</p>
-          <p><a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
+          <p>Built by Dan O'Leary. <a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
         </div>
       </footer>
 

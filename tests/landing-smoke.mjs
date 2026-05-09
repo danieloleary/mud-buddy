@@ -41,7 +41,8 @@ try {
   await page.goto(url);
   if (!/Mud Buddy/.test(await page.title())) throw new Error('Missing Mud Buddy page title');
   const brandText = await page.locator('.brand').innerText();
-  if (!brandText.includes("for EBMUD Customers - by Dan O'Leary")) throw new Error(`Topbar brand did not use customer-safe wording: ${brandText}`);
+  if (!brandText.includes('for EBMUD customers')) throw new Error(`Topbar brand did not use customer-safe wording: ${brandText}`);
+  if (brandText.includes("by Dan O'Leary")) throw new Error(`Topbar brand should keep Dan attribution out of the main brand: ${brandText}`);
   if (brandText.includes("for EBMUD - by Dan O'Leary")) throw new Error(`Topbar brand still implies affiliation: ${brandText}`);
   await assertNoHorizontalOverflow(page, 'desktop landing');
   await assertBoxInsideViewport(page, 'h1', 'desktop hero headline');
@@ -65,7 +66,7 @@ try {
   const text = await page.locator('body').innerText();
   for (const required of [
     'Upload your EBMUD CSV. See what changed.',
-    "Mud Buddy for EBMUD Customers - by Dan O'Leary",
+    'for EBMUD customers',
     'Browser-local CSV analyzer',
     'Drop your EBMUD CSV here',
     'Analyze my CSV',
@@ -77,6 +78,8 @@ try {
     'No EBMUD password needed',
     'Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.',
     'Official EBMUD resources',
+    'For EBMUD review',
+    'Independent today. Collaboration-ready if EBMUD wants to explore it.',
     "Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.",
     'Not affiliated with EBMUD'
   ]) {
@@ -117,6 +120,9 @@ try {
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   if (!reportText.includes('When to use EBMUD directly')) throw new Error('Sample browser report missing official EBMUD next-step routing');
   if (!reportText.includes('average-household benchmark in your export')) throw new Error('Sample browser report missing softened benchmark wording');
+  if (!reportText.includes('Confidence')) throw new Error('Sample browser report missing confidence labels');
+  if (!reportText.includes('Recommended next steps')) throw new Error('Sample browser report missing recommended next steps');
+  if (!reportText.includes('How Mud Buddy decides this')) throw new Error('Sample browser report missing methodology explainer');
   if (reportText.includes('Compared with similar homes')) throw new Error('Sample browser report still uses similar-homes wording');
   await page.getByText('Sharing checklist').click();
   if (!page.url().includes('docs/public-sharing-checklist.md')) throw new Error('Sharing checklist link did not navigate to docs');

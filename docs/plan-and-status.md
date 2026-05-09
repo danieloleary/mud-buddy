@@ -2,7 +2,7 @@
 
 ## Current status
 
-Mud Buddy is a 1.0.0 release candidate. The public product is the browser-local GitHub Pages app: a homeowner downloads an EBMUD usage CSV, uploads it in the browser, and receives a private plain-English report without a server upload.
+Mud Buddy is a 1.1.0 review candidate. The public product is the browser-local GitHub Pages app: a homeowner downloads an EBMUD usage CSV, uploads it in the browser, and receives a private plain-English report without a server upload.
 
 Last known green release gate:
 
@@ -14,6 +14,12 @@ Last known green release gate:
 ## Product goal
 
 Help East Bay households understand their own EBMUD water-use data, find practical next checks, and identify potential savings without asking for credentials or sending private CSVs to a server.
+
+## v1.1 focus
+
+- Make Mud Buddy the brand hero and keep Dan as maker/maintainer attribution.
+- Prepare EBMUD-review materials without implying affiliation, endorsement, approval, partnership, or official status.
+- Add report confidence labels, recommended next steps, and methodology clarity.
 
 ## Final launch gates
 
@@ -28,7 +34,6 @@ Help East Bay households understand their own EBMUD water-use data, find practic
 - Chrome Downloads helper.
 - First-run wizard.
 - Browser report PDF polish.
-- Baseline-confidence labels.
 - Fixture/toilet worksheets.
 - Optional local household context form.
 - Helped-save worksheet and community progress page.

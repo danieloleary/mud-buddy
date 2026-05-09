@@ -1,28 +1,36 @@
 # Roadmap
 
-## Immediate Launch Blocker
+## 1.1 EBMUD Review Readiness
 
-- Ship the browser-local upload analyzer on GitHub Pages so a homeowner can use Mud Buddy without cloning the repo or running Python.
-- Keep the upload flow static and local: file picker, in-browser parsing, in-page report rendering, no backend upload, no browser storage, no private filename display.
-- Validate parser parity against the Python generator and add no-network-after-upload checks.
-- Update landing page, README, launch copy, and release checklist around `Analyze my CSV` as the primary product action.
+- Make **Mud Buddy** the product hero; keep Dan O'Leary as maker/maintainer attribution in supporting areas.
+- Add EBMUD-review docs: review brief, responsible use, browser-local proof, co-release proposal, and outreach email draft.
+- Add browser report confidence labels, recommended next steps, and a short methodology explainer.
+- Keep co-release language conservative: no official, approved, endorsed, partner, or co-branded wording unless EBMUD authorizes it in writing.
+- Validate with `npm run validate`, explicit Dan-local CSV QA, GitHub Actions, Pages deploy, and live smoke checks before outreach.
 
 ## 1.0 Public Launch
 
-- Launch as **Mud Buddy for EBMUD Customers - by Dan O'Leary** with the `help save 1 million gallons this year` mission.
-- Keep claims framed as potential savings or helped-save, not verified EBMUD conservation totals.
-- Preserve manual-login-only EBMUD browser assistance for AI-agent workflows.
-- Validate with synthetic datasets, mock browser flow, browser upload tests, redaction/package scans, and Dan's private local CSV gate.
-- Publish through GitHub Pages and a GitHub release after the full release gate passes.
+- Launch **Mud Buddy** as a browser-local homeowner app for EBMUD customers.
+- Keep the primary promise simple: upload an EBMUD CSV in the browser, get a private water-use report, and know what to check next.
+- Keep the 1M-gallon mission framed as helped-save or potential savings, not verified EBMUD conservation totals.
+- Validate with `npm run validate`, explicit Dan-local CSV QA, GitHub Actions, Pages deploy, and live smoke checks.
+- Keep real EBMUD access manual-login-only; Mud Buddy never handles credentials or session material.
 
 ## Near Term After Launch
 
 - Add a first-run wizard with `Download CSV`, `Analyze my CSV`, `Review next checks`, and `Share safely`.
-- Add baseline-confidence labels and fixture/toilet check worksheets.
-- Add a helped-save estimate worksheet that stays local and avoids certified claims.
+- Add print/PDF styling for the browser report.
+- Add fixture/toilet check worksheets.
+- Add helped-save estimate worksheet that stays local and avoids certified claims.
 - Add public examples gallery using synthetic scenarios only.
 - Add community feedback triage and a 1M-gallon progress page.
-- Add report export as PDF or print-friendly HTML.
+
+## Maintainer Improvements
+
+- Consider merging overlapping privacy tests after launch.
+- Add a post-deploy live-site smoke script.
+- Keep CI and Pages pinned to `npm run validate` so release gates do not drift.
+- Keep generated screenshots synthetic-only unless a real-data public report has passed redaction scan and manual review.
 
 ## Later
 
@@ -30,5 +38,4 @@
 - Support additional utilities with similar CSV or Green Button exports.
 - Build utility-template abstractions for other local-first civic data tools.
 - Build community partner and local conservation professional workflows.
-- Explore an optional hosted backend only if users ask for it and privacy/security requirements are fully defined.
-
+- Explore optional hosted services only if users ask for them and privacy/security requirements are fully defined.

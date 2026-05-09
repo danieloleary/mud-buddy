@@ -21,6 +21,11 @@ const files = [
   'docs/backlog.md',
   'docs/data-schema.md',
   'docs/plan-and-status.md',
+  'docs/ebmud-review-brief.md',
+  'docs/co-release-proposal.md',
+  'docs/responsible-use.md',
+  'docs/browser-local-proof.md',
+  'docs/outreach-email-draft.md',
   'skills/ebmud-buddy/references/browser_workflow.md'
 ];
 
@@ -58,7 +63,10 @@ const required = [
   'npm run test:synthetic',
   'Not affiliated with EBMUD',
   'Official EBMUD resources',
-  "Mud Buddy for EBMUD Customers - by Dan O'Leary",
+  'Mud Buddy',
+  'A browser-local water-use helper for EBMUD customers.',
+  'Product-first branding confirmed',
+  'EBMUD review brief',
   'browser-local',
   'Analyze my CSV',
   'MUD_BUDDY_REAL_CSV',
@@ -69,6 +77,11 @@ const required = [
   'heuristic pattern clues',
   'not an official indoor-use classification',
   'not a normalized customer comparison',
+  'not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD',
+  'unless EBMUD authorizes it in writing',
+  'browser-local proof',
+  'co-release',
+  'recommended next steps',
   'urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related',
   'Never ask for, store, paste, scrape, log, export, or transmit',
   'https://www.ebmud.com/customers',
@@ -96,6 +109,8 @@ const forbidden = [
   'Implemented, Pending Validation',
   "The generator may read Dan's local CSV",
   "Mud Buddy for EBMUD - by Dan O'Leary",
+  "Mud Buddy for EBMUD Customers - by Dan O'Leary",
+  'Mud Buddy by Danno',
   'Compared with similar homes',
   'similar-home context',
   visibleBom
@@ -104,4 +119,4 @@ for (const phrase of forbidden) {
   if (combined.includes(phrase)) throw new Error('Outdated docs phrase remains: ' + phrase);
 }
 
-console.log('docs-consistency: OK 1.0 app-first docs, browser safety, public-mode docs, and mirrors are aligned');
+console.log('docs-consistency: OK 1.1 app-first/review-ready docs, browser safety, public-mode docs, and mirrors are aligned');

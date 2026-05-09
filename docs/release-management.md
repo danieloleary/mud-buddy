@@ -1,10 +1,10 @@
-﻿# Release Management
+# Release Management
 
 Mud Buddy uses the `package.json` version as the canonical app/release version, even though the package is private and not published to npm.
 
 ## Current target
 
-- Version: `1.0.0`
+- Version: `1.1.0`
 - Release window: weekend release candidate
 - Canonical deployment: GitHub Pages
 - Public mission: help East Bay households find `1 million gallons` of potential water savings this year
@@ -26,7 +26,7 @@ npm run test:local-real-csv
 
 - Patch releases fix docs, copy, tests, or small bugs.
 - Minor releases add user-visible features while the product is still evolving.
-- `1.0.0` means the local-first EBMUD CSV workflow, public-safe sample report, redaction/package scans, docs, and GitHub Pages site are stable enough for public sharing.
+- `1.1.0` means the browser-local EBMUD CSV workflow, review-ready docs, public-safe sample report, redaction/package scans, and GitHub Pages site are stable enough for EBMUD feedback and broader public sharing.
 
 ## Public release checklist
 

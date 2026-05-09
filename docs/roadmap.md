@@ -1,8 +1,16 @@
 # Roadmap
 
+## 1.1 EBMUD Review Readiness
+
+- Make **Mud Buddy** the product hero; keep Dan O'Leary as maker/maintainer attribution in supporting areas.
+- Add EBMUD-review docs: review brief, responsible use, browser-local proof, co-release proposal, and outreach email draft.
+- Add browser report confidence labels, recommended next steps, and a short methodology explainer.
+- Keep co-release language conservative: no official, approved, endorsed, partner, or co-branded wording unless EBMUD authorizes it in writing.
+- Validate with `npm run validate`, explicit Dan-local CSV QA, GitHub Actions, Pages deploy, and live smoke checks before outreach.
+
 ## 1.0 Public Launch
 
-- Launch **Mud Buddy for EBMUD Customers - by Dan O'Leary** as a browser-local homeowner app.
+- Launch **Mud Buddy** as a browser-local homeowner app for EBMUD customers.
 - Keep the primary promise simple: upload an EBMUD CSV in the browser, get a private water-use report, and know what to check next.
 - Keep the 1M-gallon mission framed as helped-save or potential savings, not verified EBMUD conservation totals.
 - Validate with `npm run validate`, explicit Dan-local CSV QA, GitHub Actions, Pages deploy, and live smoke checks.
@@ -12,7 +20,7 @@
 
 - Add a first-run wizard with `Download CSV`, `Analyze my CSV`, `Review next checks`, and `Share safely`.
 - Add print/PDF styling for the browser report.
-- Add baseline-confidence labels and fixture/toilet check worksheets.
+- Add fixture/toilet check worksheets.
 - Add helped-save estimate worksheet that stays local and avoids certified claims.
 - Add public examples gallery using synthetic scenarios only.
 - Add community feedback triage and a 1M-gallon progress page.

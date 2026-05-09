@@ -97,6 +97,74 @@ function renderOfficialNextSteps() {
   ]);
 }
 
+function confidenceFor(analysis, type) {
+  const warningLoad = analysis.warnings.length + analysis.invalidRows;
+  if (analysis.validRows < 6 || warningLoad >= 3) return ['Needs manual review', 'This export has limited clean history, so treat the clue as a prompt to look closer.'];
+  if (type === 'outdoor' && analysis.seasonalLift < 20) return ['Limited data', 'Outdoor watering does not stand out strongly in this export.'];
+  if (type === 'baseline' && Math.abs(analysis.baselineChange) < 18) return ['Good signal', 'The normal-use estimate is relatively steady across the export.'];
+  if (analysis.validRows >= 10 && warningLoad === 0) return ['Good signal', 'There is enough clean billing history for a useful pattern clue.'];
+  return ['Limited data', 'The export is usable, but the finding should be checked against household context.'];
+}
+
+function nextChecksFor(analysis) {
+  const checks = [];
+  if (analysis.seasonalLift >= 45) {
+    checks.push('Walk irrigation zones while they run: look for overspray, stuck valves, runoff, broken heads, and thirsty planting areas.');
+  } else {
+    checks.push('Compare the highest-use period with weather, guests, laundry, showers, and any yard or controller changes.');
+  }
+  if (analysis.baselineChange >= 30) {
+    checks.push('Run a toilet dye test and a meter-stillness check before assuming the increase is only lifestyle or irrigation.');
+  } else if (analysis.baselineChange <= -25) {
+    checks.push('Write down what changed: fixture repairs, controller settings, travel, landscaping, or conservation habits.');
+  } else {
+    checks.push('Use the normal daily use estimate as a practical reference point when the next bill arrives.');
+  }
+  if (analysis.invalidRows || analysis.warnings.length) {
+    checks.push('Review CSV notes and billing-period length before comparing one period too literally.');
+  }
+  checks.push('Use EBMUD directly for billing, rebates, outages, water quality, assistance, or emergency service questions.');
+  return checks.slice(0, 4);
+}
+
+function renderConfidencePanel(analysis) {
+  const items = [
+    ['Normal daily use', ...confidenceFor(analysis, 'baseline')],
+    ['Outdoor watering clue', ...confidenceFor(analysis, 'outdoor')],
+    ['Peak period', analysis.validRows >= 3 ? 'Good signal' : 'Needs manual review', 'The highest-use period is selected from the clean rows in this export.']
+  ];
+  const grid = el('div', { class: 'confidence-grid' });
+  for (const [label, confidence, note] of items) {
+    grid.append(el('article', {}, [
+      el('span', { text: confidence }),
+      el('strong', { text: label }),
+      el('p', { text: note })
+    ]));
+  }
+  return el('section', { class: 'confidence-panel' }, [
+    el('h3', { text: 'Confidence' }),
+    grid
+  ]);
+}
+
+function renderNextChecks(analysis) {
+  const list = el('ol', { class: 'next-check-list' });
+  for (const check of nextChecksFor(analysis)) list.append(el('li', { text: check }));
+  return el('section', { class: 'next-checks-card' }, [
+    el('h3', { text: 'Recommended next steps' }),
+    el('p', { text: 'Start with low-drama checks that can explain the pattern before assuming there is one single cause.' }),
+    list
+  ]);
+}
+
+function renderDecisionPanel(analysis) {
+  return el('section', { class: 'decision-panel' }, [
+    el('h3', { text: 'How Mud Buddy decides this' }),
+    el('p', { text: `Mud Buddy estimates normal daily use from winter and spring periods, compares warmer-season use against that estimate, highlights the highest-use billing period, and reports ${analysis.invalidRows} skipped row${analysis.invalidRows === 1 ? '' : 's'} from this export.` }),
+    el('p', { text: 'These are heuristic pattern clues. They are not official EBMUD classifications, normalized customer comparisons, leak diagnoses, billing findings, plumbing inspections, or certified conservation measurements.' })
+  ]);
+}
+
 export function renderBrowserReport(container, analysis, options = {}) {
   container.replaceChildren();
   const sourceLabel = options.sample ? 'Synthetic sample CSV analyzed locally' : 'Uploaded CSV analyzed locally';
@@ -135,6 +203,8 @@ export function renderBrowserReport(container, analysis, options = {}) {
     stat('Highest-use period', `${analysis.peakPeriod.label} (${analysis.peakPeriod.gpd} GPD)`, 'kpi-peak', true)
   ]));
   root.append(el('p', { class: 'browser-kpi-note', text: 'GPD means gallons per day.' }));
+  root.append(renderConfidencePanel(analysis));
+  root.append(renderNextChecks(analysis));
 
   root.append(el('div', { class: 'data-quality-card', 'data-testid': 'data-quality' }, [
     stat('Water use in this CSV', `${analysis.totalCcf.toLocaleString()} CCF`, 'stat-total-ccf'),
@@ -181,6 +251,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
     ]));
   }
 
+  root.append(renderDecisionPanel(analysis));
   root.append(el('md-divider'));
   root.append(renderOfficialNextSteps());
 

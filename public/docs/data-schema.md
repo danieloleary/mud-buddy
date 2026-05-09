@@ -33,7 +33,7 @@ Rows are excluded if required numeric values are missing, `Customer GPD` is `N/A
 
 ## Browser-local analysis
 
-The public site parses CSV text in browser memory and returns summary metrics: valid rows, invalid rows, total CCF, total gallons, average GPD, baseline GPD, seasonal lift, peak period, peer comparison, and insights.
+The public site parses CSV text in browser memory and returns summary metrics: valid rows, invalid rows, total CCF, total gallons, average GPD, baseline GPD, likely outdoor watering, peak period, peer comparison, and insights.
 
 The browser report should not render account numbers, meter IDs, filenames, raw CSV rows, service addresses, local paths, or exact private identifiers.
 
@@ -45,6 +45,6 @@ Use `--redact` only for identifier redaction in local/private workflows; it is n
 
 ## Synthetic Flavor Fixtures
 
-`npm run generate:synthetic` creates 20 ignored EBMUD-style CSV flavors under `tests/output/synthetic-flavors/`. The generator may read Dan's local CSV as a shape/source pattern, but it replaces identifiers, dates, usage levels, account number, meter, filename context, and scenario behavior.
+`npm run generate:synthetic` creates 20 ignored EBMUD-style CSV flavors under `tests/output/synthetic-flavors/`. By default, the generator derives shape from the committed synthetic sample CSV only. A real CSV can be used as an explicit local source with `--source`, but that source must remain private and ignored.
 
 These files are for local tests only and must not be committed. The committed public sample remains `examples/sample-ebmud-usage.csv`.

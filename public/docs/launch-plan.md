@@ -2,7 +2,7 @@
 
 ## Launch thesis
 
-Mud Buddy for EBMUD Customers - by Dan O'Leary is a small, useful example of AI-assisted civic tech: a browser-local tool that helps EBMUD customers understand their own water-use CSV, spot patterns worth checking, and maybe save water and money.
+Mud Buddy is a small, useful example of AI-assisted civic tech: a browser-local tool that helps EBMUD customers understand their own water-use CSV, spot patterns worth checking, and maybe save water and money.
 
 Core message:
 
@@ -12,6 +12,7 @@ Important wording:
 
 - Say `potential savings`, `helped-save`, and `patterns worth checking`.
 - Do not say certified savings, official EBMUD analysis, leak diagnosis, billing advice, or plumbing inspection.
+- Do not imply EBMUD affiliation, approval, endorsement, partnership, or co-branding unless EBMUD authorizes it in writing.
 - Lead with the app: `Analyze my CSV`, `Try sample data`, and `How to download your EBMUD CSV`.
 - Lead with privacy: no EBMUD password, no server upload, no credential automation, public sharing only with `--public`.
 
@@ -21,6 +22,7 @@ Important wording:
 - Repo: https://github.com/danieloleary/mud-buddy
 - Sample report: https://danieloleary.github.io/mud-buddy/sample-report/index.html
 - Social card: https://danieloleary.github.io/mud-buddy/assets/github-social-card.png
+- EBMUD review brief: https://danieloleary.github.io/mud-buddy/docs/ebmud-review-brief.md
 - X: https://x.com/danieloleary
 - LinkedIn: https://www.linkedin.com/in/danieloleary/
 - Canonical disclaimer: Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, certified conservation measurement, or official EBMUD analysis.
@@ -32,6 +34,9 @@ Required gates:
 - `npm run validate`
 - `npm run test:local-real-csv`
 - Browser upload test proves a homeowner can upload a CSV and see the in-page report.
+- Editorial contract proves the public page leads with upload, sample data, CSV help, privacy, and official EBMUD resources instead of maintainer/test language.
+- Synthetic source policy proves default QA fixtures come from committed sample data, not Dan's Downloads folder.
+- Sample-data network test proves the demo button fetches only the local synthetic CSV.
 - Browser privacy test proves account number, meter ID, filename, local path, and raw rows do not appear in the browser report.
 - No-network-after-upload test proves uploaded CSV analysis does not make network requests.
 - GitHub Actions CI green on `main`.
@@ -92,9 +97,9 @@ Community rules:
 
 ### X single post
 
-I built Mud Buddy for EBMUD Customers - a free browser-local tool for East Bay water customers.
+I built Mud Buddy - a free browser-local tool for East Bay water customers.
 
-Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English report about high bills, irrigation season, baseline creep, and possible next checks.
+Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English report about high bills, outdoor watering, normal use changes, and simple next checks.
 
 No EBMUD password. No server upload. Not affiliated with EBMUD.
 
@@ -108,7 +113,7 @@ https://danieloleary.github.io/mud-buddy/
 
 2. The app is simple: download your EBMUD usage CSV, upload it to Mud Buddy, and get a browser-local explanation of what changed.
 
-3. It looks for patterns worth checking: baseline creep, irrigation-season lift, unusual periods, peer context, and possible fixture/toilet clues.
+3. It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, average-household benchmark context, and possible fixture/toilet clues.
 
 4. It is not affiliated with EBMUD, not a leak detector, not billing advice, and not a plumbing inspection. Official account/billing/emergency/rebate actions happen on EBMUD's site.
 
@@ -120,7 +125,7 @@ https://danieloleary.github.io/mud-buddy/
 
 ### LinkedIn post
 
-I shipped Mud Buddy for EBMUD Customers - by Dan O'Leary, a free browser-local tool for EBMUD customers.
+I shipped Mud Buddy, a free browser-local tool for EBMUD customers.
 
 It turns an exported EBMUD water-use CSV into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, possible fixture checks, and practical next steps.
 
@@ -172,6 +177,7 @@ The first public goal is to help East Bay households find 1M gallons of potentia
 - Confirm live URLs return `200`.
 - Confirm social card preview renders.
 - Confirm X and LinkedIn profile links work.
+- Confirm EBMUD-review docs are present and do not claim official status.
 - Create GitHub Release from the release tag.
 - Add release notes from `CHANGELOG.md`.
 - Post X single post.

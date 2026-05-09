@@ -1,6 +1,6 @@
 # Security Review
 
-Mud Buddy for EBMUD Customers - by Dan O'Leary is a browser-local utility data tool for EBMUD-style CSV exports. It is not affiliated with EBMUD and is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
+Mud Buddy is a browser-local utility data tool for EBMUD-style CSV exports. It is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
 
 ## Threat Model
 

@@ -1,7 +1,7 @@
 :root {
   color-scheme: light;
-  --md-ref-typeface-brand: 'Inter';
-  --md-ref-typeface-plain: 'Inter';
+  --md-ref-typeface-brand: 'Newsreader';
+  --md-ref-typeface-plain: 'Source Sans 3';
   --md-sys-color-primary: #c96442;
   --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: #f3d8cc;
@@ -36,6 +36,7 @@
   --shadow-1: 0 10px 30px rgba(18, 20, 23, 0.10);
   --shadow-2: 0 14px 36px rgba(18, 20, 23, 0.12);
   --shadow-3: 0 18px 44px rgba(18, 20, 23, 0.14);
+  --radius-lg: var(--md-sys-shape-corner-extra-large);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -254,6 +255,45 @@ p { color: var(--muted); font-size: 18px; line-height: 1.55; }
 .resource-card md-icon, .resource-card .icon-glyph { grid-row: span 2; color: var(--md-sys-color-primary); font-size: 34px; }
 .resource-card span { color: var(--reservoir); font-weight: 950; font-size: 19px; }
 .resource-card p { margin: 0; font-size: 15px; line-height: 1.42; }
+.review-band {
+  padding-block: 88px;
+  background: linear-gradient(135deg, rgba(255,255,255,.72), rgba(217,238,240,.62));
+  border-block: 1px solid var(--line);
+}
+.review-layout {
+  display: grid;
+  grid-template-columns: .86fr 1.14fr;
+  gap: 34px;
+  align-items: start;
+}
+.review-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.review-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 12px;
+  min-height: 230px;
+  padding: 22px;
+  text-decoration: none;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.review-card:hover { transform: translateY(-3px); border-color: rgba(0,104,121,.34); }
+.review-card .icon-glyph {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  color: white;
+  background: var(--reservoir);
+  font-size: 29px;
+}
+.review-card strong { color: var(--reservoir); font-size: 19px; font-weight: 950; }
+.review-card p { margin: 0; font-size: 15px; line-height: 1.42; }
 .privacy-art { margin-bottom: 24px; border-radius: 12px; box-shadow: var(--shadow-1); }
 .mission-band { padding-block: 90px; background: linear-gradient(135deg, rgba(0,63,92,.96), rgba(0,104,121,.9)); color: white; border-block: 1px solid rgba(255,255,255,.18); }
 .mission-band h2, .mission-band p { color: white; }
@@ -284,9 +324,10 @@ footer strong, footer a { color: white; }
 }
 @media (max-width: 980px) {
   .topbar nav { display: none; }
-  .hero, .split, .split.reverse, .resource-layout, .mission-layout { grid-template-columns: 1fr; }
+  .hero, .split, .split.reverse, .resource-layout, .mission-layout, .review-layout { grid-template-columns: 1fr; }
   .hero { padding-top: 42px; }
   .resource-copy { position: static; }
+  .review-cards { grid-template-columns: 1fr; }
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
   .savings-grid { grid-template-columns: 1fr; }
   .steps article { grid-template-columns: 48px 1fr; }
@@ -656,6 +697,53 @@ mud-buddy-app.has-browser-report .dropzone strong { font-size: clamp(24px, 3vw, 
   border-radius: 12px;
   background: rgba(255,255,255,.58);
 }
+.confidence-panel,
+.next-checks-card,
+.decision-panel {
+  margin-top: 18px;
+  padding: clamp(18px, 3vw, 24px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,.74);
+}
+.confidence-panel h3,
+.next-checks-card h3,
+.decision-panel h3 { margin: 0 0 12px; }
+.confidence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.confidence-grid article {
+  padding: 16px;
+  border: 1px solid rgba(0,104,121,.14);
+  border-radius: 12px;
+  background: #fff;
+}
+.confidence-grid span {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  color: var(--reservoir);
+  background: var(--md-sys-color-tertiary-container);
+  font-size: 12px;
+  font-weight: 950;
+}
+.confidence-grid strong { display: block; color: var(--ink); font-weight: 950; }
+.confidence-grid p,
+.next-checks-card p,
+.decision-panel p { margin: 8px 0 0; font-size: 15px; }
+.next-check-list {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding-left: 24px;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 750;
+}
+.next-check-list li::marker { color: var(--md-sys-color-primary); font-weight: 950; }
 .browser-report md-divider { display: block; margin-block: 24px; }
 .primary-stat {
   background: #fff;
@@ -674,6 +762,7 @@ mud-buddy-app.has-browser-report .dropzone strong { font-size: clamp(24px, 3vw, 
 @media (max-width: 980px) {
   mud-buddy-app.has-browser-report .hero { grid-template-columns: 1fr; }
   .primary-kpis { grid-template-columns: 1fr; }
+  .confidence-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
   .browser-stats,

@@ -16,7 +16,9 @@ SESSION_TERM_ALLOWED = {
     "acceptance-criteria.md", "plan-and-status.md", "launch-plan.md", "release-checklist.md",
     "roadmap.md", "backlog.md", "CLAUDE.md", "SKILL.md", "main.js", "SUPPORT.md",
     "social-card.svg", "browser_workflow.md", "check_public_redaction.py", "privacy_safety.yml",
-    "ebmud_workflow_docs.yml", "bug_report.yml", "feature_request.yml", "pull_request_template.md"
+    "ebmud_workflow_docs.yml", "bug_report.yml", "feature_request.yml", "pull_request_template.md",
+    "responsible-use.md", "browser-local-proof.md", "outreach-email-draft.md", "ebmud-review-brief.md",
+    "co-release-proposal.md"
 }
 ALLOWED_SVG_ASSETS = {
     "assets/hero-civic-water.svg",

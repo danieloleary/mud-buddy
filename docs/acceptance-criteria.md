@@ -13,6 +13,7 @@
 ## Browser Report
 
 - Report includes a `What should I check first?` summary.
+- Report includes confidence labels, recommended next steps, and a short `How Mud Buddy decides this` explanation.
 - Report includes normal daily use estimate, likely outdoor watering, highest-use period, water use over time, average use by season, and data-quality notes.
 - Browser report does not render private filename, account number, meter ID, service address, local path, raw CSV rows, or exact private identifiers.
 - Oversized CSVs and unusually large row counts are rejected with clear messages.
@@ -39,3 +40,4 @@
 - `npm run test:local-real-csv` passes locally only when `MUD_BUDDY_REAL_CSV` is explicitly set.
 - GitHub Pages deploy succeeds.
 - Live site, sample report, docs, approved visual assets, social card, sample CSV, and ZIP URLs return `200`.
+- EBMUD-review docs are present and do not imply affiliation, endorsement, approval, partnership, co-branding, or official status.

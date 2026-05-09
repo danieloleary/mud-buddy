@@ -16,7 +16,7 @@ const specs = [
   { file: 'leak-check-next-steps.webp', width: 1200, height: 820, title: 'Simple fixture checks', subtitle: 'Toilet dye test, meter test, and calm next steps', mood: 'fixture' },
   { file: 'privacy-local-first.webp', width: 1200, height: 820, title: 'Local first', subtitle: 'The CSV stays in this browser', mood: 'privacy' },
   { file: 'ebmud-resource-directory.webp', width: 1200, height: 820, title: 'Official next steps', subtitle: 'Use EBMUD directly when the issue is official', mood: 'resources' },
-  { file: 'github-social-card.png', width: 1200, height: 630, title: 'Mud Buddy for EBMUD', subtitle: 'Upload CSV. Analyze in browser. Save water and money.', mood: 'social', type: 'png' },
+  { file: 'github-social-card.png', width: 1200, height: 630, title: 'Mud Buddy', subtitle: 'Browser-local water reports for EBMUD customers.', mood: 'social', type: 'png' },
   { file: 'favicon-32.png', width: 32, height: 32, title: '', subtitle: '', mood: 'icon', type: 'png' },
   { file: 'apple-touch-icon.png', width: 180, height: 180, title: '', subtitle: '', mood: 'icon', type: 'png' }
 ];
