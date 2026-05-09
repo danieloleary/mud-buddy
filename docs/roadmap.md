@@ -7,7 +7,7 @@
 - Add browser report confidence labels, recommended next steps, a short methodology explainer, and a visible evidence layer for why the top finding was chosen.
 - Soften report findings into heuristic pattern clues: first checks, evidence, and uncertainty, not official classifications or diagnoses.
 - Keep co-release language conservative: no official, approved, endorsed, partner, or co-branded wording unless EBMUD authorizes it in writing.
-- Validate with `npm run validate`, explicit Dan-local CSV QA, GitHub Actions, Pages deploy, and live smoke checks before outreach.
+- Validate with `npm run validate`, explicit Dan-local usage file QA, GitHub Actions, Pages deploy, and live smoke checks before outreach.
 
 ## Immediate Before Broad Launch
 
@@ -22,12 +22,12 @@
 - Launch **Mud Buddy** as a browser-local homeowner app for EBMUD customers.
 - Keep the primary promise simple: upload an EBMUD usage file in the browser, get a private water-use report, and know what to check next.
 - Keep the millions-of-gallons mission framed as helped-save or potential savings, with 1M gallons as the first milestone, not verified EBMUD conservation totals.
-- Validate with `npm run validate`, explicit Dan-local CSV QA, GitHub Actions, Pages deploy, and live smoke checks.
+- Validate with `npm run validate`, explicit Dan-local usage file QA, GitHub Actions, Pages deploy, and live smoke checks.
 - Keep real EBMUD access manual-login-only; Mud Buddy never handles credentials or session material.
 
 ## Near Term After Launch
 
-- Add a first-run wizard with `Download CSV`, `Create my report`, `Review next checks`, and `Share safely`.
+- Add a first-run wizard with `Download usage file`, `Create my report`, `Review next checks`, and `Share safely`.
 - Add print/PDF styling for the browser report.
 - Add fixture/toilet check worksheets.
 - Add helped-save estimate worksheet that stays local and avoids certified claims.
@@ -44,7 +44,7 @@
 ## Later
 
 - Support smart-meter/hourly exports if available.
-- Support additional utilities with similar CSV or Green Button exports.
+- Support additional utilities with similar usage file or Green Button exports.
 - Build utility-template abstractions for other local-first civic data tools.
 - Build community partner and local conservation professional workflows.
 - Explore optional hosted services only if users ask for them and privacy/security requirements are fully defined.

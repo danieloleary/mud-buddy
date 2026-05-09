@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360" role="img" aria-labelledby="title desc">
-  <title id="title">Synthetic CSV to report workflow</title>
-  <desc id="desc">A three step local workflow from official CSV export to Mud Buddy report to public-safe sharing.</desc>
+  <title id="title">Synthetic usage-file to report workflow</title>
+  <desc id="desc">A three step local workflow from official usage export to Mud Buddy report to public-safe sharing.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f8fdf9"/><stop offset="1" stop-color="#dcf5f4"/></linearGradient>
     <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#75dce3"/><stop offset="1" stop-color="#003f5c"/></linearGradient>
@@ -14,7 +14,7 @@
     <rect width="210" height="216" rx="30" fill="#ffffff" stroke="#c6dfdf"/>
     <path d="M52 42h80l34 34v98H52z" fill="#f4d992" stroke="#003f5c" stroke-width="7" stroke-linejoin="round"/>
     <path d="M132 42v38h34" fill="none" stroke="#003f5c" stroke-width="7" stroke-linejoin="round"/>
-    <text x="105" y="136" text-anchor="middle" font-family="Source Sans 3, Arial" font-size="28" font-weight="900" fill="#003f5c">CSV</text>
+    <text x="105" y="136" text-anchor="middle" font-family="Source Sans 3, Arial" font-size="28" font-weight="900" fill="#003f5c">FILE</text>
     <text x="105" y="198" text-anchor="middle" font-family="Source Sans 3, Arial" font-size="22" font-weight="800" fill="#516366">Export</text>
   </g>
   <g transform="translate(386 52)">

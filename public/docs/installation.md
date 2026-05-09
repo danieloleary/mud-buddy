@@ -34,7 +34,7 @@ Open the Vite URL shown in your terminal.
 
 ## Generate A Private Local Report
 
-It is OK to provide the downloaded EBMUD CSV to this local command or to a local coding agent helping in this repo. Do not provide credentials, MFA codes, cookies, localStorage, sessionStorage, auth headers, or session tokens.
+It is OK to provide the downloaded EBMUD usage file to this local command or to a local coding agent helping in this repo. Do not provide credentials, MFA codes, cookies, localStorage, sessionStorage, auth headers, or session tokens.
 
 ```bash
 python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "my-water-report"

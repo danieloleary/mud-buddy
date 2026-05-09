@@ -25,7 +25,7 @@ https://danieloleary.github.io/mud-buddy/
 - `Create another report` and `Print or save PDF` are visible in the report.
 - Report sections are readable: `Start here`, `Other clues`, `Recommended next checks`, `This weekend`, `Key numbers`, charts, `Usage file notes`, and `When to use EBMUD directly`.
 
-## Real CSV flow
+## Real usage file flow
 
 - Tap `Create my report`.
 - File picker opens.

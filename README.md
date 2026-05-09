@@ -54,7 +54,7 @@ Do not send raw usage files publicly. Water-use data can reveal household routin
 
 Water usage can reveal household routines, so the default workflow is intentionally private.
 
-- Browser analyzer: the CSV is read with the browser file picker and is not uploaded to a Mud Buddy server.
+- Browser analyzer: the usage file is read with the browser file picker and is not uploaded to a Mud Buddy server.
 - No Mud Buddy account is required.
 - Mud Buddy does not display the private filename, account number, meter ID, raw usage file rows, or local file path in the browser report.
 - Do not paste EBMUD credentials into Codex, Claude Code, Lovable, or any chat tool.
@@ -67,9 +67,9 @@ Water usage can reveal household routines, so the default workflow is intentiona
 
 ![Synthetic redacted report preview](public/assets/report-preview-redacted.webp)
 
-| Browser-local analysis | Safe CSV boundary | Official next steps |
+| Browser-local analysis | Safe usage file boundary | Official next steps |
 | --- | --- | --- |
-| ![Synthetic civic water dashboard](public/assets/hero-civic-water.webp) | ![Synthetic CSV boundary](public/assets/csv-export-boundary.svg) | ![Synthetic official resource directory](public/assets/ebmud-resource-directory.svg) |
+| ![Synthetic civic water dashboard](public/assets/hero-civic-water.webp) | ![Synthetic usage file boundary](public/assets/csv-export-boundary.svg) | ![Synthetic official resource directory](public/assets/ebmud-resource-directory.svg) |
 
 ![Synthetic sample report montage](public/assets/sample-report-montage.webp)
 
@@ -171,8 +171,8 @@ Built with love in Lafayette, CA.
 
 The demo and test files are here to make releases safer. Homeowners do not need to care about them.
 
-- The only committed CSV is [examples/sample-ebmud-usage.csv](examples/sample-ebmud-usage.csv).
-- The browser app receives CSV text only through explicit file selection or the synthetic sample-data button.
+- The only committed sample usage file is [examples/sample-ebmud-usage.csv](examples/sample-ebmud-usage.csv).
+- The browser app receives usage file text only through explicit file selection or the synthetic sample-data button.
 - Synthetic test cases are generated under ignored `tests/output/` for parser and report coverage.
 - The mock browser portal is synthetic and never automates real EBMUD credentials.
 - Dan's real usage file can be used locally for a private parse check, but it must never be committed, packaged, or published.

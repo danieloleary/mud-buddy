@@ -13,7 +13,7 @@ The privacy boundary is deliberate:
 
 - no EBMUD login secret;
 - no credential automation;
-- no CSV upload to a Mud Buddy server;
+- no usage file upload to a Mud Buddy server;
 - no account, billing, autopay, or settings changes;
 - no claim of official EBMUD analysis.
 
@@ -36,7 +36,7 @@ Mud Buddy lets a customer upload an EBMUD usage file in the browser and receive 
 - normal daily use estimate;
 - likely outdoor watering clue;
 - highest-use period;
-- CSV/data-quality notes;
+- usage-file notes;
 - recommended homeowner next checks;
 - official EBMUD routing for account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality questions.
 

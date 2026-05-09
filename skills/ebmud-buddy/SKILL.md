@@ -1,6 +1,6 @@
 ---
 name: ebmud-buddy
-description: Analyze EBMUD water usage CSV exports and create clear driver-focused summaries or visual reports. Use when Codex is asked to inspect East Bay Municipal Utility District / EBMUD billing usage data, water consumption CSVs with CCF or gallons-per-day columns, WaterScore trends, irrigation seasonality, household baseline changes, leak/fixture clues, or to generate a scrollable water-usage report for a home.
+description: Analyze EBMUD water usage exports and create clear driver-focused summaries or visual reports. Use when Codex is asked to inspect East Bay Municipal Utility District / EBMUD billing usage data, water consumption files with CCF or gallons-per-day columns, WaterScore trends, irrigation seasonality, household baseline changes, leak/fixture clues, or to generate a scrollable water-usage report for a home.
 ---
 
 # EBMUD Buddy
@@ -31,7 +31,7 @@ Open `index.html` from the output folder. If the user asks to publish it, genera
 
 ## Workflow
 
-1. Parse the CSV and validate expected columns: `Reading Date`, `Days in Read Period`, `CCF`, `Customer GPD`, `Average Households GPD`, `Top 20% GPD`, and `WaterScore`.
+1. Parse the usage file and validate expected columns: `Reading Date`, `Days in Read Period`, `CCF`, `Customer GPD`, `Average Households GPD`, `Top 20% GPD`, and `WaterScore`.
 2. Use `Customer GPD` as the primary trend metric because it normalizes billing-period length.
 3. Estimate a current indoor/household baseline from recent winter/spring periods, then treat usage above that baseline as outdoor/seasonal lift.
 4. Compare against the home itself first; use EBMUD average-household benchmarks second because neighborhood averages also rise during irrigation season.
@@ -47,7 +47,7 @@ For browser-assisted account workflows, read `references/browser_workflow.md` be
 - Winter: December-February. Spring: March-May. Summer: June-September. Fall: October-November.
 - Use a context-aware current baseline when the household has changed; do not treat old lowest months as the user's current realistic target.
 - If irrigation was intentionally increased and the system is failing, frame the target as "more plant health per gallon," not simply "use less water."
-- Treat address, account number, meter ID, raw CSV rows, and household occupancy clues as sensitive. Users may explicitly provide CSVs for local analysis, but raw private CSV data must never be published or committed. Default to private local reports; use `--public` before sharing.
+- Treat address, account number, meter ID, raw usage-file rows, and household occupancy clues as sensitive. Users may explicitly provide usage files for local analysis, but raw private usage data must never be published or committed. Default to private local reports; use `--public` before sharing.
 
 For more detailed diagnostic heuristics, read `references/interpretation.md`.
 

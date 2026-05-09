@@ -1,6 +1,6 @@
 # Security Review
 
-Mud Buddy is a browser-local utility data tool for EBMUD-style CSV exports. It is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
+Mud Buddy is a browser-local utility data tool for EBMUD-style usage exports. It is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
 
 ## Threat Model
 
@@ -11,23 +11,23 @@ Water usage data can reveal household routines, occupancy patterns, irrigation b
 - The user controls login, MFA, CAPTCHA, security questions, and consent prompts.
 - Codex may assist only after the user confirms they are logged in.
 - Codex should navigate only to usage/export/download screens.
-- If the portal layout changes or a page is unclear, stop and ask the user to download the CSV manually.
+- If the portal layout changes or a page is unclear, stop and ask the user to download the usage file manually.
 
 ## Browser-local app boundary
 
-- The live app uses a file picker or drag/drop to read the user-selected CSV.
-- The CSV is parsed in browser memory and rendered directly into the page.
-- The app must not upload user CSV data to a backend.
-- The app must not store user CSV data in localStorage, sessionStorage, IndexedDB, cookies, query strings, or URL fragments.
-- The browser report should not display private filenames, account numbers, meter IDs, raw CSV rows, local paths, or service addresses.
+- The live app uses a file picker or drag/drop to read the user-selected usage file.
+- The usage file is parsed in browser memory and rendered directly into the page.
+- The app must not upload user usage-file data to a backend.
+- The app must not store user usage-file data in localStorage, sessionStorage, IndexedDB, cookies, query strings, or URL fragments.
+- The browser report should not display private filenames, account numbers, meter IDs, raw usage-file rows, local paths, or service addresses.
 
 ## Data Minimization
 
-- Process CSV files locally by default.
-- Users may explicitly provide or upload an EBMUD CSV to Mud Buddy or a local AI coding agent for analysis.
-- Do not publish, commit, or bundle raw private CSVs.
+- Process usage files locally by default.
+- Users may explicitly provide or upload an EBMUD usage file to Mud Buddy or a local AI coding agent for analysis.
+- Do not publish, commit, or bundle raw private usage files.
 - Public reports should be generated with `--public`; `--redact` is identifier-only.
-- Public ZIPs must exclude private reports, real CSVs, here.now deployment state files, browser traces, and local download folders.
+- Public ZIPs must exclude private reports, real usage files, here.now deployment state files, browser traces, and local download folders.
 
 ## Credential And Session Hard Stops
 
@@ -35,7 +35,7 @@ Mud Buddy refuses to ask for, store, scrape, log, export, or transmit EBMUD user
 
 ## Browser Session Risks
 
-Optional browser help can accidentally expose sensitive account pages. The safe path is a mock-tested workflow plus real-portal restraint: user-supervised login, official CSV download controls only, no setting changes, no billing changes, no unattended scraping, and no screenshots of authenticated pages for public launch assets.
+Optional browser help can accidentally expose sensitive account pages. The safe path is a mock-tested workflow plus real-portal restraint: user-supervised login, official usage-file download controls only, no setting changes, no billing changes, no unattended scraping, and no screenshots of authenticated pages for public launch assets.
 
 ## Redaction Checklist
 
@@ -45,7 +45,7 @@ Before publishing, confirm the artifact contains:
 - No service address.
 - No account number.
 - No meter ID.
-- No raw CSV rows.
+- No raw usage-file rows.
 - No local file paths.
 - No exact absence/vacation pattern.
 - A visible "not affiliated with EBMUD" disclaimer.

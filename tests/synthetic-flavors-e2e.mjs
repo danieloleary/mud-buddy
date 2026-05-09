@@ -58,10 +58,10 @@ for (const item of manifest.flavors) {
   if (!publicHtml.includes('Public anonymized summary')) throw new Error(`${item.flavor} public report missing public label`);
   if (!publicHtml.includes(`Excluded invalid rows: ${item.expectedInvalid}`)) throw new Error(`${item.flavor} expected invalid rows ${item.expectedInvalid}`);
   assertNoForbidden(publicHtml, `${item.flavor} public report`);
-  if (publicHtml.includes(item.file)) throw new Error(`${item.flavor} public report leaked synthetic CSV filename`);
+  if (publicHtml.includes(item.file)) throw new Error(`${item.flavor} public report leaked synthetic usage filename`);
 
   const firstDataRow = csvText.trim().split(/\r?\n/)[1];
-  if (firstDataRow && publicHtml.includes(firstDataRow)) throw new Error(`${item.flavor} public report leaked a raw CSV row`);
+  if (firstDataRow && publicHtml.includes(firstDataRow)) throw new Error(`${item.flavor} public report leaked a raw usage-file row`);
 }
 
 console.log(`synthetic-flavors-e2e: OK ${manifest.count} flavors generated private/public reports safely`);

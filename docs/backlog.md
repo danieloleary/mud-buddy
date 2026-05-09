@@ -29,7 +29,7 @@
 
 ## Near-Term Product Polish
 
-- Add a first-run wizard for non-technical homeowners: `Download CSV`, `Create my report`, `Review next checks`, `Share safely`.
+- Add a first-run wizard for non-technical homeowners: `Download usage file`, `Create my report`, `Review next checks`, `Share safely`.
 - Add clearer print/PDF styling for the browser report.
 - Add fixture/toilet check worksheets.
 - Add optional household and landscaping context form that stays local.
@@ -46,13 +46,13 @@
 ## Later
 
 - Support smart-meter/hourly exports if available.
-- Support additional utilities with similar CSV or Green Button exports.
+- Support additional utilities with similar usage file or Green Button exports.
 - Build utility-template abstractions for other local-first civic data tools.
 - Explore optional hosted services only if users ask for them and privacy/security requirements are fully defined.
 
 ## Not Planned For Current Launch
 
-- Hosted CSV upload backend.
+- Hosted usage file upload backend.
 - EBMUD credential automation.
 - Certified leak, plumbing, billing, conservation, or official utility diagnosis.
 - Storage of user usage files on a server.

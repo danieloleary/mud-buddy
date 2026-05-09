@@ -98,7 +98,7 @@ try {
   for (const href of resourceLinks) {
     if (!href.startsWith('https://www.ebmud.com/')) throw new Error(`Official resource link is not a public EBMUD URL: ${href}`);
   }
-  if ((await page.locator('#csvInput').count()) !== 1) throw new Error('Expected browser-local CSV file input');
+  if ((await page.locator('#csvInput').count()) !== 1) throw new Error('Expected browser-local usage file input');
   await page.getByRole('button', { name: 'Try sample report' }).first().click();
   await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   if (!(await page.locator('.browser-report').isVisible())) throw new Error('Sample browser report did not render');

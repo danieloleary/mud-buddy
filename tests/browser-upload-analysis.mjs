@@ -56,7 +56,7 @@ try {
   if (!(await mobileAnalyzeAgain.isVisible())) throw new Error('Mobile analyze-another CTA not visible');
   await browser.close();
   if (errors.length) throw new Error('Console errors: ' + errors.join('\n'));
-  console.log('browser-upload-analysis: OK uploaded sample CSV renders browser-local report on desktop/mobile');
+  console.log('browser-upload-analysis: OK uploaded sample usage file renders browser-local report on desktop/mobile');
 } finally {
   if (server) server.kill();
 }

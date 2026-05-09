@@ -14,7 +14,7 @@ Mud Buddy is a small civic-tech project for helping people understand household 
 
 - Harassment, threats, or discriminatory comments.
 - Pressuring people to share credentials, account data, or private household details.
-- Publishing private CSV data or authenticated portal screenshots.
+- Publishing private usage data or authenticated portal screenshots.
 - Representing Mud Buddy as affiliated with or endorsed by EBMUD.
 
 ## Reporting

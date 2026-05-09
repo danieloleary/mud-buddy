@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="500" viewBox="0 0 1280 500" role="img" aria-labelledby="title desc">
   <title id="title">Mud Buddy README banner</title>
-  <desc id="desc">A calm civic-water launch banner for a local-first EBMUD CSV report tool.</desc>
+  <desc id="desc">A calm civic-water launch banner for a local-first EBMUD usage file report tool.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fafff8"/><stop offset="0.45" stop-color="#dff7f5"/><stop offset="1" stop-color="#ffeeb8"/></linearGradient>
     <linearGradient id="water" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#003f5c"/><stop offset="0.55" stop-color="#007d8d"/><stop offset="1" stop-color="#75dce3"/></linearGradient>
@@ -13,7 +13,7 @@
   </g>
   <text x="280" y="170" font-family="Newsreader, Georgia" font-size="78" font-weight="750" fill="#082d3f">Mud Buddy</text>
   <text x="284" y="226" font-family="Source Sans 3, Arial" font-size="30" font-weight="800" fill="#006879">A local-first water report skill for EBMUD exports.</text>
-  <text x="284" y="278" font-family="Source Sans 3, Arial" font-size="24" font-weight="650" fill="#516366">Export CSV. Analyze locally. Share public-safe summaries only when you choose.</text>
+  <text x="284" y="278" font-family="Source Sans 3, Arial" font-size="24" font-weight="650" fill="#516366">Download usage. Analyze locally. Share public-safe summaries only when you choose.</text>
   <g transform="translate(878 90)">
     <rect width="300" height="236" rx="32" fill="#ffffff" opacity="0.92"/>
     <rect x="32" y="34" width="154" height="24" rx="12" fill="#e3f4ef"/>

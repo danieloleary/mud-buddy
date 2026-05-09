@@ -1,5 +1,5 @@
 ﻿#!/usr/bin/env python3
-"""Generate a scrollable EBMUD water usage report from an EBMUD CSV export.
+"""Generate a scrollable EBMUD water usage report from an EBMUD usage file export.
 
 The script intentionally uses only the Python standard library so it can run in
 minimal Codex environments without pandas/matplotlib.
@@ -388,7 +388,7 @@ def write_index(out_dir, rows, invalid, baseline, args):
     address = "Location and account identifiers removed for public sharing" if getattr(args, "public_mode", False) else ("EBMUD service-area home" if args.redact else (args.address or "Home water account"))
     source_label = "Public aggregated source; original filename removed" if getattr(args, "public_mode", False) else ("Redacted local CSV" if args.redact else args.csv.name)
     privacy_note = (
-        "Public/anonymized summary generated locally. Dates and visible usage values are bucketed; identifiers, raw CSV rows, and detailed context are removed."
+        "Public/anonymized summary generated locally. Dates and visible usage values are bucketed; identifiers, raw usage-file rows, and detailed context are removed."
         if getattr(args, "public_mode", False)
         else ("Public-safe summary generated locally from user-provided EBMUD-style usage data; identifiers removed. Use --public for broader sharing." if args.redact else "Private local report generated from a user-provided CSV. Review before sharing.")
     )
@@ -457,7 +457,7 @@ def write_index(out_dir, rows, invalid, baseline, args):
 
 def main():
     parser = argparse.ArgumentParser(description="Generate an EBMUD Buddy report.")
-    parser.add_argument("csv", type=Path, help="EBMUD billing usage CSV export")
+    parser.add_argument("csv", type=Path, help="EBMUD billing usage export")
     parser.add_argument("--out", type=Path, default=Path("ebmud_buddy_report"), help="Output directory")
     parser.add_argument("--title", default="EBMUD Water Usage Report")
     parser.add_argument("--address", default="")

@@ -38,7 +38,7 @@ Could you try it for 5-10 minutes?
 3. If you are comfortable, download your own EBMUD usage file and upload it.
 4. Tell me where you got stuck, what the report made clear, and what still felt confusing.
 
-Privacy note: the CSV is read in your browser and is not uploaded to a Mud Buddy server. Please do not send me your raw usage file unless you explicitly want private help debugging it.
+Privacy note: the usage file is read in your browser and is not uploaded to a Mud Buddy server. Please do not send me your raw usage file unless you explicitly want private help debugging it.
 ```
 
 ## Questions to ask after
@@ -68,7 +68,7 @@ Do not add major new features during quiet beta.
 ## Success criteria
 
 - 3 testers can run sample data without help.
-- 2 testers can understand how to get their EBMUD CSV.
+- 2 testers can understand how to get their EBMUD usage file.
 - At least 1 real non-Dan usage file works through the live browser app.
 - No tester thinks Mud Buddy asks for an EBMUD login secret.
 - No tester thinks Mud Buddy is official EBMUD analysis.
@@ -78,7 +78,7 @@ Do not add major new features during quiet beta.
 
 Use GitHub issues or a simple notes file. Tag each note as:
 
-- `csv-download`;
+- `usage-file-download`;
 - `upload`;
 - `report-language`;
 - `mobile`;

@@ -70,14 +70,14 @@ try {
     !requestUrl.startsWith('blob:') &&
     !allowedSameOriginAfterClick(requestUrl)
   ));
-  if (sampleRequests.length !== 1) throw new Error(`Expected exactly one sample CSV fetch, found ${sampleRequests.length}`);
+  if (sampleRequests.length !== 1) throw new Error(`Expected exactly one sample usage file fetch, found ${sampleRequests.length}`);
   if (unexpected.length) throw new Error(`Unexpected network request after sample button:\n${unexpected.join('\n')}`);
 
   const privacyEvents = await page.evaluate(() => window.__mudBuddyPrivacyEvents || []);
   if (privacyEvents.length) throw new Error(`Sample data path used forbidden APIs:\n${privacyEvents.join('\n')}`);
 
   await browser.close();
-  console.log('sample-data-network: OK sample button fetched one local synthetic CSV, allowed only same-origin assets, and wrote no storage');
+  console.log('sample-data-network: OK sample button fetched one local synthetic usage file, allowed only same-origin assets, and wrote no storage');
 } finally {
   server.kill();
 }

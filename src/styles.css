@@ -311,7 +311,7 @@ mud-buddy-app.has-browser-report .mascot-card img { width: 80px; }
 .season-row b { height: 14px; border-radius: 999px; background: var(--md-sys-color-tertiary-container); overflow: hidden; }
 .season-row i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--aqua), var(--terracotta)); }
 .season-row strong { text-align: right; }
-.csv-notes-body p { margin: 0; }
+.usage-notes-body p { margin: 0; }
 .browser-warnings { margin: var(--space-sm) 0 0; color: var(--muted); font-weight: 700; }
 .method-details summary { cursor: pointer; color: var(--reservoir); font-weight: 850; }
 .method-details p { margin-top: var(--space-md); font-size: 15px; }

@@ -19,17 +19,17 @@ Read these files before making changes:
 
 ## Product Boundary
 
-Mud Buddy is a local-first EBMUD CSV report generator and public demo site. It is not affiliated with EBMUD and is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
+Mud Buddy is a local-first EBMUD usage report generator and public demo site. It is not affiliated with EBMUD and is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
 
-Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
+Mud Buddy explains your usage file. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 Avoid overclaiming. Prefer phrases like "possible leak clues" and "patterns worth checking," not certified diagnosis.
 
-## CSV Handling
+## Usage File Handling
 
-It is OK for a user to provide or upload an EBMUD usage CSV to Mud Buddy or to an AI coding agent working in this local repo when they explicitly ask for analysis. Treat the CSV as sensitive local data.
+It is OK for a user to provide or upload an EBMUD usage file to Mud Buddy or to an AI coding agent working in this local repo when they explicitly ask for analysis. Treat the usage file as sensitive local data.
 
-Never publish, commit, paste into public docs, or include raw private CSV data in public artifacts. Use `--public` plus the redaction scan before sharing anything publicly.
+Never publish, commit, paste into public docs, or include raw private usage data in public artifacts. Use `--public` plus the redaction scan before sharing anything publicly.
 
 ## Browser Safety
 
@@ -37,12 +37,12 @@ If browser assistance is requested:
 
 - Ask before controlling a real EBMUD browser session.
 - Let the user complete login, password, MFA, CAPTCHA, security questions, and consent prompts manually.
-- After the user confirms login, navigate only to official usage, Track Usage, export, or CSV download screens.
+- After the user confirms login, navigate only to official usage, Track Usage, export, or usage export screens.
 - Prefer official controls labeled like `Download your data`, `Export`, or `CSV`.
-- Detect the downloaded CSV in the browser download location or ask the user to identify it.
-- Ask before processing a detected CSV.
+- Detect the downloaded usage file in the browser download location or ask the user to identify it.
+- Ask before processing a detected usage file.
 - Do not change billing, autopay, contact, account, service, household profile, or settings pages.
-- If anything is ambiguous, stop and ask the user to download the CSV manually.
+- If anything is ambiguous, stop and ask the user to download the usage file manually.
 - If the issue looks urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related, direct the user to official EBMUD resources.
 
 Never ask for, store, paste, scrape, log, export, or transmit EBMUD usernames, passwords, MFA codes, cookies, localStorage, sessionStorage, auth headers, session tokens, CAPTCHA responses, or security-question answers.

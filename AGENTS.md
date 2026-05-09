@@ -4,17 +4,17 @@ Guidance for AI coding agents working on Mud Buddy.
 
 ## Product Boundary
 
-Mud Buddy is a local-first EBMUD CSV report generator and public demo site. It is not affiliated with EBMUD and is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
+Mud Buddy is a local-first EBMUD usage report generator and public demo site. It is not affiliated with EBMUD and is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
 
-Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
+Mud Buddy explains your usage file. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 ## Safety Rules
 
 - Never ask for, store, paste, scrape, log, export, or transmit EBMUD usernames, passwords, MFA codes, cookies, localStorage, sessionStorage, auth headers, session tokens, CAPTCHA responses, or security-question answers.
 - User login to EBMUD is always manual. Optional browser help may resume only after the user confirms they are logged in.
 - Do not change EBMUD billing, autopay, contact, account, service, household profile, or settings pages.
-- Process raw CSV files locally by default. Users may explicitly provide or upload a CSV to Mud Buddy/local agents for analysis; treat it as sensitive and never publish or commit raw private CSV data.
-- Before creating public artifacts, run redaction checks and confirm no address, account number, meter ID, raw CSV, local path, or exact absence/vacation pattern is present.
+- Process raw usage-file files locally by default. Users may explicitly provide or upload a usage file to Mud Buddy/local agents for analysis; treat it as sensitive and never publish or commit raw private usage data.
+- Before creating public artifacts, run redaction checks and confirm no address, account number, meter ID, raw usage-file, local path, or exact absence/vacation pattern is present.
 - If the issue looks urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related, route the user to official EBMUD resources instead of over-interpreting Mud Buddy data.
 
 ## Official EBMUD Resources

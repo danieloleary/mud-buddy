@@ -117,7 +117,7 @@ class MudBuddyApp extends HTMLElement {
           <article class="material-card helper-card">
             <p class="overline">Get your usage file</p>
             <h2>Download from EBMUD, then create your report.</h2>
-            <p>This usually takes about 3 minutes. Log into EBMUD yourself, open Track Usage or My Water Report, and download your billing usage file. It may be labeled CSV or export.</p>
+            <p>This usually takes about 3 minutes. Log into EBMUD yourself, open Track Usage or My Water Report, and download your billing usage file. Look for a Download your data or Export button.</p>
             <p class="helper-reassurance">This will not change your EBMUD account. Mud Buddy never needs your login, MFA code, or browser session.</p>
             <div class="mini-steps">
               <span><strong>1</strong> Log into EBMUD yourself</span>
@@ -175,7 +175,7 @@ class MudBuddyApp extends HTMLElement {
           <ol class="dialog-steps">
             <li>Log into your EBMUD account yourself.</li>
             <li>Open Track Usage or My Water Report.</li>
-            <li>Look for Download your data, Export, or CSV.</li>
+            <li>Look for Download your data or Export.</li>
             <li>Save the usage file, then come back here and choose Create my report.</li>
           </ol>
           <p class="dialog-note">Mud Buddy does not change your EBMUD account and never needs your password, MFA code, cookies, or browser session.</p>
@@ -237,7 +237,7 @@ class MudBuddyApp extends HTMLElement {
 
   async analyzeFile(file) {
     if (!/\.csv$/i.test(file.name) && file.type !== 'text/csv') {
-      this.setUploadState('That does not look like an EBMUD usage file. Please choose the billing usage export, usually a .csv file.', 0, true);
+      this.setUploadState('That does not look like an EBMUD usage file. Please choose the billing usage export, from EBMUD.', 0, true);
       return;
     }
     if (file.size > MAX_CSV_BYTES) {

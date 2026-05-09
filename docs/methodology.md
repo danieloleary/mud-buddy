@@ -1,6 +1,6 @@
-﻿# Methodology
+# Methodology
 
-Mud Buddy reads EBMUD-style CSV exports and creates a visual report from billing-period data.
+Mud Buddy reads EBMUD-style usage exports and creates a visual report from billing-period data.
 
 ## Core Calculations
 

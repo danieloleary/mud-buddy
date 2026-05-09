@@ -6,7 +6,7 @@ Mud Buddy is a small, useful example of AI-assisted civic tech: a browser-local 
 
 Core message:
 
-> I built Mud Buddy so East Bay households can upload EBMUD usage data in their browser, get beautiful private analysis, recommendations, and next checks, and help find millions of gallons of potential water savings without sending the CSV to a server.
+> I built Mud Buddy so East Bay households can upload EBMUD usage data in their browser, get beautiful private analysis, recommendations, and next checks, and help find millions of gallons of potential water savings without sending the usage file to a server.
 
 Important wording:
 
@@ -33,12 +33,12 @@ Required gates:
 
 - `npm run validate`
 - `MUD_BUDDY_REAL_CSV="path/to/private.csv" npm run test:local-real-csv`
-- Browser upload test proves a homeowner can upload a CSV and see the in-page report.
-- Editorial contract proves the public page leads with upload, sample data, CSV help, privacy, and official EBMUD resources instead of maintainer/test language.
+- Browser upload test proves a homeowner can upload a usage file and see the in-page report.
+- Editorial contract proves the public page leads with upload, sample data, usage file help, privacy, and official EBMUD resources instead of maintainer/test language.
 - Synthetic source policy proves default QA fixtures come from committed sample data, not Dan's Downloads folder.
-- Sample-data network test proves the demo button fetches only the local synthetic CSV.
+- Sample-data network test proves the demo button fetches only the local synthetic usage file.
 - Browser privacy test proves account number, meter ID, filename, local path, and raw rows do not appear in the browser report.
-- No-network-after-upload test proves uploaded CSV analysis does not make network requests.
+- No-network-after-upload test proves uploaded usage-file analysis does not make network requests.
 - GitHub Actions CI green on `main`.
 - GitHub Pages deploy green on `main`.
 - Live site smoke check: `MUD_BUDDY_URL="https://danieloleary.github.io/mud-buddy/" npm run test:live-site`.
@@ -47,7 +47,7 @@ Manual checks:
 
 - Open the live site on mobile and desktop and read it like a homeowner.
 - Click `Create my report`, `Try sample report`, `How to get your usage file`, official resources, X, and LinkedIn links.
-- Run the real EBMUD workflow manually once: user logs in, downloads CSV, browser-local report renders.
+- Run the real EBMUD workflow manually once: user logs in, downloads usage file, browser-local report renders.
 - Download the ZIP and confirm it does not include private usage files, private reports, local paths, traces, screenshots, or deployment state.
 
 ## Launch sequence
@@ -58,7 +58,7 @@ Share privately with 3-5 trusted people and ask:
 
 - What do you think this does?
 - Would you trust the browser-local upload promise?
-- Could you find where to get your EBMUD CSV?
+- Could you find where to get your EBMUD usage file?
 - What would stop you from trying it?
 
 Fix only launch-blocking confusion, broken links, or privacy concerns.
@@ -127,13 +127,13 @@ https://danieloleary.github.io/mud-buddy/
 
 6. The public mission is to help East Bay households find millions of gallons of potential savings, starting with the first 1 million gallons. Not certified savings, but practical patterns people can act on.
 
-7. This feels like a good use of AI: helping people understand their own household data and make better water/money decisions. Try the sample data or your own CSV and send feedback.
+7. This feels like a good use of AI: helping people understand their own household data and make better water/money decisions. Try the sample data or your own usage file and send feedback.
 
 ### LinkedIn post
 
 I shipped Mud Buddy, a free browser-local tool for EBMUD customers.
 
-It turns an exported EBMUD water-use CSV into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, fixture checks worth considering, and practical next steps.
+It turns an exported EBMUD water-use file into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, fixture checks worth considering, and practical next steps.
 
 The goal is not to replace EBMUD, plumbers, or conservation experts. Mud Buddy is an interpretation layer that helps people understand their own usage data before deciding what to check next.
 
@@ -179,7 +179,7 @@ The public goal is to help East Bay households find millions of gallons of poten
 - Confirm `npm run validate` passed on the release commit.
 - Confirm explicit `MUD_BUDDY_REAL_CSV=... npm run test:local-real-csv` passed locally.
 - Confirm GitHub Actions CI and Pages are green.
-- Confirm live browser upload works with sample data and one private local CSV.
+- Confirm live browser upload works with sample data and one private local usage file.
 - Confirm live URLs return `200`.
 - Confirm social card preview renders.
 - Confirm X and LinkedIn profile links work.

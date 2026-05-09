@@ -4,11 +4,11 @@ Thanks for trying Mud Buddy.
 
 ## Project support
 
-Use GitHub Issues for Mud Buddy bugs, feature ideas, privacy/safety concerns, and EBMUD workflow documentation feedback. Do not include private EBMUD CSV rows, service addresses, account numbers, meter IDs, credentials, session data, or authenticated screenshots.
+Use GitHub Issues for Mud Buddy bugs, feature ideas, privacy/safety concerns, and EBMUD workflow documentation feedback. Do not include private EBMUD usage file rows, service addresses, account numbers, meter IDs, credentials, session data, or authenticated screenshots.
 
 ## Official EBMUD support
 
-Mud Buddy is not affiliated with EBMUD. Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
+Mud Buddy is not affiliated with EBMUD. Mud Buddy explains your usage file. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 Use official EBMUD resources for urgent, billing-related, pressure/outage-related, water-quality-related, rebate, conservation, assistance, account, and emergency actions:
 

@@ -204,7 +204,7 @@ def validate_no_private(path: Path, private_terms: list[str]):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate ignored synthetic EBMUD CSV flavor fixtures.")
+    parser = argparse.ArgumentParser(description="Generate ignored synthetic EBMUD usage file flavor fixtures.")
     parser.add_argument("--source", type=Path, default=None)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args()

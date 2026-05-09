@@ -190,7 +190,7 @@ function renderInsightList(analysis) {
 }
 
 function renderCsvNotes(analysis) {
-  const notes = el('div', { class: 'csv-notes-body' });
+  const notes = el('div', { class: 'usage-notes-body' });
   notes.append(el('p', { text: `${analysis.validRows} billing period${analysis.validRows === 1 ? '' : 's'} analyzed. ${analysis.invalidRows} row${analysis.invalidRows === 1 ? '' : 's'} skipped.` }));
   if (analysis.warnings.length) {
     const warningList = el('ul', { class: 'browser-warnings' });

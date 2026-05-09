@@ -49,7 +49,7 @@ Mud Buddy should feel like a real tool Dan would proudly send to neighbors: usef
 
 ## Product Principle
 
-Build the actual usable app first. The first screen must make it obvious that a homeowner can upload an EBMUD CSV in the browser and get a private report. Marketing, launch copy, AI-agent instructions, test harnesses, and GitHub mechanics belong below the product or in docs.
+Build the actual usable app first. The first screen must make it obvious that a homeowner can upload an EBMUD usage file in the browser and get a private report. Marketing, launch copy, AI-agent instructions, test harnesses, and GitHub mechanics belong below the product or in docs.
 
 ## Visual Direction
 
@@ -65,13 +65,13 @@ Buttons should be compact and direct. One primary button per decision area. Seco
 
 ## Imagery
 
-Use generated raster images as evidence of the product world: browser-local reporting, gardens, fixtures, meters, privacy boundaries, and official-resource signposts. Avoid placeholder SVG slop, fake dashboards full of unreadable text, real screenshots, EBMUD logos, account numbers, service addresses, raw CSV rows, and authenticated portal imagery.
+Use generated raster images as evidence of the product world: browser-local reporting, gardens, fixtures, meters, privacy boundaries, and official-resource signposts. Avoid placeholder SVG slop, fake dashboards full of unreadable text, real screenshots, EBMUD logos, account numbers, service addresses, raw usage-file rows, and authenticated portal imagery.
 
 SVG is still appropriate for crisp diagrams, tiny icons, and report charts. Raster images should carry the emotional and editorial weight.
 
 ## Copy
 
-Write like a capable neighbor, not a breathless startup. Prefer: "Upload your EBMUD CSV", "See what changed", "Check irrigation first", and "Use EBMUD directly for official issues." Avoid jargon like "artifact", "release gate", "agent assist", and "synthetic matrix" on the public app surface.
+Write like a capable neighbor, not a breathless startup. Prefer: "Upload your EBMUD usage file", "See what changed", "Check irrigation first", and "Use EBMUD directly for official issues." Avoid jargon like "artifact", "release gate", "agent assist", and "synthetic matrix" on the public app surface.
 
 ## Must Not Do
 

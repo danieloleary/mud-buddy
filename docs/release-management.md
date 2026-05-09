@@ -20,13 +20,13 @@ npm run validate
 MUD_BUDDY_REAL_CSV="path/to/private.csv" npm run test:local-real-csv
 ```
 
-`test:local-real-csv` is local-only and skip-safe when no private CSV is present. Dan's real CSV must never be committed, packaged, hosted, pasted into docs, or included in screenshots.
+`test:local-real-csv` is local-only and skip-safe when no private usage file is present. Dan's real usage file must never be committed, packaged, hosted, pasted into docs, or included in screenshots.
 
 ## Version policy
 
 - Patch releases fix docs, copy, tests, or small bugs.
 - Minor releases add user-visible features while the product is still evolving.
-- `1.2.0` means the browser-local EBMUD CSV workflow, review-ready docs, public-safe sample report, redaction/package scans, GitHub Pages site, and evidence-based report findings are stable enough for EBMUD feedback and broader public sharing.
+- `1.2.0` means the browser-local EBMUD usage-file workflow, review-ready docs, public-safe sample report, redaction/package scans, GitHub Pages site, and evidence-based report findings are stable enough for EBMUD feedback and broader public sharing.
 
 ## Public release checklist
 

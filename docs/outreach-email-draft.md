@@ -12,7 +12,7 @@ I designed the prototype with conservative boundaries:
 
 - no EBMUD password handling;
 - no credential automation;
-- no CSV upload to a Mud Buddy server;
+- no usage file upload to a Mud Buddy server;
 - no account, billing, outage, water-quality, rebate, assistance, or emergency action;
 - clear non-affiliation language;
 - official EBMUD links for official next steps.

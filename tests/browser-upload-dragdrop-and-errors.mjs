@@ -77,9 +77,9 @@ try {
   await page.dispatchEvent('#dropzone', 'drop', { dataTransfer });
   await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Normal daily use estimate'), null, { timeout: 6000 });
   reportText = await page.locator('[data-testid="browser-report"]').innerText();
-  if (!reportText.toLowerCase().includes('usage file analyzed locally')) throw new Error('Drag/drop valid CSV did not recover to uploaded report');
+  if (!reportText.toLowerCase().includes('usage file analyzed locally')) throw new Error('Drag/drop valid usage file did not recover to uploaded report');
   await browser.close();
-  console.log('browser-upload-dragdrop-and-errors: OK drag/drop, invalid inputs, limits, quoted CSV, N/A, and recovery');
+  console.log('browser-upload-dragdrop-and-errors: OK drag/drop, invalid inputs, limits, quoted usage file, N/A, and recovery');
 } finally {
   server.kill();
 }

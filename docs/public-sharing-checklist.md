@@ -1,4 +1,4 @@
-﻿# Public Sharing Checklist
+# Public Sharing Checklist
 
 Water usage data can reveal household routines. Before publishing or sharing any Mud Buddy artifact, confirm every item below.
 
@@ -6,7 +6,7 @@ Water usage data can reveal household routines. Before publishing or sharing any
 - No service address.
 - No account number.
 - No meter ID.
-- No raw CSV rows.
+- No raw usage-file rows.
 - No local file paths.
 - No exact absence or vacation pattern.
 - No authenticated EBMUD screenshots.
