@@ -15,6 +15,7 @@ const names = JSON.parse(result.stdout);
 const has = (name) => names.includes(name);
 for (const expected of [
   'README.md',
+  'DESIGN.md',
   'SECURITY.md',
   'SUPPORT.md',
   'CODE_OF_CONDUCT.md',
@@ -31,6 +32,8 @@ for (const expected of [
   'public/assets/github-social-card.svg',
   'public/assets/github-social-card.png',
   'public/assets/hero-civic-water.webp',
+  'public/assets/privacy-local-first.webp',
+  'public/assets/ebmud-resource-directory.webp',
   'public/assets/report-preview-redacted.svg'
 ]) {
   if (!has(expected)) throw new Error(`public ZIP missing expected file: ${expected}`);
@@ -39,7 +42,7 @@ for (const name of names) {
   if (/^(node_modules|dist|generated|public-site|\.git|\.herenow|tests\/output|test-results|playwright-report)\//.test(name)) throw new Error(`public ZIP includes forbidden path: ${name}`);
   if (/Billing Usage/i.test(name)) throw new Error(`public ZIP includes billing export filename: ${name}`);
   if (/\.csv$/i.test(name) && name !== 'examples/sample-ebmud-usage.csv') throw new Error(`public ZIP includes non-sample CSV: ${name}`);
-  const allowedRaster = new Set(['hero-civic-water.webp', 'github-social-card.png', 'report-preview-redacted.webp', 'sample-report-montage.webp', 'irrigation-season-story.webp', 'leak-check-next-steps.webp', 'favicon-32.png', 'apple-touch-icon.png']);
+  const allowedRaster = new Set(['hero-civic-water.webp', 'github-social-card.png', 'report-preview-redacted.webp', 'sample-report-montage.webp', 'irrigation-season-story.webp', 'leak-check-next-steps.webp', 'privacy-local-first.webp', 'ebmud-resource-directory.webp', 'favicon-32.png', 'apple-touch-icon.png']);
   if (/\.(har|trace|webm)$/i.test(name)) throw new Error(`public ZIP includes forbidden artifact/image: ${name}`);
   if (/\.(png|jpe?g|gif|webp)$/i.test(name) && !(name.startsWith('public/assets/') && allowedRaster.has(path.basename(name)))) throw new Error(`public ZIP includes forbidden raster image: ${name}`);
   if (/\.svg$/i.test(name) && name.startsWith('public/assets/')) {

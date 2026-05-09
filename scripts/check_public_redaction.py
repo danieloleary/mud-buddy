@@ -39,6 +39,8 @@ ALLOWED_SVG_ASSETS = {
     "assets/sample-report-montage.webp",
     "assets/irrigation-season-story.webp",
     "assets/leak-check-next-steps.webp",
+    "assets/privacy-local-first.webp",
+    "assets/ebmud-resource-directory.webp",
     "assets/favicon-32.png",
     "assets/apple-touch-icon.png",
     "public/assets/hero-civic-water.svg",
@@ -61,6 +63,8 @@ ALLOWED_SVG_ASSETS = {
     "public/assets/sample-report-montage.webp",
     "public/assets/irrigation-season-story.webp",
     "public/assets/leak-check-next-steps.webp",
+    "public/assets/privacy-local-first.webp",
+    "public/assets/ebmud-resource-directory.webp",
     "public/assets/favicon-32.png",
     "public/assets/apple-touch-icon.png",
 }

@@ -24,6 +24,7 @@ ROOT_FILES = [
     "CITATION.cff",
     "AGENTS.md",
     "CLAUDE.md",
+    "DESIGN.md",
     "package.json",
     "package-lock.json",
     "index.html",
@@ -65,6 +66,8 @@ KNOWN_PUBLIC_ASSETS = {
     "sample-report-montage.webp",
     "irrigation-season-story.webp",
     "leak-check-next-steps.webp",
+    "privacy-local-first.webp",
+    "ebmud-resource-directory.webp",
     "favicon-32.png",
     "apple-touch-icon.png",
 }

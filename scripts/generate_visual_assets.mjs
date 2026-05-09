@@ -14,26 +14,32 @@ const specs = [
   { file: 'sample-report-montage.webp', width: 1500, height: 900, title: 'Water-use story', subtitle: 'Synthetic sample dashboards and homeowner clues', mood: 'montage' },
   { file: 'irrigation-season-story.webp', width: 1200, height: 820, title: 'Irrigation season', subtitle: 'Find controller drift before it becomes normal', mood: 'garden' },
   { file: 'leak-check-next-steps.webp', width: 1200, height: 820, title: 'Simple fixture checks', subtitle: 'Toilet dye test, meter test, and calm next steps', mood: 'fixture' },
+  { file: 'privacy-local-first.webp', width: 1200, height: 820, title: 'Local first', subtitle: 'The CSV stays in this browser', mood: 'privacy' },
+  { file: 'ebmud-resource-directory.webp', width: 1200, height: 820, title: 'Official next steps', subtitle: 'Use EBMUD directly when the issue is official', mood: 'resources' },
   { file: 'github-social-card.png', width: 1200, height: 630, title: 'Mud Buddy for EBMUD', subtitle: 'Upload CSV. Analyze in browser. Save water and money.', mood: 'social', type: 'png' },
   { file: 'favicon-32.png', width: 32, height: 32, title: '', subtitle: '', mood: 'icon', type: 'png' },
   { file: 'apple-touch-icon.png', width: 180, height: 180, title: '', subtitle: '', mood: 'icon', type: 'png' }
 ];
 
-if (process.env.CI === 'true' && process.env.MUD_BUDDY_REGENERATE_VISUALS !== '1') {
-  const missing = [];
-  for (const spec of specs) {
-    try {
-      await fs.access(path.join(outDir, spec.file));
-    } catch {
-      missing.push(spec.file);
-    }
+const missing = [];
+for (const spec of specs) {
+  try {
+    await fs.access(path.join(outDir, spec.file));
+  } catch {
+    missing.push(spec.file);
   }
+}
+
+if (process.env.MUD_BUDDY_REGENERATE_VISUALS !== '1') {
   if (missing.length) {
-    console.error(`CI visual asset check failed. Missing committed assets: ${missing.join(', ')}`);
-    process.exit(1);
+    if (process.env.CI === 'true') {
+      console.error(`CI visual asset check failed. Missing committed assets: ${missing.join(', ')}`);
+      process.exit(1);
+    }
+  } else {
+    console.log(`Visual asset check passed: ${specs.length} committed public-safe assets present`);
+    process.exit(0);
   }
-  console.log(`CI visual asset check passed: ${specs.length} committed public-safe assets present`);
-  process.exit(0);
 }
 
 const browser = await chromium.launch({ headless: true });
@@ -43,7 +49,11 @@ function mimeFor(spec) {
   return spec.type === 'png' ? 'image/png' : 'image/webp';
 }
 
-for (const spec of specs) {
+const specsToGenerate = process.env.MUD_BUDDY_REGENERATE_VISUALS === '1'
+  ? specs
+  : specs.filter((spec) => missing.includes(spec.file));
+
+for (const spec of specsToGenerate) {
   const dataUrl = await page.evaluate(({ spec, mime }) => {
     const canvas = document.createElement('canvas');
     canvas.width = spec.width;
@@ -185,4 +195,4 @@ for (const spec of specs) {
 }
 
 await browser.close();
-console.log(`Generated ${specs.length} synthetic public-safe visual assets in ${outDir}`);
+console.log(`Generated ${specsToGenerate.length} fallback public-safe visual assets in ${outDir}`);

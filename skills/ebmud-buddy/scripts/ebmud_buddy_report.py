@@ -249,8 +249,8 @@ def render_timeline(out_dir, rows, baseline, title, public_mode=False):
 def render_stack(out_dir, rows, baseline):
     width, height = 1500, 760
     parts = svg_start(width, height)
-    text(parts, 60, 60, "Estimated Driver Stack", "title")
-    text(parts, 60, 90, "Separates likely household baseline from seasonal/outdoor lift.", "sub")
+    text(parts, 60, 60, "Indoor baseline vs outdoor lift", "title")
+    text(parts, 60, 90, "Separates likely everyday household use from seasonal yard water.", "sub")
     x0, y0, w, h = 105, 165, 1290, 450
     ymax = max(260, math.ceil(max(r["gpd"] for r in rows) / 50) * 50)
     sx, sy = scales(rows, x0, y0, w, h, ymax)
@@ -275,8 +275,8 @@ def render_bars(out_dir, rows):
         vals = [r["gpd"] for r in rows if r["season"] == season]
         values.append(sum(vals) / len(vals) if vals else 0)
     parts = svg_start(1150, 760)
-    text(parts, 60, 60, "Seasonality", "title")
-    text(parts, 60, 90, "Summer and fall usually carry the outdoor demand.", "sub")
+    text(parts, 60, 60, "Is this seasonal or irrigation-related?", "title")
+    text(parts, 60, 90, "Summer and fall often reveal outdoor watering behavior.", "sub")
     x0, y0, w, h = 110, 150, 900, 470
     ymax = max(220, math.ceil(max(values) / 50) * 50)
     grid(parts, x0, y0, w, h, ymax)
@@ -298,8 +298,8 @@ def render_years(out_dir, rows):
     years = sorted(by_year)
     gallons = [sum(r["gallons"] for r in by_year[y]) for y in years]
     parts = svg_start(1150, 760)
-    text(parts, 60, 60, "Year Over Year", "title")
-    text(parts, 60, 90, "Annual totals show whether a change is isolated or persistent.", "sub")
+    text(parts, 60, 60, "Did this year change?", "title")
+    text(parts, 60, 90, "Annual totals show whether a shift is isolated or persistent.", "sub")
     x0, y0, w, h = 110, 150, 900, 470
     ymax = max(gallons) * 1.18
     grid(parts, x0, y0, w, h, ymax)
@@ -325,8 +325,8 @@ def public_text(value, fallback="Not included in public report"):
 
 def render_context(out_dir, household, irrigation, redacted=False):
     parts = svg_start(1150, 760)
-    text(parts, 60, 60, "Driver Context", "title")
-    text(parts, 60, 90, "Use lived context to avoid overdiagnosing normal household changes.", "sub")
+    text(parts, 60, 60, "What should you check first?", "title")
+    text(parts, 60, 90, "Use lived context so normal household changes do not get overdiagnosed.", "sub")
     if redacted:
         household = "Household details are intentionally generalized in this public-safe report."
         irrigation = "Yard and irrigation context is summarized without address-level detail."
@@ -365,11 +365,11 @@ def write_index(out_dir, rows, invalid, baseline, args):
     avg_gpd = sum(r["gpd"] for r in rows) / len(rows)
     report_mode = "Public anonymized summary" if getattr(args, "public_mode", False) else ("Public-safe redacted report" if args.redact else "Private local report")
     sections = [
-        ("Timeline", "01_timeline.svg", "Use GPD to see real changes independent of billing-period length."),
-        ("Driver Stack", "02_driver_stack.svg", "Estimate household baseline versus seasonal/outdoor lift."),
-        ("Seasonality", "03_seasonality.svg", "Summer and fall usually reveal irrigation behavior."),
-        ("Year Over Year", "04_year_over_year.svg", "Spot persistent shifts rather than one-off bills."),
-        ("Context", "05_context.svg", "Blend data with household and yard reality."),
+        ("Your water-use timeline", "01_timeline.svg", "Use gallons per day to see real changes independent of billing-period length."),
+        ("Indoor baseline vs outdoor lift", "02_driver_stack.svg", "Estimate everyday household use versus seasonal yard or irrigation lift."),
+        ("Is this seasonal?", "03_seasonality.svg", "Summer and fall often reveal irrigation behavior."),
+        ("Did this year change?", "04_year_over_year.svg", "Spot persistent shifts rather than one-off bills."),
+        ("What should you check first?", "05_context.svg", "Blend the data with household size, daytime use, toilets, laundry, showers, plants, and irrigation reality."),
     ]
     title = ("Mud Buddy Public Water Use Summary" if getattr(args, "public_mode", False) else (args.title or "EBMUD Water Usage Report"))
     address = "Location and account identifiers removed for public sharing" if getattr(args, "public_mode", False) else ("EBMUD service-area home" if args.redact else (args.address or "Home water account"))
@@ -399,6 +399,7 @@ def write_index(out_dir, rows, invalid, baseline, args):
     .stat {{ border:1px solid var(--line); border-radius:8px; padding:14px; background:#fff; }}
     .stat strong {{ display:block; font-size:23px; color:var(--navy); }}
     .stat span {{ display:block; color:var(--muted); font-size:13px; margin-top:3px; }}
+    .summary {{ margin-top:18px; border:1px solid var(--line); border-radius:12px; padding:16px 18px; background:#fffaf0; color:#5e542d; max-width:920px; font-size:16px; }}
     main {{ padding:28px 24px 70px; }}
     section {{ background:#fff; border:1px solid var(--line); border-radius:8px; margin-bottom:28px; overflow:hidden; }}
     .head {{ padding:24px 28px 10px; border-bottom:1px solid var(--line); }}
@@ -415,13 +416,14 @@ def write_index(out_dir, rows, invalid, baseline, args):
   <header><div class="wrap">
     <div class="mode">{esc(report_mode)}</div>
     <h1>{esc(title)}</h1>
-    <p class="dek">{esc(address)}. Driver-focused read of household baseline, irrigation lift, benchmarks, anomalies, and next actions.</p>
+    <p class="dek">{esc(address)}. Plain-English read of household baseline, irrigation lift, benchmarks, unusual periods, and next checks.</p>
     <div class="stats">
       <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{total_ccf:.0f} CCF</strong><span>{"Bucketed total" if getattr(args, "public_mode", False) else "Total valid history"}</span></div>
       <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{total_gal/1000:.0f}k gal</strong><span>Approximate gallons</span></div>
       <div class="stat"><strong>{len(rows)}</strong><span>Valid billing periods</span></div>
       <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{baseline:.0f} GPD</strong><span>{"Baseline bucket" if getattr(args, "public_mode", False) else "Baseline estimate"}</span></div>
     </div>
+    <p class="summary">What this means: use the charts below to separate everyday baseline from seasonal lift, then pick one practical next check. This is explanatory pattern-finding, not a certified audit, leak diagnosis, billing decision, or official EBMUD analysis.</p>
   </div></header>
   <main>
 """

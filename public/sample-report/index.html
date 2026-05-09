@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EBMUD Water Usage Report</title>
+  <title>Mud Buddy Public Water Use Summary</title>
   <style>
     :root { --ink:#263238; --muted:#66747d; --paper:#f5f7f8; --line:#d9e0e5; --navy:#18324a; --teal:#39b9c6; --gold:#f2b31b; }
     * { box-sizing: border-box; }
@@ -18,6 +18,7 @@
     .stat { border:1px solid var(--line); border-radius:8px; padding:14px; background:#fff; }
     .stat strong { display:block; font-size:23px; color:var(--navy); }
     .stat span { display:block; color:var(--muted); font-size:13px; margin-top:3px; }
+    .summary { margin-top:18px; border:1px solid var(--line); border-radius:12px; padding:16px 18px; background:#fffaf0; color:#5e542d; max-width:920px; font-size:16px; }
     main { padding:28px 24px 70px; }
     section { background:#fff; border:1px solid var(--line); border-radius:8px; margin-bottom:28px; overflow:hidden; }
     .head { padding:24px 28px 10px; border-bottom:1px solid var(--line); }
@@ -32,43 +33,44 @@
 </head>
 <body>
   <header><div class="wrap">
-    <div class="mode">Public-safe redacted report</div>
-    <h1>EBMUD Water Usage Report</h1>
-    <p class="dek">EBMUD service-area home. Driver-focused read of household baseline, irrigation lift, benchmarks, anomalies, and next actions.</p>
+    <div class="mode">Public anonymized summary</div>
+    <h1>Mud Buddy Public Water Use Summary</h1>
+    <p class="dek">Location and account identifiers removed for public sharing. Plain-English read of household baseline, irrigation lift, benchmarks, unusual periods, and next checks.</p>
     <div class="stats">
-      <div class="stat"><strong>493 CCF</strong><span>Total valid history</span></div>
-      <div class="stat"><strong>369k gal</strong><span>Approximate gallons</span></div>
+      <div class="stat"><strong>~490 CCF</strong><span>Bucketed total</span></div>
+      <div class="stat"><strong>~367k gal</strong><span>Approximate gallons</span></div>
       <div class="stat"><strong>32</strong><span>Valid billing periods</span></div>
-      <div class="stat"><strong>182 GPD</strong><span>Baseline estimate</span></div>
+      <div class="stat"><strong>~175 GPD</strong><span>Baseline bucket</span></div>
     </div>
+    <p class="summary">What this means: use the charts below to separate everyday baseline from seasonal lift, then pick one practical next check. This is explanatory pattern-finding, not a certified audit, leak diagnosis, billing decision, or official EBMUD analysis.</p>
   </div></header>
   <main>
     <section>
-      <div class="head"><h2>Timeline</h2></div>
-      <p class="copy">Use GPD to see real changes independent of billing-period length.</p>
-      <figure><img src="01_timeline.svg" alt="Timeline" /></figure>
+      <div class="head"><h2>Your water-use timeline</h2></div>
+      <p class="copy">Use gallons per day to see real changes independent of billing-period length.</p>
+      <figure><img src="01_timeline.svg" alt="Your water-use timeline" /></figure>
     </section>
     <section>
-      <div class="head"><h2>Driver Stack</h2></div>
-      <p class="copy">Estimate household baseline versus seasonal/outdoor lift.</p>
-      <figure><img src="02_driver_stack.svg" alt="Driver Stack" /></figure>
+      <div class="head"><h2>Indoor baseline vs outdoor lift</h2></div>
+      <p class="copy">Estimate everyday household use versus seasonal yard or irrigation lift.</p>
+      <figure><img src="02_driver_stack.svg" alt="Indoor baseline vs outdoor lift" /></figure>
     </section>
     <section>
-      <div class="head"><h2>Seasonality</h2></div>
-      <p class="copy">Summer and fall usually reveal irrigation behavior.</p>
-      <figure><img src="03_seasonality.svg" alt="Seasonality" /></figure>
+      <div class="head"><h2>Is this seasonal?</h2></div>
+      <p class="copy">Summer and fall often reveal irrigation behavior.</p>
+      <figure><img src="03_seasonality.svg" alt="Is this seasonal?" /></figure>
     </section>
     <section>
-      <div class="head"><h2>Year Over Year</h2></div>
+      <div class="head"><h2>Did this year change?</h2></div>
       <p class="copy">Spot persistent shifts rather than one-off bills.</p>
-      <figure><img src="04_year_over_year.svg" alt="Year Over Year" /></figure>
+      <figure><img src="04_year_over_year.svg" alt="Did this year change?" /></figure>
     </section>
     <section>
-      <div class="head"><h2>Context</h2></div>
-      <p class="copy">Blend data with household and yard reality.</p>
-      <figure><img src="05_context.svg" alt="Context" /></figure>
+      <div class="head"><h2>What should you check first?</h2></div>
+      <p class="copy">Blend the data with household size, daytime use, toilets, laundry, showers, plants, and irrigation reality.</p>
+      <figure><img src="05_context.svg" alt="What should you check first?" /></figure>
     </section>
   </main>
-  <footer>Public-safe summary generated locally from user-provided EBMUD-style usage data; identifiers removed. Source: Redacted local CSV. Excluded invalid rows: 1. Baseline split is explanatory, not a formal water audit. Not affiliated with EBMUD.</footer>
+  <footer>Public/anonymized summary generated locally. Dates and visible usage values are bucketed; identifiers, raw CSV rows, and detailed context are removed. Source: Public aggregated source; original filename removed. Excluded invalid rows: 1. Baseline split is explanatory, not a formal water audit. Not affiliated with EBMUD.</footer>
 </body>
 </html>

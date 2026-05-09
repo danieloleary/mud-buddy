@@ -79,10 +79,9 @@ try {
     if (!text.includes(required)) throw new Error(`Missing required text: ${required}`);
   }
   const assets = [
-    'assets/workflow-csv-report.svg',
-    'assets/csv-export-boundary.svg',
-    'assets/privacy-local-first.svg',
-    'assets/ebmud-resource-directory.svg',
+    'assets/hero-civic-water.webp',
+    'assets/privacy-local-first.webp',
+    'assets/ebmud-resource-directory.webp',
     'assets/report-preview-redacted.webp',
     'assets/irrigation-season-story.webp',
     'assets/leak-check-next-steps.webp'

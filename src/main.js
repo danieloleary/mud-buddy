@@ -113,13 +113,17 @@ class MudBuddyApp extends HTMLElement {
             <div class="trust-row" aria-label="Trust promises">
               <span><md-icon>computer</md-icon>Runs in your browser</span>
               <span><md-icon>cloud_off</md-icon>No server upload</span>
-              <span><md-icon>password</md-icon>No EBMUD password needed</span>
+              <span><md-icon>key_off</md-icon>No EBMUD password needed</span>
             </div>
             <div class="question-cards" aria-label="Homeowner questions Mud Buddy helps answer">
               <article><md-icon>receipt_long</md-icon><strong>High bill?</strong><span>See whether the jump is one period, outdoor watering, or a new normal.</span></article>
               <article><md-icon>yard</md-icon><strong>Yard or irrigation?</strong><span>Estimate how much of the lift looks seasonal.</span></article>
               <article><md-icon>plumbing</md-icon><strong>Worth a quick check?</strong><span>Find patterns that point to a meter, fixture, or toilet dye test.</span></article>
             </div>
+            <figure class="homeowner-scene">
+              <img src="assets/hero-civic-water.webp" alt="Synthetic browser-local water report on a patio with a garden hose" />
+              <figcaption>Built for real homeowner questions: bill jumps, watering changes, family growth, fixtures, and next checks.</figcaption>
+            </figure>
           </div>
 
           <div class="upload-panel reveal delay-1" aria-label="Browser-local CSV upload analyzer">
@@ -164,8 +168,8 @@ class MudBuddyApp extends HTMLElement {
               <p class="official-line">Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.</p>
             </div>
             <div class="workflow-panel material-card">
-              <img class="workflow-art visual-asset" src="assets/workflow-csv-report.svg" alt="Synthetic CSV to report workflow" loading="lazy" />
-              <img class="workflow-art visual-asset" src="assets/csv-export-boundary.svg" alt="Synthetic manual login and CSV boundary" loading="lazy" />
+              <img class="workflow-art visual-asset" src="assets/hero-civic-water.webp" alt="Synthetic browser-local CSV analysis workspace" loading="lazy" />
+              <img class="workflow-art visual-asset" src="assets/privacy-local-first.webp" alt="Synthetic privacy boundary showing a CSV staying local" loading="lazy" />
               <div class="steps">
                 <article><md-icon>login</md-icon><span>You log in</span><p>Mud Buddy never asks for your EBMUD username, password, MFA, cookies, or browser session material.</p></article>
                 <article><md-icon>download</md-icon><span>You download</span><p>Use EBMUD's official CSV export from the usage/report area.</p></article>
@@ -221,7 +225,7 @@ class MudBuddyApp extends HTMLElement {
           <div class="savings-grid">
             <article class="material-card"><img src="assets/irrigation-season-story.webp" alt="Synthetic irrigation story" loading="lazy" /><h3>Irrigation walk-through</h3><p>Check controller schedules, stuck zones, runoff, overwatering, and thirsty planting areas.</p></article>
             <article class="material-card"><img src="assets/leak-check-next-steps.webp" alt="Synthetic leak check next steps" loading="lazy" /><h3>Simple fixture checks</h3><p>Use normal use that slowly rises as a prompt for a toilet dye test, meter test, and fixture walk-through.</p></article>
-            <article class="material-card"><img src="assets/ebmud-resource-directory.svg" alt="Synthetic official resource directory" loading="lazy" /><h3>Official next steps</h3><p>Use EBMUD directly for billing, outage, pressure, water-quality, rebate, assistance, or emergency questions.</p></article>
+            <article class="material-card"><img src="assets/ebmud-resource-directory.webp" alt="Synthetic official resource directory signposts" loading="lazy" /><h3>Official next steps</h3><p>Use EBMUD directly for billing, outage, pressure, water-quality, rebate, assistance, or emergency questions.</p></article>
           </div>
         </section>
 
@@ -231,7 +235,7 @@ class MudBuddyApp extends HTMLElement {
             <div class="resource-copy">
               <h2>Official EBMUD resources, right where the questions show up.</h2>
               <p>Mud Buddy is a private interpretation layer. When the next step is official, urgent, billing-related, pressure/outage-related, water-quality-related, rebate, or assistance related, use EBMUD's public customer resources.</p>
-              <img class="resource-art visual-asset" src="assets/ebmud-resource-directory.svg" alt="Synthetic official EBMUD resource directory illustration" loading="lazy" />
+              <img class="resource-art visual-asset" src="assets/ebmud-resource-directory.webp" alt="Synthetic official EBMUD resource directory illustration" loading="lazy" />
             </div>
             <div class="resource-grid" aria-label="Official EBMUD resources">${resourceCards}</div>
           </div>
@@ -257,7 +261,7 @@ class MudBuddyApp extends HTMLElement {
         <section class="privacy-band" id="privacy">
           <div class="shell split reverse">
             <div>
-              <img class="privacy-art visual-asset" src="assets/privacy-local-first.svg" alt="Synthetic local-first privacy illustration" loading="lazy" />
+              <img class="privacy-art visual-asset" src="assets/privacy-local-first.webp" alt="Synthetic local-first privacy illustration" loading="lazy" />
               <h2>Private by default, careful by design.</h2>
               <p>Your CSV is read in this browser and is not uploaded. Credentials, MFA, cookies, browser storage, session tokens, and billing settings are outside the tool boundary.</p>
               <div class="doc-actions">
