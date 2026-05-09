@@ -149,8 +149,8 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     insights.push({
       icon: 'groups',
       priority: 58 + Math.min(18, (peerRatio - 1) * 40),
-      title: 'Usage runs above the export benchmark.',
-      text: 'The benchmark in the CSV is context, not an EBMUD label. Household size, daytime occupancy, irrigation, and fixture issues can all change the comparison.'
+      title: 'Usage runs above the file benchmark.',
+      text: 'The benchmark in the usage file is context, not an EBMUD label. Household size, daytime occupancy, irrigation, and fixture issues can all change the comparison.'
     });
   }
   insights.sort((a, b) => b.priority - a.priority);
@@ -164,11 +164,11 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     : rows.length >= 12 && !warnings.length && invalidRows.length === 0
       ? {
           label: 'Useful',
-          reason: 'The export has enough clean billing periods for practical pattern clues and next checks.'
+          reason: 'The usage file has enough clean billing periods for practical pattern clues and next checks.'
         }
       : {
           label: 'Usable',
-          reason: 'The export is good enough for a homeowner read, but household context still matters.'
+          reason: 'The usage file is good enough for a homeowner read, but household context still matters.'
         };
 
   const evidencePoints = [
@@ -180,7 +180,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       label: 'Outdoor signal',
       value: seasonalLift > 0
         ? `Summer/fall averages ${seasonalLift} GPD above winter/spring.`
-        : 'Summer/fall does not sit above winter/spring in this export.'
+        : 'Summer/fall does not sit above winter/spring in this usage file.'
     },
     {
       label: 'Normal-use drift',
@@ -223,7 +223,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   }
   if (erraticPattern) recommendedChecks.push('Check for controller schedule drift, stuck valves, skipped rain-delay settings, or one-off household events before assuming a permanent trend.');
   if (flatlinePattern) recommendedChecks.push('If usage looks weirdly flat, compare read periods and consider a meter check if the pattern does not match real life.');
-  if (invalidRows.length || warnings.length) recommendedChecks.push('Review CSV notes and billing-period length before comparing one period too literally.');
+  if (invalidRows.length || warnings.length) recommendedChecks.push('Review usage file notes and billing-period length before comparing one period too literally.');
   recommendedChecks.push(officialCheck);
 
   return {
@@ -239,7 +239,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       gpd: Math.round(peak.gpd),
       ccf: round(peak.ccf, 1)
     },
-    peerComparison: peerRatio === null ? 'not enough benchmark data in this export' : `${Math.round(peerRatio * 100)}% of the average-household benchmark in this export`,
+    peerComparison: peerRatio === null ? 'not enough benchmark data in this usage file' : `${Math.round(peerRatio * 100)}% of the average-household benchmark in this usage file`,
     baselineChange: Math.round(baselineChange),
     confidence,
     evidencePoints,

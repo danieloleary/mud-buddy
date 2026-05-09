@@ -90,7 +90,7 @@ function confidenceFor(analysis) {
   }
   const warningLoad = analysis.warnings.length + analysis.invalidRows;
   if (analysis.validRows < 6 || warningLoad >= 3) return 'Limited data: treat the findings as prompts to review, not conclusions.';
-  if (analysis.validRows >= 10 && warningLoad === 0) return 'Good signal: the export has enough clean billing history for useful pattern clues.';
+  if (analysis.validRows >= 10 && warningLoad === 0) return 'Good signal: the usage file has enough clean billing history for useful pattern clues.';
   return 'Usable signal: compare the findings with household and yard context.';
 }
 
@@ -112,7 +112,7 @@ function nextChecksFor(analysis) {
     checks.push('Use the normal daily use estimate as a reference point when the next bill arrives.');
   }
   if (analysis.invalidRows || analysis.warnings.length) {
-    checks.push('Review CSV notes and billing-period length before comparing one period too literally.');
+    checks.push('Review usage file notes and billing-period length before comparing one period too literally.');
   }
   checks.push('Use EBMUD directly for billing, rebates, outages, water quality, assistance, or emergency service questions.');
   return checks.slice(0, 4);
@@ -182,7 +182,7 @@ function renderCsvNotes(analysis) {
     notes.append(warningList);
   }
   return el('section', { class: 'browser-warning-card', 'data-testid': 'data-quality' }, [
-    el('h3', { text: 'CSV notes' }),
+    el('h3', { text: 'Usage file notes' }),
     notes
   ]);
 }
@@ -194,10 +194,10 @@ function renderMethodDetails(analysis) {
   return el('details', { class: 'method-details' }, [
     el('summary', { text: 'Confidence and method' }),
     el('p', { text: confidenceFor(analysis) }),
-    el('p', { text: `How Mud Buddy decides this: it estimates normal daily use from winter and spring periods, compares warmer-season use against that estimate, checks whether the baseline is drifting, highlights the highest-use billing period, and reports ${analysis.invalidRows} skipped row${analysis.invalidRows === 1 ? '' : 's'} from this export.` }),
+    el('p', { text: `How Mud Buddy decides this: it estimates normal daily use from winter and spring periods, compares warmer-season use against that estimate, checks whether the baseline is drifting, highlights the highest-use billing period, and reports ${analysis.invalidRows} skipped row${analysis.invalidRows === 1 ? '' : 's'} from this usage file.` }),
     el('h4', { text: 'What would make this more certain' }),
     certaintyList,
-    el('p', { text: 'GPD is averaged across each billing period, so one row is not proof of what happened on one exact day.' }),
+    el('p', { text: 'GPD is averaged across each billing period, so one usage period is not proof of what happened on one exact day.' }),
     el('p', { text: 'These are heuristic pattern clues. They are not EBMUD labels, normalized customer comparisons, leak diagnoses, billing findings, plumbing inspections, or certified conservation measurements.' })
   ]);
 }
@@ -209,7 +209,7 @@ function renderGlossary() {
       el('dt', { text: 'GPD' }), el('dd', { text: 'Gallons per day.' }),
       el('dt', { text: 'CCF' }), el('dd', { text: 'One billing unit. EBMUD rate materials define 1 CCF as 748 gallons.' }),
       el('dt', { text: 'Normal daily use' }), el('dd', { text: 'A rough baseline estimated from lower outdoor-watering periods.' }),
-      el('dt', { text: 'Benchmark' }), el('dd', { text: 'The average-household benchmark included in your export, not an official normalized comparison.' })
+      el('dt', { text: 'Benchmark' }), el('dd', { text: 'The average-household benchmark included in your usage file, not an official normalized comparison.' })
     ])
   ]);
 }
@@ -221,14 +221,14 @@ function renderOfficialNextSteps() {
   }
   return el('article', { class: 'browser-official-card' }, [
     el('h3', { text: 'When to use EBMUD directly' }),
-    el('p', { text: 'Use official EBMUD resources for billing, outages, pressure, water quality, rebates, assistance, emergencies, or account actions. Mud Buddy only explains CSV patterns.' }),
+    el('p', { text: 'Use official EBMUD resources for billing, outages, pressure, water quality, rebates, assistance, emergencies, or account actions. Mud Buddy only explains usage patterns.' }),
     links
   ]);
 }
 
 export function renderBrowserReport(container, analysis, options = {}) {
   container.replaceChildren();
-  const sourceLabel = options.sample ? 'Synthetic sample CSV analyzed locally' : 'Uploaded CSV analyzed locally';
+  const sourceLabel = options.sample ? 'Sample usage file analyzed locally' : 'Usage file analyzed locally';
   const topInsight = analysis.insights[0];
   const root = el('section', { class: 'browser-report material-card', tabindex: '-1', 'data-testid': 'browser-report' });
 
@@ -241,7 +241,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
     el('div', { class: 'report-action-panel' }, [
       el('p', { class: 'report-action-note', text: 'Local only. Private report.' }),
       el('div', { class: 'report-actions' }, [
-        el('md-filled-tonal-button', { id: 'analyzeAnother', 'data-testid': 'analyze-another', text: 'Analyze another CSV' }),
+        el('md-filled-tonal-button', { id: 'analyzeAnother', 'data-testid': 'analyze-another', text: 'Create another report' }),
         el('md-outlined-button', { id: 'printReport', text: 'Print or save PDF' })
       ])
     ])
@@ -254,7 +254,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
       el('span', { text: 'Start here' }),
       el('h3', { text: topInsight.title }),
       el('p', { text: topInsight.text }),
-      el('p', { class: 'report-caution', text: 'This is a pattern read from your CSV, not an official EBMUD finding.' }),
+      el('p', { class: 'report-caution', text: 'This is a pattern read from your usage file, not an official EBMUD finding.' }),
       renderExpertNotes(analysis)
     ])
   ]));
@@ -275,7 +275,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
       stat('Highest-use period', `${analysis.peakPeriod.label} (${analysis.peakPeriod.gpd} GPD)`, 'kpi-peak', true)
     ]),
     el('div', { class: 'data-quality-card' }, [
-      stat('Water use in this CSV', `${analysis.totalCcf.toLocaleString()} CCF`, 'stat-total-ccf'),
+      stat('Water use in this file', `${analysis.totalCcf.toLocaleString()} CCF`, 'stat-total-ccf'),
       stat('Approx. gallons used', `${Math.round(analysis.totalGallons / 1000).toLocaleString()}k`, 'stat-total-gallons')
     ])
   ]));
@@ -291,7 +291,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
     el('div', { class: 'browser-chart-card' }, [
       el('h3', { text: 'Average use by season' }),
       renderSeasonBars(analysis),
-      el('p', { text: `Average-household benchmark in your export: ${analysis.peerComparison}.` })
+      el('p', { text: `Average-household benchmark in your usage file: ${analysis.peerComparison}.` })
     ])
   ]));
 

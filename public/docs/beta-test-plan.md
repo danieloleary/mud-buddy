@@ -1,10 +1,10 @@
-﻿# Mud Buddy Quiet Beta Plan
+# Mud Buddy Quiet Beta Plan
 
 ## Goal
 
 Prove that a normal EBMUD customer can use Mud Buddy without Dan explaining it live:
 
-1. get or understand how to get the EBMUD usage CSV;
+1. get or understand how to get the EBMUD usage file;
 2. upload it safely in the browser;
 3. understand the report;
 4. know what to check next;
@@ -20,9 +20,9 @@ Good testers:
 - homeowners or renters with irrigation;
 - gardeners or people changing landscaping;
 - busy parents or households with changing occupancy;
-- one non-technical person who will be honest if the CSV step is confusing.
+- one non-technical person who will be honest if the usage-file step is confusing.
 
-Avoid asking for public screenshots or raw CSVs. Testers should use the live site directly.
+Avoid asking for public screenshots or raw usage files. Testers should use the live site directly.
 
 ## Tester ask
 
@@ -34,11 +34,11 @@ I built a small browser-local tool called Mud Buddy for EBMUD customers.
 Could you try it for 5-10 minutes?
 
 1. Open https://danieloleary.github.io/mud-buddy/
-2. Click Try sample data first.
-3. If you are comfortable, download your own EBMUD usage CSV and upload it.
+2. Click Try sample report first.
+3. If you are comfortable, download your own EBMUD usage file and upload it.
 4. Tell me where you got stuck, what the report made clear, and what still felt confusing.
 
-Privacy note: the CSV is read in your browser and is not uploaded to a Mud Buddy server. Please do not send me your raw CSV unless you explicitly want private help debugging it.
+Privacy note: the CSV is read in your browser and is not uploaded to a Mud Buddy server. Please do not send me your raw usage file unless you explicitly want private help debugging it.
 ```
 
 ## Questions to ask after
@@ -56,7 +56,7 @@ Privacy note: the CSV is read in your browser and is not uploaded to a Mud Buddy
 Fix only launch-blocking issues:
 
 - broken upload/sample flow;
-- unclear CSV instructions;
+- unclear usage-file instructions;
 - mobile layout problems;
 - confusing or scary privacy copy;
 - report language that sounds like a diagnosis;
@@ -69,7 +69,7 @@ Do not add major new features during quiet beta.
 
 - 3 testers can run sample data without help.
 - 2 testers can understand how to get their EBMUD CSV.
-- At least 1 real non-Dan CSV works through the live browser app.
+- At least 1 real non-Dan usage file works through the live browser app.
 - No tester thinks Mud Buddy asks for an EBMUD login secret.
 - No tester thinks Mud Buddy is official EBMUD analysis.
 - The report produces at least one useful next check for a real household.

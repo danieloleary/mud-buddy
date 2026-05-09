@@ -62,17 +62,17 @@ try {
   await page.goto(url);
   const text = await page.locator('body').innerText();
   for (const required of [
-    'Upload your EBMUD CSV. See what changed.',
+    'Create a private EBMUD water report.',
     'for EBMUD customers',
-    'Analyze your usage CSV',
-    'Drop your EBMUD usage CSV here',
-    'Analyze my CSV',
-    'Try sample data',
+    'Create your water report',
+    'Drop your EBMUD usage file here',
+    'Create my report',
+    'Try sample report',
     'Built with love in Lafayette, CA.',
     'Goal: save millions of gallons, one home at a time.',
-    'Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
+    'Runs in this browser. Your usage file is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
     'Official EBMUD resources',
-    "Mud Buddy explains your CSV. EBMUD handles billing, emergencies, rebates, outages, pressure, assistance, and water quality.",
+    "Mud Buddy explains your usage file. EBMUD handles billing, emergencies, rebates, outages, pressure, assistance, and water quality.",
     'Not affiliated with EBMUD'
   ]) {
     if (!text.includes(required)) throw new Error(`Missing required text: ${required}`);
@@ -91,15 +91,15 @@ try {
     if (!href.startsWith('https://www.ebmud.com/')) throw new Error(`Official resource link is not a public EBMUD URL: ${href}`);
   }
   if ((await page.locator('#csvInput').count()) !== 1) throw new Error('Expected browser-local CSV file input');
-  await page.getByRole('button', { name: 'Try sample data' }).first().click();
+  await page.getByRole('button', { name: 'Try sample report' }).first().click();
   await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   if (!(await page.locator('.browser-report').isVisible())) throw new Error('Sample browser report did not render');
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   const reportTextLower = reportText.toLowerCase();
-  for (const required of ['Start here', 'Recommended next checks', 'Key numbers', 'Water use over time', 'CSV notes', 'When to use EBMUD directly', 'Print or save PDF']) {
+  for (const required of ['Start here', 'Recommended next checks', 'Key numbers', 'Water use over time', 'Usage file notes', 'When to use EBMUD directly', 'Print or save PDF']) {
     if (!reportTextLower.includes(required.toLowerCase())) throw new Error(`Sample browser report missing section: ${required}`);
   }
-  if (!reportTextLower.includes('average-household benchmark in your export')) throw new Error('Sample browser report missing softened benchmark wording');
+  if (!reportTextLower.includes('average-household benchmark in your usage file')) throw new Error('Sample browser report missing softened benchmark wording');
   if (!reportTextLower.includes('confidence and method')) throw new Error('Sample browser report missing compact confidence/method details');
   if (reportText.includes('Compared with similar homes')) throw new Error('Sample browser report still uses similar-homes wording');
   const links = await page.$$eval('a[href]', (anchors) => anchors.map((a) => a.getAttribute('href')));

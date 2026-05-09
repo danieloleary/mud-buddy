@@ -3,8 +3,8 @@
 ## Browser App
 
 - GitHub Pages landing page loads on desktop and mobile.
-- A homeowner can choose `Analyze my CSV`, select an EBMUD billing usage CSV, and see an in-page private report.
-- `Try sample data` loads only the committed synthetic sample CSV.
+- A homeowner can choose `Create my report`, select an EBMUD billing usage file, and see an in-page private report.
+- `Try sample report` loads only the committed synthetic sample CSV.
 - The page clearly says the CSV is read in the browser and is not uploaded.
 - The page clearly says Mud Buddy is not affiliated with EBMUD and is not an official audit, leak detector, billing tool, or EBMUD analysis.
 - GPD is defined as gallons per day near the first metric/report context.
@@ -16,8 +16,8 @@
 - Report includes confidence labels, recommended next steps, a `What Mud Buddy sees` evidence panel, and a short `How Mud Buddy decides this` explanation.
 - Report includes a visible caution that the summary is a pattern read from the CSV, not an official EBMUD finding.
 - Report includes normal daily use estimate, likely outdoor watering, highest-use period, water use over time, average use by season, and data-quality notes.
-- Browser report does not render private filename, account number, meter ID, service address, local path, raw CSV rows, or exact private identifiers.
-- Oversized CSVs and unusually large row counts are rejected with clear messages.
+- Browser report does not render private filename, account number, meter ID, service address, local path, raw usage file rows, or exact private identifiers.
+- Oversized usage files and unusually large row counts are rejected with clear messages.
 - Report language stays explanatory and avoids certified leak/billing/conservation claims.
 
 ## Report Generation
@@ -32,7 +32,7 @@
 - Credentials, MFA, CAPTCHA answers, cookies, localStorage, sessionStorage, auth headers, and session tokens are never requested, typed, stored, logged, screenshotted, or transmitted.
 - Browser upload does not use network requests after file selection.
 - Browser upload does not write CSV/report data to localStorage, sessionStorage, IndexedDB, cookies, URLs, or a Mud Buddy account.
-- Public packages exclude real CSVs, browser traces, local download folders, private reports, `.herenow`, and deployment state.
+- Public packages exclude real usage files, browser traces, local download folders, private reports, `.herenow`, and deployment state.
 - Redaction and package-policy scans pass for public artifacts and ZIP contents.
 
 ## Release

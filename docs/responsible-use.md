@@ -1,6 +1,6 @@
 # Responsible Use
 
-Mud Buddy is a private interpretation aid for EBMUD-style usage CSV exports. It is not an emergency service, official EBMUD analysis, formal water audit, leak detector, plumbing inspection, billing decision, or certified conservation measurement.
+Mud Buddy is a private interpretation aid for EBMUD-style usage file exports. It is not an emergency service, official EBMUD analysis, formal water audit, leak detector, plumbing inspection, billing decision, or certified conservation measurement.
 
 ## Use Mud Buddy for
 
@@ -25,7 +25,7 @@ Mud Buddy is a private interpretation aid for EBMUD-style usage CSV exports. It 
 
 Water-use data can reveal household routines. Treat private reports as sensitive. Public sharing should use `--public`, redaction scans, and the public sharing checklist.
 
-Never paste EBMUD usernames, passwords, MFA codes, CAPTCHA answers, cookies, localStorage, sessionStorage, auth headers, session tokens, account numbers, meter IDs, service addresses, or raw private CSV rows into public artifacts or chat tools.
+Never paste EBMUD usernames, passwords, MFA codes, CAPTCHA answers, cookies, localStorage, sessionStorage, auth headers, session tokens, account numbers, meter IDs, service addresses, or raw private usage file rows into public artifacts or chat tools.
 
 ## Savings language
 

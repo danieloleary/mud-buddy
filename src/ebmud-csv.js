@@ -6,7 +6,7 @@ export const REQUIRED_COLUMNS = [
   'CCF',
   'Customer GPD'
 ];
-export const TOO_MANY_ROWS_MESSAGE = 'That CSV has too many rows for the browser demo. Please use an EBMUD billing usage export with fewer than 5,000 rows.';
+export const TOO_MANY_ROWS_MESSAGE = 'That usage file has too many rows for the browser demo. Please use an EBMUD billing usage export with fewer than 5,000 rows.';
 
 export function num(value) {
   const text = String(value ?? '').trim();
@@ -90,7 +90,7 @@ function parseStrictDate(dateText) {
 export function parseEbmudCsv(csvText, options = {}) {
   const table = parseCsv(csvText, options);
   if (table.length < 2) {
-    throw new Error('This CSV does not include enough rows to analyze.');
+    throw new Error('This usage file does not include enough rows to analyze.');
   }
 
   const headers = table[0].map((header) => String(header ?? '').trim());
@@ -160,10 +160,10 @@ export function parseEbmudCsv(csvText, options = {}) {
 
   rows.sort((a, b) => a.date - b.date);
   if (!rows.length) {
-    throw new Error('No valid EBMUD usage rows were found. Check that this is the billing usage CSV export.');
+    throw new Error('No valid EBMUD usage rows were found. Check that this is the billing usage file from EBMUD.');
   }
   if (!rows.some((row) => row.ccf > 0 || row.gpd > 0)) {
-    throw new Error('No positive water usage values were found. Check that this is the billing usage CSV export.');
+    throw new Error('No positive water usage values were found. Check that this is the billing usage file from EBMUD.');
   }
 
   return { rows, invalidRows, warnings };

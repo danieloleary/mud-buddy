@@ -50,7 +50,7 @@ try {
 
   const requests = [];
   page.on('request', (request) => requests.push(request.url()));
-  await page.getByText('Try sample data').first().click();
+  await page.getByText('Try sample report').first().click();
   await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
 
   const sampleRequests = requests.filter((requestUrl) => {

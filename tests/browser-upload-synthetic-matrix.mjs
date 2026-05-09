@@ -78,7 +78,7 @@ try {
       'Recommended next checks',
       'Use EBMUD directly',
       'What Mud Buddy sees',
-      'This is a pattern read from your CSV, not an official EBMUD finding.',
+      'This is a pattern read from your usage file, not an official EBMUD finding.',
       'Pattern clues only',
       'Not affiliated with EBMUD'
     ]) {

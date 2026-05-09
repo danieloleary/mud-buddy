@@ -1,6 +1,6 @@
 # Mud Buddy Review Brief
 
-Mud Buddy is an independent browser-local prototype for EBMUD customers. It helps a customer upload an exported EBMUD usage CSV, see a plain-English water-use report, and understand practical next checks.
+Mud Buddy is an independent browser-local prototype for EBMUD customers. It helps a customer upload an exported EBMUD usage file, see a plain-English water-use report, and understand practical next checks.
 
 Mud Buddy is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing.
 
@@ -23,9 +23,20 @@ Many customers can download usage data but still struggle to understand what cha
 - recommended next steps;
 - official EBMUD resource routing.
 
+## Methodology at a glance
+
+Mud Buddy reads the customer-provided CSV and turns billing-period averages into explainable pattern clues. The browser report now shows the evidence behind the top finding:
+
+- peak period compared with normal daily use;
+- warmer-season use compared with winter/spring;
+- earlier-period use compared with later-period use;
+- usable rows and skipped CSV rows.
+
+The report also shows what would make the read more certain: household context, weather, controller changes, irrigation walk-throughs, toilet dye tests, meter-stillness checks, and official EBMUD resources when the issue is billing, pressure, outage, water quality, rebate, assistance, emergency, or account-related.
+
 ## Boundaries
 
-Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
+Mud Buddy explains your usage file. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 Mud Buddy's baseline, outdoor-watering, and benchmark labels are heuristic pattern clues. They are not official classifications, normalized customer comparisons, leak diagnoses, billing findings, plumbing inspections, or certified conservation measurements.
 
@@ -36,4 +47,3 @@ Mud Buddy's baseline, outdoor-watering, and benchmark labels are heuristic patte
 - Are any terms too close to official EBMUD program language?
 - Would a browser-local CSV helper be useful as a customer education or conservation-support tool?
 - What additional disclaimers or methodology notes would EBMUD want before any broader pilot?
-

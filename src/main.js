@@ -53,24 +53,24 @@ class MudBuddyApp extends HTMLElement {
           <span><strong>Mud Buddy</strong><small>for EBMUD customers</small></span>
         </a>
         <nav aria-label="Main navigation">
-          <a href="#app">Upload</a>
-          <a href="#how">Get CSV</a>
+          <a href="#app">Report</a>
+          <a href="#how">Get file</a>
           <a href="#resources">Official links</a>
           <a href="#privacy">Privacy</a>
         </nav>
-        <md-filled-button id="topAnalyze">Analyze my CSV</md-filled-button>
+        <md-filled-button id="topAnalyze">Create my report</md-filled-button>
       </header>
 
       <main id="top">
         <section class="hero shell" id="app">
           <div class="hero-copy reveal">
             <p class="overline">Private browser-local water report</p>
-            <h1>Upload your EBMUD CSV. See what changed.</h1>
-            <p class="lede">A private report for high bills, irrigation surprises, fixture clues, and family-use shifts. Runs in your browser.</p>
+            <h1>Create a private EBMUD water report.</h1>
+            <p class="lede">Upload the usage file from your EBMUD account. Mud Buddy reads it in your browser and shows what changed, what likely caused it, and what to check next.</p>
             <div class="hero-actions">
-              <md-filled-button id="heroAnalyze">Analyze my CSV</md-filled-button>
-              <md-filled-tonal-button id="heroSample">Try sample data</md-filled-tonal-button>
-              <md-text-button href="#how">Get the CSV</md-text-button>
+              <md-filled-button id="heroAnalyze">Create my report</md-filled-button>
+              <md-filled-tonal-button id="heroSample">Try sample report</md-filled-tonal-button>
+              <md-text-button href="#how">Get my usage file</md-text-button>
             </div>
             <div class="trust-row" aria-label="Trust promises">
               <md-assist-chip label="Runs in your browser"></md-assist-chip>
@@ -83,29 +83,29 @@ class MudBuddyApp extends HTMLElement {
             </figure>
           </div>
 
-          <div class="upload-panel reveal delay-1" aria-label="Browser-local CSV upload analyzer">
+          <div class="upload-panel reveal delay-1" aria-label="Browser-local usage file analyzer">
             <div class="material-card upload-card">
               <div class="card-toolbar">
-                <span>Analyze your usage CSV</span>
+                <span>Create your water report</span>
                 <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><span class="icon-glyph" aria-hidden="true" data-icon="shield"></span></md-icon-button>
               </div>
               <md-divider></md-divider>
               <input id="csvInput" class="sr-only-file" type="file" accept=".csv,text/csv" />
               <button class="dropzone" id="dropzone" type="button">
                 <span class="icon-glyph" aria-hidden="true" data-icon="upload_file"></span>
-                <strong>Drop your EBMUD usage CSV here</strong>
-                <span>or click to choose the billing usage export</span>
+                <strong>Drop your EBMUD usage file here</strong>
+                <span>or choose the file you downloaded from EBMUD</span>
               </button>
               <div class="upload-actions">
-                <md-filled-button id="chooseCsv">Analyze my CSV</md-filled-button>
-                <md-filled-tonal-button id="trySample">Try sample data</md-filled-tonal-button>
+                <md-filled-button id="chooseCsv">Create my report</md-filled-button>
+                <md-filled-tonal-button id="trySample">Try sample report</md-filled-tonal-button>
               </div>
               <div class="local-proof" id="privacy">
                 <span class="icon-glyph" aria-hidden="true" data-icon="verified_user"></span>
-                <p>Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.</p>
+                <p>Runs in this browser. Your usage file is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.</p>
               </div>
               <md-linear-progress id="uploadProgress" value="0"></md-linear-progress>
-              <p id="uploadStatus" class="upload-status" aria-live="polite">Waiting for your CSV. Nothing has been uploaded or stored.</p>
+              <p id="uploadStatus" class="upload-status" aria-live="polite">Waiting for your usage file. Nothing has been uploaded or stored.</p>
             </div>
           </div>
         </section>
@@ -114,22 +114,22 @@ class MudBuddyApp extends HTMLElement {
 
         <section class="shell support-grid" id="how">
           <article class="material-card helper-card">
-            <p class="overline">Get the CSV</p>
-            <h2>Download from EBMUD, then upload here.</h2>
-            <p>Log into EBMUD yourself, open Track Usage or My Water Report, and download the billing usage CSV. Mud Buddy never needs your login, MFA code, or browser session.</p>
+            <p class="overline">Get your usage file</p>
+            <h2>Download from EBMUD, then create your report.</h2>
+            <p>Log into EBMUD yourself, open Track Usage or My Water Report, and download your billing usage file. It may be labeled CSV or export. Mud Buddy never needs your login, MFA code, or browser session.</p>
             <div class="mini-steps">
               <span><strong>1</strong> Log into EBMUD yourself</span>
-              <span><strong>2</strong> Download the usage CSV</span>
-              <span><strong>3</strong> Upload it here for local analysis</span>
+              <span><strong>2</strong> Download your usage file</span>
+              <span><strong>3</strong> Create your private report here</span>
             </div>
           </article>
 
           <article class="material-card helper-card compact-sample" id="example">
             <p class="overline">Sample</p>
-            <h2>Try it with sample data.</h2>
+            <h2>Try a sample report.</h2>
             <p>See the report flow before choosing your own file.</p>
             <div class="helper-actions">
-              <md-filled-tonal-button id="exampleTrySample">Try sample data</md-filled-tonal-button>
+              <md-filled-tonal-button id="exampleTrySample">Try sample report</md-filled-tonal-button>
               <md-outlined-button href="sample-report/index.html" target="_blank">Open sample report</md-outlined-button>
             </div>
           </article>
@@ -139,7 +139,7 @@ class MudBuddyApp extends HTMLElement {
           <div class="section-head compact-head">
             <p class="overline">Official EBMUD resources</p>
             <h2>Use EBMUD directly when the next step is official.</h2>
-            <p>Mud Buddy explains your CSV. EBMUD handles billing, emergencies, rebates, outages, pressure, assistance, and water quality.</p>
+            <p>Mud Buddy explains your usage file. EBMUD handles billing, emergencies, rebates, outages, pressure, assistance, and water quality.</p>
           </div>
           <div class="resource-grid" aria-label="Official EBMUD resources">${resourceCards}</div>
         </section>
@@ -154,9 +154,9 @@ class MudBuddyApp extends HTMLElement {
       </footer>
 
       <md-dialog id="checklistDialog" aria-label="Privacy boundary dialog">
-        <div slot="headline">Your CSV stays in the browser</div>
+        <div slot="headline">Your usage file stays in the browser</div>
         <form slot="content" method="dialog">
-          <p>The upload analyzer reads the selected CSV with your browser's file picker. It does not post the file, store it in browser storage, put it in a URL, or show the filename in the report.</p>
+          <p>The analyzer reads the selected usage file with your browser's file picker. It does not post the file, store it in browser storage, put it in a URL, or show the filename in the report.</p>
         </form>
         <div slot="actions"><md-text-button formmethod="dialog">Close</md-text-button></div>
       </md-dialog>
@@ -204,14 +204,14 @@ class MudBuddyApp extends HTMLElement {
 
   async analyzeFile(file) {
     if (!/\.csv$/i.test(file.name) && file.type !== 'text/csv') {
-      this.setUploadState('That does not look like a CSV. Please choose the EBMUD billing usage export.', 0, true);
+      this.setUploadState('That does not look like an EBMUD usage file. Please choose the billing usage export, usually a .csv file.', 0, true);
       return;
     }
     if (file.size > MAX_CSV_BYTES) {
-      this.setUploadState('That CSV is too large for the browser demo. Please use an EBMUD billing usage export under 5 MB.', 0, true);
+      this.setUploadState('That usage file is too large for the browser demo. Please use an EBMUD billing usage export under 5 MB.', 0, true);
       return;
     }
-    this.setUploadState('Reading the selected CSV locally in your browser...', 0.35);
+    this.setUploadState('Reading the selected usage file locally in your browser...', 0.35);
     try {
       const text = await file.text();
       this.analyzeCsvText(text, { sample: false });
@@ -221,10 +221,10 @@ class MudBuddyApp extends HTMLElement {
   }
 
   async loadSample() {
-    this.setUploadState('Loading the synthetic sample CSV...', 0.3);
+    this.setUploadState('Loading the synthetic sample report...', 0.3);
     try {
       const response = await fetch('examples/sample-ebmud-usage.csv', { cache: 'no-store' });
-      if (!response.ok) throw new Error('Sample CSV was not available. Try the sample report instead.');
+      if (!response.ok) throw new Error('Sample usage file was not available. Try the sample report instead.');
       const text = await response.text();
       this.analyzeCsvText(text, { sample: true });
     } catch (error) {
@@ -240,14 +240,14 @@ class MudBuddyApp extends HTMLElement {
     this.classList.add('has-browser-report');
     this.querySelector('#analyzeAnother')?.addEventListener('click', () => this.querySelector('#csvInput').click());
     this.querySelector('#printReport')?.addEventListener('click', () => window.print());
-    this.setUploadState('Report ready. The CSV was analyzed in this browser.', 1);
+    this.setUploadState('Report ready. Your usage file was analyzed in this browser.', 1);
     this.querySelector('#browserReport').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   showUploadError(error) {
     this.querySelector('#browserReport').replaceChildren();
     this.classList.remove('has-browser-report');
-    this.setUploadState(error instanceof Error ? error.message : 'Could not analyze that CSV.', 0, true);
+    this.setUploadState(error instanceof Error ? error.message : 'Could not analyze that usage file.', 0, true);
   }
 }
 

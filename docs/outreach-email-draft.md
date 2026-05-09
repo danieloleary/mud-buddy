@@ -4,7 +4,7 @@ Subject: Independent browser-local prototype for helping EBMUD customers underst
 
 Hi Mr. Chan,
 
-I'm Dan O'Leary, an EBMUD customer in Lafayette. I built a small browser-local prototype called Mud Buddy that helps EBMUD customers understand their own exported water-usage CSV.
+I'm Dan O'Leary, an EBMUD customer in Lafayette. I built a small browser-local prototype called Mud Buddy that helps EBMUD customers understand their own exported water-usage file.
 
 The idea is simple: a customer downloads their EBMUD usage export, opens Mud Buddy, and gets a private plain-English report about what changed, what may be worth checking, and when to use official EBMUD resources.
 

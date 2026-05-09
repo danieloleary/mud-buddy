@@ -1,11 +1,11 @@
-﻿# EBMUD Outreach Packet
+# EBMUD Outreach Packet
 
 ## Short note
 
 ```text
 Hi,
 
-I built Mud Buddy, a browser-local prototype that helps EBMUD customers interpret their exported usage CSV.
+I built Mud Buddy, a browser-local prototype that helps EBMUD customers interpret their exported usage file.
 
 The goal is customer education and conservation support: help households understand high bills, outdoor watering, normal-use changes, fixture checks, and when to use official EBMUD resources.
 
@@ -31,7 +31,7 @@ Dan
 
 ## What Mud Buddy does
 
-Mud Buddy lets a customer upload an EBMUD usage CSV in the browser and receive a plain-English report:
+Mud Buddy lets a customer upload an EBMUD usage file in the browser and receive a plain-English report:
 
 - normal daily use estimate;
 - likely outdoor watering clue;
@@ -44,7 +44,7 @@ Mud Buddy lets a customer upload an EBMUD usage CSV in the browser and receive a
 
 - Does not ask for EBMUD credentials.
 - Does not automate login, MFA, CAPTCHA, session material, or session material.
-- Does not upload CSVs to a Mud Buddy backend.
+- Does not upload usage files to a Mud Buddy backend.
 - Does not diagnose leaks as fact.
 - Does not decide billing questions.
 - Does not replace EBMUD, plumbers, conservation experts, or official emergency channels.
@@ -63,7 +63,7 @@ Useful EBMUD feedback would include:
 
 ## Suggested review path
 
-1. Try sample data.
+1. Try sample report.
 2. Review the privacy boundary.
 3. Review the report language.
 4. Review official EBMUD links.

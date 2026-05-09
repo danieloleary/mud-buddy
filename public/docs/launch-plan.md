@@ -13,7 +13,7 @@ Important wording:
 - Say `potential savings`, `helped-save`, and `patterns worth checking`.
 - Do not say certified savings, official EBMUD analysis, leak diagnosis, billing advice, or plumbing inspection.
 - Do not imply EBMUD affiliation, approval, endorsement, partnership, or co-branding unless EBMUD authorizes it in writing.
-- Lead with the app: `Analyze my CSV`, `Try sample data`, and `How to get the CSV`.
+- Lead with the app: `Create my report`, `Try sample report`, and `How to get your usage file`.
 - Lead with privacy: no EBMUD password, no server upload, no credential automation, public sharing only with `--public`.
 
 ## Launch assets
@@ -46,9 +46,9 @@ Required gates:
 Manual checks:
 
 - Open the live site on mobile and desktop and read it like a homeowner.
-- Click `Analyze my CSV`, `Try sample data`, `How to get the CSV`, official resources, X, and LinkedIn links.
+- Click `Create my report`, `Try sample report`, `How to get your usage file`, official resources, X, and LinkedIn links.
 - Run the real EBMUD workflow manually once: user logs in, downloads CSV, browser-local report renders.
-- Download the ZIP and confirm it does not include private CSVs, private reports, local paths, traces, screenshots, or deployment state.
+- Download the ZIP and confirm it does not include private usage files, private reports, local paths, traces, screenshots, or deployment state.
 
 ## Launch sequence
 
@@ -65,7 +65,7 @@ Fix only launch-blocking confusion, broken links, or privacy concerns.
 
 Use [beta-test-plan.md](beta-test-plan.md) as the script and [mobile-qa-checklist.md](mobile-qa-checklist.md) for phone checks.
 
-Do not broaden launch until at least one non-Dan real CSV has worked through the live browser app.
+Do not broaden launch until at least one non-Dan real usage file has worked through the live browser app.
 
 Do not add a backend, accounts, analytics, credential automation, or certified savings claims during quiet beta.
 
@@ -78,7 +78,7 @@ Goals:
 - Tell the homeowner story, not just drop a repo link.
 - Show that someone can use the live site directly.
 - Ask for feedback from East Bay people, homeowners, gardeners, civic-tech folks, and AI builders.
-- Invite one action: try sample data or upload your own EBMUD CSV locally.
+- Invite one action: try sample data or upload your own EBMUD usage file locally.
 
 ### Phase 3: Community sharing
 
@@ -117,13 +117,13 @@ https://danieloleary.github.io/mud-buddy/
 
 1. I built Mud Buddy because my own EBMUD usage data was confusing, and household context mattered: kids, daytime use, irrigation, and a yard that needs work.
 
-2. The app is simple: download your EBMUD usage CSV, upload it to Mud Buddy, and get a browser-local explanation of what changed.
+2. The app is simple: download your EBMUD usage file, upload it to Mud Buddy, and get a browser-local explanation of what changed.
 
-3. It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, average-household benchmark context, and possible fixture/toilet clues.
+3. It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, average-household benchmark context, and fixture/toilet patterns worth checking.
 
 4. It is not affiliated with EBMUD, not a leak detector, not billing advice, and not a plumbing inspection. Official account/billing/emergency/rebate actions happen on EBMUD's site.
 
-5. The privacy boundary is the whole point: no EBMUD password, no credential automation, no server upload by default. Your CSV is read in your browser.
+5. The privacy boundary is the whole point: no EBMUD password, no credential automation, no server upload by default. Your usage file is read in your browser.
 
 6. The public mission is to help East Bay households find millions of gallons of potential savings, starting with the first 1 million gallons. Not certified savings, but practical patterns people can act on.
 
@@ -133,7 +133,7 @@ https://danieloleary.github.io/mud-buddy/
 
 I shipped Mud Buddy, a free browser-local tool for EBMUD customers.
 
-It turns an exported EBMUD water-use CSV into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, possible fixture checks, and practical next steps.
+It turns an exported EBMUD water-use CSV into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, fixture checks worth considering, and practical next steps.
 
 The goal is not to replace EBMUD, plumbers, or conservation experts. Mud Buddy is an interpretation layer that helps people understand their own usage data before deciding what to check next.
 
@@ -141,7 +141,7 @@ The privacy boundary is intentional:
 
 - No EBMUD login needed.
 - No credential automation.
-- CSV analysis runs in the browser.
+- Usage file analysis runs in the browser.
 - No server upload for the primary app flow.
 - Public sharing uses redacted/public output.
 - Not affiliated with EBMUD.
@@ -165,9 +165,9 @@ Show HN: Mud Buddy - Browser-local EBMUD water-use reports
 Comment:
 
 ```text
-Hi HN, I built Mud Buddy after digging into my own EBMUD water-use data and realizing the raw CSV was hard to interpret without household context.
+Hi HN, I built Mud Buddy after digging into my own EBMUD water-use data and realizing the raw usage file was hard to interpret without household context.
 
-It turns an EBMUD usage export into a browser-local, plain-English report: gallons-per-day trends, baseline changes, irrigation lift, peer context, possible fixture/leak clues, and practical next checks.
+It turns an EBMUD usage export into a browser-local, plain-English report: gallons-per-day trends, baseline changes, irrigation lift, peer context, fixture/leak patterns worth checking, and practical next checks.
 
 The privacy boundary is important: no EBMUD password, no credential automation, no server upload for the primary flow. It is not affiliated with EBMUD and is not a leak detector, billing tool, or official utility analysis.
 

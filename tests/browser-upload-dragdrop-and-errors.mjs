@@ -50,7 +50,7 @@ try {
   const page = await browser.newPage({ viewport: { width: 1000, height: 800 } });
   await page.goto(url);
   await page.locator('#csvInput').setInputFiles(wrongType);
-  await expectStatus(page, 'does not look like a CSV');
+  await expectStatus(page, 'does not look like an EBMUD usage file');
   await page.locator('#csvInput').setInputFiles(empty);
   await expectStatus(page, 'does not include enough rows');
   await page.locator('#csvInput').setInputFiles(missing);
@@ -77,7 +77,7 @@ try {
   await page.dispatchEvent('#dropzone', 'drop', { dataTransfer });
   await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Normal daily use estimate'), null, { timeout: 6000 });
   reportText = await page.locator('[data-testid="browser-report"]').innerText();
-  if (!reportText.toLowerCase().includes('uploaded csv analyzed locally')) throw new Error('Drag/drop valid CSV did not recover to uploaded report');
+  if (!reportText.toLowerCase().includes('usage file analyzed locally')) throw new Error('Drag/drop valid CSV did not recover to uploaded report');
   await browser.close();
   console.log('browser-upload-dragdrop-and-errors: OK drag/drop, invalid inputs, limits, quoted CSV, N/A, and recovery');
 } finally {

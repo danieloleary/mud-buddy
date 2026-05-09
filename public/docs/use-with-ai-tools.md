@@ -4,9 +4,9 @@ Mud Buddy can work well with Claude Code, Codex, and Lovable when the instructio
 
 Copy-paste safety rule for every tool:
 
-> Work locally. Do not ask for, store, paste, scrape, log, export, or transmit EBMUD usernames, passwords, MFA codes, cookies, localStorage, sessionStorage, auth headers, session tokens, CAPTCHA responses, account numbers, meter IDs, service addresses, or raw private CSV rows in public artifacts. Ask before controlling a real browser. The user logs into EBMUD manually. Generate private local reports first. Use `--public` and redaction scans before sharing.
+> Work locally. Do not ask for, store, paste, scrape, log, export, or transmit EBMUD usernames, passwords, MFA codes, cookies, localStorage, sessionStorage, auth headers, session tokens, CAPTCHA responses, account numbers, meter IDs, service addresses, or raw private usage file rows in public artifacts. Ask before controlling a real browser. The user logs into EBMUD manually. Generate private local reports first. Use `--public` and redaction scans before sharing.
 
-Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
+Mud Buddy explains your usage file. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 ## Claude Code
 
@@ -23,7 +23,7 @@ Useful Claude Code commands when appropriate: `/doctor`, `/debug`, `/diff`, and 
 Paste this into Codex after opening the repo:
 
 ```text
-Follow AGENTS.md. Use the ebmud-buddy skill when available. Help me analyze an EBMUD usage CSV I explicitly provide or ask you to locate after manual login. Never ask for or handle credentials, MFA, CAPTCHA, cookies, localStorage, sessionStorage, auth headers, or session tokens. Ask before real browser control. After I log in manually, navigate only to usage, Track Usage, export, or CSV download screens. Ask before processing the downloaded CSV. Generate a private report first with: python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "generated/my-private-report". For public output, use --public and run npm run test:redaction. Before release, run npm run validate.
+Follow AGENTS.md. Use the ebmud-buddy skill when available. Help me analyze an EBMUD usage file I explicitly provide or ask you to locate after manual login. Never ask for or handle credentials, MFA, CAPTCHA, cookies, localStorage, sessionStorage, auth headers, or session tokens. Ask before real browser control. After I log in manually, navigate only to usage, Track Usage, export, or CSV download screens. Ask before processing the downloaded CSV. Generate a private report first with: python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "generated/my-private-report". For public output, use --public and run npm run test:redaction. Before release, run npm run validate.
 ```
 
 ## Lovable
@@ -33,7 +33,7 @@ Lovable is best for prototyping UI ideas from a concise app brief. Do not assume
 Pasteable app brief:
 
 ```text
-Build a local-first static web app called Mud Buddy. It helps EBMUD customers understand an exported usage CSV with trends, seasonal irrigation lift, fixture/leak patterns worth checking, and public-safe summaries. The app must say it is not affiliated with EBMUD and must never ask for passwords or session data. Include clear instructions to download the CSV manually from EBMUD, analyze locally, and use --public/redaction checks before sharing. Add official EBMUD resource links for account, billing, leaks/high bills, conservation/rebates, WaterSmart gardener, alerts/outages, water quality, customer assistance, and contact/emergency.
+Build a local-first static web app called Mud Buddy. It helps EBMUD customers understand an exported usage file with trends, seasonal irrigation lift, fixture/leak patterns worth checking, and public-safe summaries. The app must say it is not affiliated with EBMUD and must never ask for passwords or session data. Include clear instructions to download the CSV manually from EBMUD, analyze locally, and use --public/redaction checks before sharing. Add official EBMUD resource links for account, billing, leaks/high bills, conservation/rebates, WaterSmart gardener, alerts/outages, water quality, customer assistance, and contact/emergency.
 ```
 
 ## Common setup and validation

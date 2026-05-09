@@ -37,9 +37,9 @@ try {
   await page.goto(url);
   const body = await page.locator('body').innerText();
   if (!body.includes('Mud Buddy') || !body.includes('for EBMUD customers')) throw new Error('Subpath landing failed to render product-first brand');
-  if (!body.includes('Drop your EBMUD usage CSV here')) throw new Error('Subpath landing missing browser upload UI');
+  if (!body.includes('Drop your EBMUD usage file here')) throw new Error('Subpath landing missing browser upload UI');
   if (!body.includes('Official EBMUD resources')) throw new Error('Subpath landing missing official resources section');
-  if (!body.includes('Runs in this browser. Your CSV is not uploaded')) throw new Error('Subpath landing missing browser-local privacy proof');
+  if (!body.includes('Runs in this browser. Your usage file is not uploaded')) throw new Error('Subpath landing missing browser-local privacy proof');
   const links = await page.$$eval('a[href], img[src], script[src], link[href]', (nodes) => nodes.map((node) => node.getAttribute('href') || node.getAttribute('src')).filter(Boolean));
   const internal = new Set(['', 'sample-report/index.html', 'docs/privacy.md', 'docs/browser-control-safety.md', 'docs/ebmud-review-brief.md', 'docs/browser-local-proof.md', 'docs/co-release-proposal.md', 'assets/social-card.svg', 'assets/github-social-card.svg', 'assets/github-social-card.png', 'assets/readme-banner.svg', 'assets/hero-civic-water.svg', 'assets/hero-civic-water.webp', 'assets/mud-buddy-kawaii-mascot.webp', 'assets/workflow-csv-report.svg', 'assets/privacy-local-first.svg', 'assets/privacy-local-first.webp', 'assets/ebmud-resource-directory.svg', 'assets/ebmud-resource-directory.webp', 'assets/report-preview-redacted.svg', 'assets/report-preview-redacted.webp', 'assets/csv-export-boundary.svg', 'assets/public-sharing-checklist-card.svg', 'assets/sample-report-montage.svg', 'assets/sample-report-montage.webp', 'assets/irrigation-season-story.svg', 'assets/irrigation-season-story.webp', 'assets/leak-check-next-steps.svg', 'assets/leak-check-next-steps.webp', 'assets/ai-agent-safe-handoff.svg', 'assets/favicon-32.png', 'assets/apple-touch-icon.png', 'mud-buddy-by-danno.zip']);
   for (const href of links) {

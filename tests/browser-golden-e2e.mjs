@@ -65,10 +65,10 @@ try {
   }
 
   await page.locator('#csvInput').setInputFiles(syntheticCsv);
-  await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Uploaded CSV analyzed locally'), null, { timeout: 6000 });
+  await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Usage file analyzed locally'), null, { timeout: 6000 });
   reportText = await page.locator('[data-testid="browser-report"]').innerText();
   reportTextLower = reportText.toLowerCase();
-  if (!reportTextLower.includes('Uploaded CSV analyzed locally'.toLowerCase())) throw new Error('Synthetic upload did not render uploaded-source label');
+  if (!reportTextLower.includes('Usage file analyzed locally'.toLowerCase())) throw new Error('Synthetic upload did not render uploaded-source label');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.locator('[data-testid="analyze-another"]').scrollIntoViewIfNeeded();
   await page.screenshot({ path: path.join(outDir, 'mobile-synthetic-upload-report.png'), fullPage: false });
@@ -79,7 +79,7 @@ try {
     const scenarioPath = path.join(syntheticDir, scenario);
     const scenarioName = scenario.replace(/\.csv$/i, '');
     await page.locator('#csvInput').setInputFiles(scenarioPath);
-    await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Uploaded CSV analyzed locally'), null, { timeout: 6000 });
+    await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Usage file analyzed locally'), null, { timeout: 6000 });
     const scenarioText = await page.locator('[data-testid="browser-report"]').innerText();
     for (const required of ['Start here', 'Normal daily use estimate', 'Outdoor watering clue', 'Water use over time']) {
       if (!scenarioText.toLowerCase().includes(required.toLowerCase())) throw new Error(`${scenarioName} report missing: ${required}`);

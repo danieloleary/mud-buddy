@@ -36,11 +36,11 @@ try {
   const body = await page.locator('body').innerText();
   const lowerBody = body.toLowerCase();
   for (const required of [
-    'Uploaded CSV analyzed locally',
-    'Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
-    'CSV notes',
+    'Usage file analyzed locally',
+    'Runs in this browser. Your usage file is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
+    'Usage file notes',
     'What Mud Buddy sees',
-    'This is a pattern read from your CSV, not an official EBMUD finding.',
+    'This is a pattern read from your usage file, not an official EBMUD finding.',
     'What would make this more certain',
     'Use EBMUD directly',
     'Water use over time',

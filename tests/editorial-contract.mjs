@@ -25,13 +25,13 @@ try {
   for (const required of [
     'Mud Buddy',
     'for EBMUD customers',
-    'Upload your EBMUD CSV. See what changed.',
-    'Analyze my CSV',
-    'Try sample data',
-    'Get the CSV',
+    'Create a private EBMUD water report.',
+    'Create my report',
+    'Try sample report',
+    'Get my usage file',
     'Built with love in Lafayette, CA.',
-    'Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
-    'Download from EBMUD, then upload here.',
+    'Runs in this browser. Your usage file is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
+    'Download from EBMUD, then create your report.',
     'Official EBMUD resources'
   ]) {
     if (!body.includes(required)) throw new Error(`Missing homeowner-facing text: ${required}`);
@@ -54,7 +54,7 @@ try {
     if (body.includes(iconToken)) throw new Error(`Homepage body text leaked decorative icon token: ${iconToken}`);
   }
 
-  await page.getByRole('button', { name: 'Try sample data' }).first().click();
+  await page.getByRole('button', { name: 'Try sample report' }).first().click();
   await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   const reportTextLower = reportText.toLowerCase();
@@ -62,12 +62,12 @@ try {
     'Start here',
     'Normal daily use estimate',
     'Outdoor watering clue',
-    'Average-household benchmark in your export',
+    'Average-household benchmark in your usage file',
     'When to use EBMUD directly',
     'Billing questions',
     'Recommended next checks',
     'What Mud Buddy sees',
-    'This is a pattern read from your CSV, not an official EBMUD finding.',
+    'This is a pattern read from your usage file, not an official EBMUD finding.',
     'Confidence and method',
     'What would make this more certain',
     'Print or save PDF'

@@ -10,25 +10,25 @@ Mud Buddy lets you upload your EBMUD usage data and get beautiful private analys
 
 Use it here: [https://danieloleary.github.io/mud-buddy/](https://danieloleary.github.io/mud-buddy/)
 
-It is free, browser-local, and independent. Mud Buddy never needs your EBMUD password. Your CSV is read in your browser and is not uploaded to a Mud Buddy server.
+It is free, browser-local, and independent. Mud Buddy never needs your EBMUD password. Your usage file is read in your browser and is not uploaded to a Mud Buddy server.
 
 This project is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It is not a formal water audit, plumbing inspection, leak detector, billing tool, certified conservation measurement, or official EBMUD analysis.
 
-Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
+Mud Buddy explains your usage file. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pattern clues. They are not official classifications, normalized customer comparisons, leak diagnoses, billing findings, or conservation certifications.
 
 ## Use Mud Buddy in 3 steps
 
-1. Log into EBMUD yourself and download your usage CSV from Track Usage or My Water Report.
-2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Analyze my CSV`.
-3. Review the browser-local report: normal daily use, likely outdoor watering, the peak period, CSV notes, and practical next checks.
+1. Log into EBMUD yourself and download your usage file from Track Usage or My Water Report.
+2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Create my report`.
+3. Review the browser-local report: normal daily use, likely outdoor watering, the peak period, Usage file notes, and practical next checks.
 
-You can also choose `Try sample data` on the site to see the flow with synthetic public-safe data.
+You can also choose `Try sample report` on the site to see the flow with synthetic public-safe data.
 
 ## Quiet beta ask
 
-Mud Buddy is ready for a small real-user beta before broad launch. If you are an EBMUD customer, try the sample flow first, then upload your own usage CSV if you are comfortable.
+Mud Buddy is ready for a small real-user beta before broad launch. If you are an EBMUD customer, try the sample flow first, then upload your own usage file if you are comfortable.
 
 Please share:
 
@@ -37,7 +37,7 @@ Please share:
 - whether the report helped you know what to check first;
 - whether anything sounded too official, too technical, or too confident.
 
-Do not send raw CSVs publicly. Water-use data can reveal household routines.
+Do not send raw usage files publicly. Water-use data can reveal household routines.
 
 ## What Mud Buddy helps answer
 
@@ -54,7 +54,7 @@ Water usage can reveal household routines, so the default workflow is intentiona
 
 - Browser analyzer: the CSV is read with the browser file picker and is not uploaded to a Mud Buddy server.
 - No Mud Buddy account is required.
-- Mud Buddy does not display the private filename, account number, meter ID, raw CSV rows, or local file path in the browser report.
+- Mud Buddy does not display the private filename, account number, meter ID, raw usage file rows, or local file path in the browser report.
 - Do not paste EBMUD credentials into Codex, Claude Code, Lovable, or any chat tool.
 - Optional browser help starts only after you log into EBMUD manually.
 - Public sharing should use `--public`; `--redact` removes direct identifiers but is not full anonymization.
@@ -75,7 +75,7 @@ Water usage can reveal household routines, so the default workflow is intentiona
 
 Use EBMUD directly for urgent issues, billing disputes, payment help, outages, pressure problems, water-quality concerns, rebates, assistance programs, or anything that needs an official account action.
 
-Use Mud Buddy when you want to understand patterns in your exported usage CSV before deciding what to check next.
+Use Mud Buddy when you want to understand patterns in your exported usage file before deciding what to check next.
 
 ## For EBMUD review
 
@@ -173,7 +173,7 @@ The demo and test files are here to make releases safer. Homeowners do not need 
 - The browser app receives CSV text only through explicit file selection or the synthetic sample-data button.
 - Synthetic test cases are generated under ignored `tests/output/` for parser and report coverage.
 - The mock browser portal is synthetic and never automates real EBMUD credentials.
-- Dan's real CSV can be used locally for a private parse check, but it must never be committed, packaged, or published.
+- Dan's real usage file can be used locally for a private parse check, but it must never be committed, packaged, or published.
 
 Useful release commands:
 

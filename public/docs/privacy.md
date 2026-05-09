@@ -1,6 +1,6 @@
 # Privacy
 
-Mud Buddy is designed as a browser-local and local-first utility data workflow. Users may explicitly provide or upload an EBMUD CSV to Mud Buddy or a local AI coding agent for analysis, but credentials and browser session material remain out of scope.
+Mud Buddy is designed as a browser-local and local-first utility data workflow. Users may explicitly provide or upload an EBMUD usage file to Mud Buddy or a local AI coding agent for analysis, but credentials and browser session material remain out of scope.
 
 ## Defaults
 
@@ -13,9 +13,9 @@ Mud Buddy is designed as a browser-local and local-first utility data workflow. 
 
 ## Browser-local analyzer
 
-The live site supports `Analyze my CSV` and `Try sample data`.
+The live site supports `Create my report` and `Try sample report`.
 
-- `Analyze my CSV` reads the selected file in memory and renders an in-page report.
+- `Create my report` reads the selected file in memory and renders an in-page report.
 - The report uses a generic source label and does not display the private filename.
 - Identifier columns such as account number, meter, service address, name, email, and phone are ignored for browser display.
 - Raw CSV rows are not rendered into the page.
@@ -29,7 +29,7 @@ Before sharing a report publicly, confirm it includes:
 - No service address.
 - No account number.
 - No meter ID.
-- No raw CSV.
+- No raw usage file.
 - No local file paths.
 - No exact absence or vacation pattern.
 - A visible "Not affiliated with EBMUD" disclaimer.

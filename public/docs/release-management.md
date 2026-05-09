@@ -4,7 +4,7 @@ Mud Buddy uses the `package.json` version as the canonical app/release version, 
 
 ## Current target
 
-- Version: `1.1.0`
+- Version: `1.2.0`
 - Release window: weekend release candidate
 - Canonical deployment: GitHub Pages
 - Public mission: help East Bay households find millions of gallons of potential water savings, starting with a `1 million gallons` first milestone
@@ -26,7 +26,7 @@ MUD_BUDDY_REAL_CSV="path/to/private.csv" npm run test:local-real-csv
 
 - Patch releases fix docs, copy, tests, or small bugs.
 - Minor releases add user-visible features while the product is still evolving.
-- `1.1.0` means the browser-local EBMUD CSV workflow, review-ready docs, public-safe sample report, redaction/package scans, and GitHub Pages site are stable enough for EBMUD feedback and broader public sharing.
+- `1.2.0` means the browser-local EBMUD CSV workflow, review-ready docs, public-safe sample report, redaction/package scans, GitHub Pages site, and evidence-based report findings are stable enough for EBMUD feedback and broader public sharing.
 
 ## Public release checklist
 
