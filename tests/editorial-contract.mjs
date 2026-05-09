@@ -25,13 +25,13 @@ try {
   for (const required of [
     'Mud Buddy',
     'for EBMUD customers',
-    'Upload your EBMUD usage data. Get beautiful analysis, recommendations, and more.',
-    'Upload my usage data',
+    'Upload your EBMUD CSV. See what changed.',
+    'Analyze my CSV',
     'Try sample data',
-    'How to get the CSV',
+    'Get the CSV',
     'Built with love in Lafayette, CA.',
     'Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
-    'Download from EBMUD, then come back here.',
+    'Download from EBMUD, then upload here.',
     'Official EBMUD resources'
   ]) {
     if (!body.includes(required)) throw new Error(`Missing homeowner-facing text: ${required}`);
@@ -55,7 +55,7 @@ try {
   }
 
   await page.getByRole('button', { name: 'Try sample data' }).first().click();
-  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   const reportTextLower = reportText.toLowerCase();
   for (const required of [

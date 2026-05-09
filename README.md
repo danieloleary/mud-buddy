@@ -21,7 +21,7 @@ Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pat
 ## Use Mud Buddy in 3 steps
 
 1. Log into EBMUD yourself and download your usage CSV from Track Usage or My Water Report.
-2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Upload my usage data`.
+2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Analyze my CSV`.
 3. Review the browser-local report: normal daily use, likely outdoor watering, the peak period, CSV notes, and practical next checks.
 
 You can also choose `Try sample data` on the site to see the flow with synthetic public-safe data.

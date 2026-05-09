@@ -64,7 +64,7 @@ try {
   await page.locator('#csvInput').setInputFiles(tooManyRows);
   await expectStatus(page, 'too many rows');
   await page.locator('#csvInput').setInputFiles(quoted);
-  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   let reportText = await page.locator('[data-testid="browser-report"]').innerText();
   if (!reportText.toLowerCase().includes('row skipped') || !reportText.includes('1')) throw new Error('Quoted/N/A fixture did not render invalid-row note');
 

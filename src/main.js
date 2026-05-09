@@ -58,26 +58,29 @@ class MudBuddyApp extends HTMLElement {
           <a href="#resources">Official links</a>
           <a href="#privacy">Privacy</a>
         </nav>
-        <md-filled-button id="topAnalyze">Upload my usage data</md-filled-button>
+        <md-filled-button id="topAnalyze">Analyze my CSV</md-filled-button>
       </header>
 
       <main id="top">
         <section class="hero shell" id="app">
           <div class="hero-copy reveal">
             <p class="overline">Private browser-local water report</p>
-            <h1>Upload your EBMUD usage data. Get beautiful analysis, recommendations, and more.</h1>
-            <p class="lede">Mud Buddy reads your EBMUD CSV in this browser, explains what changed, and gives you practical next checks for high bills, irrigation surprises, fixture clues, and family-use changes.</p>
+            <h1>Upload your EBMUD CSV. See what changed.</h1>
+            <p class="lede">Get a clear water-use report for high bills, irrigation changes, fixture clues, and family-use shifts. No server upload.</p>
             <div class="hero-actions">
-              <md-filled-button id="heroAnalyze">Upload my usage data</md-filled-button>
+              <md-filled-button id="heroAnalyze">Analyze my CSV</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample data</md-filled-tonal-button>
-              <md-text-button href="#how">How to get the CSV</md-text-button>
+              <md-text-button href="#how">Get the CSV</md-text-button>
             </div>
             <div class="trust-row" aria-label="Trust promises">
               <md-assist-chip label="Runs in your browser"></md-assist-chip>
               <md-assist-chip label="No server upload"></md-assist-chip>
-              <md-assist-chip label="No EBMUD password needed"></md-assist-chip>
+              <md-assist-chip label="No EBMUD login needed"></md-assist-chip>
             </div>
-            <p class="hero-note">Mission: save millions of gallons, one home at a time. Savings are potential prompts for action, not certified EBMUD conservation totals.</p>
+            <figure class="mascot-card material-card">
+              <img src="assets/mud-buddy-kawaii-mascot.webp" alt="Cute Mud Buddy mascot holding a small water meter clipboard" />
+              <figcaption>Mud Buddy reads the pattern. You choose what to check next.</figcaption>
+            </figure>
           </div>
 
           <div class="upload-panel reveal delay-1" aria-label="Browser-local CSV upload analyzer">
@@ -94,7 +97,7 @@ class MudBuddyApp extends HTMLElement {
                 <span>or click to choose the billing usage export</span>
               </button>
               <div class="upload-actions">
-                <md-filled-button id="chooseCsv">Upload my usage data</md-filled-button>
+                <md-filled-button id="chooseCsv">Analyze my CSV</md-filled-button>
                 <md-filled-tonal-button id="trySample">Try sample data</md-filled-tonal-button>
               </div>
               <div class="local-proof" id="privacy">
@@ -112,8 +115,8 @@ class MudBuddyApp extends HTMLElement {
         <section class="shell support-grid" id="how">
           <article class="material-card helper-card">
             <p class="overline">Get the CSV</p>
-            <h2>Download from EBMUD, then come back here.</h2>
-            <p>Log into EBMUD yourself, open Track Usage or My Water Report, and download the official billing usage CSV. Mud Buddy never needs your username, password, MFA code, cookies, or browser session.</p>
+            <h2>Download from EBMUD, then upload here.</h2>
+            <p>Log into EBMUD yourself, open Track Usage or My Water Report, and download the billing usage CSV. Mud Buddy never needs your login, MFA code, or browser session.</p>
             <div class="mini-steps">
               <span><strong>1</strong> Log into EBMUD yourself</span>
               <span><strong>2</strong> Download the usage CSV</span>
@@ -124,7 +127,7 @@ class MudBuddyApp extends HTMLElement {
           <article class="material-card helper-card compact-sample" id="example">
             <p class="overline">Sample</p>
             <h2>Want to see it first?</h2>
-            <p>Use synthetic sample data to see the report flow before choosing your own file.</p>
+            <p>Try the app with fake sample data before choosing your own file.</p>
             <div class="helper-actions">
               <md-filled-tonal-button id="exampleTrySample">Try sample data</md-filled-tonal-button>
               <md-outlined-button href="sample-report/index.html" target="_blank">Open sample report</md-outlined-button>
@@ -144,9 +147,9 @@ class MudBuddyApp extends HTMLElement {
 
       <footer>
         <div class="shell footer-grid">
-          <p><strong>Mud Buddy</strong><br />A private browser-local water-use helper for EBMUD customers.</p>
+          <p><strong>Mud Buddy</strong><br />Private water-use reports for EBMUD customers.</p>
           <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.</p>
-          <p>Built with love in Lafayette, CA. <a href="docs/methodology.md">Methodology</a> | <a href="docs/privacy.md">Privacy</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
+          <p>Built with love in Lafayette, CA. Goal: save millions of gallons, one home at a time. <a href="docs/methodology.md">Methodology</a> | <a href="docs/privacy.md">Privacy</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
         </div>
       </footer>
 

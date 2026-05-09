@@ -49,6 +49,7 @@ try {
   if ((await page.locator('.brand-mark svg').count()) !== 1) throw new Error('Brand mark SVG did not render');
   const brandMarkText = (await page.locator('.brand-mark').textContent())?.trim() || '';
   if (brandMarkText) throw new Error(`Brand mark leaked fallback text: ${brandMarkText}`);
+  if ((await page.locator('.mascot-card img[src$="mud-buddy-kawaii-mascot.webp"]').count()) !== 1) throw new Error('Kawaii Mud Buddy mascot image did not render');
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(url);
@@ -61,14 +62,14 @@ try {
   await page.goto(url);
   const text = await page.locator('body').innerText();
   for (const required of [
-    'Upload your EBMUD usage data. Get beautiful analysis, recommendations, and more.',
+    'Upload your EBMUD CSV. See what changed.',
     'for EBMUD customers',
     'Analyze your usage CSV',
     'Drop your EBMUD usage CSV here',
-    'Upload my usage data',
+    'Analyze my CSV',
     'Try sample data',
-    'Mission: save millions of gallons, one home at a time.',
     'Built with love in Lafayette, CA.',
+    'Goal: save millions of gallons, one home at a time.',
     'Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
     'Official EBMUD resources',
     "Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.",
@@ -79,7 +80,7 @@ try {
   for (const clutter of ['For EBMUD review', 'Independent today', 'Download project ZIP', 'synthetic flavors', 'release gate']) {
     if (text.toLowerCase().includes(clutter.toLowerCase())) throw new Error(`Landing still exposes clutter text: ${clutter}`);
   }
-  if ((await page.locator('md-assist-chip[label="No EBMUD password needed"]').count()) !== 1) throw new Error('Missing trust chip for no EBMUD password');
+  if ((await page.locator('md-assist-chip[label="No EBMUD login needed"]').count()) !== 1) throw new Error('Missing trust chip for no EBMUD login');
   if ((await page.locator('md-assist-chip[label="No server upload"]').count()) !== 1) throw new Error('Missing trust chip for no server upload');
   for (const iconToken of ['computer', 'cloud_off', 'key_off', 'receipt_long', 'upload_file', 'verified_user']) {
     if (text.includes(iconToken)) throw new Error(`Landing body text leaked decorative icon token: ${iconToken}`);
@@ -91,7 +92,7 @@ try {
   }
   if ((await page.locator('#csvInput').count()) !== 1) throw new Error('Expected browser-local CSV file input');
   await page.getByRole('button', { name: 'Try sample data' }).first().click();
-  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   if (!(await page.locator('.browser-report').isVisible())) throw new Error('Sample browser report did not render');
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   const reportTextLower = reportText.toLowerCase();

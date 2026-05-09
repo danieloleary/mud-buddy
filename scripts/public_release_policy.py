@@ -25,6 +25,7 @@ KNOWN_PUBLIC_ASSETS = {
     "leak-check-next-steps.webp",
     "privacy-local-first.webp",
     "ebmud-resource-directory.webp",
+    "mud-buddy-kawaii-mascot.webp",
     "favicon-32.png",
     "apple-touch-icon.png",
 }

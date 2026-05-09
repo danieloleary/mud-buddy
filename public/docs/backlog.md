@@ -1,4 +1,4 @@
-﻿# Backlog
+# Backlog
 
 ## Completed For 1.1.0 Review Candidate
 
@@ -28,7 +28,7 @@
 
 ## Near-Term Product Polish
 
-- Add a first-run wizard for non-technical homeowners: `Download CSV`, `Upload my usage data`, `Review next checks`, `Share safely`.
+- Add a first-run wizard for non-technical homeowners: `Download CSV`, `Analyze my CSV`, `Review next checks`, `Share safely`.
 - Add clearer print/PDF styling for the browser report.
 - Add fixture/toilet check worksheets.
 - Add optional household and landscaping context form that stays local.

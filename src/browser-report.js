@@ -115,7 +115,7 @@ function renderNextChecks(analysis) {
   for (const check of nextChecksFor(analysis)) list.append(el('li', { text: check }));
   return el('section', { class: 'next-checks-card' }, [
     el('h3', { text: 'Recommended next checks' }),
-    el('p', { text: 'Start with low-drama checks that can explain the pattern before assuming there is one single cause.' }),
+    el('p', { text: 'Start with simple checks before assuming one single cause.' }),
     list
   ]);
 }
@@ -179,7 +179,7 @@ function renderOfficialNextSteps() {
   }
   return el('article', { class: 'browser-official-card' }, [
     el('h3', { text: 'When to use EBMUD directly' }),
-    el('p', { text: 'Use official EBMUD resources for billing disputes, urgent service issues, outages or pressure concerns, water quality, rebates, assistance programs, or account actions. Mud Buddy only explains patterns in your exported CSV.' }),
+    el('p', { text: 'Use official EBMUD resources for billing, outages, pressure, water quality, rebates, assistance, emergencies, or account actions. Mud Buddy only explains CSV patterns.' }),
     links
   ]);
 }
@@ -193,11 +193,11 @@ export function renderBrowserReport(container, analysis, options = {}) {
   root.append(el('div', { class: 'browser-report-head' }, [
     el('div', {}, [
       el('p', { class: 'overline', text: sourceLabel }),
-      el('h2', { text: 'Your private browser report is ready.' }),
-      el('p', { text: 'Mud Buddy read the CSV in this page and created this report without uploading the file to a server.' })
+      el('h2', { text: 'Report ready.' }),
+      el('p', { text: 'Analyzed locally in this browser. Nothing was uploaded.' })
     ]),
     el('div', { class: 'report-action-panel' }, [
-      el('p', { class: 'report-action-note', text: 'Local only. CSV not uploaded. Private report.' }),
+      el('p', { class: 'report-action-note', text: 'Local only. Private report.' }),
       el('div', { class: 'report-actions' }, [
         el('md-filled-tonal-button', { id: 'analyzeAnother', 'data-testid': 'analyze-another', text: 'Analyze another CSV' }),
         el('md-outlined-button', { id: 'printReport', text: 'Print or save PDF' })
@@ -256,7 +256,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
 
   root.append(el('p', {
     class: 'browser-disclaimer',
-    text: 'This is explanatory pattern-finding, not a certified audit, leak diagnosis, billing decision, plumbing inspection, or official EBMUD analysis. Not affiliated with EBMUD.'
+    text: 'Pattern clues only. Not a certified audit, leak diagnosis, billing decision, plumbing inspection, or official EBMUD analysis. Not affiliated with EBMUD.'
   }));
   container.append(root);
   root.focus({ preventScroll: true });

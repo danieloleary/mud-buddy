@@ -13,7 +13,7 @@ Important wording:
 - Say `potential savings`, `helped-save`, and `patterns worth checking`.
 - Do not say certified savings, official EBMUD analysis, leak diagnosis, billing advice, or plumbing inspection.
 - Do not imply EBMUD affiliation, approval, endorsement, partnership, or co-branding unless EBMUD authorizes it in writing.
-- Lead with the app: `Upload my usage data`, `Try sample data`, and `How to get the CSV`.
+- Lead with the app: `Analyze my CSV`, `Try sample data`, and `How to get the CSV`.
 - Lead with privacy: no EBMUD password, no server upload, no credential automation, public sharing only with `--public`.
 
 ## Launch assets
@@ -46,7 +46,7 @@ Required gates:
 Manual checks:
 
 - Open the live site on mobile and desktop and read it like a homeowner.
-- Click `Upload my usage data`, `Try sample data`, `How to get the CSV`, official resources, X, and LinkedIn links.
+- Click `Analyze my CSV`, `Try sample data`, `How to get the CSV`, official resources, X, and LinkedIn links.
 - Run the real EBMUD workflow manually once: user logs in, downloads CSV, browser-local report renders.
 - Download the ZIP and confirm it does not include private CSVs, private reports, local paths, traces, screenshots, or deployment state.
 
@@ -107,7 +107,7 @@ I built Mud Buddy - a free browser-local tool for East Bay water customers.
 
 Upload your EBMUD usage data, analyze it in your browser, and get beautiful plain-English analysis, recommendations, and next checks for high bills, outdoor watering, normal use changes, and simple fixture checks.
 
-No EBMUD password. No server upload. Not affiliated with EBMUD.
+No EBMUD login. No server upload. Not affiliated with EBMUD.
 
 Goal: help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons.
 
@@ -139,7 +139,7 @@ The goal is not to replace EBMUD, plumbers, or conservation experts. Mud Buddy i
 
 The privacy boundary is intentional:
 
-- No EBMUD password needed.
+- No EBMUD login needed.
 - No credential automation.
 - CSV analysis runs in the browser.
 - No server upload for the primary app flow.

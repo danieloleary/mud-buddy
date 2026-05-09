@@ -9,7 +9,7 @@ await withBrowserPage(url, { viewport: { width: 1280, height: 900 } }, async (pa
   await page.goto(url);
   await page.getByText('Upload your EBMUD usage data. Get beautiful analysis, recommendations, and more.').waitFor({ timeout: 10000 });
   await page.getByText('Try sample data').first().click();
-  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 10000 });
+  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 10000 });
   for (const rel of [
     'sample-report/index.html',
     'docs/privacy.md',

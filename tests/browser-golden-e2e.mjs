@@ -54,7 +54,7 @@ try {
   await page.screenshot({ path: path.join(outDir, 'desktop-landing.png'), fullPage: false });
 
   await page.locator('#csvInput').setInputFiles(sampleCsv);
-  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   await page.screenshot({ path: path.join(outDir, 'desktop-sample-upload-report.png'), fullPage: false });
   await page.locator('[data-testid="browser-report"]').screenshot({ path: path.join(outDir, 'desktop-sample-full-report.png') });
 

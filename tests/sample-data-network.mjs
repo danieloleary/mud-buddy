@@ -51,7 +51,7 @@ try {
   const requests = [];
   page.on('request', (request) => requests.push(request.url()));
   await page.getByText('Try sample data').first().click();
-  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
 
   const sampleRequests = requests.filter((requestUrl) => {
     const parsed = new URL(requestUrl);

@@ -1,4 +1,4 @@
-﻿# Mobile QA Checklist
+# Mobile QA Checklist
 
 Run this on the live GitHub Pages site before broad launch:
 
@@ -27,7 +27,7 @@ https://danieloleary.github.io/mud-buddy/
 
 ## Real CSV flow
 
-- Tap `Upload my usage data`.
+- Tap `Analyze my CSV`.
 - File picker opens.
 - Choose an EBMUD billing usage CSV.
 - Report renders.

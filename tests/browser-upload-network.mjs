@@ -1,4 +1,4 @@
-﻿import { spawn } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from '@playwright/test';
@@ -28,7 +28,7 @@ try {
   const requests = [];
   page.on('request', (request) => requests.push(request.url()));
   await page.locator('#csvInput').setInputFiles(path.join(root, 'examples', 'sample-ebmud-usage.csv'));
-  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   const unexpected = requests.filter((requestUrl) => !requestUrl.startsWith('data:') && !requestUrl.startsWith('blob:'));
   if (unexpected.length) throw new Error(`Unexpected network request after upload:\n${unexpected.join('\n')}`);
   await browser.close();

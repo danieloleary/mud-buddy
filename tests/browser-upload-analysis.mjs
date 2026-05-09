@@ -32,7 +32,7 @@ try {
   page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
   await page.goto(url);
   await page.locator('#csvInput').setInputFiles(path.join(root, 'examples', 'sample-ebmud-usage.csv'));
-  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   const body = await page.locator('body').innerText();
   const lowerBody = body.toLowerCase();
   for (const required of [
@@ -41,7 +41,7 @@ try {
     'CSV notes',
     'Water use over time',
     'Average use by season',
-    'This is explanatory pattern-finding'
+    'Pattern clues only'
   ]) {
     if (!lowerBody.includes(required.toLowerCase())) throw new Error(`Missing browser upload text: ${required}`);
   }

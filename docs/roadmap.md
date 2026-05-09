@@ -26,7 +26,7 @@
 
 ## Near Term After Launch
 
-- Add a first-run wizard with `Download CSV`, `Upload my usage data`, `Review next checks`, and `Share safely`.
+- Add a first-run wizard with `Download CSV`, `Analyze my CSV`, `Review next checks`, and `Share safely`.
 - Add print/PDF styling for the browser report.
 - Add fixture/toilet check worksheets.
 - Add helped-save estimate worksheet that stays local and avoids certified claims.

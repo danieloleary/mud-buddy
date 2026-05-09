@@ -19,7 +19,7 @@ I built Mud Buddy - a free browser-local tool for East Bay water customers.
 
 Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English report about high bills, outdoor watering, normal use changes, and simple next checks.
 
-No EBMUD password. No server upload. Not affiliated with EBMUD.
+No EBMUD login. No server upload. Not affiliated with EBMUD.
 
 Goal: help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons.
 
@@ -53,7 +53,7 @@ The goal is not to replace EBMUD, plumbers, or conservation experts. Mud Buddy i
 
 The privacy boundary is intentional:
 
-- No EBMUD password needed.
+- No EBMUD login needed.
 - No credential automation.
 - CSV analysis runs in the browser.
 - No server upload for the primary app flow.
@@ -72,7 +72,7 @@ https://danieloleary.github.io/mud-buddy/
 
 Open Mud Buddy.
 
-Choose `Try sample data` to see the flow, or download your EBMUD usage CSV and choose `Upload my usage data`.
+Choose `Try sample data` to see the flow, or download your EBMUD usage CSV and choose `Analyze my CSV`.
 
 Mud Buddy reads the CSV in the browser and renders a plain-English report: baseline estimate, gallons-per-day trends, seasonal irrigation lift, unusual periods, and practical next checks.
 

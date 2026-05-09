@@ -1,4 +1,4 @@
-﻿import { spawn } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -53,7 +53,7 @@ try {
     }
   });
   await page.locator('#csvInput').setInputFiles(privatePath);
-  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
   const outer = await page.locator('html').evaluate((node) => node.outerHTML);
   const text = await page.locator('body').innerText();
   const combined = `${outer}\n${text}`;
