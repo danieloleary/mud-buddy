@@ -15,9 +15,11 @@
     "test:browser-flow": "node tests/browser-flow.mjs",
     "test:redaction": "python scripts/check_public_redaction.py --path public-site --strict",
     "package:public": "python scripts/package_public_site.py",
-    "validate": "npm run generate:sample && npm run build && npm run package:public && npm run test:landing && npm run test:report && npm run test:browser-flow && npm run test:privacy && npm run test:redaction && npm run test:subpath",
+    "validate": "npm run generate:sample && npm run build && npm run package:public && npm run test:landing && npm run test:report && npm run test:browser-flow && npm run test:privacy && npm run test:csv-provision && npm run test:docs && npm run test:redaction && npm run test:subpath",
     "test:subpath": "node tests/subpath-smoke.mjs",
-    "test:privacy": "node tests/privacy-behavior.mjs"
+    "test:privacy": "node tests/privacy-behavior.mjs",
+    "test:docs": "node tests/docs-consistency.mjs",
+    "test:csv-provision": "node tests/csv-provision-policy.mjs"
   },
   "dependencies": {
     "@material/web": "^2.4.0",

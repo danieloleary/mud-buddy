@@ -39,7 +39,7 @@ claude
 Paste this into Claude Code:
 
 ```text
-You are helping me use Mud Buddy, a local-first EBMUD CSV report generator. Read README.md, AGENTS.md, package.json, docs/privacy.md, and docs/security-review.md first. Do not ask for or handle EBMUD credentials, MFA codes, cookies, session storage, local storage, auth headers, account numbers, addresses, meter IDs, or raw customer data beyond local files I explicitly provide. Help me run the documented setup, generate the synthetic sample report, start the dev site, and run the test/debug scripts. If anything fails, show the exact command, error, likely cause, and smallest safe fix. Use /doctor, /debug, /diff, and /review when useful.
+You are helping me use Mud Buddy, a local-first EBMUD CSV report generator. Read README.md, AGENTS.md, package.json, docs/privacy.md, and docs/security-review.md first. Do not ask for or handle EBMUD credentials, MFA codes, cookies, session storage, local storage, auth headers, or browser session tokens. It is OK to process EBMUD CSV files that I explicitly provide or upload for local analysis; treat them as sensitive and do not publish or commit raw private data. Help me run the documented setup, generate the synthetic sample report, start the dev site, and run the test/debug scripts. If anything fails, show the exact command, error, likely cause, and smallest safe fix. Use /doctor, /debug, /diff, and /review when useful.
 ```
 
 ## Codex
@@ -57,7 +57,7 @@ codex
 Paste this into Codex:
 
 ```text
-Use the Mud Buddy repo instructions. Read AGENTS.md and README.md first. Keep the workflow local-first and privacy-preserving. Do not automate EBMUD credentials, MFA, CAPTCHA, cookies, localStorage, sessionStorage, auth headers, or session tokens. Generate the synthetic sample report, run the app, and use the documented scripts for testing/debugging. Before any public artifact, run the redaction scan and confirm no address, account number, meter ID, raw CSV, local path, or absence/vacation pattern is present.
+Use the Mud Buddy repo instructions. Read AGENTS.md and README.md first. Keep the workflow local-first and privacy-preserving. Do not automate EBMUD credentials, MFA, CAPTCHA, cookies, localStorage, sessionStorage, auth headers, or session tokens. If I ask for browser control, wait while I log in manually, navigate only to official Track Usage/export/download screens, detect the CSV in Chrome Downloads if possible, ask before processing it, generate a private report, and use the documented scripts for testing/debugging. Before any public artifact, run the redaction scan and confirm no address, account number, meter ID, raw CSV, local path, or absence/vacation pattern is present.
 ```
 
 To install the bundled Codex skill from a public GitHub repo once Dan publishes it:
@@ -75,7 +75,7 @@ Important: Lovable's GitHub integration is primarily for syncing Lovable-created
 Paste this into Lovable:
 
 ```text
-Build a clean local-first landing/demo page for Mud Buddy by Danno, a free EBMUD CSV water-usage report generator. Keep the brand calm, civic-tech, and privacy-forward. The page should explain: export EBMUD CSV manually, process locally, generate a private report, use redacted mode for public sharing. Include CTAs for GitHub, sample report, privacy notes, and installation. Do not build a login flow. Do not ask for EBMUD credentials. Do not upload raw CSVs by default. Use copy that says "possible leak clues" and "patterns worth checking," not certified diagnosis. Add a clear footer: Not affiliated with EBMUD.
+Build a clean local-first landing/demo page for Mud Buddy by Danno, a free EBMUD CSV water-usage report generator. Keep the brand calm, civic-tech, and privacy-forward. The page should explain: export EBMUD CSV manually or with agent-assisted browser control after manual login, process the CSV locally, generate a private report, use `--public` mode for public sharing. Include CTAs for GitHub, sample report, privacy notes, and installation. Do not build a login flow. Do not ask for EBMUD credentials. Only process CSVs the user explicitly provides or uploads for analysis. Use copy that says "possible leak clues" and "patterns worth checking," not certified diagnosis. Add a clear footer: Not affiliated with EBMUD.
 ```
 
 ## Common Local Commands

@@ -1,6 +1,8 @@
-﻿# Data Schema
+# Data Schema
 
 Mud Buddy expects EBMUD-style billing usage CSV exports. The parser is intentionally conservative and skips rows that are incomplete or invalid.
+
+The CSV itself is allowed input for Mud Buddy or local agents when the user explicitly provides it, but it should still be treated as private household utility data and excluded from public reports, hosted artifacts, and ZIP packages.
 
 ## Expected Columns
 
@@ -23,6 +25,8 @@ Additional columns may be present. Identifiers such as account number, service a
 
 Rows are excluded if required numeric values are missing, `Customer GPD` is `N/A`, the date is missing, or the date cannot be parsed as `YYYY-MM-DD`.
 
-## Redaction Behavior
+## Public Mode
 
-Use `--redact` for public-safe output. Public reports should remove address, account number, meter ID, raw CSV rows, local file paths, and exact absence/vacation patterns.
+Use `--public` for public-safe output. Public reports should remove or bucket address, account number, meter ID, raw CSV rows, local file paths, exact billing-period clues, and exact absence/vacation patterns.
+
+Use `--redact` only for identifier redaction in local/private workflows; it is not full anonymization.

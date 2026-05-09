@@ -20,6 +20,7 @@ ROOT_FILES = [
     "CONTRIBUTING.md",
     "CHANGELOG.md",
     "AGENTS.md",
+    "CLAUDE.md",
     "package.json",
     "package-lock.json",
     "index.html",

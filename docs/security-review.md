@@ -16,8 +16,9 @@ Water usage data can reveal household routines, occupancy patterns, irrigation b
 ## Data Minimization
 
 - Process CSV files locally by default.
-- Do not upload raw EBMUD CSVs to cloud services.
-- Public reports should be generated with `--redact`.
+- Users may explicitly provide or upload an EBMUD CSV to Mud Buddy or a local AI coding agent for analysis.
+- Do not publish, commit, or bundle raw private CSVs.
+- Public reports should be generated with `--public`; `--redact` is identifier-only.
 - Public ZIPs must exclude private reports, real CSVs, here.now deployment state files, browser traces, and local download folders.
 
 ## Credential And Session Hard Stops
@@ -47,5 +48,5 @@ Before publishing, confirm the artifact contains:
 - Bypass CAPTCHA, MFA, rate limits, bot detection, or access controls.
 - Change account settings, billing preferences, autopay, contact info, or service details.
 - Diagnose leaks as certified fact.
-- Publish private utility data without explicit user intent and redaction checks.
+- Publish private utility data without explicit user intent, `--public` output, and redaction checks.
 

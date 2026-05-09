@@ -12,7 +12,8 @@ TEXT_SUFFIXES = {
 }
 SESSION_TERM_ALLOWED = {
     "README.md", "AGENTS.md", "SECURITY.md", "security-review.md", "browser-control-safety.md",
-    "use-with-ai-tools.md", "privacy.md", "public-sharing-checklist.md", "SKILL.md", "main.js",
+    "use-with-ai-tools.md", "privacy.md", "public-sharing-checklist.md", "installation.md",
+    "acceptance-criteria.md", "CLAUDE.md", "SKILL.md", "main.js",
     "browser_workflow.md", "check_public_redaction.py"
 }
 FORBIDDEN_LITERALS = []

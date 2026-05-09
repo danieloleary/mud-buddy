@@ -1,4 +1,4 @@
-﻿# Installation
+# Installation
 
 Mud Buddy is a local-first project. The public repo is intended to be cloned and run on your own machine.
 
@@ -34,6 +34,8 @@ Open the Vite URL shown in your terminal.
 
 ## Generate A Private Local Report
 
+It is OK to provide the downloaded EBMUD CSV to this local command or to a local coding agent helping in this repo. Do not provide credentials, MFA codes, cookies, localStorage, sessionStorage, auth headers, or session tokens.
+
 ```bash
 python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "my-water-report"
 ```
@@ -43,7 +45,8 @@ Open `my-water-report/index.html` locally.
 ## Generate A Public-Safe Report
 
 ```bash
-python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "my-public-report" --redact
+python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "my-public-report" --public
+npm run test:redaction
 ```
 
-Run a redaction scan before sharing anything publicly.
+Run a redaction scan before sharing anything publicly. `--redact` removes direct identifiers, but `--public` is the sharing-safe mode because it also buckets visible dates and usage values.

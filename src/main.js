@@ -74,7 +74,7 @@ class MudBuddyApp extends HTMLElement {
         <section class="hero shell">
           <div class="hero-copy reveal">
             <h1>Understand your EBMUD water use in minutes.</h1>
-            <p class="lede">Export your EBMUD usage CSV manually, process it on your own machine, and get a plain-English report showing gallons-per-day trends, seasonal irrigation lift, possible leak clues, and practical checks.</p>
+            <p class="lede">Export your EBMUD usage CSV manually or with agent assist after login, provide it intentionally to Mud Buddy, and get a plain-English report showing gallons-per-day trends, seasonal irrigation lift, possible leak clues, and practical checks.</p>
             <div class="hero-actions">
               <md-filled-button href="sample-report/index.html" target="_blank">See sample report</md-filled-button>
               <md-outlined-button href="mud-buddy-by-danno.zip">Generate a local report</md-outlined-button>
@@ -83,7 +83,7 @@ class MudBuddyApp extends HTMLElement {
             <div class="trust-row" aria-label="Trust promises">
               <span><md-icon>verified_user</md-icon>Free to use</span>
               <span><md-icon>computer</md-icon>Runs locally</span>
-              <span><md-icon>lock</md-icon>Your file stays private</span><span><md-icon>password</md-icon>No password needed</span>
+              <span><md-icon>lock</md-icon>You control the CSV</span><span><md-icon>password</md-icon>No password needed</span>
             </div>
           </div>
 
@@ -124,12 +124,12 @@ class MudBuddyApp extends HTMLElement {
           <div class="shell split">
             <div>
               <h2>CSV to clarity, without handing your water life to a random server.</h2>
-              <p>Download your EBMUD usage CSV, run the local report generator, and get a scrollable visual report that separates household baseline, irrigation lift, peer benchmarks, and check-next clues.</p>
+              <p>Download or intentionally provide your EBMUD usage CSV, run the local report generator, and get a scrollable visual report that separates household baseline, irrigation lift, peer benchmarks, and check-next clues.</p>
             </div>
             <div class="steps material-card">
-              <article><md-icon>download</md-icon><span>Export CSV</span><p>User logs into EBMUD manually and downloads official usage data.</p></article>
-              <article><md-icon>analytics</md-icon><span>Generate report</span><p>Mud Buddy processes the CSV locally with deterministic Python scripts.</p></article>
-              <article><md-icon>ios_share</md-icon><span>Share safely</span><p>Public mode redacts address, account, meter, raw CSV, and sensitive patterns.</p></article>
+              <article><md-icon>download</md-icon><span>Export CSV</span><p>User logs into EBMUD manually; the agent can help download the official CSV after confirmation.</p></article>
+              <article><md-icon>analytics</md-icon><span>Generate report</span><p>Mud Buddy processes only the CSV the user explicitly provides.</p></article>
+              <article><md-icon>ios_share</md-icon><span>Share safely</span><p>Public mode buckets/removes address, account, meter, raw CSV, and sensitive patterns.</p></article>
             </div>
           </div>
         </section>
@@ -199,7 +199,7 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
       <md-dialog id="checklistDialog" aria-label="Public share checklist dialog">
         <div slot="headline">Before you publish</div>
         <form slot="content" method="dialog">
-          <p>Public reports should be redacted. No address, no account number, no meter ID, no raw CSV, no local paths, and no exact absence/vacation pattern.</p>
+          <p>Public reports should be generated with --public. No address, no account number, no meter ID, no raw CSV, no local paths, and no exact absence/vacation pattern.</p>
         </form>
         <div slot="actions">
           <md-text-button formmethod="dialog">Close</md-text-button>

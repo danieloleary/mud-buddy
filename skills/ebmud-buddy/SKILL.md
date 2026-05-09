@@ -18,7 +18,7 @@ python scripts/ebmud_buddy_report.py "path/to/ebmud.csv" --out "path/to/output-f
 For public-safe output:
 
 ```bash
-python scripts/ebmud_buddy_report.py "path/to/ebmud.csv" --out "public-report" --redact
+python scripts/ebmud_buddy_report.py "path/to/ebmud.csv" --out "public-report" --public
 ```
 
 Add user-provided context when available:
@@ -47,7 +47,7 @@ For browser-assisted account workflows, read `references/browser_workflow.md` be
 - Winter: December-February. Spring: March-May. Summer: June-September. Fall: October-November.
 - Use a context-aware current baseline when the household has changed; do not treat old lowest months as the user's current realistic target.
 - If irrigation was intentionally increased and the system is failing, frame the target as "more plant health per gallon," not simply "use less water."
-- Treat address, account number, meter ID, raw CSV rows, and household occupancy clues as sensitive. Default to redacted public reports.
+- Treat address, account number, meter ID, raw CSV rows, and household occupancy clues as sensitive. Users may explicitly provide CSVs for local analysis, but raw private CSV data must never be published or committed. Default to private local reports; use `--public` before sharing.
 
 For more detailed diagnostic heuristics, read `references/interpretation.md`.
 
