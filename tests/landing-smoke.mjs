@@ -28,12 +28,12 @@ try {
   await page.getByText('Irrigation', { exact: true }).click();
   const text = await page.locator('body').innerText();
   for (const required of [
-    'Understand your EBMUD water use without sending your CSV anywhere.',
-    'Private browser analyzer',
+    'Upload your EBMUD CSV. See what changed. Know what to check next.',
+    'Browser-local CSV analyzer',
     'Drop your EBMUD CSV here',
     'Analyze my CSV',
     'Try sample data',
-    'My bill jumped.',
+    'High bill?',
     'Help save 1 million gallons this year.',
     'Outdoor watering appears to explain most of the lift.',
     'GPD = gallons/day',

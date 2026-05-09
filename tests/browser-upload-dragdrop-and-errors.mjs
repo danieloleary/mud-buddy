@@ -57,7 +57,7 @@ try {
   await page.locator('#csvInput').setInputFiles(quoted);
   await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
   let reportText = await page.locator('[data-testid="browser-report"]').innerText();
-  if (!reportText.includes('Invalid rows excluded') || !reportText.includes('1')) throw new Error('Quoted/N/A fixture did not render invalid-row note');
+  if (!reportText.includes('Rows skipped') || !reportText.includes('1')) throw new Error('Quoted/N/A fixture did not render invalid-row note');
 
   const validText = await fs.readFile(valid, 'utf8');
   const dataTransfer = await page.evaluateHandle((text) => {
@@ -66,7 +66,7 @@ try {
     return transfer;
   }, validText);
   await page.dispatchEvent('#dropzone', 'drop', { dataTransfer });
-  await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Baseline estimate'), null, { timeout: 6000 });
+  await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Normal daily use estimate'), null, { timeout: 6000 });
   reportText = await page.locator('[data-testid="browser-report"]').innerText();
   if (!reportText.toLowerCase().includes('uploaded csv analyzed locally')) throw new Error('Drag/drop valid CSV did not recover to uploaded report');
   await browser.close();

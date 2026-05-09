@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/danieloleary/mud-buddy/actions/workflows/ci.yml/badge.svg)](https://github.com/danieloleary/mud-buddy/actions/workflows/ci.yml) [![GitHub Pages](https://github.com/danieloleary/mud-buddy/actions/workflows/pages.yml/badge.svg)](https://github.com/danieloleary/mud-buddy/actions/workflows/pages.yml)
 
-Mud Buddy turns an EBMUD water-use CSV into a private, plain-English water report for homeowners, renters, gardeners, and East Bay households trying to understand high bills, irrigation season, baseline creep, possible leak clues, and what to check next.
+Mud Buddy turns an EBMUD water-use CSV into a private, plain-English water report for homeowners, renters, gardeners, and East Bay households asking a simple question: what changed in my water use, and what should I check first?
 
 Use it here: [https://danieloleary.github.io/mud-buddy/](https://danieloleary.github.io/mud-buddy/)
 
@@ -18,7 +18,7 @@ Mud Buddy helps interpret your exported CSV; official account, billing, emergenc
 
 1. Log into EBMUD yourself and download your usage CSV from Track Usage or My Water Report.
 2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Analyze my CSV`.
-3. Review the browser-local report: GPD trends, baseline estimate, seasonal lift, peer context, invalid rows, and practical next checks.
+3. Review the browser-local report: normal daily use, likely outdoor watering, the peak period, CSV notes, and practical next checks.
 
 You can also choose `Try sample data` on the site to see the flow with synthetic public-safe data.
 
@@ -26,11 +26,11 @@ You can also choose `Try sample data` on the site to see the flow with synthetic
 
 - Did our water use actually change, or was the bill period just longer?
 - Is the jump mostly yard watering or irrigation season?
-- Did our indoor baseline creep up as the household changed?
+- Did our normal daily use change as the household changed?
 - Which billing period deserves attention first?
 - Do the patterns suggest a toilet dye test, meter test, irrigation walk-through, or official EBMUD resource?
 
-## 1.0 mission: help save 1 million gallons this year
+## Mission: help save 1 million gallons this year
 
 Mud Buddy's first public mission is to help East Bay households find **1 million gallons of potential water savings** this year.
 
@@ -92,7 +92,7 @@ Use Mud Buddy when you want to understand patterns in your exported usage CSV be
 
 ## Advanced local generator
 
-Most homeowners can use the browser analyzer. Developers and AI-tool users can also generate a full local HTML/SVG report:
+Most homeowners can stop at the browser analyzer. Developers and AI-tool users can also generate a full local HTML/SVG report:
 
 ```bash
 python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "generated/my-private-report"
@@ -137,7 +137,7 @@ The demo and test files are here to make releases safer. Homeowners do not need 
 
 - The only committed CSV is [examples/sample-ebmud-usage.csv](examples/sample-ebmud-usage.csv).
 - The browser app receives CSV text only through explicit file selection or the synthetic sample-data button.
-- Synthetic flavors are generated under ignored `tests/output/` for parser and report coverage.
+- Synthetic test cases are generated under ignored `tests/output/` for parser and report coverage.
 - The mock browser portal is synthetic and never automates real EBMUD credentials.
 - Dan's real CSV can be used locally for a private parse check, but it must never be committed, packaged, or published.
 

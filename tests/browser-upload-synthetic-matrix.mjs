@@ -46,7 +46,8 @@ try {
 
   for (const item of manifest.flavors) {
     const csvPath = path.join(flavorsDir, item.file);
-    const parsed = parseEbmudCsv(await fs.readFile(csvPath, 'utf8'));
+    const csvText = await fs.readFile(csvPath, 'utf8');
+    const parsed = parseEbmudCsv(csvText);
     const expected = analyzeWaterUse(parsed.rows, parsed.invalidRows, parsed.warnings);
     await page.locator('#csvInput').setInputFiles(csvPath);
     await page.waitForFunction(
@@ -64,6 +65,20 @@ try {
       expected.insights[0].title
     ]) {
       if (!reportText.includes(required)) throw new Error(`${item.flavor} browser report missing expected value: ${required}`);
+    }
+    const firstRawDataRow = csvText.split(/\r?\n/).find((line, index) => index > 0 && line.trim()) || '';
+    for (const forbidden of [
+      item.file,
+      'PUBLIC-SYNTHETIC',
+      'SYNTH-METER',
+      'Account Number',
+      'Meter Reading',
+      'Billing Usage',
+      firstRawDataRow
+    ]) {
+      if (forbidden && reportText.includes(forbidden)) {
+        throw new Error(`${item.flavor} browser report leaked private/synthetic source text: ${forbidden}`);
+      }
     }
   }
 

@@ -44,10 +44,6 @@ EXPECTED_INVALID = {
 
 
 def find_default_source() -> Path:
-    downloads = Path.home() / "Downloads"
-    candidates = sorted(downloads.glob("Billing Usage*.csv"), key=lambda p: p.stat().st_mtime if p.exists() else 0, reverse=True)
-    if candidates:
-        return candidates[0]
     return ROOT / "examples" / "sample-ebmud-usage.csv"
 
 

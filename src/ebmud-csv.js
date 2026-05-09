@@ -62,6 +62,25 @@ export function parseCsv(text) {
   return rows.filter((cells) => cells.some((value) => String(value).trim()));
 }
 
+function parseStrictDate(dateText) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateText);
+  if (!match) return null;
+  const [, yearText, monthText, dayText] = match;
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const date = new Date(`${dateText}T00:00:00`);
+  if (
+    Number.isNaN(date.getTime()) ||
+    date.getFullYear() !== year ||
+    date.getMonth() + 1 !== month ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+  return date;
+}
+
 export function parseEbmudCsv(csvText) {
   const table = parseCsv(csvText);
   if (table.length < 2) {
@@ -82,17 +101,17 @@ export function parseEbmudCsv(csvText) {
     const values = table[index];
     const record = Object.fromEntries(headers.map((header, i) => [header, values[i] ?? '']));
     const dateText = String(record['Reading Date'] ?? '').trim();
-    const date = new Date(`${dateText}T00:00:00`);
+    const date = parseStrictDate(dateText);
     const ccf = num(record.CCF);
     const gpd = num(record['Customer GPD']);
     const days = num(record['Days in Read Period']);
     const avg = num(record['Average Households GPD']);
     const top = num(record['Top 20% GPD']);
 
-    if (!dateText || Number.isNaN(date.getTime()) || ccf === null || gpd === null || days === null) {
+    if (!date || ccf === null || gpd === null || days === null) {
       invalidRows.push({
         rowNumber: index + 1,
-        reason: !dateText || Number.isNaN(date.getTime()) ? 'Missing or invalid reading date' : 'Missing required usage value'
+        reason: !date ? 'Missing or invalid reading date' : 'Missing required usage value'
       });
       continue;
     }

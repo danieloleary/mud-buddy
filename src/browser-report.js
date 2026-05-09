@@ -85,9 +85,9 @@ export function renderBrowserReport(container, analysis, options = {}) {
     ]),
     el('div', { class: 'report-action-panel' }, [
       el('div', { class: 'report-chip-row' }, [chip('Local only'), chip('CSV not uploaded'), chip('Private report')]),
-      el('div', { class: 'report-actions' }, [
-        el('md-filled-tonal-button', { id: 'analyzeAnother', 'data-testid': 'analyze-another', text: 'Analyze another CSV' }),
-        el('md-outlined-button', { id: 'printReport', text: 'Print / save' }),
+        el('div', { class: 'report-actions' }, [
+          el('md-filled-tonal-button', { id: 'analyzeAnother', 'data-testid': 'analyze-another', text: 'Analyze another CSV' }),
+        el('md-outlined-button', { id: 'printReport', text: 'Print or save PDF' }),
         el('md-text-button', { href: 'sample-report/index.html', target: '_blank', text: 'Open sample report' })
       ])
     ])
@@ -98,38 +98,38 @@ export function renderBrowserReport(container, analysis, options = {}) {
   root.append(el('article', { class: 'browser-summary-card', 'data-testid': 'browser-summary' }, [
     el('md-icon', { text: topInsight.icon }),
     el('div', {}, [
-      el('span', { text: 'Start here' }),
+      el('span', { text: 'What should I check first?' }),
       el('h3', { text: topInsight.title }),
       el('p', { text: topInsight.text })
     ])
   ]));
 
   root.append(el('div', { class: 'primary-kpis', 'data-testid': 'primary-kpis' }, [
-    stat('Baseline estimate', `${analysis.baselineGpd} GPD`, 'kpi-baseline', true),
-    stat('Seasonal lift clue', `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
-    stat('Peak period', `${analysis.peakPeriod.label} (${analysis.peakPeriod.gpd} GPD)`, 'kpi-peak', true)
+    stat('Normal daily use estimate', `${analysis.baselineGpd} GPD`, 'kpi-baseline', true),
+    stat('Likely outdoor watering', `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
+    stat('Highest-use period', `${analysis.peakPeriod.label} (${analysis.peakPeriod.gpd} GPD)`, 'kpi-peak', true)
   ]));
 
   root.append(el('div', { class: 'data-quality-card', 'data-testid': 'data-quality' }, [
-    stat('Total valid history', `${analysis.totalCcf.toLocaleString()} CCF`, 'stat-total-ccf'),
-    stat('Approximate gallons', `${Math.round(analysis.totalGallons / 1000).toLocaleString()}k`, 'stat-total-gallons'),
-    stat('Valid periods', String(analysis.validRows), 'stat-valid-rows'),
-    stat('Invalid rows excluded', String(analysis.invalidRows), 'stat-invalid-rows')
+    stat('Water use in this CSV', `${analysis.totalCcf.toLocaleString()} CCF`, 'stat-total-ccf'),
+    stat('Approx. gallons used', `${Math.round(analysis.totalGallons / 1000).toLocaleString()}k`, 'stat-total-gallons'),
+    stat('Billing periods analyzed', String(analysis.validRows), 'stat-valid-rows'),
+    stat('Rows skipped', String(analysis.invalidRows), 'stat-invalid-rows')
   ]));
 
   root.append(el('md-divider'));
   const chartGrid = el('div', { class: 'browser-chart-grid' });
   chartGrid.append(el('div', { class: 'browser-chart-card' }, [
     el('div', { class: 'chart-card-head' }, [
-      el('h3', { text: 'Usage timeline' }),
+      el('h3', { text: 'Water use over time' }),
       el('div', { class: 'report-chip-row chart-legend' }, [chip('Usage'), chip('Baseline'), chip('GPD')])
     ]),
     renderTimeline(analysis)
   ]));
   chartGrid.append(el('div', { class: 'browser-chart-card' }, [
-    el('h3', { text: 'Season averages' }),
+    el('h3', { text: 'Average use by season' }),
     renderSeasonBars(analysis),
-    el('p', { text: `Peer context: ${analysis.peerComparison}.` })
+    el('p', { text: `Compared with similar homes: ${analysis.peerComparison}.` })
   ]));
   root.append(chartGrid);
 
@@ -150,7 +150,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
     const warningList = el('ul', { class: 'browser-warnings' });
     for (const warning of analysis.warnings.slice(0, 4)) warningList.append(el('li', { text: warning }));
     root.append(el('div', { class: 'browser-warning-card' }, [
-      el('h3', { text: 'Read-period notes' }),
+      el('h3', { text: 'CSV notes' }),
       warningList
     ]));
   }

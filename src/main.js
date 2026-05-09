@@ -104,8 +104,8 @@ class MudBuddyApp extends HTMLElement {
       <main id="top">
         <section class="hero shell" id="app">
           <div class="hero-copy reveal">
-            <h1>Understand your EBMUD water use without sending your CSV anywhere.</h1>
-            <p class="lede">Upload your usage export, analyze it in this browser, and get plain-English clues about high bills, irrigation season, baseline creep, household changes, and possible checks.</p>
+            <h1>Upload your EBMUD CSV. See what changed. Know what to check next.</h1>
+            <p class="lede">Mud Buddy reads your EBMUD usage export right in this browser and turns it into a plain-English report about high bills, outdoor watering, normal daily use, household changes, and simple next checks.</p>
             <div class="hero-actions">
               <md-filled-button id="heroAnalyze">Analyze my CSV</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample data</md-filled-tonal-button>
@@ -114,14 +114,12 @@ class MudBuddyApp extends HTMLElement {
             <div class="trust-row" aria-label="Trust promises">
               <span><md-icon>computer</md-icon>Runs in your browser</span>
               <span><md-icon>cloud_off</md-icon>No server upload</span>
-              <span><md-icon>lock</md-icon>You control the CSV</span>
               <span><md-icon>password</md-icon>No EBMUD password needed</span>
             </div>
             <div class="question-cards" aria-label="Homeowner questions Mud Buddy helps answer">
-              <article><md-icon>receipt_long</md-icon><strong>My bill jumped.</strong><span>Was it one period, a new baseline, or outdoor use?</span></article>
-              <article><md-icon>yard</md-icon><strong>My yard is thirsty.</strong><span>How much looks like irrigation season?</span></article>
-              <article><md-icon>groups</md-icon><strong>Our household changed.</strong><span>What does normal household use look like now?</span></article>
-              <article><md-icon>plumbing</md-icon><strong>Could it be a leak?</strong><span>Which patterns deserve a meter or toilet dye check?</span></article>
+              <article><md-icon>receipt_long</md-icon><strong>High bill?</strong><span>See whether the jump is one period, outdoor watering, or a new normal.</span></article>
+              <article><md-icon>yard</md-icon><strong>Yard or irrigation?</strong><span>Estimate how much of the lift looks seasonal.</span></article>
+              <article><md-icon>plumbing</md-icon><strong>Worth a quick check?</strong><span>Find patterns that point to a meter, fixture, or toilet dye test.</span></article>
             </div>
             <img class="hero-art visual-asset" src="assets/hero-civic-water.webp" alt="Synthetic civic water dashboard illustration" loading="eager" />
           </div>
@@ -129,7 +127,7 @@ class MudBuddyApp extends HTMLElement {
           <div class="upload-panel reveal delay-1" aria-label="Browser-local CSV upload analyzer">
             <div class="material-card upload-card">
               <div class="card-toolbar">
-                <span>Private browser analyzer</span>
+                <span>Browser-local CSV analyzer</span>
                 <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><md-icon>shield</md-icon></md-icon-button>
               </div>
               <md-divider></md-divider>
@@ -148,33 +146,17 @@ class MudBuddyApp extends HTMLElement {
                 <p>Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.</p>
               </div>
               <md-linear-progress id="uploadProgress" value="0"></md-linear-progress>
-              <p id="uploadStatus" class="upload-status" aria-live="polite">Waiting for a CSV. No file has been read yet.</p>
+              <p id="uploadStatus" class="upload-status" aria-live="polite">Waiting for your CSV. Nothing has been uploaded or stored.</p>
               <div class="upload-mini-steps">
                 <article><strong>1</strong><span>Download CSV from EBMUD Track Usage.</span></article>
                 <article><strong>2</strong><span>Upload it here for browser-local analysis.</span></article>
-                <article><strong>3</strong><span>Review patterns and decide what to check next.</span></article>
+                <article><strong>3</strong><span>Review what changed and what to check first.</span></article>
               </div>
             </div>
           </div>
         </section>
 
         <section class="shell browser-result-section" id="browserReport" aria-live="polite"></section>
-
-        <section class="mission-band" id="mission">
-          <div class="shell mission-layout">
-            <div>
-              <h2>Help save 1 million gallons this year.</h2>
-              <p>Mud Buddy's mission is to help East Bay households find potential water savings sooner. That means helped-save or potential savings, not a certified EBMUD conservation total.</p>
-              <p class="official-line">EBMUD serves about 1.4 million people in a 332-square-mile water service area. One EBMUD billing unit, or CCF, is 748 gallons.</p>
-            </div>
-            <div class="mission-grid" aria-label="One million gallon goal math">
-              <article class="material-card"><md-ripple></md-ripple><strong>1,000,000</strong><span>gallons helped-save goal</span></article>
-              <article class="material-card"><md-ripple></md-ripple><strong>~1,337</strong><span>CCF, using 748 gallons per CCF</span></article>
-              <article class="material-card"><md-ripple></md-ripple><strong>~3.1</strong><span>acre-feet of water</span></article>
-              <article class="material-card"><md-ripple></md-ripple><strong>200 x 5k</strong><span>one realistic household path</span></article>
-            </div>
-          </div>
-        </section>
 
         <section class="river-band" id="how">
           <div class="shell split">
@@ -227,7 +209,7 @@ class MudBuddyApp extends HTMLElement {
               <img class="report-preview-art visual-asset" src="assets/report-preview-redacted.webp" alt="Synthetic redacted report preview" loading="lazy" />
               <div class="frame-actions compact-actions">
                 <md-filled-button href="sample-report/index.html" target="_blank">Open sample report</md-filled-button>
-                <md-outlined-button href="assets/github-social-card.svg" target="_blank">Social card</md-outlined-button>
+                <md-outlined-button id="exampleTrySample">Try sample data</md-outlined-button>
               </div>
             </div>
           </div>
@@ -244,6 +226,23 @@ class MudBuddyApp extends HTMLElement {
             <article class="material-card"><img src="assets/public-sharing-checklist-card.svg" alt="Synthetic public sharing checklist" loading="lazy" /><h3>Privacy-safe sharing</h3><p>Most reports stay private. If someone shares, public mode and the checklist reduce sensitive household clues.</p></article>
           </div>
         </section>
+
+        <section class="mission-band" id="mission">
+          <div class="shell mission-layout">
+            <div>
+              <h2>Help save 1 million gallons this year.</h2>
+              <p>Mud Buddy's mission is to help East Bay households find potential water savings sooner. That means helped-save or potential savings, not a certified EBMUD conservation total.</p>
+              <p class="official-line">EBMUD serves about 1.4 million people in a 332-square-mile water service area. One EBMUD billing unit, or CCF, is 748 gallons.</p>
+            </div>
+            <div class="mission-grid" aria-label="One million gallon goal math">
+              <article class="material-card"><md-ripple></md-ripple><strong>1,000,000</strong><span>gallons helped-save goal</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>~1,337</strong><span>CCF, using 748 gallons per CCF</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>~3.1</strong><span>acre-feet of water</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>200 x 5k</strong><span>one realistic household path</span></article>
+            </div>
+          </div>
+        </section>
+
 
         <section class="resource-band" id="resources">
           <div class="shell resource-layout">
@@ -329,6 +328,7 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
     this.querySelector('#dropzone').addEventListener('click', openPicker);
     this.querySelector('#trySample').addEventListener('click', () => this.loadSample());
     this.querySelector('#heroSample').addEventListener('click', () => this.loadSample());
+    this.querySelector('#exampleTrySample')?.addEventListener('click', () => this.loadSample());
     input.addEventListener('change', async () => {
       const file = input.files?.[0];
       if (file) await this.analyzeFile(file);

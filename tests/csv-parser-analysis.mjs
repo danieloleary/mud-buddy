@@ -31,6 +31,21 @@ const quotedParsed = parseEbmudCsv(quoted);
 assert(quotedParsed.rows.length === 2, 'quoted CSV should parse valid rows');
 assert(quotedParsed.invalidRows.length === 1, 'quoted CSV should track invalid N/A row');
 
+const quotedNewline = `Account Number,Reading Date,Days in Read Period,Meter Reading,CCF,Customer GPD,Average Households GPD,Top 20% GPD,WaterScore,Meter Class,Meter
+"PUBLIC-SAMPLE","2026-01-01","30","","6.5","162","150","90","average","SFR","MTR
+LINE"
+"PUBLIC-SAMPLE","2026-02-01","30","","7.0","175","152","91","average","SFR","MTR"
+`;
+assert(parseEbmudCsv(quotedNewline).rows.length === 2, 'quoted newline CSV field should parse');
+
+const impossibleDate = `Account Number,Reading Date,Days in Read Period,Meter Reading,CCF,Customer GPD,Average Households GPD,Top 20% GPD,WaterScore,Meter Class,Meter
+"PUBLIC-SAMPLE","2026-02-31","30","","6.5","162","150","90","average","SFR","MTR"
+"PUBLIC-SAMPLE","2026-02-28","30","","6.5","162","150","90","average","SFR","MTR"
+`;
+const impossibleParsed = parseEbmudCsv(impossibleDate);
+assert(impossibleParsed.rows.length === 1, 'impossible calendar date should be excluded');
+assert(impossibleParsed.invalidRows.length === 1, 'impossible calendar date should be tracked as invalid');
+
 let missingError = '';
 try {
   parseEbmudCsv('Reading Date,CCF\n2026-01-01,6\n');
@@ -39,4 +54,4 @@ try {
 }
 assert(missingError.includes('Missing required EBMUD column'), 'missing columns should produce a clear error');
 
-console.log('csv-parser-analysis: OK browser parser handles sample, BOM, quoted values, N/A, and missing columns');
+console.log('csv-parser-analysis: OK browser parser handles sample, BOM, quoted values/newlines, N/A, strict dates, and missing columns');

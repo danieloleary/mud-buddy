@@ -32,6 +32,9 @@ Required gates:
 - `npm run validate`
 - `npm run test:local-real-csv`
 - Browser upload test proves a homeowner can upload a CSV and see the in-page report.
+- Editorial contract proves the public page leads with upload, sample data, CSV help, privacy, and official EBMUD resources instead of maintainer/test language.
+- Synthetic source policy proves default QA fixtures come from committed sample data, not Dan's Downloads folder.
+- Sample-data network test proves the demo button fetches only the local synthetic CSV.
 - Browser privacy test proves account number, meter ID, filename, local path, and raw rows do not appear in the browser report.
 - No-network-after-upload test proves uploaded CSV analysis does not make network requests.
 - GitHub Actions CI green on `main`.

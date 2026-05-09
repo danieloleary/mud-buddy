@@ -38,10 +38,10 @@ try {
   for (const required of [
     'Uploaded CSV analyzed locally',
     'Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.',
-    'Valid periods',
-    'Invalid rows excluded',
-    'Usage timeline',
-    'Season averages',
+    'Billing periods analyzed',
+    'Rows skipped',
+    'Water use over time',
+    'Average use by season',
     'This is explanatory pattern-finding'
   ]) {
     if (!lowerBody.includes(required.toLowerCase())) throw new Error(`Missing browser upload text: ${required}`);

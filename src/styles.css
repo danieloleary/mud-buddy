@@ -642,4 +642,86 @@ mud-buddy-app.has-browser-report .dropzone strong { font-size: clamp(24px, 3vw, 
   .browser-summary-card { grid-template-columns: 1fr; }
 }
 
+/* Release editorial polish: quieter homeowner-first Material surface. */
+.hero {
+  align-items: center;
+  padding-block: clamp(54px, 8vw, 104px) clamp(36px, 6vw, 76px);
+}
+.hero-copy h1 {
+  max-width: 980px;
+  font-size: clamp(48px, 8vw, 94px);
+  letter-spacing: -.055em;
+}
+.hero-copy .lede {
+  max-width: 760px;
+  font-size: clamp(19px, 2vw, 25px);
+}
+.trust-row {
+  gap: 10px;
+}
+.trust-row span,
+.question-cards article,
+.upload-card,
+.browser-report,
+.resource-card,
+.savings-grid article,
+.mission-grid article {
+  border-radius: 28px;
+}
+.question-cards {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.question-cards article {
+  background: rgba(255, 255, 255, .76);
+  box-shadow: 0 8px 28px rgba(0, 63, 92, .07);
+}
+.upload-card {
+  box-shadow: 0 24px 70px rgba(0, 63, 92, .13);
+}
+.dropzone strong,
+.browser-report h3,
+.browser-stat strong {
+  letter-spacing: -.025em;
+}
+.mission-band {
+  margin-top: 24px;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(110, 214, 223, .22), transparent 30%),
+    linear-gradient(135deg, #f7fbfb, #fffaf0);
+}
+.browser-summary-card span {
+  color: var(--reservoir);
+}
+.browser-summary-card h3 {
+  margin-bottom: 8px;
+}
+.primary-stat {
+  position: relative;
+  overflow: hidden;
+}
+.primary-stat::after {
+  content: '';
+  position: absolute;
+  inset: auto 12px 12px auto;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--md-sys-color-primary) 18%, transparent);
+}
+.data-quality-card .browser-stat {
+  box-shadow: none;
+  background: rgba(255, 255, 255, .72);
+}
+.browser-disclaimer {
+  border-color: rgba(0, 104, 121, .18);
+  background: #f5fbfb;
+  color: var(--reservoir);
+}
+.frame-actions md-outlined-button {
+  --md-outlined-button-label-text-color: var(--md-sys-color-primary);
+}
+@media (max-width: 980px) {
+  .question-cards { grid-template-columns: 1fr; }
+}
+
 
