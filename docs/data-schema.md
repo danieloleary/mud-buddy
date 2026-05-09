@@ -30,3 +30,9 @@ Rows are excluded if required numeric values are missing, `Customer GPD` is `N/A
 Use `--public` for public-safe output. Public reports should remove or bucket address, account number, meter ID, raw CSV rows, local file paths, exact billing-period clues, and exact absence/vacation patterns.
 
 Use `--redact` only for identifier redaction in local/private workflows; it is not full anonymization.
+
+## Synthetic Flavor Fixtures
+
+`npm run generate:synthetic` creates 20 ignored EBMUD-style CSV flavors under `tests/output/synthetic-flavors/`. The generator may read Dan's local CSV as a shape/source pattern, but it replaces identifiers, dates, usage levels, account number, meter, filename context, and scenario behavior.
+
+These files are for local tests only and must not be committed. The committed public sample remains `examples/sample-ebmud-usage.csv`.

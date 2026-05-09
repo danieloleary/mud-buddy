@@ -34,6 +34,7 @@ const required = [
   'manual',
   'CSV',
   'npm run validate',
+  'npm run generate:synthetic',
   'Not affiliated with EBMUD'
 ];
 for (const phrase of required) {

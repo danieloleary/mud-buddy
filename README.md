@@ -114,6 +114,17 @@ The agent-assisted workflow is user-supervised but can be end-to-end after manua
 
 See [docs/browser-control-safety.md](docs/browser-control-safety.md) and [skills/ebmud-buddy/references/browser_workflow.md](skills/ebmud-buddy/references/browser_workflow.md).
 
+## Synthetic Test Datasets
+
+Mud Buddy can derive 20 ignored, anonymized EBMUD-style CSV flavors from Dan's local export for realistic parser and report testing. Dan's raw CSV stays outside the repo; generated flavors live under `tests/output/synthetic-flavors/`, which is ignored by Git.
+
+```bash
+npm run generate:synthetic
+npm run test:synthetic
+```
+
+The only committed CSV remains `examples/sample-ebmud-usage.csv`.
+
 ## Test, Release, And Debug
 
 ```bash

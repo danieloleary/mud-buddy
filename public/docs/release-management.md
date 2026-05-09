@@ -17,6 +17,8 @@ Run this before tagging, pushing launch copy, or sharing public artifacts:
 ```bash
 npm ci
 npx playwright install chromium
+npm run generate:synthetic
+npm run test:synthetic
 npm run validate
 ```
 
@@ -52,3 +54,7 @@ Real EBMUD browser testing is manual-login assist only:
 - Agent generates public artifacts only with `--public` and scan confirmation.
 
 Automated CI must use the mock portal and synthetic data only.
+
+## Synthetic Data Gate
+
+Before release, regenerate the ignored synthetic flavor suite and run the E2E synthetic test. Confirm generated CSVs remain under `tests/output/`, contain no private source identifiers, and are excluded from public ZIPs.

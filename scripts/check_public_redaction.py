@@ -36,6 +36,13 @@ SESSION_PATTERNS = [
     ("auth_header", re.compile(r"Authorization:\s*Bearer", re.I)),
 ]
 BROWSER_ARTIFACT_SUFFIXES = {".har", ".trace", ".webm", ".zip"}
+CSV_HEADER_PATTERNS = [
+    re.compile(r"Reading Date,Days in Read Period", re.I),
+    re.compile(r"Customer GPD", re.I),
+    re.compile(r"Average Households GPD", re.I),
+    re.compile(r"Top 20% GPD", re.I),
+    re.compile(r"Account Number,Reading Date", re.I),
+]
 
 
 def is_text(path: Path) -> bool:
@@ -65,6 +72,11 @@ def scan_file(path: Path, root: Path, failures: list[str]) -> None:
     except OSError as exc:
         failures.append(f"could not read {rel}: {exc}")
         return
+    if path.suffix.lower() != ".csv" and "examples/sample-ebmud-usage.csv" not in rel:
+        csv_hits = sum(1 for pattern in CSV_HEADER_PATTERNS if pattern.search(text))
+        data_row_hits = len(re.findall(r"(?m)^\s*(?:PUBLIC-[A-Z-]+|\d{6,}|[^,\n]{1,40}),\d{4}-\d{2}-\d{2},\d{1,3},[^\n]*,", text))
+        if csv_hits >= 2 and data_row_hits >= 2:
+            failures.append(f"raw EBMUD-like CSV content embedded in public text artifact: {rel}")
     hay = text.lower()
     for literal in FORBIDDEN_LITERALS:
         if literal.lower() in hay:
