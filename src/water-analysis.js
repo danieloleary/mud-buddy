@@ -29,6 +29,21 @@ function signedGpd(value) {
   return `${rounded > 0 ? '+' : ''}${rounded} GPD`;
 }
 
+function gallonsPerDayToYear(value) {
+  return Math.max(0, Math.round(value * 365));
+}
+
+function gallonsForDays(value, days) {
+  return Math.max(0, Math.round(value * days));
+}
+
+function formatGallons(value) {
+  const rounded = Math.max(0, Math.round(value));
+  if (rounded >= 1000000) return `${round(rounded / 1000000, 1)}M gallons`;
+  if (rounded >= 1000) return `${Math.round(rounded / 1000).toLocaleString()}k gallons`;
+  return `${rounded.toLocaleString()} gallons`;
+}
+
 function formatMonth(date) {
   return new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric' }).format(date);
 }
@@ -76,6 +91,12 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   const baselineDropping = baselineChange <= -25 || baselineChangePct <= -0.15;
   const erraticPattern = rows.length >= 8 && gpdStdDev >= Math.max(55, avgGpd * 0.24) && gpdRange >= 120;
   const flatlinePattern = rows.length >= 8 && gpdStdDev <= Math.max(8, avgGpd * 0.045);
+  const estimatedReadDays = Number.isFinite(peak.days) && peak.days > 0 ? peak.days : 30;
+  const peakExcessGallons = gallonsForDays(Math.max(0, peakDelta), estimatedReadDays);
+  const outdoorOpportunityGallons = gallonsForDays(seasonalLift * 0.25, 150);
+  const baselineOpportunityGallons = gallonsPerDayToYear(Math.max(0, baselineChange) * 0.25);
+  const totalOpportunityGallons = outdoorOpportunityGallons + baselineOpportunityGallons + Math.round(peakExcessGallons * 0.15);
+  const ccfOpportunity = round(totalOpportunityGallons / GAL_PER_CCF, 1);
 
   const insights = [];
   const addInsight = (insight) => insights.push(insight);
@@ -93,7 +114,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       icon: 'yard',
       priority: 100 + Math.min(25, seasonalLift / 8),
       title: 'Outdoor watering is the first thing to check.',
-      text: `${peakSeasonOutdoor ? `The peak lands in ${peak.season.toLowerCase()}` : 'Warm-season use stands out'}, and warmer-season use averages about ${seasonalLift} GPD above winter/spring. That pattern often starts with irrigation schedules, zones, runoff, overspray, or stressed planting areas.`
+      text: `${peakSeasonOutdoor ? `The peak lands in ${peak.season.toLowerCase()}` : 'Warm-season use stands out'}, and warmer-season use averages about ${seasonalLift} GPD above winter/spring. Translation: the yard is the first suspect, not because it is guilty, but because it is standing next to the hose with wet shoes.`
     });
   } else {
     insights.push({
@@ -109,21 +130,21 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       icon: 'plumbing',
       priority: 95 + Math.min(20, Math.abs(baselineChange) / 8),
       title: 'Normal daily use is rising.',
-      text: `Later periods average about ${Math.round(Math.abs(baselineChange))} GPD higher than earlier periods. That is the kind of slow creep where toilets, fixtures, irrigation valves, or changed household routines are worth checking.`
+      text: `Later periods average about ${Math.round(Math.abs(baselineChange))} GPD higher than earlier periods. Slow creep is where tiny villains hide: a toilet flapper, an irrigation valve, a new routine, or one zone quietly doing overtime.`
     });
   } else if (baselineDropping) {
     insights.push({
       icon: 'task_alt',
       priority: 70 + Math.min(18, Math.abs(baselineChange) / 10),
       title: 'Usage is lower than earlier periods.',
-      text: 'Note any behavior, fixture, controller, or landscaping changes that might explain the drop.'
+      text: 'Something improved. Capture the recipe: fixture repairs, controller settings, travel, landscaping, or new habits. If it saved water once, it can probably save water again.'
     });
   } else {
     insights.push({
       icon: 'query_stats',
       priority: 42,
       title: 'Normal daily use looks steady.',
-      text: 'No dramatic step-change stands out. Focus on the highest periods and known household or yard changes.'
+      text: 'No dramatic step-change stands out. That is good news: the money hunt should focus on the highest periods and known household or yard changes instead of chasing ghosts.'
     });
   }
 
@@ -132,7 +153,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       icon: 'tune',
       priority: 68,
       title: 'The pattern jumps around.',
-      text: 'Big swings between billing periods often point to controller changes, travel/guests, repairs, unusual weather, read-period length, or an intermittent fixture/irrigation issue.'
+      text: 'Big swings between billing periods usually mean “something changed.” Think controller edits, travel/guests, repairs, unusual weather, read-period length, or an intermittent fixture/irrigation issue.'
     });
   }
 
@@ -141,7 +162,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       icon: 'speed',
       priority: 62,
       title: 'Usage is unusually flat.',
-      text: 'A very flat pattern can be normal, but it is worth comparing read periods and meter behavior if the numbers look too steady for real household life.'
+      text: 'A very flat pattern can be normal, but if real life was chaotic and the line is suspiciously smooth, compare read periods and meter behavior.'
     });
   }
 
@@ -150,7 +171,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       icon: 'groups',
       priority: 58 + Math.min(18, (peerRatio - 1) * 40),
       title: 'Usage runs above the file benchmark.',
-      text: 'The benchmark in the usage file is context, not an EBMUD label. Household size, daytime occupancy, irrigation, and fixture issues can all change the comparison.'
+      text: 'The benchmark in the usage file is context, not a grade. Household size, people home during the day, irrigation, and fixture issues can all move this number.'
     });
   }
   insights.sort((a, b) => b.priority - a.priority);
@@ -194,6 +215,46 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     }
   ];
 
+  const dataStory = irrigationLikely
+    ? `If this were a backyard science experiment, the hypothesis is simple: outdoor watering is adding roughly ${seasonalLift} gallons per day above the cooler-season baseline. The fastest test is not a spreadsheet. It is walking every irrigation zone and looking for the wet, weird, or wasteful stuff.`
+    : baselineRising
+      ? `The story is less “big summer spike” and more “small daily creep.” That is useful, because small daily creep is often testable with a dye tab, a quiet meter check, and a look at fixtures or valves.`
+      : `The story is not screaming one obvious culprit. That is still useful: compare the peak period with real-life events, then do the cheap checks before buying hardware or changing everything.`;
+
+  const savingsOpportunities = [];
+  if (outdoorOpportunityGallons > 0) {
+    savingsOpportunities.push({
+      title: 'Irrigation tune-up jackpot',
+      gallons: formatGallons(outdoorOpportunityGallons),
+      detail: `A 25% trim on the warmer-season lift would be about ${formatGallons(outdoorOpportunityGallons)} over a long watering season.`,
+      action: 'Run each zone, fix obvious waste, then shorten or split runtimes before sacrificing plants.'
+    });
+  }
+  if (baselineOpportunityGallons > 0) {
+    savingsOpportunities.push({
+      title: 'Daily drip detective work',
+      gallons: formatGallons(baselineOpportunityGallons),
+      detail: `Trimming just 25% of the daily-use creep would be about ${formatGallons(baselineOpportunityGallons)} over a year.`,
+      action: 'Do toilet dye tests, meter-stillness checks, and a fixture walk-through.'
+    });
+  }
+  if (peakExcessGallons > 0) {
+    savingsOpportunities.push({
+      title: 'Peak-period reality check',
+      gallons: formatGallons(peakExcessGallons),
+      detail: `${formatMonth(peak.date)} sits about ${formatGallons(peakExcessGallons)} above normal for that billing period.`,
+      action: 'Match the peak against heat, guests, landscaping, controller changes, or repairs.'
+    });
+  }
+  if (!savingsOpportunities.length) {
+    savingsOpportunities.push({
+      title: 'Keep the boring win',
+      gallons: 'steady pattern',
+      detail: 'No huge waste pocket jumps out. That is actually a win.',
+      action: 'Use this report as a baseline and compare the next bill before making big changes.'
+    });
+  }
+
   const uncertaintyNotes = [
     'Confirm the timing against real life: guests, kids home, travel, landscaping, repairs, rain, heat, or controller changes.',
     'Use simple field checks before assuming a cause: irrigation walk-through, toilet dye test, and meter-stillness check.',
@@ -203,7 +264,9 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   const expertNotes = [
     `Peak period: ${formatMonth(peak.date)} at ${Math.round(peak.gpd)} GPD, about ${Math.max(0, peakDelta)} GPD above normal daily use.`,
     `Outdoor-season lift: ${seasonalLift} GPD above winter/spring.`,
-    'GPD is an average over a billing period, not a live daily meter trace.'
+    totalOpportunityGallons > 0
+      ? `Fast savings target: the first practical hunt is roughly ${formatGallons(totalOpportunityGallons)} (${ccfOpportunity} CCF) of potential water to investigate, not a certified savings claim.`
+      : 'GPD is an average over a billing period, not a live daily meter trace.'
   ];
 
   const recommendedChecks = [];
@@ -243,6 +306,10 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     baselineChange: Math.round(baselineChange),
     confidence,
     evidencePoints,
+    dataStory,
+    savingsOpportunities,
+    totalOpportunityGallons,
+    ccfOpportunity,
     expertNotes,
     uncertaintyNotes,
     recommendedChecks: [...recommendedChecks.filter((check) => check !== officialCheck).slice(0, 3), officialCheck],

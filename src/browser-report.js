@@ -130,8 +130,43 @@ function renderNextChecks(analysis) {
   for (const check of nextChecksFor(analysis)) list.append(el('li', { text: check }));
   return el('section', { class: 'next-checks-card' }, [
     el('h3', { text: 'Recommended next checks' }),
-    el('p', { text: 'Start with practical checks before assuming one single cause.' }),
+    el('p', { text: 'Do the cheap experiments first. The goal is to catch waste before it turns into another expensive bill.' }),
     list
+  ]);
+}
+
+function renderDataStory(analysis) {
+  if (!analysis.dataStory) return null;
+  return el('section', { class: 'data-story-card' }, [
+    el('p', { class: 'overline', text: 'Plain-English read' }),
+    el('h3', { text: 'What is probably happening?' }),
+    el('p', { text: analysis.dataStory })
+  ]);
+}
+
+function renderSavingsLab(analysis) {
+  const list = el('div', { class: 'savings-opportunity-list' });
+  for (const item of (analysis.savingsOpportunities || []).slice(0, 3)) {
+    list.append(el('article', { class: 'savings-opportunity' }, [
+      el('span', { text: item.title }),
+      el('strong', { text: item.gallons }),
+      el('p', { text: item.detail }),
+      el('em', { text: item.action })
+    ]));
+  }
+  const subhead = analysis.totalOpportunityGallons > 0
+    ? `First savings hunt: about ${Math.round(analysis.totalOpportunityGallons / 1000).toLocaleString()}k gallons of potential waste to investigate.`
+    : 'No giant waste pocket jumps out. Keep the baseline and watch the next bill.';
+  return el('section', { class: 'savings-lab-card' }, [
+    el('div', { class: 'section-title-row' }, [
+      el('div', {}, [
+        el('p', { class: 'overline', text: 'Money + water lab' }),
+        el('h3', { text: 'Where savings may be hiding' })
+      ]),
+      el('p', { text: subhead })
+    ]),
+    list,
+    el('p', { class: 'tiny-disclaimer', text: 'These are investigation targets, not certified savings. Actual bills depend on rates, tiers, drought rules, household behavior, and what you find.' })
   ]);
 }
 
@@ -275,6 +310,9 @@ export function renderBrowserReport(container, analysis, options = {}) {
     ])
   ]));
 
+  const dataStory = renderDataStory(analysis);
+  if (dataStory) root.append(dataStory);
+  root.append(renderSavingsLab(analysis));
   const insightList = renderInsightList(analysis);
   if (insightList) root.append(insightList);
   root.append(renderEvidencePanel(analysis));
