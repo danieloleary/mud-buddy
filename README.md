@@ -14,7 +14,7 @@ It is free, browser-local, and independent. Mud Buddy never needs your EBMUD pas
 
 This project is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It is not a formal water audit, plumbing inspection, leak detector, billing tool, certified conservation measurement, or official EBMUD analysis.
 
-Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
+Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pattern clues. They are not official classifications, normalized customer comparisons, leak diagnoses, billing findings, or conservation certifications.
 

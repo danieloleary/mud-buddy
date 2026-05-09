@@ -61,8 +61,8 @@ try {
   for (const required of [
     'Start here',
     'Normal daily use estimate',
-    'Pattern suggests outdoor watering',
-    'Compared with the average-household benchmark in your export',
+    'Outdoor watering clue',
+    'Average-household benchmark in your export',
     'When to use EBMUD directly',
     'Billing questions',
     'Recommended next checks',

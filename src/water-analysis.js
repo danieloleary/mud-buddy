@@ -55,42 +55,42 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   if (seasonalLift >= 45) {
     insights.push({
       icon: 'yard',
-      title: 'Pattern suggests outdoor watering is driving the lift.',
-      text: 'The summer/fall average sits well above normal daily use. Start with irrigation schedules, controller zones, runoff, and stressed planting areas.'
+      title: 'Outdoor watering appears to drive the lift.',
+      text: 'Summer and fall use sit well above normal daily use. Check schedules, zones, runoff, and stressed planting areas.'
     });
   } else {
     insights.push({
       icon: 'home',
-      title: 'Outdoor watering does not stand out strongly.',
-      text: 'The pattern does not scream irrigation by itself. Compare household routines, guests, laundry, showers, fixtures, and read-period length.'
+      title: 'Outdoor watering is not the obvious driver.',
+      text: 'Compare routines, guests, laundry, showers, fixtures, and read-period length before blaming the yard.'
     });
   }
 
   if (baselineChange >= 30) {
     insights.push({
       icon: 'plumbing',
-      title: 'A rising baseline is worth a simple fixture check.',
-      text: 'Later periods are materially higher than earlier periods. A toilet dye test, meter test, and fixture walk-through are good low-drama next checks.'
+      title: 'Normal daily use is rising.',
+      text: 'Later periods are higher than earlier periods. A toilet dye test, meter test, and fixture walk-through are good first checks.'
     });
   } else if (baselineChange <= -25) {
     insights.push({
       icon: 'task_alt',
-      title: 'Usage appears lower than the earlier baseline.',
-      text: 'The later average is lower than the earlier average. Note any behavior, fixture, controller, or landscaping changes that might explain the drop.'
+      title: 'Usage is lower than earlier periods.',
+      text: 'Note any behavior, fixture, controller, or landscaping changes that might explain the drop.'
     });
   } else {
     insights.push({
       icon: 'query_stats',
-      title: 'Your baseline looks explainable.',
-      text: 'The baseline does not show a dramatic step-change. Focus attention on the highest periods and any known household or yard changes.'
+      title: 'Normal daily use looks steady.',
+      text: 'No dramatic step-change stands out. Focus on the highest periods and known household or yard changes.'
     });
   }
 
   if (peerRatio && peerRatio > 1.15) {
     insights.push({
       icon: 'groups',
-      title: 'Your usage often runs above the export benchmark.',
-      text: 'The average-household benchmark in the CSV is useful context, not an official classification. Household size, daytime occupancy, irrigation, and leaks can all make the comparison imperfect.'
+      title: 'Usage runs above the export benchmark.',
+      text: 'The benchmark in the CSV is context, not an official classification. Household size, daytime occupancy, irrigation, and leaks can all change the comparison.'
     });
   }
 

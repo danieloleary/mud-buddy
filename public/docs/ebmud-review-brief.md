@@ -25,7 +25,7 @@ Many customers can download usage data but still struggle to understand what cha
 
 ## Boundaries
 
-Mud Buddy helps interpret exported CSV patterns. Official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.
+Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 Mud Buddy's baseline, outdoor-watering, and benchmark labels are heuristic pattern clues. They are not official classifications, normalized customer comparisons, leak diagnoses, billing findings, plumbing inspections, or certified conservation measurements.
 

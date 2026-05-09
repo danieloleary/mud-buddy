@@ -6,7 +6,7 @@ Copy-paste safety rule for every tool:
 
 > Work locally. Do not ask for, store, paste, scrape, log, export, or transmit EBMUD usernames, passwords, MFA codes, cookies, localStorage, sessionStorage, auth headers, session tokens, CAPTCHA responses, account numbers, meter IDs, service addresses, or raw private CSV rows in public artifacts. Ask before controlling a real browser. The user logs into EBMUD manually. Generate private local reports first. Use `--public` and redaction scans before sharing.
 
-Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
+Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 ## Claude Code
 

@@ -1,4 +1,4 @@
-﻿function el(tag, attrs = {}, children = []) {
+function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
   for (const [key, value] of Object.entries(attrs)) {
     if (key === 'class') node.className = value;
@@ -115,14 +115,16 @@ function renderNextChecks(analysis) {
   for (const check of nextChecksFor(analysis)) list.append(el('li', { text: check }));
   return el('section', { class: 'next-checks-card' }, [
     el('h3', { text: 'Recommended next checks' }),
-    el('p', { text: 'Start with simple checks before assuming one single cause.' }),
+    el('p', { text: 'Start with practical checks before assuming one single cause.' }),
     list
   ]);
 }
 
 function renderInsightList(analysis) {
+  const supportingInsights = analysis.insights.slice(1);
+  if (!supportingInsights.length) return null;
   const list = el('div', { class: 'insight-list' });
-  for (const insight of analysis.insights) {
+  for (const insight of supportingInsights) {
     list.append(el('article', {}, [
       iconGlyph(insight.icon),
       el('div', {}, [
@@ -132,7 +134,7 @@ function renderInsightList(analysis) {
     ]));
   }
   return el('section', { class: 'insight-panel' }, [
-    el('h3', { text: 'What likely changed' }),
+    el('h3', { text: 'Other clues' }),
     list
   ]);
 }
@@ -215,7 +217,8 @@ export function renderBrowserReport(container, analysis, options = {}) {
     ])
   ]));
 
-  root.append(renderInsightList(analysis));
+  const insightList = renderInsightList(analysis);
+  if (insightList) root.append(insightList);
   root.append(renderNextChecks(analysis));
 
   root.append(el('section', { class: 'key-numbers-card' }, [
@@ -225,7 +228,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
     ]),
     el('div', { class: 'primary-kpis', 'data-testid': 'primary-kpis' }, [
       stat('Normal daily use estimate', `${analysis.baselineGpd} GPD`, 'kpi-baseline', true),
-      stat('Pattern suggests outdoor watering', `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
+      stat('Outdoor watering clue', `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
       stat('Highest-use period', `${analysis.peakPeriod.label} (${analysis.peakPeriod.gpd} GPD)`, 'kpi-peak', true)
     ]),
     el('div', { class: 'data-quality-card' }, [
@@ -245,7 +248,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
     el('div', { class: 'browser-chart-card' }, [
       el('h3', { text: 'Average use by season' }),
       renderSeasonBars(analysis),
-      el('p', { text: `Compared with the average-household benchmark in your export: ${analysis.peerComparison}.` })
+      el('p', { text: `Average-household benchmark in your export: ${analysis.peerComparison}.` })
     ])
   ]));
 

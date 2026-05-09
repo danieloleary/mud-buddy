@@ -8,7 +8,7 @@ Use GitHub Issues for Mud Buddy bugs, feature ideas, privacy/safety concerns, an
 
 ## Official EBMUD support
 
-Mud Buddy is not affiliated with EBMUD. Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
+Mud Buddy is not affiliated with EBMUD. Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 Use official EBMUD resources for urgent, billing-related, pressure/outage-related, water-quality-related, rebate, conservation, assistance, account, and emergency actions:
 

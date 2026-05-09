@@ -72,7 +72,7 @@ try {
     'Goal: save millions of gallons, one home at a time.',
     'Runs in this browser. Your CSV is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
     'Official EBMUD resources',
-    "Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.",
+    "Mud Buddy explains your CSV. EBMUD handles billing, emergencies, rebates, outages, pressure, assistance, and water quality.",
     'Not affiliated with EBMUD'
   ]) {
     if (!text.includes(required)) throw new Error(`Missing required text: ${required}`);

@@ -2,7 +2,7 @@
 
 Mud Buddy supports an agent-assisted browser workflow, but the human always completes login. Browser control exists to help after the human is already logged in and has confirmed the agent may continue.
 
-Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
+Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 ## Allowed Flow
 

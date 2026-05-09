@@ -75,7 +75,7 @@ const required = [
   'committed synthetic sample CSV',
   'https://x.com/danieloleary',
   'https://www.linkedin.com/in/danieloleary/',
-  "Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.",
+  "Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.",
   'heuristic pattern clues',
   'not an official indoor-use classification',
   'not a normalized customer comparison',

@@ -60,7 +60,7 @@ try {
 
   let reportText = await page.locator('[data-testid="browser-report"]').innerText();
   let reportTextLower = reportText.toLowerCase();
-  for (const required of ['Start here', 'Normal daily use estimate', 'Pattern suggests outdoor watering', 'Water use over time']) {
+  for (const required of ['Start here', 'Normal daily use estimate', 'Outdoor watering clue', 'Water use over time']) {
     if (!reportTextLower.includes(required.toLowerCase())) throw new Error(`Golden sample report missing: ${required}`);
   }
 
@@ -81,7 +81,7 @@ try {
     await page.locator('#csvInput').setInputFiles(scenarioPath);
     await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Uploaded CSV analyzed locally'), null, { timeout: 6000 });
     const scenarioText = await page.locator('[data-testid="browser-report"]').innerText();
-    for (const required of ['Start here', 'Normal daily use estimate', 'Pattern suggests outdoor watering', 'Water use over time']) {
+    for (const required of ['Start here', 'Normal daily use estimate', 'Outdoor watering clue', 'Water use over time']) {
       if (!scenarioText.toLowerCase().includes(required.toLowerCase())) throw new Error(`${scenarioName} report missing: ${required}`);
     }
     await page.locator('[data-testid="browser-report"]').screenshot({ path: path.join(outDir, `scenario-${scenarioName}-full-report.png`) });

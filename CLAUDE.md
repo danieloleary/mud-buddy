@@ -21,7 +21,7 @@ Read these files before making changes:
 
 Mud Buddy is a local-first EBMUD CSV report generator and public demo site. It is not affiliated with EBMUD and is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
 
-Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
+Mud Buddy explains your CSV. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
 Avoid overclaiming. Prefer phrases like "possible leak clues" and "patterns worth checking," not certified diagnosis.
 

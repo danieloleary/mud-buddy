@@ -1,4 +1,4 @@
-﻿import '@material/web/button/filled-button.js';
+import '@material/web/button/filled-button.js';
 import '@material/web/button/filled-tonal-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/button/text-button.js';
@@ -66,7 +66,7 @@ class MudBuddyApp extends HTMLElement {
           <div class="hero-copy reveal">
             <p class="overline">Private browser-local water report</p>
             <h1>Upload your EBMUD CSV. See what changed.</h1>
-            <p class="lede">Get a clear water-use report for high bills, irrigation changes, fixture clues, and family-use shifts. No server upload.</p>
+            <p class="lede">A private report for high bills, irrigation surprises, fixture clues, and family-use shifts. Runs in your browser.</p>
             <div class="hero-actions">
               <md-filled-button id="heroAnalyze">Analyze my CSV</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample data</md-filled-tonal-button>
@@ -126,8 +126,8 @@ class MudBuddyApp extends HTMLElement {
 
           <article class="material-card helper-card compact-sample" id="example">
             <p class="overline">Sample</p>
-            <h2>Want to see it first?</h2>
-            <p>Try the app with fake sample data before choosing your own file.</p>
+            <h2>Try it with sample data.</h2>
+            <p>See the report flow before choosing your own file.</p>
             <div class="helper-actions">
               <md-filled-tonal-button id="exampleTrySample">Try sample data</md-filled-tonal-button>
               <md-outlined-button href="sample-report/index.html" target="_blank">Open sample report</md-outlined-button>
@@ -139,7 +139,7 @@ class MudBuddyApp extends HTMLElement {
           <div class="section-head compact-head">
             <p class="overline">Official EBMUD resources</p>
             <h2>Use EBMUD directly when the next step is official.</h2>
-            <p>Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.</p>
+            <p>Mud Buddy explains your CSV. EBMUD handles billing, emergencies, rebates, outages, pressure, assistance, and water quality.</p>
           </div>
           <div class="resource-grid" aria-label="Official EBMUD resources">${resourceCards}</div>
         </section>
