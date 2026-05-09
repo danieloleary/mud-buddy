@@ -27,7 +27,7 @@ https://danieloleary.github.io/mud-buddy/
 
 ## Real usage file flow
 
-- Tap `Create my report`.
+- Tap `Find savings in 30 seconds`.
 - File picker opens.
 - Choose an EBMUD billing usage file.
 - Report renders.

@@ -21,7 +21,7 @@ Upload your EBMUD usage file, analyze it in your browser, and get a plain-Englis
 
 No EBMUD login. No server upload. Not affiliated with EBMUD.
 
-Goal: help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons.
+Goal: help East Bay households save money and find millions of gallons of potential savings, starting with the first 1M gallons.
 
 https://danieloleary.github.io/mud-buddy/
 
@@ -37,9 +37,9 @@ https://danieloleary.github.io/mud-buddy/
 
 5/ The privacy boundary is the whole point: no EBMUD password, no credential automation, no server upload by default. Your usage file is read in your browser.
 
-6/ Public mission: help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons. Not certified savings, just practical patterns people can act on.
+6/ Public mission: help East Bay households save money and find millions of gallons of potential savings, starting with the first 1M gallons. Not certified savings, just practical patterns people can act on.
 
-7/ This feels like a good use of AI: helping people understand their own household data and make better water/money decisions. Try the sample data or your own usage file and send feedback.
+7/ This feels like a good use of AI: helping people understand their own household data and make better money and water decisions. Try the sample data or your own usage file and send feedback.
 
 https://danieloleary.github.io/mud-buddy/
 
@@ -60,7 +60,7 @@ The privacy boundary is intentional:
 - Public sharing uses redacted/public output.
 - Not affiliated with EBMUD.
 
-The public mission: help East Bay households find millions of gallons of potential water savings, starting with the first 1 million gallons.
+The public mission: help East Bay households save money and find millions of gallons of potential water savings, starting with the first 1 million gallons.
 
 This feels like a useful direction for AI: not replacing institutions, but helping people understand their own data and make better household decisions.
 
@@ -72,7 +72,7 @@ https://danieloleary.github.io/mud-buddy/
 
 Open Mud Buddy.
 
-Choose `Try sample data` to see the flow, or download your EBMUD usage file and choose `Create my report`.
+Choose `Try sample data` to see the flow, or download your EBMUD usage file and choose `Find savings in 30 seconds`.
 
 Mud Buddy reads the usage file in the browser and renders a plain-English report: baseline estimate, gallons-per-day trends, seasonal irrigation lift, unusual periods, and practical next checks.
 

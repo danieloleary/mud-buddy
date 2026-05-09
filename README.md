@@ -21,7 +21,7 @@ Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pat
 ## Use Mud Buddy in 3 steps
 
 1. Log into EBMUD yourself and download your usage file from Track Usage or My Water Report. You do not need to understand the file.
-2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Create my report`.
+2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Find savings in 30 seconds`.
 3. Review the browser-local report: normal daily use, likely outdoor watering, the peak period, usage file notes, practical next checks, and a simple weekend checklist.
 
 You can also choose `Try sample report` on the site to see the flow with synthetic public-safe data.
@@ -108,9 +108,9 @@ Dan's role is maker and maintainer. The app is the star.
 | Bill support for eligible customers | [Customer Assistance Program](https://www.ebmud.com/customers/customer-assistance-program) |
 | Contact, emergency, and official support | [Contact / emergency](https://www.ebmud.com/contact-us) |
 
-## Mission: save millions of gallons, one home at a time
+## Mission: save money and millions of gallons, one home at a time
 
-Mud Buddy's public mission is to help East Bay households find **millions of gallons of potential water savings**, starting with the first milestone of **1 million gallons**.
+Mud Buddy's public mission is to help East Bay households save money and find **millions of gallons of potential water savings**, starting with the first milestone of **1 million gallons**.
 
 That means helped-save or potential savings, not a verified EBMUD conservation total. The goal is to help people notice patterns sooner: irrigation schedules, normal use slowly rising, running toilets, fixture checks, meter tests, yard-water decisions, and official EBMUD next steps.
 

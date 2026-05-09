@@ -1,6 +1,6 @@
 # Gallon Savings Methodology
 
-Mud Buddy's public mission is to help East Bay households find **millions of gallons of potential water savings**, starting with the first milestone of **1 million gallons**.
+Mud Buddy's public mission is to help East Bay households save money and find **millions of gallons of potential water savings**, starting with the first milestone of **1 million gallons**.
 
 This is a rallying goal and product-impact estimate, not a verified EBMUD conservation total.
 

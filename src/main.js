@@ -58,17 +58,17 @@ class MudBuddyApp extends HTMLElement {
           <a href="#resources">Official links</a>
           <a href="#privacy">Privacy</a>
         </nav>
-        <md-filled-button id="topAnalyze">Create my report</md-filled-button>
+        <md-filled-button id="topAnalyze">Find savings</md-filled-button>
       </header>
 
       <main id="top">
         <section class="hero shell" id="app">
           <div class="hero-copy reveal">
-            <p class="overline">Private browser-local water report</p>
-            <h1>Create a private EBMUD water report.</h1>
-            <p class="lede">Upload the usage file from your EBMUD account. Mud Buddy reads it in your browser and shows what changed, what likely caused it, and what to check next.</p>
+            <p class="overline">Save money. Save water.</p>
+            <h1>Save money and water in under 30 seconds.</h1>
+            <p class="lede">Upload your EBMUD usage file. Mud Buddy gives you beautiful analysis, money-saving recommendations, and practical next checks for high bills, irrigation, leaks, and waste.</p>
             <div class="hero-actions">
-              <md-filled-button id="heroAnalyze">Create my report</md-filled-button>
+              <md-filled-button id="heroAnalyze">Find savings in 30 seconds</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample report</md-filled-tonal-button>
               <md-text-button data-file-guide="true">Where do I get it?</md-text-button>
             </div>
@@ -86,7 +86,7 @@ class MudBuddyApp extends HTMLElement {
           <div class="upload-panel reveal delay-1" aria-label="Browser-local usage file analyzer">
             <div class="material-card upload-card">
               <div class="card-toolbar">
-                <span>Create your water report</span>
+                <span>Find savings fast</span>
                 <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><span class="icon-glyph" aria-hidden="true" data-icon="shield"></span></md-icon-button>
               </div>
               <md-divider></md-divider>
@@ -97,7 +97,7 @@ class MudBuddyApp extends HTMLElement {
                 <span>or choose the file you downloaded from EBMUD</span>
               </button>
               <div class="upload-actions">
-                <md-filled-button id="chooseCsv">Create my report</md-filled-button>
+                <md-filled-button id="chooseCsv">Find savings in 30 seconds</md-filled-button>
                 <md-filled-tonal-button id="trySample">Try sample report</md-filled-tonal-button>
                 <md-text-button data-file-guide="true">Where do I get this file?</md-text-button>
               </div>
@@ -117,7 +117,7 @@ class MudBuddyApp extends HTMLElement {
           <article class="material-card helper-card">
             <p class="overline">Get your usage file</p>
             <h2>Download from EBMUD, then create your report.</h2>
-            <p>This usually takes about 3 minutes. Log into EBMUD yourself, open Track Usage or My Water Report, and download your billing usage file. Look for a Download your data or Export button.</p>
+            <p>Getting the file usually takes about 3 minutes. Once you have it, Mud Buddy shows where to save in under 30 seconds. Log into EBMUD yourself, open Track Usage or My Water Report, and download your billing usage file. Look for a Download your data or Export button.</p>
             <p class="helper-reassurance">This will not change your EBMUD account. Mud Buddy never needs your login, MFA code, or browser session.</p>
             <div class="mini-steps">
               <span><strong>1</strong> Log into EBMUD yourself</span>
@@ -156,7 +156,7 @@ class MudBuddyApp extends HTMLElement {
         <div class="shell footer-grid">
           <p><strong>Mud Buddy</strong><br />Private water-use reports for EBMUD customers.</p>
           <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.</p>
-          <p>Built with love in Lafayette, CA. Goal: save millions of gallons, one home at a time. <a href="docs/methodology.md">Methodology</a> | <a href="docs/privacy.md">Privacy</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
+          <p>Built with love in Lafayette, CA. Goal: help neighbors save money and millions of gallons, one home at a time. <a href="docs/methodology.md">Methodology</a> | <a href="docs/privacy.md">Privacy</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
         </div>
       </footer>
 
@@ -176,7 +176,7 @@ class MudBuddyApp extends HTMLElement {
             <li>Log into your EBMUD account yourself.</li>
             <li>Open Track Usage or My Water Report.</li>
             <li>Look for Download your data or Export.</li>
-            <li>Save the usage file, then come back here and choose Create my report.</li>
+            <li>Save the usage file, then come back here and choose Find savings in 30 seconds.</li>
           </ol>
           <p class="dialog-note">Mud Buddy does not change your EBMUD account and never needs your password, MFA code, cookies, or browser session.</p>
         </form>

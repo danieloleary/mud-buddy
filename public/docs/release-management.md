@@ -7,7 +7,7 @@ Mud Buddy uses the `package.json` version as the canonical app/release version, 
 - Version: `1.2.0`
 - Release window: weekend release candidate
 - Canonical deployment: GitHub Pages
-- Public mission: help East Bay households find millions of gallons of potential water savings, starting with a `1 million gallons` first milestone
+- Public mission: help East Bay households save money and find millions of gallons of potential water savings, starting with a `1 million gallons` first milestone
 
 ## Release gates
 

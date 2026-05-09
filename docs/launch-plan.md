@@ -6,14 +6,14 @@ Mud Buddy is a small, useful example of AI-assisted civic tech: a browser-local 
 
 Core message:
 
-> I built Mud Buddy so East Bay households can upload EBMUD usage data in their browser, get beautiful private analysis, recommendations, and next checks, and help find millions of gallons of potential water savings without sending the usage file to a server.
+> I built Mud Buddy so East Bay households can upload EBMUD usage data in their browser, get beautiful private analysis, recommendations, and next checks, and help people save money while finding millions of gallons of potential water savings without sending the usage file to a server.
 
 Important wording:
 
 - Say `potential savings`, `helped-save`, and `patterns worth checking`.
 - Do not say certified savings, official EBMUD analysis, leak diagnosis, billing advice, or plumbing inspection.
 - Do not imply EBMUD affiliation, approval, endorsement, partnership, or co-branding unless EBMUD authorizes it in writing.
-- Lead with the app: `Create my report`, `Try sample report`, and `Where do I get this file?`.
+- Lead with the app: `Find savings in 30 seconds`, `Try sample report`, and `Where do I get this file?`.
 - Lead with privacy: no EBMUD password, no server upload, no credential automation, public sharing only with `--public`.
 
 ## Launch assets
@@ -46,7 +46,7 @@ Required gates:
 Manual checks:
 
 - Open the live site on mobile and desktop and read it like a homeowner.
-- Click `Create my report`, `Try sample report`, `How to get your usage file`, official resources, X, and LinkedIn links.
+- Click `Find savings in 30 seconds`, `Try sample report`, `How to get your usage file`, official resources, X, and LinkedIn links.
 - Run the real EBMUD workflow manually once: user logs in, downloads usage file, browser-local report renders.
 - Download the ZIP and confirm it does not include private usage files, private reports, local paths, traces, screenshots, or deployment state.
 
@@ -109,7 +109,7 @@ Upload your EBMUD usage data, analyze it in your browser, and get beautiful plai
 
 No EBMUD login. No server upload. Not affiliated with EBMUD.
 
-Goal: help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons.
+Goal: help East Bay households save money and find millions of gallons of potential savings, starting with the first 1M gallons.
 
 https://danieloleary.github.io/mud-buddy/
 
@@ -125,9 +125,9 @@ https://danieloleary.github.io/mud-buddy/
 
 5. The privacy boundary is the whole point: no EBMUD password, no credential automation, no server upload by default. Your usage file is read in your browser.
 
-6. The public mission is to help East Bay households find millions of gallons of potential savings, starting with the first 1 million gallons. Not certified savings, but practical patterns people can act on.
+6. The public mission is to help East Bay households save money and find millions of gallons of potential savings, starting with the first 1 million gallons. Not certified savings, but practical patterns people can act on.
 
-7. This feels like a good use of AI: helping people understand their own household data and make better water/money decisions. Try the sample data or your own usage file and send feedback.
+7. This feels like a good use of AI: helping people understand their own household data and make better money and water decisions. Try the sample data or your own usage file and send feedback.
 
 ### LinkedIn post
 
@@ -146,7 +146,7 @@ The privacy boundary is intentional:
 - Public sharing uses redacted/public output.
 - Not affiliated with EBMUD.
 
-The public mission: help East Bay households find millions of gallons of potential water savings, starting with the first 1 million gallons.
+The public mission: help East Bay households save money and find millions of gallons of potential water savings, starting with the first 1 million gallons.
 
 This feels like a useful direction for AI: not replacing institutions, but helping people understand their own data and make better household decisions.
 
@@ -171,7 +171,7 @@ It turns an EBMUD usage export into a browser-local, plain-English report: gallo
 
 The privacy boundary is important: no EBMUD password, no credential automation, no server upload for the primary flow. It is not affiliated with EBMUD and is not a leak detector, billing tool, or official utility analysis.
 
-The public goal is to help East Bay households find millions of gallons of potential savings, starting with the first 1M gallons. I would love feedback on the product, privacy model, and whether this pattern could work for other utility data.
+The public goal is to help East Bay households save money and find millions of gallons of potential savings, starting with the first 1M gallons. I would love feedback on the product, privacy model, and whether this pattern could work for other utility data.
 ```
 
 ## Launch day checklist

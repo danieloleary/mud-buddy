@@ -62,18 +62,18 @@ try {
   await page.goto(url);
   const text = await page.locator('body').innerText();
   for (const required of [
-    'Create a private EBMUD water report.',
+    'Save money and water in under 30 seconds.',
     'for EBMUD customers',
-    'Create your water report',
+    'Find savings fast',
     'Drop your EBMUD usage file here',
-    'Create my report',
+    'Find savings in 30 seconds',
     'Try sample report',
     'Where do I get this file?',
-    'This usually takes about 3 minutes.',
+    'Getting the file usually takes about 3 minutes.',
     'This will not change your EBMUD account.',
     'Show me the steps',
     'Built with love in Lafayette, CA.',
-    'Goal: save millions of gallons, one home at a time.',
+    'Goal: help neighbors save money and millions of gallons, one home at a time.',
     'Runs in this browser. Your usage file is not uploaded, stored, or added to the URL. Not affiliated with EBMUD.',
     'Official EBMUD resources',
     "Mud Buddy explains your usage file. EBMUD handles billing, emergencies, rebates, outages, pressure, assistance, and water quality.",

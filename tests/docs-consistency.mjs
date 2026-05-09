@@ -68,7 +68,7 @@ const required = [
   'Product-first branding confirmed',
   'EBMUD review brief',
   'browser-local',
-  'Create my report',
+  'Find savings in 30 seconds',
   'Built with love in Lafayette, CA',
   'millions of gallons of potential water savings',
   'MUD_BUDDY_REAL_CSV',

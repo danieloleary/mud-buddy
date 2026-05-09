@@ -29,7 +29,7 @@
 
 ## Near-Term Product Polish
 
-- Add a first-run wizard for non-technical homeowners: `Download usage file`, `Create my report`, `Review next checks`, `Share safely`.
+- Add a first-run wizard for non-technical homeowners: `Download usage file`, `Find savings in 30 seconds`, `Review next checks`, `Share safely`.
 - Add clearer print/PDF styling for the browser report.
 - Add fixture/toilet check worksheets.
 - Add optional household and landscaping context form that stays local.

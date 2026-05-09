@@ -3,7 +3,7 @@
 ## Browser App
 
 - GitHub Pages landing page loads on desktop and mobile.
-- A homeowner can choose `Create my report`, select an EBMUD billing usage file, and see an in-page private report.
+- A homeowner can choose `Find savings in 30 seconds`, select an EBMUD billing usage file, and see an in-page private report.
 - `Try sample report` loads only the committed synthetic sample usage file.
 - The app explains that the usage-file step usually takes about 3 minutes, does not require understanding the file, and does not change the user's EBMUD account.
 - The page clearly says the usage file is read in the browser and is not uploaded.

@@ -13,9 +13,9 @@ Mud Buddy is designed as a browser-local and local-first utility data workflow. 
 
 ## Browser-local analyzer
 
-The live site supports `Create my report` and `Try sample report`.
+The live site supports `Find savings in 30 seconds` and `Try sample report`.
 
-- `Create my report` reads the selected file in memory and renders an in-page report.
+- `Find savings in 30 seconds` reads the selected file in memory and renders an in-page report.
 - The report uses a generic source label and does not display the private filename.
 - Identifier columns such as account number, meter, service address, name, email, and phone are ignored for browser display.
 - Raw usage file rows are not rendered into the page.
