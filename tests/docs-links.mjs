@@ -7,6 +7,17 @@ const root = path.resolve(__dirname, '..');
 const packageJson = JSON.parse(await fs.readFile(path.join(root, 'package.json'), 'utf8'));
 const scripts = new Set(Object.keys(packageJson.scripts || {}));
 const mdFiles = [];
+async function assertExactPathCase(target, context) {
+  const resolved = path.resolve(target);
+  const parsed = path.parse(resolved);
+  let current = parsed.root;
+  const parts = path.relative(parsed.root, resolved).split(path.sep).filter(Boolean);
+  for (const part of parts) {
+    const names = await fs.readdir(current || parsed.root);
+    if (!names.includes(part)) throw new Error(`${context} has wrong-case relative link segment: ${part}`);
+    current = path.join(current, part);
+  }
+}
 async function walk(dir) {
   let entries;
   try { entries = await fs.readdir(dir, { withFileTypes: true }); } catch { return; }
@@ -33,6 +44,7 @@ for (const file of mdFiles) {
     const target = path.resolve(path.dirname(file), decodeURIComponent(href));
     try { await fs.access(target); }
     catch { throw new Error(`${relFile} has broken relative link: ${match[1]}`); }
+    await assertExactPathCase(target, `${relFile} -> ${match[1]}`);
   }
   for (const match of text.matchAll(/npm run ([\w:-]+)/g)) {
     const script = match[1];
