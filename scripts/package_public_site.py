@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import os
 import stat
@@ -19,6 +19,9 @@ ROOT_FILES = [
     "SECURITY.md",
     "CONTRIBUTING.md",
     "CHANGELOG.md",
+    "SUPPORT.md",
+    "CODE_OF_CONDUCT.md",
+    "CITATION.cff",
     "AGENTS.md",
     "CLAUDE.md",
     "package.json",
@@ -26,10 +29,32 @@ ROOT_FILES = [
     "index.html",
     "vite.config.js",
 ]
-DIRS = ["src", "docs", "skills", "scripts", "tests/mock-ebmud-portal", ".github/workflows"]
-EXPLICIT_FILES = ["examples/sample-ebmud-usage.csv"]
+DIRS = [
+    "src",
+    "docs",
+    "skills",
+    "scripts",
+    "public/assets",
+    "tests/mock-ebmud-portal",
+    ".github/workflows",
+    ".github/ISSUE_TEMPLATE",
+]
+EXPLICIT_FILES = [
+    "examples/sample-ebmud-usage.csv",
+    ".github/dependabot.yml",
+    ".github/pull_request_template.md",
+]
+KNOWN_PUBLIC_ASSETS = {
+    "hero-civic-water.svg",
+    "workflow-csv-report.svg",
+    "privacy-local-first.svg",
+    "ebmud-resource-directory.svg",
+    "readme-banner.svg",
+    "social-card.svg",
+}
 DENY_NAMES = {"node_modules", "dist", "generated", "public-site", ".herenow", ".git", "test-results", "playwright-report", "__pycache__"}
-DENY_SUFFIXES = {".zip", ".har", ".trace", ".webm", ".png", ".jpg", ".jpeg"}
+DENY_SUFFIXES = {".zip", ".har", ".trace", ".webm", ".png", ".jpg", ".jpeg", ".gif", ".webp"}
+IMAGE_SUFFIXES = {".svg", ".png", ".jpg", ".jpeg", ".gif", ".webp"}
 
 
 def _force_remove(func, path, exc_info):
@@ -46,11 +71,17 @@ def clean(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
 
 
+def is_known_public_asset(rel: Path) -> bool:
+    return rel.parts == ("public", "assets", rel.name) and rel.name in KNOWN_PUBLIC_ASSETS
+
+
 def allowed_file(path: Path) -> bool:
     rel = path.relative_to(ROOT)
     if any(part in DENY_NAMES for part in rel.parts):
         return False
     if path.suffix.lower() in DENY_SUFFIXES:
+        return False
+    if path.suffix.lower() in IMAGE_SUFFIXES and not is_known_public_asset(rel):
         return False
     if path.name.startswith(".") and path.name not in {"ci.yml", "pages.yml"}:
         return False
@@ -82,15 +113,16 @@ def copy_public_site() -> None:
     dist = ROOT / "dist"
     report = ROOT / "generated" / "sample-report"
     docs = ROOT / "docs"
+    for rel in ["assets", "docs", "sample-report"]:
+        target = PUBLIC / rel
+        if target.exists():
+            shutil.rmtree(target, onerror=_force_remove)
     if dist.exists():
         shutil.copytree(dist, PUBLIC, dirs_exist_ok=True)
     if report.exists():
         shutil.copytree(report, PUBLIC / "sample-report", dirs_exist_ok=True)
     if docs.exists():
         shutil.copytree(docs, PUBLIC / "docs", dirs_exist_ok=True, ignore=shutil.ignore_patterns("*.tmp", "*.bak"))
-    screenshots = ROOT / "examples" / "screenshots"
-    if screenshots.exists():
-        shutil.copytree(screenshots, PUBLIC / "assets" / "screenshots", dirs_exist_ok=True)
 
 
 def build_zip() -> None:

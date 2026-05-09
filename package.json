@@ -1,9 +1,9 @@
 {
   "name": "mud-buddy-by-danno",
-  "version": "0.2.0",
+  "version": "0.5.0",
   "private": true,
   "type": "module",
-  "description": "Mud Buddy by Danno: a local-first Material 3 water report skill for EBMUD exports.",
+  "description": "Mud Buddy by Danno: a private homeowner water-use report for EBMUD CSV exports.",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
@@ -15,13 +15,19 @@
     "test:browser-flow": "node tests/browser-flow.mjs",
     "test:redaction": "python scripts/check_public_redaction.py --path public-site --strict",
     "package:public": "python scripts/package_public_site.py",
-    "validate": "npm run generate:sample && npm run generate:synthetic && npm run build && npm run package:public && npm run test:landing && npm run test:report && npm run test:browser-flow && npm run test:privacy && npm run test:csv-provision && npm run test:synthetic && npm run test:docs && npm run test:redaction && npm run test:subpath",
+    "validate": "npm run generate:sample && npm run generate:synthetic && npm run build && npm run package:public && npm run test:landing && npm run test:report && npm run test:browser-flow && npm run test:browser-flow-safety && npm run test:privacy && npm run test:csv-provision && npm run test:synthetic && npm run test:data-contract && npm run test:docs && npm run test:docs-links && npm run test:redaction && npm run test:redaction-fixtures && npm run test:package-policy && npm run test:subpath",
     "test:subpath": "node tests/subpath-smoke.mjs",
     "test:privacy": "node tests/privacy-behavior.mjs",
     "test:docs": "node tests/docs-consistency.mjs",
     "test:csv-provision": "node tests/csv-provision-policy.mjs",
     "generate:synthetic": "python scripts/generate_synthetic_flavors.py",
-    "test:synthetic": "node tests/synthetic-flavors-e2e.mjs"
+    "test:synthetic": "node tests/synthetic-flavors-e2e.mjs",
+    "test:data-contract": "node tests/synthetic-data-contract.mjs",
+    "test:local-real-csv": "node tests/local-real-csv-e2e.mjs",
+    "test:redaction-fixtures": "node tests/redaction-fixtures.mjs",
+    "test:package-policy": "node tests/package-public-policy.mjs",
+    "test:browser-flow-safety": "node tests/browser-flow-safety.mjs",
+    "test:docs-links": "node tests/docs-links.mjs"
   },
   "dependencies": {
     "@material/web": "^2.4.0",

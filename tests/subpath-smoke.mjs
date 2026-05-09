@@ -1,4 +1,3 @@
-﻿import { spawn } from 'node:child_process';
 import { chromium } from '@playwright/test';
 import { createServer } from 'node:http';
 import fs from 'node:fs/promises';
@@ -38,12 +37,33 @@ try {
   await page.goto(url);
   const body = await page.locator('body').innerText();
   if (!body.includes('Mud Buddy by Danno')) throw new Error('Subpath landing failed to render');
-  const report = await fetch(`${url}sample-report/index.html`);
-  const privacy = await fetch(`${url}docs/privacy.md`);
-  const zip = await fetch(`${url}mud-buddy-by-danno.zip`);
-  if (!report.ok || !privacy.ok || !zip.ok) throw new Error(`Subpath asset missing report=${report.status} privacy=${privacy.status} zip=${zip.status}`);
+  if (!body.includes('Official EBMUD resources')) throw new Error('Subpath landing missing official resources section');
+  const links = await page.$$eval('a[href], img[src], script[src], link[href]', (nodes) => nodes.map((node) => node.getAttribute('href') || node.getAttribute('src')).filter(Boolean));
+  const internal = new Set(['', 'sample-report/index.html', 'docs/privacy.md', 'docs/browser-control-safety.md', 'assets/social-card.svg', 'assets/readme-banner.svg', 'assets/hero-civic-water.svg', 'assets/workflow-csv-report.svg', 'assets/privacy-local-first.svg', 'assets/ebmud-resource-directory.svg', 'mud-buddy-by-danno.zip']);
+  for (const href of links) {
+    if (href.startsWith('#')) continue;
+    if (href.startsWith('/')) throw new Error(`root-relative subpath link: ${href}`);
+    if (/^https?:\/\//.test(href)) {
+      if (!href.startsWith('https://www.ebmud.com/') && !href.startsWith('https://github.com/') && !href.startsWith('https://fonts.googleapis.com') && !href.startsWith('https://fonts.gstatic.com')) throw new Error(`unexpected external link: ${href}`);
+      continue;
+    }
+    internal.add(href.split('#')[0]);
+  }
+  const reportPage = await browser.newPage({ viewport: { width: 1000, height: 900 } });
+  await reportPage.goto(`${url}sample-report/index.html`);
+  const reportAssets = await reportPage.$$eval('a[href], img[src], script[src], link[href]', (nodes) => nodes.map((node) => node.getAttribute('href') || node.getAttribute('src')).filter(Boolean));
+  for (const href of reportAssets) {
+    if (href.startsWith('#')) continue;
+    if (href.startsWith('/')) throw new Error(`root-relative sample-report link: ${href}`);
+    if (!/^https?:\/\//.test(href)) internal.add(`sample-report/${href.split('#')[0]}`);
+  }
+  for (const rel of internal) {
+    if (!rel || rel.startsWith('mailto:')) continue;
+    const response = await fetch(`${url}${rel}`);
+    if (!response.ok) throw new Error(`Subpath crawl missing ${rel}: ${response.status}`);
+  }
   await browser.close();
-  console.log('subpath-smoke: OK public-site works under /mud-buddy/');
+  console.log(`subpath-smoke: OK public-site works under /mud-buddy/ and crawled ${internal.size} local assets`);
 } finally {
   server.close();
 }

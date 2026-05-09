@@ -1,0 +1,19 @@
+name: EBMUD workflow docs feedback
+description: Improve the manual-login CSV export instructions or official-resource routing.
+title: "Workflow docs: "
+labels: [documentation, ebmud-workflow]
+body:
+  - type: markdown
+    attributes:
+      value: "Mud Buddy must not automate credentials, MFA, CAPTCHA, cookies, browser storage, auth headers, session tokens, account settings, billing changes, or authenticated screenshots."
+  - type: textarea
+    id: feedback
+    attributes:
+      label: What should the docs clarify?
+    validations:
+      required: true
+  - type: textarea
+    id: official_resource
+    attributes:
+      label: Relevant public EBMUD resource
+      description: Link only to public EBMUD pages, not authenticated or session-specific URLs.

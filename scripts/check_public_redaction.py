@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import re
@@ -8,17 +8,32 @@ from zipfile import ZipFile, BadZipFile
 
 TEXT_SUFFIXES = {
     ".html", ".css", ".js", ".mjs", ".py", ".md", ".json", ".yml", ".yaml",
-    ".txt", ".csv", ".svg", ".xml", ".toml"
+    ".txt", ".csv", ".svg", ".xml", ".toml", ".cff"
 }
 SESSION_TERM_ALLOWED = {
     "README.md", "AGENTS.md", "SECURITY.md", "security-review.md", "browser-control-safety.md",
     "use-with-ai-tools.md", "privacy.md", "public-sharing-checklist.md", "installation.md",
-    "acceptance-criteria.md", "CLAUDE.md", "SKILL.md", "main.js",
-    "browser_workflow.md", "check_public_redaction.py"
+    "acceptance-criteria.md", "plan-and-status.md", "CLAUDE.md", "SKILL.md", "main.js", "SUPPORT.md",
+    "social-card.svg", "browser_workflow.md", "check_public_redaction.py", "privacy_safety.yml",
+    "ebmud_workflow_docs.yml", "bug_report.yml", "feature_request.yml", "pull_request_template.md"
+}
+ALLOWED_SVG_ASSETS = {
+    "assets/hero-civic-water.svg",
+    "assets/workflow-csv-report.svg",
+    "assets/privacy-local-first.svg",
+    "assets/ebmud-resource-directory.svg",
+    "assets/readme-banner.svg",
+    "assets/social-card.svg",
+    "public/assets/hero-civic-water.svg",
+    "public/assets/workflow-csv-report.svg",
+    "public/assets/privacy-local-first.svg",
+    "public/assets/ebmud-resource-directory.svg",
+    "public/assets/readme-banner.svg",
+    "public/assets/social-card.svg",
 }
 FORBIDDEN_LITERALS = []
 PATTERNS = [
-    ("windows_local_path", re.compile(r"[A-Za-z]:\\\\Users\\\\[^\s'\"<>]+", re.I)),
+    ("windows_local_path", re.compile(r"[A-Za-z]:\\Users\\[^\s'\"<>]+", re.I)),
     ("posix_local_path", re.compile(r"/(?:Users|home)/[^\s'\"<>]+", re.I)),
     ("email", re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I)),
     ("phone", re.compile(r"\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]\d{3}[-.\s]\d{4}\b")),
@@ -36,6 +51,7 @@ SESSION_PATTERNS = [
     ("auth_header", re.compile(r"Authorization:\s*Bearer", re.I)),
 ]
 BROWSER_ARTIFACT_SUFFIXES = {".har", ".trace", ".webm", ".zip"}
+IMAGE_SUFFIXES = {".svg", ".png", ".jpg", ".jpeg", ".gif", ".webp"}
 CSV_HEADER_PATTERNS = [
     re.compile(r"Reading Date,Days in Read Period", re.I),
     re.compile(r"Customer GPD", re.I),
@@ -54,16 +70,29 @@ def should_allow_session_terms(path: Path) -> bool:
     return bool(names & SESSION_TERM_ALLOWED) or path.name.startswith("index-")
 
 
+def is_allowed_image(rel: str) -> bool:
+    if rel in ALLOWED_SVG_ASSETS:
+        return True
+    if re.match(r"(?:sample-report/)?0[1-5]_[a-z_]+\.svg$", rel):
+        return True
+    return False
+
+
 def scan_file(path: Path, root: Path, failures: list[str]) -> None:
     rel = path.relative_to(root).as_posix()
     lower = path.name.lower()
+    if path.suffix.lower() in IMAGE_SUFFIXES and not is_allowed_image(rel):
+        failures.append(f"unapproved public image asset present: {rel}")
     if path.suffix.lower() in BROWSER_ARTIFACT_SUFFIXES and lower != "mud-buddy-by-danno.zip":
         failures.append(f"browser/test artifact present: {rel}")
     if path.suffix.lower() == ".csv" and rel != "examples/sample-ebmud-usage.csv":
         failures.append(f"non-sample CSV present: {rel}")
     if lower.startswith("billing usage"):
         failures.append(f"real-looking billing export filename present: {rel}")
-    if any(part in {".herenow", "node_modules", "dist", "generated", "tests/output", "test-results", "playwright-report"} for part in path.parts):
+    parts = rel.split("/")
+    forbidden_dirs = {".herenow", "node_modules", "dist", "generated", "test-results", "playwright-report"}
+    has_tests_output = any(parts[i] == "tests" and i + 1 < len(parts) and parts[i + 1] == "output" for i in range(len(parts)))
+    if any(part in forbidden_dirs for part in parts) or has_tests_output:
         failures.append(f"generated/private directory artifact present: {rel}")
     if not is_text(path):
         return

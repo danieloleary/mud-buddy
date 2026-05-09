@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "Mud Buddy by Danno"
+message: "If you use Mud Buddy, cite the GitHub repository."
+type: software
+authors:
+  - family-names: "O'Leary"
+    given-names: "Dan"
+repository-code: "https://github.com/danieloleary/mud-buddy"
+url: "https://danieloleary.github.io/mud-buddy/"
+version: "0.5.0"
+date-released: "2026-05-09"
+license: "MIT"

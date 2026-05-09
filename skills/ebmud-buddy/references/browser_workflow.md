@@ -43,3 +43,9 @@ Before publishing or sharing a report, verify:
 - No exact absence/vacation pattern.
 - Footer says the report is not affiliated with EBMUD and is not a formal water audit.
 
+
+## Official Resource Routing
+
+If the issue looks urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related, direct the user to official EBMUD resources instead of over-interpreting Mud Buddy data. Mud Buddy helps interpret exported CSV patterns; official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.
+
+Use public EBMUD pages only, not authenticated or session-specific URLs.

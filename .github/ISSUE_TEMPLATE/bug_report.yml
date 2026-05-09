@@ -1,0 +1,26 @@
+name: Bug report
+description: Report a Mud Buddy app, report-generation, docs, or packaging bug.
+title: "Bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include private EBMUD CSV rows, service addresses, account numbers, meter IDs, credentials, session data, or authenticated screenshots."
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the bug using synthetic or redacted examples only.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: commands
+    attributes:
+      label: Commands run
+      description: Include commands such as npm run validate, but omit private paths.

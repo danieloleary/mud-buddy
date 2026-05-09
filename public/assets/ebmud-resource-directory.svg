@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="520" viewBox="0 0 880 520" role="img" aria-labelledby="title desc">
+  <title id="title">Official resource directory illustration</title>
+  <desc id="desc">A synthetic directory board pointing from Mud Buddy insights to official EBMUD public resource categories.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffdf3"/><stop offset="0.55" stop-color="#e2f7f4"/><stop offset="1" stop-color="#d5ecff"/></linearGradient>
+  </defs>
+  <rect width="880" height="520" rx="46" fill="url(#bg)"/>
+  <rect x="82" y="74" width="716" height="372" rx="40" fill="#ffffff" stroke="#c6dfdf"/>
+  <text x="124" y="132" font-family="Newsreader, Georgia" font-size="42" font-weight="750" fill="#082d3f">Official EBMUD resources</text>
+  <text x="126" y="170" font-family="Source Sans 3, Arial" font-size="22" font-weight="700" fill="#516366">Helpful public pages for account actions, conservation, alerts, and help.</text>
+  <g font-family="Source Sans 3, Arial" font-size="22" font-weight="850" fill="#003f5c">
+    <g transform="translate(126 214)"><rect width="270" height="56" rx="18" fill="#e8f7f8"/><circle cx="30" cy="28" r="12" fill="#75dce3"/><text x="56" y="36">Account + reports</text></g>
+    <g transform="translate(446 214)"><rect width="270" height="56" rx="18" fill="#fff6d8"/><circle cx="30" cy="28" r="12" fill="#f4d992"/><text x="56" y="36">Billing + assistance</text></g>
+    <g transform="translate(126 292)"><rect width="270" height="56" rx="18" fill="#eef7de"/><circle cx="30" cy="28" r="12" fill="#8aaa4f"/><text x="56" y="36">Leaks + high bills</text></g>
+    <g transform="translate(446 292)"><rect width="270" height="56" rx="18" fill="#e8f7f8"/><circle cx="30" cy="28" r="12" fill="#006879"/><text x="56" y="36">Alerts + outages</text></g>
+    <g transform="translate(126 370)"><rect width="270" height="56" rx="18" fill="#fff6d8"/><circle cx="30" cy="28" r="12" fill="#c46a4a"/><text x="56" y="36">Gardens + rebates</text></g>
+    <g transform="translate(446 370)"><rect width="270" height="56" rx="18" fill="#eef7de"/><circle cx="30" cy="28" r="12" fill="#75dce3"/><text x="56" y="36">Water quality</text></g>
+  </g>
+  <path d="M742 124c42 48 60 92 54 132" fill="none" stroke="#75dce3" stroke-width="12" stroke-linecap="round" opacity="0.45"/>
+</svg>

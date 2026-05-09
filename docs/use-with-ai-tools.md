@@ -1,96 +1,76 @@
+# Use Mud Buddy With AI Coding Tools
 
-## Copy-paste safety rule for every AI tool
+Mud Buddy can work well with Claude Code, Codex, and Lovable when the instructions stay simple and the safety boundary is explicit.
 
-Before real browser control, paste this instruction:
+Copy-paste safety rule for every tool:
 
-```text
-Ask before controlling my real EBMUD browser session. Never type or request my password, MFA code, cookies, localStorage, sessionStorage, authorization headers, billing settings, autopay, contact/profile pages, or screenshots of authenticated private pages. Wait while I log in manually, then help me use the official Track Usage/export/download controls only. If anything is ambiguous, stop and ask me to download the CSV manually.
-```
+> Work locally. Do not ask for, store, paste, scrape, log, export, or transmit EBMUD usernames, passwords, MFA codes, cookies, localStorage, sessionStorage, auth headers, session tokens, CAPTCHA responses, account numbers, meter IDs, service addresses, or raw private CSV rows in public artifacts. Ask before controlling a real browser. The user logs into EBMUD manually. Generate private local reports first. Use `--public` and redaction scans before sharing.
 
-Private local report command:
-
-```bash
-python scripts/generate_report.py path/to/your-ebmud-export.csv --out generated/my-private-report
-```
-
-Public sharing command:
-
-```bash
-python scripts/generate_report.py path/to/your-ebmud-export.csv --out generated/public-report --public
-npm run test:redaction
-```
-
-﻿# Use Mud Buddy With AI Coding Tools
-
-These are simple copy-paste recipes for people who want Claude Code, Codex, or Lovable to help run, customize, test, or debug Mud Buddy.
+Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
 
 ## Claude Code
 
-Official docs: [Claude Code setup](https://docs.anthropic.com/en/docs/claude-code/getting-started), [Claude Code commands](https://code.claude.com/docs/en/commands).
-
-Clone the repo, open it, then start Claude Code:
-
-```bash
-git clone https://github.com/danieloleary/mud-buddy.git
-cd mud-buddy
-claude
-```
-
-Paste this into Claude Code:
+Paste this into Claude Code after opening the repo:
 
 ```text
-You are helping me use Mud Buddy, a local-first EBMUD CSV report generator. Read README.md, AGENTS.md, package.json, docs/privacy.md, and docs/security-review.md first. Do not ask for or handle EBMUD credentials, MFA codes, cookies, session storage, local storage, auth headers, or browser session tokens. It is OK to process EBMUD CSV files that I explicitly provide or upload for local analysis; treat them as sensitive and do not publish or commit raw private data. Help me run the documented setup, generate the synthetic sample report, start the dev site, and run the test/debug scripts. If anything fails, show the exact command, error, likely cause, and smallest safe fix. Use /doctor, /debug, /diff, and /review when useful.
+Read README.md, AGENTS.md, CLAUDE.md, docs/privacy.md, docs/browser-control-safety.md, and docs/security-review.md. Help me generate a private local Mud Buddy report from an EBMUD CSV I explicitly provide. Do not handle credentials or session data. If browser control is needed, ask before controlling the browser and wait while I log in manually. Use the official CSV download only if the portal is clear. Run: python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "generated/my-private-report". For public sharing, use --public and run npm run test:redaction. For release checks, run npm run validate.
 ```
+
+Useful Claude Code commands when appropriate: `/doctor`, `/debug`, `/diff`, and `/review`.
 
 ## Codex
 
-Official docs: [Codex skills](https://developers.openai.com/codex/skills/), [Codex AGENTS.md](https://developers.openai.com/codex/guides/agents-md).
-
-Clone the repo, open it in Codex, then ask Codex to follow the repo instructions:
-
-```bash
-git clone https://github.com/danieloleary/mud-buddy.git
-cd mud-buddy
-codex
-```
-
-Paste this into Codex:
+Paste this into Codex after opening the repo:
 
 ```text
-Use the Mud Buddy repo instructions. Read AGENTS.md and README.md first. Keep the workflow local-first and privacy-preserving. Do not automate EBMUD credentials, MFA, CAPTCHA, cookies, localStorage, sessionStorage, auth headers, or session tokens. If I ask for browser control, wait while I log in manually, navigate only to official Track Usage/export/download screens, detect the CSV in Chrome Downloads if possible, ask before processing it, generate a private report, and use the documented scripts for testing/debugging. Before any public artifact, run the redaction scan and confirm no address, account number, meter ID, raw CSV, local path, or absence/vacation pattern is present.
-```
-
-To install the bundled Codex skill from a public GitHub repo once Dan publishes it:
-
-```text
-$skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/skills/ebmud-buddy
+Follow AGENTS.md. Use the ebmud-buddy skill when available. Help me analyze an EBMUD usage CSV I explicitly provide or ask you to locate after manual login. Never ask for or handle credentials, MFA, CAPTCHA, cookies, localStorage, sessionStorage, auth headers, or session tokens. Ask before real browser control. After I log in manually, navigate only to usage, Track Usage, export, or CSV download screens. Ask before processing the downloaded CSV. Generate a private report first with: python scripts/generate_report.py "path/to/your-ebmud-export.csv" --out "generated/my-private-report". For public output, use --public and run npm run test:redaction. Before release, run npm run validate.
 ```
 
 ## Lovable
 
-Official docs: [Lovable GitHub integration](https://docs.lovable.dev/integrations/github), [Lovable troubleshooting](https://docs.lovable.dev/tips-tricks/troubleshooting), [Lovable debugging prompts](https://docs.lovable.dev/prompting/prompting-debugging).
+Lovable is best for prototyping UI ideas from a concise app brief. Do not assume it can directly import and safely operate this repo unless you set that workflow up yourself.
 
-Important: Lovable's GitHub integration is primarily for syncing Lovable-created projects with GitHub. Do not promise that Lovable can directly import this existing repo as a first-class Lovable project. Use Lovable for a new companion UI, landing page remix, or prompt-generated prototype that follows Mud Buddy's rules.
-
-Paste this into Lovable:
+Pasteable app brief:
 
 ```text
-Build a clean local-first landing/demo page for Mud Buddy by Danno, a free EBMUD CSV water-usage report generator. Keep the brand calm, civic-tech, and privacy-forward. The page should explain: export EBMUD CSV manually or with agent-assisted browser control after manual login, process the CSV locally, generate a private report, use `--public` mode for public sharing. Include CTAs for GitHub, sample report, privacy notes, and installation. Do not build a login flow. Do not ask for EBMUD credentials. Only process CSVs the user explicitly provides or uploads for analysis. Use copy that says "possible leak clues" and "patterns worth checking," not certified diagnosis. Add a clear footer: Not affiliated with EBMUD.
+Build a local-first static web app called Mud Buddy by Danno. It helps EBMUD customers understand an exported usage CSV with trends, seasonal irrigation lift, possible leak clues, and public-safe summaries. The app must say it is not affiliated with EBMUD and must never ask for passwords or session data. Include clear instructions to download the CSV manually from EBMUD, analyze locally, and use --public/redaction checks before sharing. Add official EBMUD resource links for account, billing, leaks/high bills, conservation/rebates, WaterSmart gardener, alerts/outages, water quality, customer assistance, and contact/emergency.
 ```
 
-## Common Local Commands
+## Common setup and validation
 
 ```bash
 npm ci
 npx playwright install chromium
 npm run generate:sample
-npm run dev
+npm run generate:synthetic
 npm run build
 npm run package:public
 npm run test:landing
 npm run test:report
 npm run test:browser-flow
+npm run test:privacy
+npm run test:csv-provision
+npm run test:synthetic
+npm run test:docs
 npm run test:redaction
+npm run test:subpath
+npm run validate
 ```
 
-If the app fails to start, copy the full terminal error into your AI tool and ask it to diagnose the smallest safe fix. If the page is blank, ask it to check the Vite output, browser console, missing assets, and dependency install errors.
+## Official EBMUD resources
+
+If the issue looks urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related, route the user to official EBMUD resources instead of over-interpreting Mud Buddy data.
+
+| Need | Official EBMUD page |
+| --- | --- |
+| Customer starting point | [Customers](https://www.ebmud.com/customers) |
+| Account access and My Water Report entry points | [Your account](https://www.ebmud.com/customers/account) |
+| Track Usage and My Water Report guidance | [My Water Report Program](https://www.ebmud.com/water/conservation-and-rebates/my-water-report-program) |
+| Bills, rates, payment questions, and account help | [Billing questions](https://www.ebmud.com/customers/billing-questions) |
+| Patterns worth checking, high use, and leak guidance | [Leaks and high bills](https://www.ebmud.com/customers/billing-questions/leaks-and-high-bills) |
+| Conservation services and rebates | [Conservation and rebates](https://www.ebmud.com/water/conservation-and-rebates) |
+| Landscape, irrigation, and water-wise garden help | [WaterSmart gardener](https://www.ebmud.com/water/conservation-and-rebates/watersmart-gardener) |
+| Outages, service alerts, and emergency notices | [Alerts and outages](https://www.ebmud.com/customers/alerts) |
+| Water-quality reports and safety information | [Water quality](https://www.ebmud.com/water/about-your-water/water-quality) |
+| Bill support for eligible customers | [Customer Assistance Program](https://www.ebmud.com/customers/customer-assistance-program) |
+| Contact, emergency, and official support | [Contact / emergency](https://www.ebmud.com/contact-us) |

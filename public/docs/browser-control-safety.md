@@ -1,6 +1,8 @@
-﻿# Browser Control Safety
+# Browser Control Safety
 
 Mud Buddy supports an agent-assisted browser workflow, but the human always completes login. Browser control exists to help after the human is already logged in and has confirmed the agent may continue.
+
+Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
 
 ## Allowed Flow
 
@@ -13,6 +15,24 @@ Mud Buddy supports an agent-assisted browser workflow, but the human always comp
 7. Ask before processing the detected CSV.
 8. Generate a private local report first.
 9. Generate a public-safe report with `--public` only after the user asks to publish/share.
+
+## Official Resource Routing
+
+If the issue looks urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related, stop interpreting the CSV as if it can resolve the issue and route the user to official EBMUD resources. Mud Buddy can explain patterns worth checking, but official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.
+
+| Need | Official EBMUD page |
+| --- | --- |
+| Customer starting point | [Customers](https://www.ebmud.com/customers) |
+| Account access and My Water Report entry points | [Your account](https://www.ebmud.com/customers/account) |
+| Track Usage and My Water Report guidance | [My Water Report Program](https://www.ebmud.com/water/conservation-and-rebates/my-water-report-program) |
+| Bills, rates, payment questions, and account help | [Billing questions](https://www.ebmud.com/customers/billing-questions) |
+| Patterns worth checking, high use, and leak guidance | [Leaks and high bills](https://www.ebmud.com/customers/billing-questions/leaks-and-high-bills) |
+| Conservation services and rebates | [Conservation and rebates](https://www.ebmud.com/water/conservation-and-rebates) |
+| Landscape, irrigation, and water-wise garden help | [WaterSmart gardener](https://www.ebmud.com/water/conservation-and-rebates/watersmart-gardener) |
+| Outages, service alerts, and emergency notices | [Alerts and outages](https://www.ebmud.com/customers/alerts) |
+| Water-quality reports and safety information | [Water quality](https://www.ebmud.com/water/about-your-water/water-quality) |
+| Bill support for eligible customers | [Customer Assistance Program](https://www.ebmud.com/customers/customer-assistance-program) |
+| Contact, emergency, and official support | [Contact / emergency](https://www.ebmud.com/contact-us) |
 
 ## Codex End-to-End Workflow
 
@@ -44,4 +64,3 @@ If the portal layout is ambiguous, a page looks sensitive, or Codex would need s
 ## Mock Portal Testing
 
 Automated tests use `tests/mock-ebmud-portal/` with synthetic data only. The mock portal includes a manual-login boundary, deterministic CSV download, and local report generation so browser automation can be tested without touching real EBMUD credentials or private data.
-

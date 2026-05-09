@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import csv
@@ -108,7 +108,7 @@ def flavor_gpd(base: int, date: datetime, idx: int, total: int, flavor: str, rng
     elif flavor == "continuous-baseline-creep":
         value += 8 + 58 * progress
     elif flavor == "usage-drop-conservation":
-        value *= 1.16 - 0.42 * progress
+        value *= 1.30 - 0.62 * progress
     elif flavor == "erratic-controller":
         value *= [0.82, 1.34, 0.95, 1.65, 0.76][idx % 5]
     elif flavor == "high-peer-comparison":

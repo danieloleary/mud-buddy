@@ -44,3 +44,10 @@ npm run validate
 - [ ] Release notes copied from `CHANGELOG.md`.
 - [ ] Known limitations listed.
 - [ ] X/LinkedIn/local community copy shared only after public URLs return `200`.
+
+## v0.5.0 visual/resource release checks
+
+- [ ] README banner and public SVG assets render on GitHub.
+- [ ] Landing page official-resource links point to public EBMUD pages only.
+- [ ] Public package includes only known synthetic SVG assets.
+- [ ] Docs route urgent, billing, outage, pressure, water-quality, rebate, and assistance topics to official EBMUD resources.

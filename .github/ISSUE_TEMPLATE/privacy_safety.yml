@@ -1,0 +1,21 @@
+name: Privacy or safety report
+description: Report a privacy, redaction, browser-control, or public-artifact concern.
+title: "Privacy/Safety: "
+labels: [privacy, safety]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not paste private data. Describe the category of risk without including raw CSV rows, service addresses, account numbers, meter IDs, credentials, cookies, browser storage, session tokens, or authenticated screenshots."
+  - type: textarea
+    id: concern
+    attributes:
+      label: What is the concern?
+    validations:
+      required: true
+  - type: textarea
+    id: artifact
+    attributes:
+      label: Where did you notice it?
+      description: File, page, workflow, or command, with no private values.
+    validations:
+      required: true

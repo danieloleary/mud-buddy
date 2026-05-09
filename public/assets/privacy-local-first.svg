@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="560" viewBox="0 0 760 560" role="img" aria-labelledby="title desc">
+  <title id="title">Local-first privacy illustration</title>
+  <desc id="desc">A laptop with a protected local report and water data staying inside a home boundary.</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e4f7f2"/></linearGradient>
+    <linearGradient id="lock" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8aaa4f"/><stop offset="1" stop-color="#006879"/></linearGradient>
+  </defs>
+  <rect width="760" height="560" rx="48" fill="#f7fcf8"/>
+  <path d="M88 376c58-62 132-81 222-57 71 19 131 12 179-22 65-46 132-49 201-7v190H88z" fill="#d6ec9d" opacity="0.72"/>
+  <rect x="132" y="118" width="496" height="312" rx="38" fill="url(#panel)" stroke="#c6dfdf"/>
+  <rect x="178" y="172" width="404" height="172" rx="26" fill="#062435"/>
+  <rect x="214" y="210" width="118" height="22" rx="11" fill="#75dce3"/>
+  <rect x="214" y="252" width="284" height="18" rx="9" fill="#dff7f7" opacity="0.78"/>
+  <rect x="214" y="286" width="236" height="18" rx="9" fill="#dff7f7" opacity="0.52"/>
+  <rect x="182" y="362" width="396" height="32" rx="16" fill="#d7ecec"/>
+  <g transform="translate(478 204)">
+    <rect x="0" y="48" width="104" height="86" rx="24" fill="url(#lock)"/>
+    <path d="M24 52V32a28 28 0 0 1 56 0v20" fill="none" stroke="#003f5c" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="52" cy="91" r="9" fill="#ffffff"/>
+  </g>
+  <g fill="none" stroke="#006879" stroke-width="6" stroke-linecap="round" opacity="0.22">
+    <path d="M86 102h92M570 88h66M636 422h52M84 444h72"/>
+  </g>
+  <text x="380" y="486" text-anchor="middle" font-family="Newsreader, Georgia" font-size="42" font-weight="750" fill="#082d3f">Your CSV stays local</text>
+</svg>

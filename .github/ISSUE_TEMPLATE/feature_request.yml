@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest a privacy-safe Mud Buddy improvement.
+title: "Feature: "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: "Keep Mud Buddy focused on CSV interpretation. Official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site."
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should Mud Buddy help users understand?
+    validations:
+      required: true
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy considerations
+      description: Note any data minimization or public-sharing concerns.
+    validations:
+      required: true

@@ -58,3 +58,10 @@ Automated CI must use the mock portal and synthetic data only.
 ## Synthetic Data Gate
 
 Before release, regenerate the ignored synthetic flavor suite and run the E2E synthetic test. Confirm generated CSVs remain under `tests/output/`, contain no private source identifiers, and are excluded from public ZIPs.
+
+## Version 0.5.0 release notes
+
+- Update package metadata and changelog before tagging v0.5.0.
+- Regenerate public docs, public site, sample report, and ZIP through `npm run validate`.
+- Confirm official EBMUD resource links are public pages, not authenticated/session URLs.
+- Confirm README, Pages, social card, and ZIP include only known synthetic SVG assets.

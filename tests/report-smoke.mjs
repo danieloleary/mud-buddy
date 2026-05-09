@@ -1,29 +1,42 @@
-﻿import { chromium } from '@playwright/test';
+import { chromium } from '@playwright/test';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const suppliedUrl = process.env.MUD_BUDDY_REPORT_URL;
-const url = suppliedUrl || 'file://' + path.join(root, 'public-site', 'sample-report', 'index.html').replaceAll('\\', '/');
-
+const report = path.join(root, 'public-site', 'sample-report', 'index.html');
+const requiredVisuals = ['01_timeline.svg', '02_driver_stack.svg', '03_seasonality.svg', '04_year_over_year.svg', '05_context.svg'];
+await fs.access(report);
+for (const visual of requiredVisuals) await fs.access(path.join(path.dirname(report), visual));
+const html = await fs.readFile(report, 'utf8');
+for (const required of ['Mud Buddy', 'Not affiliated with EBMUD', 'Public anonymized summary', 'Excluded invalid rows: 1']) {
+  if (!html.includes(required)) throw new Error(`sample report missing required text: ${required}`);
+}
+for (const forbidden of [/PRIVATE_/i, /Billing Usage/i, /C:\\Users\\/i, /\b\d{10,}\b/]) {
+  if (forbidden.test(html)) throw new Error(`sample report leaked forbidden pattern: ${forbidden}`);
+}
+for (const href of [...html.matchAll(/\s(?:href|src)="([^"]+)"/g)].map((m) => m[1])) {
+  if (href.startsWith('/')) throw new Error(`sample report has root-relative asset/link: ${href}`);
+  if (/^https?:\/\//.test(href) && !href.startsWith('https://www.ebmud.com/')) throw new Error(`sample report has unexpected external URL: ${href}`);
+}
 const browser = await chromium.launch({ headless: true });
 try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   const errors = [];
   page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
-  await page.goto(url);
-  const body = await page.locator('body').innerText();
-  for (const required of ['not affiliated with EBMUD', 'Excluded invalid rows: 1', 'Public anonymized summary']) {
-    if (!body.toLowerCase().includes(required.toLowerCase())) throw new Error(`Sample report missing: ${required}`);
+  await page.goto('file://' + report.replace(/\\/g, '/'));
+  const images = await page.locator('img').count();
+  if (images !== requiredVisuals.length) throw new Error(`expected ${requiredVisuals.length} report images, found ${images}`);
+  for (const visual of requiredVisuals) {
+    const img = page.locator(`img[src="${visual}"]`).first();
+    if ((await img.count()) !== 1) throw new Error(`missing report image: ${visual}`);
+    if (!(await img.evaluate((node) => node.complete && node.naturalWidth > 0))) throw new Error(`report image failed to load: ${visual}`);
   }
-  if (/PRIVATE_ADDRESS_SENTINEL|PRIVATE_ACCOUNT_SENTINEL|C:\\Users\\|Billing Usage/.test(body)) throw new Error('Sample report contains forbidden private string');
-  const imageCount = await page.locator('img').count();
-  if (imageCount < 5) throw new Error(`Expected 5 report SVGs, found ${imageCount}`);
-  const unloaded = await page.$$eval('img', (imgs) => imgs.filter((img) => !img.complete || img.naturalWidth === 0).map((img) => img.getAttribute('src')));
-  if (unloaded.length) throw new Error(`Report images did not load: ${unloaded.join(', ')}`);
+  await page.setViewportSize({ width: 390, height: 844 });
+  if (!(await page.getByText('Public anonymized summary').first().isVisible())) throw new Error('mobile report public label not visible');
   if (errors.length) throw new Error('Console errors: ' + errors.join('\n'));
-  console.log('report-smoke: OK sample report loads, images render, disclaimer present');
 } finally {
   await browser.close();
 }
+console.log('report-smoke: OK sample report loads, required SVGs render, links are safe, and mobile label is visible');
