@@ -23,7 +23,7 @@ try {
   const body = await page.locator('body').innerText();
 
   for (const required of [
-    'Upload your EBMUD CSV. See what changed. Know what to check next.',
+    'Upload your EBMUD CSV. See what changed.',
     'Analyze my CSV',
     'Try sample data',
     'How to download your EBMUD CSV',

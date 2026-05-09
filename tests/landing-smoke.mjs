@@ -14,21 +14,54 @@ async function waitFor(target, tries = 80) {
   }
   throw new Error(`Timed out waiting for ${target}`);
 }
+
+async function assertNoHorizontalOverflow(page, label) {
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  if (overflow > 2) throw new Error(`${label} has horizontal overflow of ${overflow}px`);
+}
+
+async function assertBoxInsideViewport(page, selector, label) {
+  const box = await page.locator(selector).first().boundingBox();
+  const viewport = page.viewportSize();
+  if (!box || !viewport) throw new Error(`${label} is missing from the rendered page`);
+  if (box.x < -1 || box.y < -1 || box.x + box.width > viewport.width + 1 || box.y + box.height > viewport.height + 1) {
+    throw new Error(`${label} is clipped or outside first viewport: ${JSON.stringify({ box, viewport })}`);
+  }
+}
+
 if (!suppliedUrl) {
   server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4180'], { stdio: 'ignore' });
   await waitFor(url);
 }
 try {
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+  const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
   const errors = [];
   page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
   await page.goto(url);
   if (!/Mud Buddy/.test(await page.title())) throw new Error('Missing Mud Buddy page title');
+  await assertNoHorizontalOverflow(page, 'desktop landing');
+  await assertBoxInsideViewport(page, 'h1', 'desktop hero headline');
+  await assertBoxInsideViewport(page, '.upload-card', 'desktop upload card');
+  if ((await page.locator('.brand-mark svg').count()) !== 1) throw new Error('Brand mark SVG did not render');
+  const brandMarkText = (await page.locator('.brand-mark').textContent())?.trim() || '';
+  if (brandMarkText) throw new Error(`Brand mark leaked fallback text: ${brandMarkText}`);
+  const materialIconFont = await page.locator('.dropzone md-icon').evaluate((el) => getComputedStyle(el).fontFamily);
+  if (!/Material Symbols Rounded/.test(materialIconFont)) throw new Error(`Material icon font was not applied: ${materialIconFont}`);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(url);
+  await assertNoHorizontalOverflow(page, 'mobile landing');
+  await assertBoxInsideViewport(page, 'h1', 'mobile hero headline');
+  await page.locator('.upload-card').scrollIntoViewIfNeeded();
+  if (!(await page.locator('.upload-card').isVisible())) throw new Error('Mobile upload card is not reachable');
+
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto(url);
   await page.getByText('Irrigation', { exact: true }).click();
   const text = await page.locator('body').innerText();
   for (const required of [
-    'Upload your EBMUD CSV. See what changed. Know what to check next.',
+    'Upload your EBMUD CSV. See what changed.',
     'Browser-local CSV analyzer',
     'Drop your EBMUD CSV here',
     'Analyze my CSV',
@@ -46,7 +79,6 @@ try {
     if (!text.includes(required)) throw new Error(`Missing required text: ${required}`);
   }
   const assets = [
-    'assets/hero-civic-water.webp',
     'assets/workflow-csv-report.svg',
     'assets/csv-export-boundary.svg',
     'assets/privacy-local-first.svg',

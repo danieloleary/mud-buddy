@@ -82,7 +82,12 @@ class MudBuddyApp extends HTMLElement {
     this.innerHTML = `
       <header class="topbar">
         <a class="brand" href="#top" aria-label="Mud Buddy home">
-          <span class="brand-mark"><md-icon>water_drop</md-icon></span>
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img" focusable="false">
+              <path d="M24 5C17.2 13.1 11 21.4 11 29.1 11 37.2 16.7 43 24 43s13-5.8 13-13.9C37 21.4 30.8 13.1 24 5Z" />
+              <path d="M18.3 31.2c1.2 3.4 3.7 5.2 7.4 5.2" />
+            </svg>
+          </span>
           <span><strong>Mud Buddy</strong><small>for EBMUD - by Dan O'Leary</small></span>
         </a>
         <nav aria-label="Main navigation">
@@ -98,8 +103,8 @@ class MudBuddyApp extends HTMLElement {
       <main id="top">
         <section class="hero shell" id="app">
           <div class="hero-copy reveal">
-            <h1>Upload your EBMUD CSV. See what changed. Know what to check next.</h1>
-            <p class="lede">Mud Buddy reads your EBMUD usage export right in this browser and turns it into a plain-English report about high bills, outdoor watering, normal daily use, household changes, and simple next checks.</p>
+            <h1>Upload your EBMUD CSV. See what changed.</h1>
+            <p class="lede">Mud Buddy reads your EBMUD usage export in this browser and turns it into a plain-English report about high bills, outdoor watering, normal daily use, household changes, and simple next checks.</p>
             <div class="hero-actions">
               <md-filled-button id="heroAnalyze">Analyze my CSV</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample data</md-filled-tonal-button>
@@ -115,7 +120,6 @@ class MudBuddyApp extends HTMLElement {
               <article><md-icon>yard</md-icon><strong>Yard or irrigation?</strong><span>Estimate how much of the lift looks seasonal.</span></article>
               <article><md-icon>plumbing</md-icon><strong>Worth a quick check?</strong><span>Find patterns that point to a meter, fixture, or toilet dye test.</span></article>
             </div>
-            <img class="hero-art visual-asset" src="assets/hero-civic-water.webp" alt="Synthetic civic water dashboard illustration" loading="eager" />
           </div>
 
           <div class="upload-panel reveal delay-1" aria-label="Browser-local CSV upload analyzer">
