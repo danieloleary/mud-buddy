@@ -10,6 +10,8 @@ Water usage data can reveal household routines. Before publishing or sharing any
 - No local file paths.
 - No exact absence or vacation pattern.
 - No authenticated EBMUD screenshots.
+- No private household screenshots in social previews.
+- Social card uses synthetic/sample data only.
 - No deployment-state files, claim URLs, API keys, or tokens.
 - Visible disclaimer says the project is not affiliated with EBMUD.
 
@@ -20,4 +22,5 @@ npm run package:public
 npm run test:redaction
 ```
 
-For personal/private reports, keep the output local unless you intentionally create a separate redacted public report.
+For personal/private reports, keep the output local unless you intentionally create a separate public/anonymized report with `--public`.
+

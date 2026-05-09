@@ -10,7 +10,7 @@
 - Page says EBMUD credentials are never needed.
 - Page says users may intentionally provide/upload a CSV for analysis.
 - Page defines GPD as gallons per day near the first sample metric.
-- New approved SVG assets load under GitHub Pages subpaths.
+- New approved visual assets load under GitHub Pages subpaths.
 
 ## Report Generation
 
@@ -43,4 +43,5 @@
 - `npm run test:local-real-csv` passes locally when Dan's CSV is present.
 - CI passes on GitHub.
 - GitHub Pages deploy succeeds.
-- Live site, sample report, docs, approved SVG assets, social card, and ZIP URLs return `200`.
+- Live site, sample report, docs, approved visual assets, social card, and ZIP URLs return `200`.
+

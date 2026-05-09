@@ -36,19 +36,21 @@ try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   await page.goto(url);
   const body = await page.locator('body').innerText();
-  if (!body.includes('Mud Buddy by Danno')) throw new Error('Subpath landing failed to render');
+  if (!body.includes("Mud Buddy for EBMUD - by Dan O'Leary")) throw new Error('Subpath landing failed to render');
+  if (!body.includes('Drop your EBMUD CSV here')) throw new Error('Subpath landing missing browser upload UI');
   if (!body.includes('Official EBMUD resources')) throw new Error('Subpath landing missing official resources section');
   const links = await page.$$eval('a[href], img[src], script[src], link[href]', (nodes) => nodes.map((node) => node.getAttribute('href') || node.getAttribute('src')).filter(Boolean));
-  const internal = new Set(['', 'sample-report/index.html', 'docs/privacy.md', 'docs/browser-control-safety.md', 'assets/social-card.svg', 'assets/github-social-card.svg', 'assets/readme-banner.svg', 'assets/hero-civic-water.svg', 'assets/workflow-csv-report.svg', 'assets/privacy-local-first.svg', 'assets/ebmud-resource-directory.svg', 'assets/report-preview-redacted.svg', 'assets/csv-export-boundary.svg', 'assets/public-sharing-checklist-card.svg', 'assets/sample-report-montage.svg', 'assets/irrigation-season-story.svg', 'assets/leak-check-next-steps.svg', 'assets/ai-agent-safe-handoff.svg', 'mud-buddy-by-danno.zip']);
+  const internal = new Set(['', 'sample-report/index.html', 'docs/privacy.md', 'docs/browser-control-safety.md', 'assets/social-card.svg', 'assets/github-social-card.svg', 'assets/github-social-card.png', 'assets/readme-banner.svg', 'assets/hero-civic-water.svg', 'assets/hero-civic-water.webp', 'assets/workflow-csv-report.svg', 'assets/privacy-local-first.svg', 'assets/ebmud-resource-directory.svg', 'assets/report-preview-redacted.svg', 'assets/report-preview-redacted.webp', 'assets/csv-export-boundary.svg', 'assets/public-sharing-checklist-card.svg', 'assets/sample-report-montage.svg', 'assets/sample-report-montage.webp', 'assets/irrigation-season-story.svg', 'assets/irrigation-season-story.webp', 'assets/leak-check-next-steps.svg', 'assets/leak-check-next-steps.webp', 'assets/ai-agent-safe-handoff.svg', 'assets/favicon-32.png', 'assets/apple-touch-icon.png', 'mud-buddy-by-danno.zip']);
   for (const href of links) {
     if (href.startsWith('#')) continue;
     if (href.startsWith('/')) throw new Error(`root-relative subpath link: ${href}`);
     if (/^https?:\/\//.test(href)) {
-      if (!href.startsWith('https://www.ebmud.com/') && !href.startsWith('https://github.com/') && !href.startsWith('https://fonts.googleapis.com') && !href.startsWith('https://fonts.gstatic.com')) throw new Error(`unexpected external link: ${href}`);
+      if (!href.startsWith('https://www.ebmud.com/') && !href.startsWith('https://github.com/') && !href.startsWith('https://x.com/') && !href.startsWith('https://www.linkedin.com/') && !href.startsWith('https://fonts.googleapis.com') && !href.startsWith('https://fonts.gstatic.com')) throw new Error(`unexpected external link: ${href}`);
       continue;
     }
     internal.add(href.split('#')[0]);
   }
+  internal.add('examples/sample-ebmud-usage.csv');
   const reportPage = await browser.newPage({ viewport: { width: 1000, height: 900 } });
   await reportPage.goto(`${url}sample-report/index.html`);
   const reportAssets = await reportPage.$$eval('a[href], img[src], script[src], link[href]', (nodes) => nodes.map((node) => node.getAttribute('href') || node.getAttribute('src')).filter(Boolean));

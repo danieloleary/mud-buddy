@@ -14,8 +14,11 @@ import '@material/web/ripple/ripple.js';
 import '@material/web/tabs/primary-tab.js';
 import '@material/web/tabs/tabs.js';
 import './styles.css';
+import { parseEbmudCsv } from './ebmud-csv.js';
+import { analyzeWaterUse } from './water-analysis.js';
+import { renderBrowserReport } from './browser-report.js';
 
-const modes = {
+const sampleModes = {
   normal: {
     label: 'Steady household use',
     title: 'Your baseline looks explainable.',
@@ -78,6 +81,7 @@ class MudBuddyApp extends HTMLElement {
     this.render();
     this.bind();
     this.updateMode('normal');
+    this.updateChecklist();
   }
 
   render() {
@@ -85,34 +89,33 @@ class MudBuddyApp extends HTMLElement {
       <header class="topbar">
         <a class="brand" href="#top" aria-label="Mud Buddy home">
           <span class="brand-mark"><md-icon>water_drop</md-icon></span>
-          <span><strong>Mud Buddy</strong><small>by Danno</small></span>
+          <span><strong>Mud Buddy</strong><small>for EBMUD - by Dan O'Leary</small></span>
         </a>
         <nav aria-label="Main navigation">
-          <a href="#how">How it works</a>
-          <a href="#mission">1M gallon goal</a>
-          <a href="#example">Example report</a>
-          <a href="#resources">Official resources</a>
+          <a href="#app">Analyze CSV</a>
+          <a href="#how">Get CSV</a>
+          <a href="#example">Example</a>
+          <a href="#resources">EBMUD resources</a>
           <a href="#privacy">Privacy</a>
-          <a href="#install">Local setup</a>
         </nav>
-        <md-filled-button href="sample-report/index.html" target="_blank">Example report</md-filled-button>
+        <md-filled-button id="topAnalyze">Analyze my CSV</md-filled-button>
       </header>
 
       <main id="top">
-        <section class="hero shell">
+        <section class="hero shell" id="app">
           <div class="hero-copy reveal">
-            <h1>Find out what changed in your water use.</h1>
-            <p class="lede">Mud Buddy turns your EBMUD usage export into a private, plain-English report about high bills, irrigation season, baseline creep, family changes, possible leak clues, and what to check next.</p>
+            <h1>Understand your EBMUD water use without sending your CSV anywhere.</h1>
+            <p class="lede">Upload your usage export, analyze it in this browser, and get plain-English clues about high bills, irrigation season, baseline creep, household changes, and possible checks.</p>
             <div class="hero-actions">
-              <md-filled-button href="sample-report/index.html" target="_blank">See example report</md-filled-button>
-              <md-filled-tonal-button href="#install">Make a private report</md-filled-tonal-button>
-              <md-text-button href="#how">Get your EBMUD CSV</md-text-button>
+              <md-filled-button id="heroAnalyze">Analyze my CSV</md-filled-button>
+              <md-filled-tonal-button id="heroSample">Try sample data</md-filled-tonal-button>
+              <md-text-button href="#how">How to download your EBMUD CSV</md-text-button>
             </div>
             <div class="trust-row" aria-label="Trust promises">
-              <span><md-icon>verified_user</md-icon>Free to use</span>
-              <span><md-icon>computer</md-icon>Runs locally</span>
+              <span><md-icon>computer</md-icon>Runs in your browser</span>
+              <span><md-icon>cloud_off</md-icon>No server upload</span>
               <span><md-icon>lock</md-icon>You control the CSV</span>
-              <span><md-icon>password</md-icon>No password needed</span>
+              <span><md-icon>password</md-icon>No EBMUD password needed</span>
             </div>
             <div class="question-cards" aria-label="Homeowner questions Mud Buddy helps answer">
               <article><md-icon>receipt_long</md-icon><strong>My bill jumped.</strong><span>Was it one period, a new baseline, or outdoor use?</span></article>
@@ -120,15 +123,86 @@ class MudBuddyApp extends HTMLElement {
               <article><md-icon>groups</md-icon><strong>Our household changed.</strong><span>What does normal household use look like now?</span></article>
               <article><md-icon>plumbing</md-icon><strong>Could it be a leak?</strong><span>Which patterns deserve a meter or toilet dye check?</span></article>
             </div>
-            <img class="hero-art visual-asset" src="assets/hero-civic-water.svg" alt="Synthetic civic water dashboard illustration" loading="eager" />
+            <img class="hero-art visual-asset" src="assets/hero-civic-water.webp" alt="Synthetic civic water dashboard illustration" loading="eager" />
           </div>
 
-          <div class="phone-panel reveal delay-1" aria-label="Interactive sample analysis preview">
-            <div class="material-card product-card">
+          <div class="upload-panel reveal delay-1" aria-label="Browser-local CSV upload analyzer">
+            <div class="material-card upload-card">
               <div class="card-toolbar">
-                <span>Mud Buddy sample</span>
-                <md-icon-button aria-label="Open public share checklist" id="openChecklist"><md-icon>shield</md-icon></md-icon-button>
+                <span>Private browser analyzer</span>
+                <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><md-icon>shield</md-icon></md-icon-button>
               </div>
+              <md-divider></md-divider>
+              <input id="csvInput" class="sr-only-file" type="file" accept=".csv,text/csv" />
+              <button class="dropzone" id="dropzone" type="button">
+                <md-icon>upload_file</md-icon>
+                <strong>Drop your EBMUD CSV here</strong>
+                <span>or click to choose the billing usage export</span>
+              </button>
+              <div class="upload-actions">
+                <md-filled-button id="chooseCsv">Analyze my CSV</md-filled-button>
+                <md-filled-tonal-button id="trySample">Try sample data</md-filled-tonal-button>
+              </div>
+              <div class="local-proof">
+                <md-icon>verified_user</md-icon>
+                <p>Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.</p>
+              </div>
+              <md-linear-progress id="uploadProgress" value="0"></md-linear-progress>
+              <p id="uploadStatus" class="upload-status" aria-live="polite">Waiting for a CSV. No file has been read yet.</p>
+              <div class="upload-mini-steps">
+                <article><strong>1</strong><span>Download CSV from EBMUD Track Usage.</span></article>
+                <article><strong>2</strong><span>Upload it here for browser-local analysis.</span></article>
+                <article><strong>3</strong><span>Review patterns and decide what to check next.</span></article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="shell browser-result-section" id="browserReport" aria-live="polite"></section>
+
+        <section class="mission-band" id="mission">
+          <div class="shell mission-layout">
+            <div>
+              <h2>Help save 1 million gallons this year.</h2>
+              <p>Mud Buddy's mission is to help East Bay households find potential water savings sooner. That means helped-save or potential savings, not a certified EBMUD conservation total.</p>
+              <p class="official-line">EBMUD serves about 1.4 million people in a 332-square-mile water service area. One EBMUD billing unit, or CCF, is 748 gallons.</p>
+            </div>
+            <div class="mission-grid" aria-label="One million gallon goal math">
+              <article class="material-card"><md-ripple></md-ripple><strong>1,000,000</strong><span>gallons helped-save goal</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>~1,337</strong><span>CCF, using 748 gallons per CCF</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>~3.1</strong><span>acre-feet of water</span></article>
+              <article class="material-card"><md-ripple></md-ripple><strong>200 x 5k</strong><span>one realistic household path</span></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="river-band" id="how">
+          <div class="shell split">
+            <div>
+              <h2>How to get your EBMUD CSV.</h2>
+              <p>Log into EBMUD yourself, open Track Usage or My Water Report, and download the official billing usage CSV. Then come back here and upload it to Mud Buddy. The file is read in your browser, not sent to a Mud Buddy server.</p>
+              <p class="official-line">Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.</p>
+            </div>
+            <div class="workflow-panel material-card">
+              <img class="workflow-art visual-asset" src="assets/workflow-csv-report.svg" alt="Synthetic CSV to report workflow" loading="lazy" />
+              <img class="workflow-art visual-asset" src="assets/csv-export-boundary.svg" alt="Synthetic manual login and CSV boundary" loading="lazy" />
+              <div class="steps">
+                <article><md-icon>login</md-icon><span>You log in</span><p>Mud Buddy never asks for your EBMUD username, password, MFA, cookies, or browser session material.</p></article>
+                <article><md-icon>download</md-icon><span>You download</span><p>Use EBMUD's official CSV export from the usage/report area.</p></article>
+                <article><md-icon>analytics</md-icon><span>You analyze</span><p>Upload the CSV here for local browser analysis and plain-English next checks.</p></article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="shell sample-section" id="example">
+          <div class="section-head">
+            <h2>Try the example, then use your own file.</h2>
+            <p>The sample report uses synthetic public-safe data. The live analyzer above is the homeowner path for your own downloaded EBMUD CSV.</p>
+          </div>
+          <div class="sample-layout">
+            <div class="material-card product-card" aria-label="Interactive sample analysis preview">
+              <div class="card-toolbar"><span>Synthetic pattern examples</span></div>
               <md-divider></md-divider>
               <md-tabs id="modeTabs" aria-label="Sample usage modes">
                 <md-primary-tab active data-mode="normal">Steady</md-primary-tab>
@@ -148,45 +222,12 @@ class MudBuddyApp extends HTMLElement {
                 <md-circular-progress value="0.72"></md-circular-progress>
                 <p id="modeInsight"></p>
               </div>
-              <div class="chip-row" aria-label="Feature chips">
-                <md-assist-chip label="Baseline"></md-assist-chip>
-                <md-assist-chip label="Seasonal lift"></md-assist-chip>
-                <md-assist-chip label="Redaction"></md-assist-chip>
-              </div>
             </div>
-          </div>
-        </section>
-
-        <section class="mission-band" id="mission">
-          <div class="shell mission-layout">
             <div>
-              <h2>Help save 1 million gallons this year.</h2>
-              <p>Mud Buddy's 1.0 mission is to help East Bay households find potential water savings sooner. That means helped-save or potential savings, not a certified EBMUD conservation total.</p>
-              <p class="official-line">EBMUD serves about 1.4 million people in a 332-square-mile water service area. One EBMUD billing unit, or CCF, is 748 gallons.</p>
-            </div>
-            <div class="mission-grid" aria-label="One million gallon goal math">
-              <article class="material-card"><md-ripple></md-ripple><strong>1,000,000</strong><span>gallons helped-save goal</span></article>
-              <article class="material-card"><md-ripple></md-ripple><strong>~1,337</strong><span>CCF, using 748 gallons per CCF</span></article>
-              <article class="material-card"><md-ripple></md-ripple><strong>~3.1</strong><span>acre-feet of water</span></article>
-              <article class="material-card"><md-ripple></md-ripple><strong>200 x 5k</strong><span>one realistic household path</span></article>
-            </div>
-          </div>
-        </section>
-
-        <section class="river-band" id="how">
-          <div class="shell split">
-            <div>
-              <h2>How it works, without account access or a server.</h2>
-              <p>Download your EBMUD usage CSV, run Mud Buddy locally, and get a scrollable visual report that separates household baseline, yard watering lift, peer benchmarks, unusual periods, and practical next checks.</p>
-              <p class="official-line">Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.</p>
-            </div>
-            <div class="workflow-panel material-card">
-              <img class="workflow-art visual-asset" src="assets/workflow-csv-report.svg" alt="Synthetic CSV to report workflow" loading="lazy" />
-              <img class="workflow-art visual-asset" src="assets/csv-export-boundary.svg" alt="Synthetic manual login and CSV boundary" loading="lazy" />
-              <div class="steps">
-                <article><md-icon>download</md-icon><span>Get your CSV</span><p>You log into EBMUD yourself and download the official usage export from Track Usage.</p></article>
-                <article><md-icon>analytics</md-icon><span>Read the pattern</span><p>Mud Buddy processes only the CSV you explicitly provide and explains the drivers in plain English.</p></article>
-                <article><md-icon>task_alt</md-icon><span>Check next</span><p>Use the report to decide whether to inspect irrigation, fixtures, toilets, or an official EBMUD resource.</p></article>
+              <img class="report-preview-art visual-asset" src="assets/report-preview-redacted.webp" alt="Synthetic redacted report preview" loading="lazy" />
+              <div class="frame-actions compact-actions">
+                <md-filled-button href="sample-report/index.html" target="_blank">Open sample report</md-filled-button>
+                <md-outlined-button href="assets/github-social-card.svg" target="_blank">Social card</md-outlined-button>
               </div>
             </div>
           </div>
@@ -194,37 +235,14 @@ class MudBuddyApp extends HTMLElement {
 
         <section class="shell savings-section" id="savings">
           <div class="section-head">
-            <h2>Where the water savings can come from.</h2>
+            <h2>Where useful next checks can come from.</h2>
             <p>Mud Buddy does not diagnose leaks or certify savings. It helps households notice patterns that are worth checking before wasted water quietly becomes normal.</p>
           </div>
           <div class="savings-grid">
-            <article class="material-card"><img src="assets/irrigation-season-story.svg" alt="Synthetic irrigation season story" loading="lazy" /><h3>Irrigation schedule fixes</h3><p>Spot seasonal lift, controller drift, overwatering, and yard changes that deserve a walk-through.</p></article>
-            <article class="material-card"><img src="assets/leak-check-next-steps.svg" alt="Synthetic leak check next steps" loading="lazy" /><h3>Simple fixture checks</h3><p>Turn baseline creep into practical checks: toilet dye test, meter test, fixtures, and irrigation off-cycle review.</p></article>
+            <article class="material-card"><img src="assets/irrigation-season-story.webp" alt="Synthetic irrigation season story" loading="lazy" /><h3>Irrigation schedule fixes</h3><p>Spot seasonal lift, controller drift, overwatering, and yard changes that deserve a walk-through.</p></article>
+            <article class="material-card"><img src="assets/leak-check-next-steps.webp" alt="Synthetic leak check next steps" loading="lazy" /><h3>Simple fixture checks</h3><p>Turn baseline creep into practical checks: toilet dye test, meter test, fixtures, and irrigation off-cycle review.</p></article>
             <article class="material-card"><img src="assets/public-sharing-checklist-card.svg" alt="Synthetic public sharing checklist" loading="lazy" /><h3>Privacy-safe sharing</h3><p>Most reports stay private. If someone shares, public mode and the checklist reduce sensitive household clues.</p></article>
           </div>
-        </section>
-
-        <section class="shell sample-section" id="example">
-          <div class="section-head">
-            <h2>See what a homeowner report looks like.</h2>
-            <p>Preview the output style with public-safe sample data: timelines, baseline clues, seasonal lift, year-over-year change, and simple next checks.</p>
-          </div>
-          <img class="report-preview-art visual-asset" src="assets/report-preview-redacted.svg" alt="Synthetic redacted report preview" loading="lazy" />
-          <img class="report-montage-art visual-asset" src="assets/sample-report-montage.svg" alt="Synthetic sample report montage" loading="lazy" />
-          <div class="report-frame material-card">
-            <iframe src="sample-report/index.html" title="Mud Buddy sample report"></iframe>
-            <div class="frame-actions">
-              <md-filled-button href="sample-report/index.html" target="_blank">Open full report</md-filled-button>
-              <md-filled-tonal-button href="assets/github-social-card.svg" target="_blank">Social card</md-filled-tonal-button>
-            </div>
-          </div>
-        </section>
-
-        <section class="shell feature-grid">
-          <article class="material-card"><md-icon>query_stats</md-icon><h3>High-bill clues</h3><p>See whether a jump is isolated, seasonal, or part of a persistent baseline change.</p></article>
-          <article class="material-card"><md-icon>yard</md-icon><h3>Irrigation context</h3><p>Understand yard watering as plant health, controller behavior, and gallons per day, not just guilt.</p></article>
-          <article class="material-card"><md-icon>plumbing</md-icon><h3>Fixture checks</h3><p>Spot patterns worth checking with toilet dye tests, a meter test, or an irrigation walk-through.</p></article>
-          <article class="material-card"><md-icon>support_agent</md-icon><h3>Optional agent assist</h3><p>Power users can ask Codex or Claude Code to help after manual login and explicit CSV approval.</p></article>
         </section>
 
         <section class="resource-band" id="resources">
@@ -234,9 +252,7 @@ class MudBuddyApp extends HTMLElement {
               <p>Mud Buddy is a private interpretation layer. When the next step is official, urgent, billing-related, pressure/outage-related, water-quality-related, rebate, or assistance related, use EBMUD's public customer resources.</p>
               <img class="resource-art visual-asset" src="assets/ebmud-resource-directory.svg" alt="Synthetic official EBMUD resource directory illustration" loading="lazy" />
             </div>
-            <div class="resource-grid" aria-label="Official EBMUD resources">
-              ${resourceCards}
-            </div>
+            <div class="resource-grid" aria-label="Official EBMUD resources">${resourceCards}</div>
           </div>
         </section>
 
@@ -265,9 +281,8 @@ class MudBuddyApp extends HTMLElement {
 
         <section class="shell install-section" id="install">
           <div class="install-copy">
-            <h2>Make your private report.</h2>
-            <p>You need an EBMUD login you control, a downloaded usage CSV, and a computer where you or a trusted helper can run a local command. Mud Buddy does not log into EBMUD for you and does not need your password.</p>
-            <p>Already use Codex or Claude Code? The optional ebmud-buddy skill can guide the manual-login, CSV-download, local-analysis workflow.</p>
+            <h2>Advanced local generator and AI-agent assist.</h2>
+            <p>Most homeowners can use the browser analyzer above. Developers and AI-tool users can also run the Python generator locally or install the Codex skill for a supervised manual-login, CSV-download, local-analysis workflow.</p>
             <img class="handoff-art visual-asset" src="assets/ai-agent-safe-handoff.svg" alt="Synthetic safe AI-agent handoff illustration" loading="lazy" />
           </div>
           <div class="terminal-card material-card">
@@ -281,20 +296,18 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
 
       <footer>
         <div class="shell footer-grid">
-          <p><strong>Mud Buddy by Danno</strong><br />A private, local-first water-use report for EBMUD exports.</p>
-          <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis. Official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.</p>
-          <p><a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="mud-buddy-by-danno.zip">Download ZIP</a></p>
+          <p><strong>Mud Buddy for EBMUD - by Dan O'Leary</strong><br />A private browser-local water-use helper for EBMUD exports.</p>
+          <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.</p>
+          <p><a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a> | <a href="mud-buddy-by-danno.zip">Download ZIP</a></p>
         </div>
       </footer>
 
-      <md-dialog id="checklistDialog" aria-label="Public share checklist dialog">
-        <div slot="headline">Before you publish</div>
+      <md-dialog id="checklistDialog" aria-label="Privacy boundary dialog">
+        <div slot="headline">Your CSV stays in the browser</div>
         <form slot="content" method="dialog">
-          <p>Public reports should be generated with --public. No address, no account number, no meter ID, no raw CSV, no local paths, and no exact absence/vacation pattern.</p>
+          <p>The upload analyzer reads the selected CSV with your browser's file picker. It does not post the file, store it in browser storage, put it in a URL, or show the filename in the report.</p>
         </form>
-        <div slot="actions">
-          <md-text-button formmethod="dialog">Close</md-text-button>
-        </div>
+        <div slot="actions"><md-text-button formmethod="dialog">Close</md-text-button></div>
       </md-dialog>
     `;
   }
@@ -307,10 +320,88 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
       this.querySelectorAll('md-checkbox').forEach((box) => { box.checked = false; });
       this.updateChecklist();
     });
+
+    const input = this.querySelector('#csvInput');
+    const openPicker = () => input.click();
+    this.querySelector('#topAnalyze').addEventListener('click', openPicker);
+    this.querySelector('#heroAnalyze').addEventListener('click', openPicker);
+    this.querySelector('#chooseCsv').addEventListener('click', openPicker);
+    this.querySelector('#dropzone').addEventListener('click', openPicker);
+    this.querySelector('#trySample').addEventListener('click', () => this.loadSample());
+    this.querySelector('#heroSample').addEventListener('click', () => this.loadSample());
+    input.addEventListener('change', async () => {
+      const file = input.files?.[0];
+      if (file) await this.analyzeFile(file);
+      input.value = '';
+    });
+
+    const dropzone = this.querySelector('#dropzone');
+    dropzone.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      dropzone.classList.add('is-dragging');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('is-dragging'));
+    dropzone.addEventListener('drop', async (event) => {
+      event.preventDefault();
+      dropzone.classList.remove('is-dragging');
+      const file = event.dataTransfer?.files?.[0];
+      if (file) await this.analyzeFile(file);
+    });
+  }
+
+  setUploadState(status, progress = 0, isError = false) {
+    const statusNode = this.querySelector('#uploadStatus');
+    statusNode.textContent = status;
+    statusNode.classList.toggle('is-error', isError);
+    this.querySelector('#uploadProgress').value = progress;
+  }
+
+  async analyzeFile(file) {
+    if (!/\.csv$/i.test(file.name) && file.type !== 'text/csv') {
+      this.setUploadState('That does not look like a CSV. Please choose the EBMUD billing usage export.', 0, true);
+      return;
+    }
+    this.setUploadState('Reading the selected CSV locally in your browser...', 0.35);
+    try {
+      const text = await file.text();
+      this.analyzeCsvText(text, { sample: false });
+    } catch (error) {
+      this.showUploadError(error);
+    }
+  }
+
+  async loadSample() {
+    this.setUploadState('Loading the synthetic sample CSV...', 0.3);
+    try {
+      const response = await fetch('examples/sample-ebmud-usage.csv', { cache: 'no-store' });
+      if (!response.ok) throw new Error('Sample CSV was not available. Try the sample report instead.');
+      const text = await response.text();
+      this.analyzeCsvText(text, { sample: true });
+    } catch (error) {
+      this.showUploadError(error);
+    }
+  }
+
+  analyzeCsvText(text, options) {
+    this.setUploadState('Analyzing water-use patterns locally...', 0.72);
+    const parsed = parseEbmudCsv(text);
+    const analysis = analyzeWaterUse(parsed.rows, parsed.invalidRows, parsed.warnings);
+    renderBrowserReport(this.querySelector('#browserReport'), analysis, options);
+    this.classList.add('has-browser-report');
+    this.querySelector('#analyzeAnother')?.addEventListener('click', () => this.querySelector('#csvInput').click());
+    this.querySelector('#printReport')?.addEventListener('click', () => window.print());
+    this.setUploadState('Report ready. The CSV was analyzed in this browser.', 1);
+    this.querySelector('#browserReport').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  showUploadError(error) {
+    this.querySelector('#browserReport').replaceChildren();
+    this.classList.remove('has-browser-report');
+    this.setUploadState(error instanceof Error ? error.message : 'Could not analyze that CSV.', 0, true);
   }
 
   updateMode(mode) {
-    const data = modes[mode];
+    const data = sampleModes[mode];
     this.querySelector('#modeLabel').textContent = data.label;
     this.querySelector('#modeTitle').textContent = data.title;
     this.querySelector('#modeMetric').textContent = data.metric;
@@ -331,5 +422,3 @@ $skill-installer install https://github.com/danieloleary/mud-buddy/tree/main/ski
 }
 
 customElements.define('mud-buddy-app', MudBuddyApp);
-
-

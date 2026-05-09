@@ -2,7 +2,7 @@
 import { chromium } from '@playwright/test';
 
 const suppliedUrl = process.env.MUD_BUDDY_URL;
-const url = suppliedUrl || 'http://127.0.0.1:4173/';
+const url = suppliedUrl || 'http://127.0.0.1:4180/';
 let server;
 async function waitFor(target, tries = 80) {
   for (let i = 0; i < tries; i++) {
@@ -15,9 +15,7 @@ async function waitFor(target, tries = 80) {
   throw new Error(`Timed out waiting for ${target}`);
 }
 if (!suppliedUrl) {
-  server = process.platform === 'win32'
-    ? spawn('cmd.exe', ['/c', 'npx vite preview --host 127.0.0.1 --port 4173'], { stdio: 'ignore' })
-    : spawn('npx', ['vite', 'preview', '--host', '127.0.0.1', '--port', '4173'], { stdio: 'ignore' });
+  server = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4180'], { stdio: 'ignore' });
   await waitFor(url);
 }
 try {
@@ -30,12 +28,17 @@ try {
   await page.getByText('Irrigation', { exact: true }).click();
   const text = await page.locator('body').innerText();
   for (const required of [
-    'Find out what changed in your water use.',
+    'Understand your EBMUD water use without sending your CSV anywhere.',
+    'Private browser analyzer',
+    'Drop your EBMUD CSV here',
+    'Analyze my CSV',
+    'Try sample data',
     'My bill jumped.',
     'Help save 1 million gallons this year.',
     'Outdoor watering appears to explain most of the lift.',
     'GPD = gallons/day',
-    'No password needed',
+    'No EBMUD password needed',
+    'Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.',
     'Official EBMUD resources',
     "Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.",
     'Not affiliated with EBMUD'
@@ -43,15 +46,14 @@ try {
     if (!text.includes(required)) throw new Error(`Missing required text: ${required}`);
   }
   const assets = [
-    'assets/hero-civic-water.svg',
+    'assets/hero-civic-water.webp',
     'assets/workflow-csv-report.svg',
     'assets/csv-export-boundary.svg',
     'assets/privacy-local-first.svg',
     'assets/ebmud-resource-directory.svg',
-    'assets/report-preview-redacted.svg',
-    'assets/sample-report-montage.svg',
-    'assets/irrigation-season-story.svg',
-    'assets/leak-check-next-steps.svg',
+    'assets/report-preview-redacted.webp',
+    'assets/irrigation-season-story.webp',
+    'assets/leak-check-next-steps.webp',
     'assets/public-sharing-checklist-card.svg',
     'assets/ai-agent-safe-handoff.svg'
   ];
@@ -71,6 +73,11 @@ try {
   if ((await page.locator('md-ripple').count()) < 11) throw new Error('Expected Material ripples on resource cards');
   if ((await page.locator('md-divider').count()) < 2) throw new Error('Expected rendered Material dividers');
   if ((await page.locator('md-filled-tonal-button').count()) < 2) throw new Error('Expected Material filled tonal buttons');
+  if ((await page.locator('#csvInput').count()) !== 1) throw new Error('Expected browser-local CSV file input');
+  await page.getByText('Try sample data').first().click();
+  await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
+  if (!(await page.locator('.browser-report').isVisible())) throw new Error('Sample browser report did not render');
+  if ((await page.locator('[data-testid="primary-kpis"]').count()) !== 1) throw new Error('Sample browser report missing primary KPI section');
   await page.locator('md-checkbox').first().click();
   await page.getByText('Reset checklist').click();
   const progressValue = Number(await page.locator('#shareProgress').evaluate((node) => node.value));
@@ -83,11 +90,14 @@ try {
     if (href && href.startsWith('/')) throw new Error(`Root-relative link is not Pages-safe: ${href}`);
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  if (!(await page.getByText('Make a private report').first().isVisible())) throw new Error('Mobile CTA not visible');
+  const mobileAnalyzeAgain = page.locator('[data-testid="analyze-another"]');
+  await mobileAnalyzeAgain.scrollIntoViewIfNeeded();
+  if (!(await mobileAnalyzeAgain.isVisible())) throw new Error('Mobile analyze-another CTA not visible');
   await browser.close();
   if (errors.length) throw new Error('Console errors: ' + errors.join('\n'));
   console.log('landing-smoke: OK desktop/mobile visuals, resources, and Material interaction passed');
 } finally {
   if (server) server.kill();
 }
+
 

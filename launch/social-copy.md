@@ -2,68 +2,66 @@
 
 ## X Single Post
 
-I built a free local-first tool for EBMUD water usage exports.
+I built Mud Buddy for EBMUD - a free browser-local tool for East Bay water customers.
 
-Drop in your CSV, keep the data on your machine, and get a visual report showing:
-- usage trends
-- gallons/day
-- seasonal irrigation patterns
-- spikes
-- possible leak clues
+Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English report about high bills, irrigation season, baseline creep, and possible next checks.
 
-Mud Buddy by Danno:
+No EBMUD password. No server upload. Not affiliated with EBMUD.
+
+First goal: help households find 1M gallons of potential savings this year.
+
 https://danieloleary.github.io/mud-buddy/
 
 ## X Thread
 
-1/ I made a small local-first tool for understanding EBMUD water usage exports.
+1/ I built Mud Buddy because my own EBMUD usage data was confusing, and household context mattered: kids, daytime use, irrigation, and a yard that needs work.
 
-The problem: the CSV has useful data, but it is hard to turn into answers like "did my baseline change?" or "was that bill mostly irrigation?"
+2/ The app is simple: download your EBMUD usage CSV, upload it to Mud Buddy, and get a browser-local explanation of what changed.
 
-2/ Mud Buddy turns an EBMUD export into a visual report with trend charts, usage summaries, seasonal patterns, spikes, and plain-English notes.
+3/ It looks for patterns worth checking: baseline creep, irrigation-season lift, unusual periods, peer context, and possible fixture/toilet clues.
 
-3/ Privacy was the main design constraint.
+4/ It is not affiliated with EBMUD, not a leak detector, not billing advice, and not a plumbing inspection. Official account/billing/emergency/rebate actions happen on EBMUD's site.
 
-Your water data can reveal household routines, so the default workflow keeps the CSV local. No account. No SaaS upload. Redacted reports for sharing.
+5/ The privacy boundary is the whole point: no EBMUD password, no credential automation, no server upload by default. Your CSV is read in your browser.
 
-4/ It is intentionally small and free:
-- sample data
-- sample report
-- Codex skill
-- local report generator
-- clear methodology notes
+6/ First public mission: help East Bay households find 1M gallons of potential savings this year. Not certified savings, just practical patterns people can act on.
 
-Would love feedback from EBMUD customers, civic-tech folks, and Codex, Claude Code, and Lovable users.
+7/ This feels like a good use of AI: helping people understand their own household data and make better water/money decisions. Try the sample data or your own CSV and send feedback.
 
 https://danieloleary.github.io/mud-buddy/
 
 ## LinkedIn Post
 
-I built a free local-first local-first app and AI-agent skill for analyzing EBMUD water usage exports.
+I shipped Mud Buddy for EBMUD - by Dan O'Leary, a free browser-local tool for EBMUD customers.
 
-The idea is simple: household utility data should be understandable without requiring people to upload private usage history to another cloud service.
+It turns an exported EBMUD water-use CSV into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, possible fixture checks, and practical next steps.
 
-Mud Buddy by Danno takes an EBMUD CSV export and generates a visual report with:
-- gallons-per-day trends
-- seasonal usage patterns
-- abnormal spikes
-- baseline changes
-- plain-English notes about likely drivers, such as irrigation seasonality or possible leak clues
+The goal is not to replace EBMUD, plumbers, or conservation experts. Mud Buddy is an interpretation layer that helps people understand their own usage data before deciding what to check next.
 
-This is intentionally scoped as practical civic tech: small, transparent, local-first, and easy to inspect.
+The privacy boundary is intentional:
 
-I am launching it with sample data, a sample report, methodology notes, and the Codex skill for anyone who wants to try it or adapt it.
+- No EBMUD password needed.
+- No credential automation.
+- CSV analysis runs in the browser.
+- No server upload for the primary app flow.
+- Public sharing uses redacted/public output.
+- Not affiliated with EBMUD.
+
+The first public mission: help East Bay households find 1 million gallons of potential water savings this year.
+
+This feels like a useful direction for AI: not replacing institutions, but helping people understand their own data and make better household decisions.
+
+Feedback welcome, especially from East Bay homeowners, gardeners, conservation folks, and civic-tech builders.
 
 https://danieloleary.github.io/mud-buddy/
 
 ## Demo Script
 
-I exported my EBMUD usage data as a CSV.
+Open Mud Buddy.
 
-Instead of uploading it to another service, I ran a local Codex skill.
+Choose `Try sample data` to see the flow, or download your EBMUD usage CSV and choose `Analyze my CSV`.
 
-It generated a visual report showing my baseline use, seasonal irrigation bump, unusual spikes, and plain-English notes about what changed.
+Mud Buddy reads the CSV in the browser and renders a plain-English report: baseline estimate, gallons-per-day trends, seasonal irrigation lift, unusual periods, and practical next checks.
 
 The goal is simple: make household water data understandable while keeping it private.
-
 

@@ -59,6 +59,14 @@ KNOWN_PUBLIC_ASSETS = {
     "irrigation-season-story.svg",
     "leak-check-next-steps.svg",
     "ai-agent-safe-handoff.svg",
+    "hero-civic-water.webp",
+    "github-social-card.png",
+    "report-preview-redacted.webp",
+    "sample-report-montage.webp",
+    "irrigation-season-story.webp",
+    "leak-check-next-steps.webp",
+    "favicon-32.png",
+    "apple-touch-icon.png",
 }
 DENY_NAMES = {"node_modules", "dist", "generated", "public-site", ".herenow", ".git", "test-results", "playwright-report", "__pycache__"}
 DENY_SUFFIXES = {".zip", ".har", ".trace", ".webm", ".png", ".jpg", ".jpeg", ".gif", ".webp"}
@@ -87,9 +95,9 @@ def allowed_file(path: Path) -> bool:
     rel = path.relative_to(ROOT)
     if any(part in DENY_NAMES for part in rel.parts):
         return False
-    if path.suffix.lower() in DENY_SUFFIXES:
-        return False
     if path.suffix.lower() in IMAGE_SUFFIXES and not is_known_public_asset(rel):
+        return False
+    if path.suffix.lower() in DENY_SUFFIXES and not is_known_public_asset(rel):
         return False
     if path.name.startswith(".") and path.name not in {"ci.yml", "pages.yml"}:
         return False

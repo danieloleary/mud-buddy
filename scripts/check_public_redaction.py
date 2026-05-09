@@ -13,7 +13,8 @@ TEXT_SUFFIXES = {
 SESSION_TERM_ALLOWED = {
     "README.md", "AGENTS.md", "SECURITY.md", "security-review.md", "browser-control-safety.md",
     "use-with-ai-tools.md", "privacy.md", "public-sharing-checklist.md", "installation.md",
-    "acceptance-criteria.md", "plan-and-status.md", "CLAUDE.md", "SKILL.md", "main.js", "SUPPORT.md",
+    "acceptance-criteria.md", "plan-and-status.md", "launch-plan.md", "release-checklist.md",
+    "roadmap.md", "backlog.md", "CLAUDE.md", "SKILL.md", "main.js", "SUPPORT.md",
     "social-card.svg", "browser_workflow.md", "check_public_redaction.py", "privacy_safety.yml",
     "ebmud_workflow_docs.yml", "bug_report.yml", "feature_request.yml", "pull_request_template.md"
 }
@@ -32,6 +33,14 @@ ALLOWED_SVG_ASSETS = {
     "assets/irrigation-season-story.svg",
     "assets/leak-check-next-steps.svg",
     "assets/ai-agent-safe-handoff.svg",
+    "assets/hero-civic-water.webp",
+    "assets/github-social-card.png",
+    "assets/report-preview-redacted.webp",
+    "assets/sample-report-montage.webp",
+    "assets/irrigation-season-story.webp",
+    "assets/leak-check-next-steps.webp",
+    "assets/favicon-32.png",
+    "assets/apple-touch-icon.png",
     "public/assets/hero-civic-water.svg",
     "public/assets/workflow-csv-report.svg",
     "public/assets/privacy-local-first.svg",
@@ -46,6 +55,14 @@ ALLOWED_SVG_ASSETS = {
     "public/assets/irrigation-season-story.svg",
     "public/assets/leak-check-next-steps.svg",
     "public/assets/ai-agent-safe-handoff.svg",
+    "public/assets/hero-civic-water.webp",
+    "public/assets/github-social-card.png",
+    "public/assets/report-preview-redacted.webp",
+    "public/assets/sample-report-montage.webp",
+    "public/assets/irrigation-season-story.webp",
+    "public/assets/leak-check-next-steps.webp",
+    "public/assets/favicon-32.png",
+    "public/assets/apple-touch-icon.png",
 }
 FORBIDDEN_LITERALS = []
 PATTERNS = [

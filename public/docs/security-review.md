@@ -1,10 +1,10 @@
 ﻿# Security Review
 
-Mud Buddy by Danno is a local-first utility data tool for EBMUD-style CSV exports. It is not affiliated with EBMUD and is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
+Mud Buddy for EBMUD - by Dan O'Leary is a browser-local utility data tool for EBMUD-style CSV exports. It is not affiliated with EBMUD and is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
 
 ## Threat Model
 
-Water usage data can reveal household routines, occupancy patterns, irrigation behavior, fixture problems, vacation timing, and service address details. The main risks are accidental public sharing, over-collection during browser assistance, and publishing raw artifacts inside demo bundles.
+Water usage data can reveal household routines, occupancy patterns, irrigation behavior, fixture problems, vacation timing, and service address details. The main risks are accidental public sharing, over-collection during browser assistance, browser-report leakage, and publishing raw artifacts inside demo bundles.
 
 ## Consent Boundaries
 
@@ -12,6 +12,14 @@ Water usage data can reveal household routines, occupancy patterns, irrigation b
 - Codex may assist only after the user confirms they are logged in.
 - Codex should navigate only to usage/export/download screens.
 - If the portal layout changes or a page is unclear, stop and ask the user to download the CSV manually.
+
+## Browser-local app boundary
+
+- The live app uses a file picker or drag/drop to read the user-selected CSV.
+- The CSV is parsed in browser memory and rendered directly into the page.
+- The app must not upload user CSV data to a backend.
+- The app must not store user CSV data in localStorage, sessionStorage, IndexedDB, cookies, query strings, or URL fragments.
+- The browser report should not display private filenames, account numbers, meter IDs, raw CSV rows, local paths, or service addresses.
 
 ## Data Minimization
 
@@ -49,4 +57,3 @@ Before publishing, confirm the artifact contains:
 - Change account settings, billing preferences, autopay, contact info, or service details.
 - Diagnose leaks as certified fact.
 - Publish private utility data without explicit user intent, `--public` output, and redaction checks.
-

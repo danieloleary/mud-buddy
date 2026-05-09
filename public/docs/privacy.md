@@ -1,14 +1,25 @@
 ﻿# Privacy
 
-Mud Buddy is designed as a local-first utility data workflow. Users may explicitly provide or upload an EBMUD CSV to Mud Buddy or a local AI coding agent for analysis, but credentials and browser session material remain out of scope.
+Mud Buddy is designed as a browser-local and local-first utility data workflow. Users may explicitly provide or upload an EBMUD CSV to Mud Buddy or a local AI coding agent for analysis, but credentials and browser session material remain out of scope.
 
 ## Defaults
 
-- Your EBMUD export is processed on your machine unless you explicitly choose another workflow.
-- No account is required for the local workflow.
+- The public web app reads your selected CSV in your browser with the file picker.
+- The browser-local analyzer does not upload your CSV to a Mud Buddy server.
+- The browser-local analyzer does not store your CSV in localStorage, sessionStorage, IndexedDB, cookies, URLs, or a Mud Buddy account.
 - No EBMUD username, password, MFA code, cookie, session token, auth header, localStorage value, or sessionStorage value should ever be pasted into Mud Buddy, Codex, Claude Code, Lovable, or another chat tool.
 - Public demo reports use synthetic sample data.
 - Publishing is opt-in and should use `--public` output plus redaction scanning.
+
+## Browser-local analyzer
+
+The live site supports `Analyze my CSV` and `Try sample data`.
+
+- `Analyze my CSV` reads the selected file in memory and renders an in-page report.
+- The report uses a generic source label and does not display the private filename.
+- Identifier columns such as account number, meter, service address, name, email, and phone are ignored for browser display.
+- Raw CSV rows are not rendered into the page.
+- The primary web app remains static on GitHub Pages.
 
 ## Public Sharing Checklist
 
@@ -30,4 +41,3 @@ If Codex helps download data from EBMUD, the user logs in manually. Codex should
 ## Limitations
 
 Water usage can reveal household routines, occupancy patterns, irrigation behavior, and possible leaks. Treat reports as sensitive unless generated with `--public` and checked with the redaction scan.
-

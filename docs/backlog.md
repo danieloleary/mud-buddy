@@ -12,21 +12,29 @@
 - Public ZIP packaging, package policy tests, and redaction scan hardening.
 - GitHub issue templates, PR template, Dependabot, support docs, code of conduct, and citation metadata.
 
-## Must Finish Before Tagging v1.0.0
+## Implemented, Pending Validation And Live Deploy
+
+- Browser-local upload UI accepts an EBMUD CSV and renders an in-page report without a server.
+- Browser parser and analysis modules that mirror conservative Python summary behavior.
+- Tests for parser correctness, browser upload rendering, privacy leakage, no network after upload, and JS/Python parity.
+- README, roadmap, launch plan, and social copy updated so the website is the product, not just a demo.
+
+## Must Finish Before Broad Launch
 
 - `npm run validate` passes locally and in CI.
 - `npm run test:local-real-csv` passes locally and Dan's CSV remains private.
 - GitHub Pages deploy succeeds for the release commit.
-- Live site, sample report, docs, approved SVG assets, social card, and ZIP return `200`.
-- Public scans find no real CSV, address, account number, meter ID, local path, browser trace, private report, or authenticated screenshot.
+- Live browser upload works with sample data and Dan's private local CSV.
+- Live site, sample report, docs, approved visual assets, social card, sample CSV, and ZIP return `200`.
+- Public scans find no real CSV, address, account number, meter ID, local path, browser trace, private report, authenticated screenshot, or private filename.
 
-## Next Up After 1.0.0
+## Next Up After Launch
 
-- Add a fully browser-local upload UI that accepts an EBMUD CSV and renders a report without a server.
 - Add Chrome Downloads helper that lists recent CSV candidates and asks before processing.
-- Add first-run wizard for Claude Code, Codex, and Lovable users.
+- Add first-run wizard for Claude Code, Codex, Lovable, and non-technical homeowners.
 - Add a public/private report badge that is visible above the fold.
 - Add manual real-portal checklist screenshots made from mock pages only.
+- Add printable/PDF export from the browser-local report.
 
 ## Analysis Improvements
 
@@ -39,7 +47,7 @@
 
 ## Distribution
 
-- Publish v1.0.0 through GitHub Pages and a GitHub release once CI and Pages are green.
+- Publish through GitHub Pages and a GitHub release once CI and Pages are green.
 - Add Show HN, X, LinkedIn, and local East Bay launch checklist.
 - Consider Product Hunt after the README, screenshots, issue templates, and first external feedback are clean.
 
@@ -49,3 +57,4 @@
 - EBMUD credential automation.
 - Certified leak, plumbing, billing, conservation, or official utility diagnosis.
 - Storage of user CSVs on a server.
+

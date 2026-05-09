@@ -23,3 +23,6 @@ __pycache__/
 *.gif
 *.csv
 !examples/sample-ebmud-usage.csv
+!public/assets/github-social-card.png
+!public/assets/favicon-32.png
+!public/assets/apple-touch-icon.png

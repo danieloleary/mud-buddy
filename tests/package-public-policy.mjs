@@ -29,6 +29,8 @@ for (const expected of [
   '.github/dependabot.yml',
   'public/assets/social-card.svg',
   'public/assets/github-social-card.svg',
+  'public/assets/github-social-card.png',
+  'public/assets/hero-civic-water.webp',
   'public/assets/report-preview-redacted.svg'
 ]) {
   if (!has(expected)) throw new Error(`public ZIP missing expected file: ${expected}`);
@@ -37,7 +39,9 @@ for (const name of names) {
   if (/^(node_modules|dist|generated|public-site|\.git|\.herenow|tests\/output|test-results|playwright-report)\//.test(name)) throw new Error(`public ZIP includes forbidden path: ${name}`);
   if (/Billing Usage/i.test(name)) throw new Error(`public ZIP includes billing export filename: ${name}`);
   if (/\.csv$/i.test(name) && name !== 'examples/sample-ebmud-usage.csv') throw new Error(`public ZIP includes non-sample CSV: ${name}`);
-  if (/\.(har|trace|webm|png|jpe?g|gif|webp)$/i.test(name)) throw new Error(`public ZIP includes forbidden artifact/image: ${name}`);
+  const allowedRaster = new Set(['hero-civic-water.webp', 'github-social-card.png', 'report-preview-redacted.webp', 'sample-report-montage.webp', 'irrigation-season-story.webp', 'leak-check-next-steps.webp', 'favicon-32.png', 'apple-touch-icon.png']);
+  if (/\.(har|trace|webm)$/i.test(name)) throw new Error(`public ZIP includes forbidden artifact/image: ${name}`);
+  if (/\.(png|jpe?g|gif|webp)$/i.test(name) && !(name.startsWith('public/assets/') && allowedRaster.has(path.basename(name)))) throw new Error(`public ZIP includes forbidden raster image: ${name}`);
   if (/\.svg$/i.test(name) && name.startsWith('public/assets/')) {
     const allowed = new Set(['hero-civic-water.svg', 'workflow-csv-report.svg', 'privacy-local-first.svg', 'ebmud-resource-directory.svg', 'readme-banner.svg', 'social-card.svg', 'github-social-card.svg', 'report-preview-redacted.svg', 'csv-export-boundary.svg', 'public-sharing-checklist-card.svg', 'sample-report-montage.svg', 'irrigation-season-story.svg', 'leak-check-next-steps.svg', 'ai-agent-safe-handoff.svg']);
     if (!allowed.has(path.basename(name))) throw new Error(`public ZIP includes unknown SVG asset: ${name}`);
