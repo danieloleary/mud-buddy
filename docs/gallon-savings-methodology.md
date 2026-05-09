@@ -40,3 +40,5 @@ Mud Buddy may count potential savings when a user reports or documents an action
 - Mud Buddy is not affiliated with EBMUD.
 
 The safest wording is `helped-save`, `potential savings`, or `patterns worth checking`.
+
+Baseline, outdoor-watering, and average-household benchmark labels are heuristic pattern clues. They should not be counted as verified savings, official classifications, normalized customer comparisons, or certified conservation results.

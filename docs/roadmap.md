@@ -1,8 +1,8 @@
-﻿# Roadmap
+# Roadmap
 
 ## 1.0 Public Launch
 
-- Launch **Mud Buddy for EBMUD - by Dan O'Leary** as a browser-local homeowner app.
+- Launch **Mud Buddy for EBMUD Customers - by Dan O'Leary** as a browser-local homeowner app.
 - Keep the primary promise simple: upload an EBMUD CSV in the browser, get a private water-use report, and know what to check next.
 - Keep the 1M-gallon mission framed as helped-save or potential savings, not verified EBMUD conservation totals.
 - Validate with `npm run validate`, explicit Dan-local CSV QA, GitHub Actions, Pages deploy, and live smoke checks.

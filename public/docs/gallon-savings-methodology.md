@@ -26,10 +26,10 @@ Mud Buddy may count potential savings when a user reports or documents an action
 
 - Finding and fixing an irrigation schedule issue.
 - Running a toilet dye test and fixing a running toilet.
-- Performing a meter test after seeing baseline creep.
+- Performing a meter test after seeing normal use slowly rise.
 - Finding an irrigation leak or stuck zone.
-- Adjusting landscape watering after seeing seasonal lift.
-- Understanding that a household baseline changed and setting a new conservation target.
+- Adjusting landscape watering after seeing likely outdoor watering increase.
+- Understanding that normal household use changed and setting a new conservation target.
 
 ## What Mud Buddy must not claim
 
@@ -40,3 +40,5 @@ Mud Buddy may count potential savings when a user reports or documents an action
 - Mud Buddy is not affiliated with EBMUD.
 
 The safest wording is `helped-save`, `potential savings`, or `patterns worth checking`.
+
+Baseline, outdoor-watering, and average-household benchmark labels are heuristic pattern clues. They should not be counted as verified savings, official classifications, normalized customer comparisons, or certified conservation results.

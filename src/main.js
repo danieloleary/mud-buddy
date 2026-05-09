@@ -1,4 +1,4 @@
-﻿import '@material/web/button/filled-button.js';
+import '@material/web/button/filled-button.js';
 import '@material/web/button/filled-tonal-button.js';
 import '@material/web/button/outlined-button.js';
 import '@material/web/button/text-button.js';
@@ -65,7 +65,7 @@ const ebmudResources = [
 const resourceCards = ebmudResources.map((item) => `
   <a class="resource-card material-card" href="${item.href}" target="_blank" rel="noreferrer">
     <md-ripple></md-ripple>
-    <md-icon>${item.icon}</md-icon>
+    <span class="icon-glyph" aria-hidden="true" data-icon="${item.icon}"></span>
     <span>${item.title}</span>
     <p>${item.text}</p>
   </a>
@@ -88,7 +88,7 @@ class MudBuddyApp extends HTMLElement {
               <path d="M18.3 31.2c1.2 3.4 3.7 5.2 7.4 5.2" />
             </svg>
           </span>
-          <span><strong>Mud Buddy</strong><small>for EBMUD - by Dan O'Leary</small></span>
+          <span><strong>Mud Buddy</strong><small>for EBMUD Customers - by Dan O'Leary</small></span>
         </a>
         <nav aria-label="Main navigation">
           <a href="#app">Analyze CSV</a>
@@ -111,14 +111,14 @@ class MudBuddyApp extends HTMLElement {
               <md-text-button href="#how">How to download your EBMUD CSV</md-text-button>
             </div>
             <div class="trust-row" aria-label="Trust promises">
-              <span><md-icon>computer</md-icon>Runs in your browser</span>
-              <span><md-icon>cloud_off</md-icon>No server upload</span>
-              <span><md-icon>key_off</md-icon>No EBMUD password needed</span>
+              <span><span class="icon-glyph" aria-hidden="true" data-icon="computer"></span>Runs in your browser</span>
+              <span><span class="icon-glyph" aria-hidden="true" data-icon="cloud_off"></span>No server upload</span>
+              <span><span class="icon-glyph" aria-hidden="true" data-icon="key_off"></span>No EBMUD password needed</span>
             </div>
             <div class="question-cards" aria-label="Homeowner questions Mud Buddy helps answer">
-              <article><md-icon>receipt_long</md-icon><strong>High bill?</strong><span>See whether the jump is one period, outdoor watering, or a new normal.</span></article>
-              <article><md-icon>yard</md-icon><strong>Yard or irrigation?</strong><span>Estimate how much of the lift looks seasonal.</span></article>
-              <article><md-icon>plumbing</md-icon><strong>Worth a quick check?</strong><span>Find patterns that point to a meter, fixture, or toilet dye test.</span></article>
+              <article><span class="icon-glyph" aria-hidden="true" data-icon="receipt_long"></span><strong>High bill?</strong><span>See whether the jump is one period, outdoor watering, or a new normal.</span></article>
+              <article><span class="icon-glyph" aria-hidden="true" data-icon="yard"></span><strong>Yard or irrigation?</strong><span>Estimate how much of the lift looks seasonal.</span></article>
+              <article><span class="icon-glyph" aria-hidden="true" data-icon="plumbing"></span><strong>Worth a quick check?</strong><span>Find patterns that point to a meter, fixture, or toilet dye test.</span></article>
             </div>
             <figure class="homeowner-scene">
               <img src="assets/hero-civic-water.webp" alt="Synthetic browser-local water report on a patio with a garden hose" />
@@ -130,12 +130,12 @@ class MudBuddyApp extends HTMLElement {
             <div class="material-card upload-card">
               <div class="card-toolbar">
                 <span>Browser-local CSV analyzer</span>
-                <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><md-icon>shield</md-icon></md-icon-button>
+                <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><span class="icon-glyph" aria-hidden="true" data-icon="shield"></span></md-icon-button>
               </div>
               <md-divider></md-divider>
               <input id="csvInput" class="sr-only-file" type="file" accept=".csv,text/csv" />
               <button class="dropzone" id="dropzone" type="button">
-                <md-icon>upload_file</md-icon>
+                <span class="icon-glyph" aria-hidden="true" data-icon="upload_file"></span>
                 <strong>Drop your EBMUD CSV here</strong>
                 <span>or click to choose the billing usage export</span>
               </button>
@@ -144,7 +144,7 @@ class MudBuddyApp extends HTMLElement {
                 <md-filled-tonal-button id="trySample">Try sample data</md-filled-tonal-button>
               </div>
               <div class="local-proof">
-                <md-icon>verified_user</md-icon>
+                <span class="icon-glyph" aria-hidden="true" data-icon="verified_user"></span>
                 <p>Runs in this browser. Your CSV is not uploaded. Not affiliated with EBMUD.</p>
               </div>
               <md-linear-progress id="uploadProgress" value="0"></md-linear-progress>
@@ -171,9 +171,9 @@ class MudBuddyApp extends HTMLElement {
               <img class="workflow-art visual-asset" src="assets/hero-civic-water.webp" alt="Synthetic browser-local CSV analysis workspace" loading="lazy" />
               <img class="workflow-art visual-asset" src="assets/privacy-local-first.webp" alt="Synthetic privacy boundary showing a CSV staying local" loading="lazy" />
               <div class="steps">
-                <article><md-icon>login</md-icon><span>You log in</span><p>Mud Buddy never asks for your EBMUD username, password, MFA, cookies, or browser session material.</p></article>
-                <article><md-icon>download</md-icon><span>You download</span><p>Use EBMUD's official CSV export from the usage/report area.</p></article>
-                <article><md-icon>analytics</md-icon><span>You analyze</span><p>Upload the CSV here for local browser analysis and plain-English next checks.</p></article>
+                <article><span class="icon-glyph" aria-hidden="true" data-icon="login"></span><span>You log in</span><p>Mud Buddy never asks for your EBMUD username, password, MFA, cookies, or browser session material.</p></article>
+                <article><span class="icon-glyph" aria-hidden="true" data-icon="download"></span><span>You download</span><p>Use EBMUD's official CSV export from the usage/report area.</p></article>
+                <article><span class="icon-glyph" aria-hidden="true" data-icon="analytics"></span><span>You analyze</span><p>Upload the CSV here for local browser analysis and plain-English next checks.</p></article>
               </div>
             </div>
           </div>
@@ -277,7 +277,7 @@ class MudBuddyApp extends HTMLElement {
 
       <footer>
         <div class="shell footer-grid">
-          <p><strong>Mud Buddy for EBMUD - by Dan O'Leary</strong><br />A private browser-local water-use helper for EBMUD exports.</p>
+          <p><strong>Mud Buddy for EBMUD Customers - by Dan O'Leary</strong><br />A private browser-local water-use helper for EBMUD exports.</p>
           <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.</p>
           <p><a href="docs/methodology.md">Methodology</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
         </div>

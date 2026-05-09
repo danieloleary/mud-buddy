@@ -23,6 +23,7 @@ try {
   const body = await page.locator('body').innerText();
 
   for (const required of [
+    "Mud Buddy for EBMUD Customers - by Dan O'Leary",
     'Upload your EBMUD CSV. See what changed.',
     'Analyze my CSV',
     'Try sample data',
@@ -44,6 +45,9 @@ try {
   ]) {
     if (body.toLowerCase().includes(junk.toLowerCase())) throw new Error(`Homepage still exposes maintainer/demo copy: ${junk}`);
   }
+  for (const iconToken of ['computer', 'cloud_off', 'key_off', 'receipt_long', 'upload_file', 'verified_user']) {
+    if (body.includes(iconToken)) throw new Error(`Homepage body text leaked decorative icon token: ${iconToken}`);
+  }
 
   await page.getByText('Try sample data').first().click();
   await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
@@ -53,12 +57,17 @@ try {
     'What should I check first?',
     'Normal daily use estimate',
     'Likely outdoor watering',
-    'Compared with similar homes',
+    'Compared with the average-household benchmark in your export',
+    'When to use EBMUD directly',
+    'Billing questions',
     'Print or save PDF'
   ]) {
     if (!reportTextLower.includes(required.toLowerCase())) throw new Error(`Browser report still needs homeowner wording: ${required}`);
   }
-  for (const oldLabel of ['Baseline estimate', 'Seasonal lift clue', 'Peer context:', 'Read-period notes', 'Print / save']) {
+  for (const iconToken of ['query_stats', 'task_alt']) {
+    if (reportText.includes(iconToken)) throw new Error(`Browser report body text leaked decorative icon token: ${iconToken}`);
+  }
+  for (const oldLabel of ['Baseline estimate', 'Seasonal lift clue', 'Peer context:', 'Read-period notes', 'Print / save', 'Compared with similar homes', 'similar-home context', "for EBMUD - by Dan O'Leary"]) {
     if (reportText.includes(oldLabel)) throw new Error(`Browser report still contains old jargon: ${oldLabel}`);
   }
 

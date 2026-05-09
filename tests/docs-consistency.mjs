@@ -10,6 +10,8 @@ const files = [
   'CLAUDE.md',
   'SUPPORT.md',
   'docs/privacy.md',
+  'docs/methodology.md',
+  'docs/gallon-savings-methodology.md',
   'docs/browser-control-safety.md',
   'docs/security-review.md',
   'docs/use-with-ai-tools.md',
@@ -56,6 +58,7 @@ const required = [
   'npm run test:synthetic',
   'Not affiliated with EBMUD',
   'Official EBMUD resources',
+  "Mud Buddy for EBMUD Customers - by Dan O'Leary",
   'browser-local',
   'Analyze my CSV',
   'MUD_BUDDY_REAL_CSV',
@@ -63,6 +66,9 @@ const required = [
   'https://x.com/danieloleary',
   'https://www.linkedin.com/in/danieloleary/',
   "Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.",
+  'heuristic pattern clues',
+  'not an official indoor-use classification',
+  'not a normalized customer comparison',
   'urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related',
   'Never ask for, store, paste, scrape, log, export, or transmit',
   'https://www.ebmud.com/customers',
@@ -89,6 +95,9 @@ const forbidden = [
   'Generate a redacted public report only',
   'Implemented, Pending Validation',
   "The generator may read Dan's local CSV",
+  "Mud Buddy for EBMUD - by Dan O'Leary",
+  'Compared with similar homes',
+  'similar-home context',
   visibleBom
 ];
 for (const phrase of forbidden) {

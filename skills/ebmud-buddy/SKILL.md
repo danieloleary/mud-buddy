@@ -1,11 +1,11 @@
-﻿---
+---
 name: ebmud-buddy
 description: Analyze EBMUD water usage CSV exports and create clear driver-focused summaries or visual reports. Use when Codex is asked to inspect East Bay Municipal Utility District / EBMUD billing usage data, water consumption CSVs with CCF or gallons-per-day columns, WaterScore trends, irrigation seasonality, household baseline changes, leak/fixture clues, or to generate a scrollable water-usage report for a home.
 ---
 
 # EBMUD Buddy
 
-Analyze EBMUD usage exports by separating normalized usage trends from likely drivers: household baseline, irrigation/seasonal lift, peer benchmarks, anomalies, and practical next actions. Keep the workflow local-first and privacy-preserving.
+Analyze EBMUD usage exports by separating normalized usage trends from likely drivers: household baseline, irrigation/seasonal lift, average-household benchmarks, anomalies, and practical next actions. Keep the workflow local-first and privacy-preserving.
 
 ## Quick Start
 
@@ -34,7 +34,7 @@ Open `index.html` from the output folder. If the user asks to publish it, genera
 1. Parse the CSV and validate expected columns: `Reading Date`, `Days in Read Period`, `CCF`, `Customer GPD`, `Average Households GPD`, `Top 20% GPD`, and `WaterScore`.
 2. Use `Customer GPD` as the primary trend metric because it normalizes billing-period length.
 3. Estimate a current indoor/household baseline from recent winter/spring periods, then treat usage above that baseline as outdoor/seasonal lift.
-4. Compare against the home itself first; use EBMUD peer benchmarks second because neighborhood averages also rise during irrigation season.
+4. Compare against the home itself first; use EBMUD average-household benchmarks second because neighborhood averages also rise during irrigation season.
 5. Incorporate user context explicitly. Family size, work-from-home, toilet flushing, laundry, irrigation schedule changes, and yard projects can explain usage shifts.
 6. Flag anomalies without overclaiming. March/early-spring high use, high WaterScore periods, and winter usage above baseline deserve follow-up, but context may explain them.
 7. Recommend low-cost diagnostic checks before expensive fixes: toilet dye tests, meter test with irrigation off, controller schedule audit, irrigation inspection, then redesign.

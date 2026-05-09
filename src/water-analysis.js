@@ -89,8 +89,8 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   if (peerRatio && peerRatio > 1.15) {
     insights.push({
       icon: 'groups',
-      title: 'Your usage often runs above peer averages.',
-      text: 'Peer comparisons are not destiny, but they are useful context. Household size, daytime occupancy, irrigation, and leaks can all make peers imperfect.'
+      title: 'Your usage often runs above the export benchmark.',
+      text: 'The average-household benchmark in the CSV is useful context, not an official classification. Household size, daytime occupancy, irrigation, and leaks can all make the comparison imperfect.'
     });
   }
 
@@ -107,7 +107,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       gpd: Math.round(peak.gpd),
       ccf: round(peak.ccf, 1)
     },
-    peerComparison: peerRatio === null ? 'Not enough peer benchmark data' : `${Math.round(peerRatio * 100)}% of average-household benchmark`,
+    peerComparison: peerRatio === null ? 'not enough benchmark data in this export' : `${Math.round(peerRatio * 100)}% of the average-household benchmark in this export`,
     baselineChange: Math.round(baselineChange),
     seasonAverages: {
       Winter: Math.round(seasonAverage(rows, 'Winter')),

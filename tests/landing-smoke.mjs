@@ -40,13 +40,16 @@ try {
   page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
   await page.goto(url);
   if (!/Mud Buddy/.test(await page.title())) throw new Error('Missing Mud Buddy page title');
+  const brandText = await page.locator('.brand').innerText();
+  if (!brandText.includes("for EBMUD Customers - by Dan O'Leary")) throw new Error(`Topbar brand did not use customer-safe wording: ${brandText}`);
+  if (brandText.includes("for EBMUD - by Dan O'Leary")) throw new Error(`Topbar brand still implies affiliation: ${brandText}`);
   await assertNoHorizontalOverflow(page, 'desktop landing');
   await assertBoxInsideViewport(page, 'h1', 'desktop hero headline');
   await assertBoxInsideViewport(page, '.upload-card', 'desktop upload card');
   if ((await page.locator('.brand-mark svg').count()) !== 1) throw new Error('Brand mark SVG did not render');
   const brandMarkText = (await page.locator('.brand-mark').textContent())?.trim() || '';
   if (brandMarkText) throw new Error(`Brand mark leaked fallback text: ${brandMarkText}`);
-  const materialIconFont = await page.locator('.dropzone md-icon').evaluate((el) => getComputedStyle(el).fontFamily);
+  const materialIconFont = await page.locator('.dropzone .icon-glyph').evaluate((el) => getComputedStyle(el, '::before').fontFamily);
   if (!/Material Symbols Rounded/.test(materialIconFont)) throw new Error(`Material icon font was not applied: ${materialIconFont}`);
 
   await page.setViewportSize({ width: 390, height: 844 });
@@ -62,6 +65,7 @@ try {
   const text = await page.locator('body').innerText();
   for (const required of [
     'Upload your EBMUD CSV. See what changed.',
+    "Mud Buddy for EBMUD Customers - by Dan O'Leary",
     'Browser-local CSV analyzer',
     'Drop your EBMUD CSV here',
     'Analyze my CSV',
@@ -77,6 +81,9 @@ try {
     'Not affiliated with EBMUD'
   ]) {
     if (!text.includes(required)) throw new Error(`Missing required text: ${required}`);
+  }
+  for (const iconToken of ['computer', 'cloud_off', 'key_off', 'receipt_long', 'upload_file', 'verified_user']) {
+    if (text.includes(iconToken)) throw new Error(`Landing body text leaked decorative icon token: ${iconToken}`);
   }
   const assets = [
     'assets/hero-civic-water.webp',
@@ -107,6 +114,10 @@ try {
   await page.getByText('Your private browser report is ready.').waitFor({ timeout: 6000 });
   if (!(await page.locator('.browser-report').isVisible())) throw new Error('Sample browser report did not render');
   if ((await page.locator('[data-testid="primary-kpis"]').count()) !== 1) throw new Error('Sample browser report missing primary KPI section');
+  const reportText = await page.locator('[data-testid="browser-report"]').innerText();
+  if (!reportText.includes('When to use EBMUD directly')) throw new Error('Sample browser report missing official EBMUD next-step routing');
+  if (!reportText.includes('average-household benchmark in your export')) throw new Error('Sample browser report missing softened benchmark wording');
+  if (reportText.includes('Compared with similar homes')) throw new Error('Sample browser report still uses similar-homes wording');
   await page.getByText('Sharing checklist').click();
   if (!page.url().includes('docs/public-sharing-checklist.md')) throw new Error('Sharing checklist link did not navigate to docs');
   await page.goto(url);

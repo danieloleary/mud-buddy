@@ -1,8 +1,8 @@
-﻿# Mud Buddy Browser-Local Launch Plan
+# Mud Buddy Browser-Local Launch Plan
 
 ## Launch thesis
 
-Mud Buddy for EBMUD - by Dan O'Leary is a small, useful example of AI-assisted civic tech: a browser-local tool that helps EBMUD customers understand their own water-use CSV, spot patterns worth checking, and maybe save water and money.
+Mud Buddy for EBMUD Customers - by Dan O'Leary is a small, useful example of AI-assisted civic tech: a browser-local tool that helps EBMUD customers understand their own water-use CSV, spot patterns worth checking, and maybe save water and money.
 
 Core message:
 
@@ -95,7 +95,7 @@ Community rules:
 
 ### X single post
 
-I built Mud Buddy for EBMUD - a free browser-local tool for East Bay water customers.
+I built Mud Buddy for EBMUD Customers - a free browser-local tool for East Bay water customers.
 
 Upload your EBMUD usage CSV, analyze it in your browser, and get a plain-English report about high bills, outdoor watering, normal use changes, and simple next checks.
 
@@ -111,7 +111,7 @@ https://danieloleary.github.io/mud-buddy/
 
 2. The app is simple: download your EBMUD usage CSV, upload it to Mud Buddy, and get a browser-local explanation of what changed.
 
-3. It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, similar-home context, and possible fixture/toilet clues.
+3. It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, average-household benchmark context, and possible fixture/toilet clues.
 
 4. It is not affiliated with EBMUD, not a leak detector, not billing advice, and not a plumbing inspection. Official account/billing/emergency/rebate actions happen on EBMUD's site.
 
@@ -123,7 +123,7 @@ https://danieloleary.github.io/mud-buddy/
 
 ### LinkedIn post
 
-I shipped Mud Buddy for EBMUD - by Dan O'Leary, a free browser-local tool for EBMUD customers.
+I shipped Mud Buddy for EBMUD Customers - by Dan O'Leary, a free browser-local tool for EBMUD customers.
 
 It turns an exported EBMUD water-use CSV into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, possible fixture checks, and practical next steps.
 

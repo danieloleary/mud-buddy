@@ -1,4 +1,4 @@
-﻿# Mud Buddy for EBMUD - by Dan O'Leary
+# Mud Buddy for EBMUD Customers - by Dan O'Leary
 
 ![Mud Buddy banner](public/assets/readme-banner.svg)
 
@@ -13,6 +13,8 @@ It is free, browser-local, and independent. Mud Buddy never needs your EBMUD pas
 This project is not affiliated with EBMUD. It is not a formal water audit, plumbing inspection, leak detector, billing tool, certified conservation measurement, or official EBMUD analysis.
 
 Mud Buddy helps interpret your exported CSV; official account, billing, emergency, rebate, and conservation actions happen on EBMUD's site.
+
+Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pattern clues. They are not official classifications, normalized customer comparisons, leak diagnoses, billing findings, or conservation certifications.
 
 ## Use Mud Buddy in 3 steps
 

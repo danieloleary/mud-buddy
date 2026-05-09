@@ -1,4 +1,4 @@
-﻿# Roadmap
+# Roadmap
 
 ## Immediate Launch Blocker
 
@@ -9,7 +9,7 @@
 
 ## 1.0 Public Launch
 
-- Launch as **Mud Buddy for EBMUD - by Dan O'Leary** with the `help save 1 million gallons this year` mission.
+- Launch as **Mud Buddy for EBMUD Customers - by Dan O'Leary** with the `help save 1 million gallons this year` mission.
 - Keep claims framed as potential savings or helped-save, not verified EBMUD conservation totals.
 - Preserve manual-login-only EBMUD browser assistance for AI-agent workflows.
 - Validate with synthetic datasets, mock browser flow, browser upload tests, redaction/package scans, and Dan's private local CSV gate.

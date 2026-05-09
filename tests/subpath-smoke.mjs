@@ -36,7 +36,7 @@ try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   await page.goto(url);
   const body = await page.locator('body').innerText();
-  if (!body.includes("Mud Buddy for EBMUD - by Dan O'Leary")) throw new Error('Subpath landing failed to render');
+  if (!body.includes("Mud Buddy for EBMUD Customers - by Dan O'Leary")) throw new Error('Subpath landing failed to render');
   if (!body.includes('Drop your EBMUD CSV here')) throw new Error('Subpath landing missing browser upload UI');
   if (!body.includes('Official EBMUD resources')) throw new Error('Subpath landing missing official resources section');
   const links = await page.$$eval('a[href], img[src], script[src], link[href]', (nodes) => nodes.map((node) => node.getAttribute('href') || node.getAttribute('src')).filter(Boolean));

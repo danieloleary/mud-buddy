@@ -71,6 +71,32 @@ function chip(label, icon = '') {
   return chipNode;
 }
 
+function iconGlyph(name) {
+  return el('span', { class: 'icon-glyph', 'aria-hidden': 'true', dataset: { icon: name } });
+}
+
+const officialLinks = [
+  ['Billing questions', 'https://www.ebmud.com/customers/billing-questions'],
+  ['Leaks and high bills', 'https://www.ebmud.com/customers/billing-questions/leaks-and-high-bills'],
+  ['Alerts and outages', 'https://www.ebmud.com/customers/alerts'],
+  ['Water quality', 'https://www.ebmud.com/water/about-your-water/water-quality'],
+  ['Conservation and rebates', 'https://www.ebmud.com/water/conservation-and-rebates'],
+  ['Customer assistance', 'https://www.ebmud.com/customers/customer-assistance-program'],
+  ['Contact / emergency', 'https://www.ebmud.com/contact-us']
+];
+
+function renderOfficialNextSteps() {
+  const links = el('div', { class: 'browser-official-links' });
+  for (const [label, href] of officialLinks) {
+    links.append(el('a', { href, target: '_blank', rel: 'noreferrer', text: label }));
+  }
+  return el('article', { class: 'browser-official-card' }, [
+    el('h3', { text: 'When to use EBMUD directly' }),
+    el('p', { text: 'Use official EBMUD resources for billing disputes, urgent service issues, outages or pressure concerns, water quality, rebates, assistance programs, or account actions. Mud Buddy only explains patterns in your exported CSV.' }),
+    links
+  ]);
+}
+
 export function renderBrowserReport(container, analysis, options = {}) {
   container.replaceChildren();
   const sourceLabel = options.sample ? 'Synthetic sample CSV analyzed locally' : 'Uploaded CSV analyzed locally';
@@ -95,7 +121,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
   root.append(el('md-divider'));
 
   root.append(el('article', { class: 'browser-summary-card', 'data-testid': 'browser-summary' }, [
-    el('md-icon', { text: topInsight.icon }),
+    iconGlyph(topInsight.icon),
     el('div', {}, [
       el('span', { text: 'What should I check first?' }),
       el('h3', { text: topInsight.title }),
@@ -129,7 +155,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
   chartGrid.append(el('div', { class: 'browser-chart-card' }, [
     el('h3', { text: 'Average use by season' }),
     renderSeasonBars(analysis),
-    el('p', { text: `Compared with similar homes: ${analysis.peerComparison}.` })
+    el('p', { text: `Compared with the average-household benchmark in your export: ${analysis.peerComparison}.` })
   ]));
   root.append(chartGrid);
 
@@ -137,7 +163,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
   const insights = el('div', { class: 'browser-insights' });
   for (const insight of analysis.insights) {
     insights.append(el('article', {}, [
-      el('md-icon', { text: insight.icon }),
+      iconGlyph(insight.icon),
       el('div', {}, [
         el('h3', { text: insight.title }),
         el('p', { text: insight.text })
@@ -154,6 +180,9 @@ export function renderBrowserReport(container, analysis, options = {}) {
       warningList
     ]));
   }
+
+  root.append(el('md-divider'));
+  root.append(renderOfficialNextSteps());
 
   root.append(el('p', {
     class: 'browser-disclaimer',
