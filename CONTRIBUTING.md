@@ -24,8 +24,8 @@ npm run test:redaction
 
 ## Data Safety
 
-Use only synthetic or fully redacted examples. Do not commit real EBMUD exports, addresses, account numbers, meter IDs, authenticated screenshots, browser traces, `.env` files, `.herenow` state, or generated private reports.
+Use only synthetic or fully redacted examples. Don't commit real EBMUD exports, addresses, account numbers, meter IDs, authenticated screenshots, browser traces, `.env` files, `.herenow` state, or generated private reports.
 
 ## Claim Style
 
-Mud Buddy can flag possible leak clues and patterns worth checking. Do not describe it as an official EBMUD tool, certified water audit, billing authority, or diagnostic leak detector.
+Mud Buddy can flag possible leak clues and patterns worth checking. Don't describe it as an official EBMUD tool, certified water audit, billing authority, or diagnostic leak detector.

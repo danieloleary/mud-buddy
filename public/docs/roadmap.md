@@ -29,7 +29,7 @@
 
 - Consider merging overlapping privacy tests after launch.
 - Maintain the post-deploy live-site smoke script.
-- Keep CI and Pages pinned to `npm run validate` so release gates do not drift.
+- Keep CI and Pages pinned to `npm run validate` so release gates don't drift.
 - Keep generated screenshots synthetic-only unless a real-data public report has passed redaction scan and manual review.
 - Keep partner/reviewer docs consolidated unless a real review process starts.
 

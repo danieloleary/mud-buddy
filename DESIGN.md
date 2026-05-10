@@ -55,7 +55,7 @@ Build the actual usable app first. The first screen must make it obvious that a 
 
 Use Claude-like warmth in light mode, X/xAI restraint in density and contrast, and Linear-like precision in alignment. Prefer parchment and ivory surfaces, porcelain active controls, dark ink text, quiet borders, and utility blue as the primary action color.
 
-The palette should feel like a friendly sibling to EBMUD's civic-water identity: utility blue, reservoir blue, aqua, mint, and warm amber. Do not use EBMUD logos, authenticated screenshots, or anything that implies official endorsement.
+The palette should feel like a friendly sibling to EBMUD's civic-water identity: utility blue, reservoir blue, aqua, mint, and warm amber. Don't use EBMUD logos, authenticated screenshots, or anything that implies official endorsement.
 
 ## Components
 
@@ -75,8 +75,8 @@ Write like a capable neighbor, not a breathless startup. Prefer: "Upload your EB
 
 ## Must Not Do
 
-Do not make a landing page when the product is an app.
-Do not use purple-blue gradients, glow blobs, nested card stacks, or decorative dashboards.
-Do not use real private data in public screenshots or images.
-Do not imply EBMUD affiliation or certified leak/billing diagnosis.
-Do not add new colors, fonts, radii, or decorative motifs unless this file is updated first.
+Don't make a landing page when the product is an app.
+Don't use purple-blue gradients, glow blobs, nested card stacks, or decorative dashboards.
+Don't use real private data in public screenshots or images.
+Don't imply EBMUD affiliation or certified leak/billing diagnosis.
+Don't add new colors, fonts, radii, or decorative motifs unless this file is updated first.

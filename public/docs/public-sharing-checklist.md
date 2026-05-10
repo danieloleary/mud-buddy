@@ -13,7 +13,7 @@ Water usage data can reveal household routines. Before publishing or sharing any
 - No private household screenshots in social previews.
 - Social card uses synthetic/sample data only.
 - No deployment-state files, claim URLs, API keys, or tokens.
-- Visible disclaimer says the project is not affiliated with EBMUD.
+- Visible disclaimer says the project isn't affiliated with EBMUD.
 
 Recommended command before sharing the packaged public site:
 

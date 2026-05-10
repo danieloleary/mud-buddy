@@ -6,7 +6,7 @@ https://danieloleary.github.io/mud-buddy/
 
 ## Devices
 
-- iPhone Safari.
+- IPhone Safari.
 - Android Chrome if available.
 - Desktop Chrome for comparison.
 
@@ -14,7 +14,7 @@ https://danieloleary.github.io/mud-buddy/
 
 - Page loads without horizontal scrolling.
 - Brand, headline, mascot, and main calls to action are visible or quickly reachable.
-- The headline does not clip.
+- The headline doesn't clip.
 - The page feels like a simple homeowner app, not a pitch deck.
 - Trust chips make sense: private in browser, no EBMUD login needed, built for homeowners.
 
@@ -34,7 +34,7 @@ https://danieloleary.github.io/mud-buddy/
 - File picker opens.
 - Choose an EBMUD billing usage file.
 - Report renders.
-- The report does not show filename, local path, account number, meter ID, service address, or raw usage file rows.
+- The report doesn't show filename, local path, account number, meter ID, service address, or raw usage file rows.
 - If the wrong file type is selected, the error message is clear and recoverable.
 
 ## Official links
@@ -47,9 +47,9 @@ https://danieloleary.github.io/mud-buddy/
 
 Mobile launch is acceptable when:
 
-- sample flow works;
-- real usage file flow works at least once;
-- no horizontal overflow appears;
-- report actions are not hidden in blank space;
-- privacy and non-affiliation language remain visible;
-- the app feels like a utility, not a pitch deck.
+- Sample flow works;
+- Real usage file flow works at least once;
+- No horizontal overflow appears;
+- Report actions aren't hidden in blank space;
+- Privacy and non-affiliation language remain visible;
+- The app feels like a utility, not a pitch deck.

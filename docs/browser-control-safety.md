@@ -7,7 +7,7 @@ Mud Buddy explains your usage file. EBMUD handles official account, billing, eme
 ## Allowed Flow
 
 1. Open the official EBMUD portal or use the tab the user already opened.
-2. Ask the user to log in manually. Do not request credentials in chat.
+2. Ask the user to log in manually. Don't request credentials in chat.
 3. Wait for explicit user confirmation that login is complete.
 4. Navigate only to usage, report, Track Usage, export, or usage-file download screens.
 5. Prefer official controls labeled `Download your data`, `Export`, or `usage file`.
@@ -42,7 +42,7 @@ Use this flow when a user wants Codex or another local browser-control agent to 
 2. Run setup if needed: `npm ci` and `npx playwright install chromium`.
 3. Start the app if you want the local UI: `npm run dev`.
 4. Open the official EBMUD portal in the browser.
-5. The user logs in manually. The agent must not request, type, store, read, screenshot, or transmit credentials, MFA codes, CAPTCHA answers, cookies, localStorage, sessionStorage, auth headers, or session tokens.
+5. The user logs in manually. The agent mustn't request, type, store, read, screenshot, or transmit credentials, MFA codes, CAPTCHA answers, cookies, localStorage, sessionStorage, auth headers, or session tokens.
 6. After the user explicitly confirms login is complete, the agent may navigate only to usage, report, Track Usage, export, or usage-file download screens.
 7. The agent may click official export/download controls for the EBMUD usage file if labels and destination are clear.
 8. The user may provide the downloaded usage file to Mud Buddy or to the local agent in this repo.

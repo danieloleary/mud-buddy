@@ -26,7 +26,7 @@ The app helps a customer interpret their own exported usage data. Official accou
 ## Review checklist
 
 - Try the live app with the synthetic sample first.
-- If using a real usage file, keep it private and do not send it publicly.
-- Confirm the report does not show filename, account number, meter ID, service address, local path, or raw usage rows.
+- If using a real usage file, keep it private and don't send it publicly.
+- Confirm the report doesn't show filename, account number, meter ID, service address, local path, or raw usage rows.
 - Confirm official issues route back to EBMUD.
 - Confirm claims remain about potential savings and patterns worth checking, not verified EBMUD conservation totals.

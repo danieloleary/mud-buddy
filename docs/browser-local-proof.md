@@ -8,7 +8,7 @@ Mud Buddy's public app is designed as a static GitHub Pages site. The primary wo
 2. JavaScript reads the file text in memory.
 3. The parser ignores private identifier columns for browser display.
 4. The report renders in the page.
-5. The private filename, local path, account number, meter ID, service address, and raw usage-file rows are not rendered.
+5. The private filename, local path, account number, meter ID, service address, and raw usage-file rows aren't rendered.
 
 ## What should not happen
 

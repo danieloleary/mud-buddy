@@ -13,9 +13,9 @@
 
 ## Docs and official resources
 
-- [ ] README/docs still say Mud Buddy is not affiliated with EBMUD.
+- [ ] README/docs still say Mud Buddy isn't affiliated with EBMUD.
 - [ ] Official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions route to EBMUD resources.
-- [ ] Public links are GitHub Pages-safe and do not point to authenticated/session URLs.
+- [ ] Public links are GitHub Pages-safe and don't point to authenticated/session URLs.
 
 ## Tests
 

@@ -4,11 +4,11 @@
 
 Prove that a normal EBMUD customer can use Mud Buddy without Dan explaining it live:
 
-1. get or understand how to get the EBMUD usage file without feeling technical;
-2. upload it safely in the browser;
-3. understand the report;
-4. know what to check next;
-5. understand when to use EBMUD directly.
+1. Get or understand how to get the EBMUD usage file without feeling technical;
+2. Upload it safely in the browser;
+3. Understand the report;
+4. Know what to check next;
+5. Understand when to use EBMUD directly.
 
 ## Who to ask
 
@@ -17,10 +17,10 @@ Start with 3-5 trusted East Bay people before broad social launch.
 Good testers:
 
 - EBMUD customers with a recent high bill;
-- homeowners or renters with irrigation;
-- gardeners or people changing landscaping;
-- busy parents or households with changing occupancy;
-- one non-technical person who will be honest if the usage-file step is confusing.
+- Homeowners or renters with irrigation;
+- Gardeners or people changing landscaping;
+- Busy parents or households with changing occupancy;
+- One non-technical person who will be honest if the usage-file step is confusing.
 
 Avoid asking for public screenshots or raw usage files. Testers should use the live site directly.
 
@@ -55,15 +55,15 @@ Privacy note: the usage file is read in your browser and is not uploaded to a Mu
 
 Fix only launch-blocking issues:
 
-- broken upload/sample flow;
-- unclear usage-file instructions;
-- mobile layout problems;
-- confusing or scary privacy copy;
-- report language that sounds like a diagnosis;
-- wrong official EBMUD routing;
-- false parser failures on real EBMUD exports.
+- Broken upload/sample flow;
+- Unclear usage-file instructions;
+- Mobile layout problems;
+- Confusing or scary privacy copy;
+- Report language that sounds like a diagnosis;
+- Wrong official EBMUD routing;
+- False parser failures on real EBMUD exports.
 
-Do not add major new features during quiet beta.
+Don't add major new features during quiet beta.
 
 ## Success criteria
 

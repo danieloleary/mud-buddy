@@ -11,7 +11,7 @@ Could you try it for 5-10 minutes?
 3. If you are comfortable, download your own EBMUD usage file and upload it.
 4. Tell me where you got stuck, what the report made clear, and what still felt confusing.
 
-Privacy note: the usage file is read in your browser and is not uploaded to a Mud Buddy server. Please do not send me your raw usage-file unless you explicitly want private help debugging it.
+Privacy note: the usage file is read in your browser and isn't uploaded to a Mud Buddy server. Please don't send me your raw usage-file unless you explicitly want private help debugging it.
 
 ## X Single Post
 
@@ -33,7 +33,7 @@ https://danieloleary.github.io/mud-buddy/
 
 3/ It looks for patterns worth checking: normal use slowly rising, likely outdoor watering, unusual periods, average-household benchmark context, and possible fixture/toilet clues.
 
-4/ It is not affiliated with EBMUD, not a leak detector, not billing advice, and not a plumbing inspection. Official account/billing/emergency/rebate actions happen on EBMUD's site.
+4/ It isn't affiliated with EBMUD, not a leak detector, not billing advice, and not a plumbing inspection. Official account/billing/emergency/rebate actions happen on EBMUD's site.
 
 5/ The privacy boundary is the whole point: no EBMUD password, no credential automation, no server upload by default. Your usage file is read in your browser.
 
@@ -49,7 +49,7 @@ I shipped Mud Buddy, a free browser-local tool for EBMUD customers.
 
 It turns an exported EBMUD water-use file into a plain-English report for homeowners: high-bill clues, irrigation-season lift, baseline changes, possible fixture checks, and practical next steps.
 
-The goal is not to replace EBMUD, plumbers, or conservation experts. Mud Buddy is an interpretation layer that helps people understand their own usage data before deciding what to check next.
+The goal isn't to replace EBMUD, plumbers, or conservation experts. Mud Buddy is an interpretation layer that helps people understand their own usage data before deciding what to check next.
 
 The privacy boundary is intentional:
 

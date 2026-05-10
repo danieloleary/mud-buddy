@@ -6,7 +6,7 @@ Use this workflow only when the user explicitly asks Codex to help fetch their E
 
 1. Tell the user: "Please log into EBMUD yourself. Do not paste your password into Codex."
 2. Open the official EBMUD My Water Report entry point or the user's already-open portal tab.
-3. Wait until the user confirms they are logged in.
+3. Wait until the user confirms they're logged in.
 4. Navigate only to usage/reporting/export screens such as `Track Usage`.
 5. Prefer official buttons labeled like `Download your data`, `Export`, or `CSV`.
 6. After download, detect the local usage-file path, commonly in Chrome Downloads, and ask for permission before processing it.
@@ -23,11 +23,11 @@ Use this workflow only when the user explicitly asks Codex to help fetch their E
 
 ## Hard Stops
 
-- Do not ask for or store usernames, passwords, MFA codes, cookies, localStorage, sessionStorage, auth headers, or session tokens.
-- Do not bypass CAPTCHA, MFA, rate limits, bot detection, or access controls.
-- Do not scrape account pages if the official usage export is available.
-- Do not alter billing, autopay, contact, household-profile, service, or account settings.
-- Do not publish or commit raw usage files, screenshots of logged-in pages, account numbers, meter IDs, service addresses, or exact absence/vacation patterns.
+- Don't ask for or store usernames, passwords, MFA codes, cookies, localStorage, sessionStorage, auth headers, or session tokens.
+- Don't bypass CAPTCHA, MFA, rate limits, bot detection, or access controls.
+- Don't scrape account pages if the official usage export is available.
+- Don't alter billing, autopay, contact, household-profile, service, or account settings.
+- Don't publish or commit raw usage files, screenshots of logged-in pages, account numbers, meter IDs, service addresses, or exact absence/vacation patterns.
 - If the portal layout changes or a page is unclear, stop and ask the user to manually download the usage file.
 
 ## Public Sharing Checklist
@@ -41,11 +41,10 @@ Before publishing or sharing a report, verify:
 - No raw usage-file.
 - No local file paths.
 - No exact absence/vacation pattern.
-- Footer says the report is not affiliated with EBMUD and is not a formal water audit.
-
+- Footer says the report isn't affiliated with EBMUD and isn't a formal water audit.
 
 ## Official Resource Routing
 
-If the issue looks urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related, direct the user to official EBMUD resources instead of over-interpreting Mud Buddy data. Mud Buddy helps interpret exported usage patterns; official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.
+If the issue looks urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related, direct the user to official EBMUD resources instead of over-interpreting Mud Buddy data. Mud Buddy helps interpret exported usage patterns. Official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions happen on EBMUD's site.
 
 Use public EBMUD pages only, not authenticated or session-specific URLs.

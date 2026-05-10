@@ -9,7 +9,7 @@
 
 ## Benchmarks
 
-EBMUD's `Average Households GPD` and `Top 20% GPD` columns are useful context, but they should not be the main diagnostic target. Neighborhood averages can be very high during irrigation season, so a home can look "average" while still rising sharply against its own history.
+EBMUD's `Average Households GPD` and `Top 20% GPD` columns are useful context, but they shouldn't be the main diagnostic target. Neighborhood averages can be very high during irrigation season. So a home can look "average" while still rising sharply against its own history.
 
 ## Baseline Reasoning
 
@@ -37,5 +37,4 @@ For yard redesign:
 - Prefer drip for beds and shrubs.
 - Add pressure regulation, check valves, smart controller, and flow monitoring where practical.
 - Expect first-year establishment watering, then watch for the seasonal lift to taper.
-
 

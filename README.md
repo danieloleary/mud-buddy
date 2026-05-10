@@ -10,23 +10,23 @@ Mud Buddy lets you upload your EBMUD usage data and get beautiful private analys
 
 Use it here: [https://danieloleary.github.io/mud-buddy/](https://danieloleary.github.io/mud-buddy/)
 
-It is free, browser-local, and independent. Mud Buddy never needs your EBMUD password. Your usage file is read in your browser and is not uploaded to a Mud Buddy server.
+It is free, browser-local, and independent. Mud Buddy never needs your EBMUD password. Your usage file is read in your browser and isn't uploaded to a Mud Buddy server.
 
-This project is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It is not a formal water audit, plumbing inspection, leak detector, billing tool, certified conservation measurement, or official EBMUD analysis.
+This project is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It isn't a formal water audit, plumbing inspection, leak detector, billing tool, certified conservation measurement, or official EBMUD analysis.
 
 Mud Buddy explains your usage file. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
-Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pattern clues. They are not official classifications, normalized customer comparisons, leak diagnoses, billing findings, or conservation certifications.
+Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pattern clues. They are not official classifications, leak diagnoses, billing findings, or conservation certifications, and they are not a normalized customer comparison.
 
 ## Use Mud Buddy in 3 steps
 
-1. Log into EBMUD yourself and download your usage file from Track Usage or My Water Report. You do not need to understand the file.
+1. Log into EBMUD yourself and download your usage file from Track Usage or My Water Report. You don't need to understand the file.
 2. Open [Mud Buddy](https://danieloleary.github.io/mud-buddy/) and choose `Find savings in 30 seconds`.
 3. Review the browser-local report: normal daily use, likely outdoor watering, the peak period, usage file notes, practical next checks, and a simple weekend checklist.
 
 You can also choose `Try sample report` on the site to see the flow with synthetic public-safe data.
 
-The file step usually takes about 3 minutes. Mud Buddy does not change your EBMUD account.
+The file step usually takes about 3 minutes. Mud Buddy doesn't change your EBMUD account.
 
 ## Quiet beta ask
 
@@ -34,12 +34,12 @@ Mud Buddy is ready for a small real-user beta before broad launch. If you are an
 
 Please share:
 
-- where you got stuck;
-- whether the privacy promise was clear;
-- whether the report helped you know what to check first;
-- whether anything sounded too official, too technical, or too confident.
+- Where you got stuck;
+- Whether the privacy promise was clear;
+- Whether the report helped you know what to check first;
+- Whether anything sounded too official, too technical, or too confident.
 
-Do not send raw usage files publicly. Water-use data can reveal household routines.
+Don't send raw usage files publicly. Water-use data can reveal household routines.
 
 ## What Mud Buddy helps answer
 
@@ -54,12 +54,12 @@ Do not send raw usage files publicly. Water-use data can reveal household routin
 
 Water usage can reveal household routines, so the default workflow is intentionally private.
 
-- Browser analyzer: the usage file is read with the browser file picker and is not uploaded to a Mud Buddy server.
+- Browser analyzer: the usage file is read with the browser file picker and isn't uploaded to a Mud Buddy server.
 - No Mud Buddy account is required.
-- Mud Buddy does not display the private filename, account number, meter ID, raw usage file rows, or local file path in the browser report.
-- Do not paste EBMUD credentials into Codex, Claude Code, Lovable, or any chat tool.
+- Mud Buddy doesn't display the private filename, account number, meter ID, raw usage file rows, or local file path in the browser report.
+- Don't paste EBMUD credentials into Codex, Claude Code, Lovable, or any chat tool.
 - Optional browser help starts only after you log into EBMUD manually.
-- Public sharing should use `--public`; `--redact` removes direct identifiers but is not full anonymization.
+- Public sharing should use `--public`; `--redact` removes direct identifiers but isn't full anonymization.
 
 ![Synthetic public sharing checklist](public/assets/public-sharing-checklist-card.svg)
 
@@ -121,7 +121,6 @@ That means helped-save or potential savings, not a verified EBMUD conservation t
 
 Source context: EBMUD serves about 1.4 million people in a 332-square-mile water service area, and EBMUD rate materials define 1 CCF as 748 gallons. See [EBMUD service area](https://www.ebmud.com/about-us/who-we-are/service-area), [EBMUD FY2026 rate document](https://www.ebmud.com/download_file/force/34400/702?Rate_Document_for_FY_2026_Web.pdf=), and [docs/gallon-savings-methodology.md](docs/gallon-savings-methodology.md).
 
-
 ## Advanced local generator
 
 Most homeowners can stop at the browser analyzer. Developers and AI-tool users can also generate a full local HTML/SVG report:
@@ -139,7 +138,7 @@ npm run test:redaction
 
 ## Optional: use with Codex, Claude Code, or other AI coding tools
 
-This is only for people who already use AI coding tools. Homeowners do not need this workflow to use the browser app.
+This is only for people who already use AI coding tools. Homeowners don't need this workflow to use the browser app.
 
 - AI tool guide: [docs/use-with-ai-tools.md](docs/use-with-ai-tools.md)
 - Codex agent rules: [AGENTS.md](AGENTS.md)
@@ -167,7 +166,7 @@ Built with love in Lafayette, CA.
 
 ## For maintainers
 
-The demo and test files are here to make releases safer. Homeowners do not need to care about them.
+The demo and test files are here to make releases safer. Homeowners don't need to care about them.
 
 - The only committed sample usage file is [examples/sample-ebmud-usage.csv](examples/sample-ebmud-usage.csv).
 - The browser app receives usage file text only through explicit file selection or the synthetic sample-data button.

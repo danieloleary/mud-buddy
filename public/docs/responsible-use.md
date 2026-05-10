@@ -1,25 +1,25 @@
 # Responsible Use
 
-Mud Buddy is a private interpretation aid for EBMUD-style usage file exports. It is not an emergency service, official EBMUD analysis, formal water audit, leak detector, plumbing inspection, billing decision, or certified conservation measurement.
+Mud Buddy is a private interpretation aid for EBMUD-style usage file exports. It isn't an emergency service, official EBMUD analysis, formal water audit, leak detector, plumbing inspection, billing decision, or certified conservation measurement.
 
 ## Use Mud Buddy for
 
-- understanding exported usage patterns;
-- noticing high-use periods;
-- comparing warmer-season use with normal daily use;
-- deciding whether a simple fixture, toilet, meter, or irrigation check is worth doing;
-- finding the right official EBMUD resource.
+- Understanding exported usage patterns;
+- Noticing high-use periods;
+- Comparing warmer-season use with normal daily use;
+- Deciding whether a simple fixture, toilet, meter, or irrigation check is worth doing;
+- Finding the right official EBMUD resource.
 
 ## Use EBMUD directly for
 
-- billing disputes or payment questions;
-- account changes;
-- water-quality concerns;
-- pressure or outage issues;
-- emergencies;
-- rebates or conservation-program decisions;
-- assistance-program eligibility;
-- official service actions.
+- Billing disputes or payment questions;
+- Account changes;
+- Water-quality concerns;
+- Pressure or outage issues;
+- Emergencies;
+- Rebates or conservation-program decisions;
+- Assistance-program eligibility;
+- Official service actions.
 
 ## Privacy responsibility
 
@@ -29,5 +29,5 @@ Never paste EBMUD usernames, passwords, MFA codes, CAPTCHA answers, cookies, loc
 
 ## Savings language
 
-Mud Buddy may help identify potential savings. It does not verify actual utility reduction. Use helped-save or potential-savings language, not certified conservation claims.
+Mud Buddy may help identify potential savings. It doesn't verify actual utility reduction. Use helped-save or potential-savings language, not certified conservation claims.
 

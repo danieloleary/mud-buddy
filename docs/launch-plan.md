@@ -11,8 +11,8 @@ Core message:
 Important wording:
 
 - Say `potential savings`, `helped-save`, and `patterns worth checking`.
-- Do not say certified savings, official EBMUD analysis, leak diagnosis, billing advice, or plumbing inspection.
-- Do not imply EBMUD affiliation, approval, endorsement, partnership, or co-branding unless EBMUD authorizes it in writing.
+- Don't say certified savings, official EBMUD analysis, leak diagnosis, billing advice, or plumbing inspection.
+- Don't imply EBMUD affiliation, approval, endorsement, partnership, or co-branding unless EBMUD authorizes it in writing.
 - Lead with the app: `Analyze my usage`, `Try sample report`, and `How to get the file`.
 - Lead with privacy: no EBMUD password, no server upload, no credential automation, public sharing only with `--public`.
 
@@ -37,8 +37,8 @@ Required gates:
 - Editorial contract proves the public page leads with homeowner copy, analyzer, sample data, usage-file help, privacy, and official EBMUD resources instead of maintainer/test language.
 - Synthetic source policy proves default QA fixtures come from committed sample data, not Dan's Downloads folder.
 - Sample-data network test proves the demo button fetches only the local synthetic usage file.
-- Browser privacy test proves account number, meter ID, filename, local path, and raw rows do not appear in the browser report.
-- No-network-after-upload test proves uploaded usage-file analysis does not make network requests.
+- Browser privacy test proves account number, meter ID, filename, local path, and raw rows don't appear in the browser report.
+- No-network-after-upload test proves uploaded usage-file analysis doesn't make network requests.
 - GitHub Actions CI green on `main`.
 - GitHub Pages deploy green on `main`.
 - Live site smoke check: `MUD_BUDDY_URL="https://danieloleary.github.io/mud-buddy/" npm run test:live-site`.
@@ -48,7 +48,7 @@ Manual checks:
 - Open the live site on mobile and desktop and read it like a homeowner.
 - Click `Analyze my usage`, `Try sample report`, `How to get the file`, official resources, X, and LinkedIn links.
 - Run the real EBMUD workflow manually once: user logs in, downloads usage file, browser-local report renders.
-- Confirm the public package ZIP does not include private usage files, private reports, local paths, traces, screenshots, or deployment state.
+- Confirm the public package ZIP doesn't include private usage files, private reports, local paths, traces, screenshots, or deployment state.
 
 ## Launch sequence
 
@@ -65,9 +65,9 @@ Fix only launch-blocking confusion, broken links, or privacy concerns.
 
 Use [beta-test-plan.md](beta-test-plan.md) as the script and [mobile-qa-checklist.md](mobile-qa-checklist.md) for phone checks.
 
-Do not broaden launch until at least one non-Dan real usage file has worked through the live browser app.
+Don't broaden launch until at least one non-Dan real usage file has worked through the live browser app.
 
-Do not add a backend, accounts, analytics, credential automation, or certified savings claims during quiet beta.
+Don't add a backend, accounts, analytics, credential automation, or certified savings claims during quiet beta.
 
 ### Phase 2: Personal social launch
 
@@ -86,8 +86,8 @@ If the app is stable after quiet beta, share the [partner note](partner-note.md)
 
 Ask for review of:
 
-- customer safety language;
-- official-resource routing;
-- privacy claims;
-- methodology wording;
-- whether a browser-local customer education pilot would be useful.
+- Customer safety language;
+- Official-resource routing;
+- Privacy claims;
+- Methodology wording;
+- Whether a browser-local customer education pilot would be useful.

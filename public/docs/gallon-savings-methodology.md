@@ -33,12 +33,12 @@ Mud Buddy may count potential savings when a user reports or documents an action
 
 ## What Mud Buddy must not claim
 
-- Mud Buddy does not certify actual water savings.
-- Mud Buddy does not diagnose leaks.
-- Mud Buddy does not inspect plumbing or irrigation systems.
-- Mud Buddy does not provide billing advice or official utility analysis.
-- Mud Buddy is not affiliated with EBMUD.
+- Mud Buddy doesn't certify actual water savings.
+- Mud Buddy doesn't diagnose leaks.
+- Mud Buddy doesn't inspect plumbing or irrigation systems.
+- Mud Buddy doesn't provide billing advice or official utility analysis.
+- Mud Buddy isn't affiliated with EBMUD.
 
 The safest wording is `helped-save`, `potential savings`, or `patterns worth checking`.
 
-Baseline, outdoor-watering, and average-household benchmark labels are heuristic pattern clues. They should not be counted as verified savings, official classifications, normalized customer comparisons, or certified conservation results.
+Baseline, outdoor-watering, and average-household benchmark labels are heuristic pattern clues. They should not be counted as verified savings, official classifications, certified conservation results, and they are not a normalized customer comparison.

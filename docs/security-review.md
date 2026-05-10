@@ -1,6 +1,6 @@
 # Security Review
 
-Mud Buddy is a browser-local utility data tool for EBMUD-style usage exports. It is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
+Mud Buddy is a browser-local utility data tool for EBMUD-style usage exports. It is not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD unless EBMUD explicitly says so in writing. It isn't a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
 
 ## Threat Model
 
@@ -9,7 +9,7 @@ Water usage data can reveal household routines, occupancy patterns, irrigation b
 ## Consent Boundaries
 
 - The user controls login, MFA, CAPTCHA, security questions, and consent prompts.
-- Codex may assist only after the user confirms they are logged in.
+- Codex may assist only after the user confirms they're logged in.
 - Codex should navigate only to usage/export/download screens.
 - If the portal layout changes or a page is unclear, stop and ask the user to download the usage file manually.
 
@@ -17,15 +17,15 @@ Water usage data can reveal household routines, occupancy patterns, irrigation b
 
 - The live app uses a file picker or drag/drop to read the user-selected usage file.
 - The usage file is parsed in browser memory and rendered directly into the page.
-- The app must not upload user usage-file data to a backend.
-- The app must not store user usage-file data in localStorage, sessionStorage, IndexedDB, cookies, query strings, or URL fragments.
-- The browser report should not display private filenames, account numbers, meter IDs, raw usage-file rows, local paths, or service addresses.
+- The app mustn't upload user usage-file data to a backend.
+- The app mustn't store user usage-file data in localStorage, sessionStorage, IndexedDB, cookies, query strings, or URL fragments.
+- The browser report shouldn't display private filenames, account numbers, meter IDs, raw usage-file rows, local paths, or service addresses.
 
 ## Data Minimization
 
 - Process usage files locally by default.
 - Users may explicitly provide or upload an EBMUD usage file to Mud Buddy or a local AI coding agent for analysis.
-- Do not publish, commit, or bundle raw private usage files.
+- Don't publish, commit, or bundle raw private usage files.
 - Public reports should be generated with `--public`; `--redact` is identifier-only.
 - Public ZIPs must exclude private reports, real usage files, deployment state files, browser traces, and local download folders.
 

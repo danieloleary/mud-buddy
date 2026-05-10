@@ -19,7 +19,7 @@ Read these files before making changes:
 
 ## Product Boundary
 
-Mud Buddy is a local-first EBMUD usage report generator and public demo site. It is not affiliated with EBMUD and is not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
+Mud Buddy is a local-first EBMUD usage report generator and public demo site. It isn't affiliated with EBMUD and isn't a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.
 
 Mud Buddy explains your usage file. EBMUD handles official account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.
 
@@ -41,7 +41,7 @@ If browser assistance is requested:
 - Prefer official controls labeled like `Download your data`, `Export`, or `CSV`.
 - Detect the downloaded usage file in the browser download location or ask the user to identify it.
 - Ask before processing a detected usage file.
-- Do not change billing, autopay, contact, account, service, household profile, or settings pages.
+- Don't change billing, autopay, contact, account, service, household profile, or settings pages.
 - If anything is ambiguous, stop and ask the user to download the usage file manually.
 - If the issue looks urgent, billing-related, pressure/outage-related, water-quality-related, rebate-related, or assistance-related, direct the user to official EBMUD resources.
 

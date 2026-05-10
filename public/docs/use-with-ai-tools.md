@@ -28,7 +28,7 @@ Follow AGENTS.md. Use the ebmud-buddy skill when available. Help me analyze an E
 
 ## Lovable
 
-Lovable is best for prototyping UI ideas from a concise app brief. Do not assume it can directly import and safely operate this repo unless you set that workflow up yourself.
+Lovable is best for prototyping UI ideas from a concise app brief. Don't assume it can directly import and safely operate this repo unless you set that workflow up yourself.
 
 Pasteable app brief:
 
