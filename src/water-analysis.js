@@ -63,7 +63,7 @@ export function estimateBaseline(rows) {
   return roundHalfEven(candidates.length ? avg(candidates) : avg(rows.map((row) => row.gpd)));
 }
 
-export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
+function computeWaterMetrics(rows, invalidRows) {
   const baselineGpd = estimateBaseline(rows);
   const totalCcf = round(rows.reduce((sum, row) => sum + row.ccf, 0), 2);
   const totalGallons = Math.round(totalCcf * GAL_PER_CCF);
@@ -86,17 +86,85 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   const peakDelta = Math.round(peak.gpd - baselineGpd);
   const peakSeasonOutdoor = ['Summer', 'Fall'].includes(peak.season);
   const hasPartialData = rows.length < 8;
-  const irrigationLikely = seasonalLift >= 45 || (peakSeasonOutdoor && peakDelta >= 75 && seasonalLiftPct >= 0.18);
-  const baselineRising = baselineChange >= 30 || baselineChangePct >= 0.18;
-  const baselineDropping = baselineChange <= -25 || baselineChangePct <= -0.15;
-  const erraticPattern = rows.length >= 8 && gpdStdDev >= Math.max(55, avgGpd * 0.24) && gpdRange >= 120;
-  const flatlinePattern = rows.length >= 8 && gpdStdDev <= Math.max(8, avgGpd * 0.045);
   const estimatedReadDays = Number.isFinite(peak.days) && peak.days > 0 ? peak.days : 30;
   const peakExcessGallons = gallonsForDays(Math.max(0, peakDelta), estimatedReadDays);
   const outdoorOpportunityGallons = gallonsForDays(seasonalLift * 0.25, 150);
   const baselineOpportunityGallons = gallonsPerDayToYear(Math.max(0, baselineChange) * 0.25);
   const totalOpportunityGallons = outdoorOpportunityGallons + baselineOpportunityGallons + Math.round(peakExcessGallons * 0.15);
   const ccfOpportunity = round(totalOpportunityGallons / GAL_PER_CCF, 1);
+  const dataQualityNote = `${rows.length} usable billing period${rows.length === 1 ? '' : 's'}; ${invalidRows.length} skipped row${invalidRows.length === 1 ? '' : 's'}.`;
+
+  return {
+    baselineGpd,
+    totalCcf,
+    totalGallons,
+    avgGpd,
+    gpdStdDev,
+    gpdRange,
+    peak,
+    winterSpring,
+    summerFall,
+    seasonalLift,
+    seasonalLiftPct,
+    peerRatio,
+    firstThird,
+    lastThird,
+    baselineChange,
+    firstThirdAvg,
+    baselineChangePct,
+    peakDelta,
+    peakSeasonOutdoor,
+    hasPartialData,
+    estimatedReadDays,
+    peakExcessGallons,
+    outdoorOpportunityGallons,
+    baselineOpportunityGallons,
+    totalOpportunityGallons,
+    ccfOpportunity,
+    dataQualityNote
+  };
+}
+
+function detectWaterPatterns(metrics, rows) {
+  return {
+    irrigationLikely: metrics.seasonalLift >= 45 || (metrics.peakSeasonOutdoor && metrics.peakDelta >= 75 && metrics.seasonalLiftPct >= 0.18),
+    baselineRising: metrics.baselineChange >= 30 || metrics.baselineChangePct >= 0.18,
+    baselineDropping: metrics.baselineChange <= -25 || metrics.baselineChangePct <= -0.15,
+    erraticPattern: rows.length >= 8 && metrics.gpdStdDev >= Math.max(55, metrics.avgGpd * 0.24) && metrics.gpdRange >= 120,
+    flatlinePattern: rows.length >= 8 && metrics.gpdStdDev <= Math.max(8, metrics.avgGpd * 0.045)
+  };
+}
+
+export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
+  const metrics = computeWaterMetrics(rows, invalidRows);
+  const patterns = detectWaterPatterns(metrics, rows);
+  const {
+    baselineGpd,
+    totalCcf,
+    totalGallons,
+    avgGpd,
+    gpdStdDev,
+    peak,
+    seasonalLift,
+    peerRatio,
+    baselineChange,
+    peakDelta,
+    peakSeasonOutdoor,
+    hasPartialData,
+    peakExcessGallons,
+    outdoorOpportunityGallons,
+    baselineOpportunityGallons,
+    totalOpportunityGallons,
+    ccfOpportunity,
+    dataQualityNote
+  } = metrics;
+  const {
+    irrigationLikely,
+    baselineRising,
+    baselineDropping,
+    erraticPattern,
+    flatlinePattern
+  } = patterns;
 
   const insights = [];
   const addInsight = (insight) => insights.push(insight);
@@ -176,7 +244,6 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   }
   insights.sort((a, b) => b.priority - a.priority);
 
-  const dataQualityNote = `${rows.length} usable billing period${rows.length === 1 ? '' : 's'}; ${invalidRows.length} skipped row${invalidRows.length === 1 ? '' : 's'}.`;
   const confidence = hasPartialData || invalidRows.length + warnings.length >= 3
     ? {
         label: 'Limited',

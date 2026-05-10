@@ -12,20 +12,12 @@ import './styles.css';
 import { parseEbmudCsv } from './ebmud-csv.js';
 import { analyzeWaterUse } from './water-analysis.js';
 import { buildShareText, renderBrowserReport } from './browser-report.js';
+import { landingResources } from './official-resources.js';
 
 const MAX_CSV_BYTES = 5 * 1024 * 1024;
 const MAX_CSV_ROWS = 5000;
 
-const ebmudResources = [
-  { icon: 'account_circle', title: 'Your account', href: 'https://www.ebmud.com/customers/account', text: 'Account access, My Water Report entry points, alerts, and official customer settings.' },
-  { icon: 'query_stats', title: 'My Water Report', href: 'https://www.ebmud.com/water/conservation-and-rebates/my-water-report-program', text: 'EBMUD guidance for Track Usage, alerts, and gallons-per-day charts.' },
-  { icon: 'plumbing', title: 'Leaks and high bills', href: 'https://www.ebmud.com/customers/billing-questions/leaks-and-high-bills', text: 'Official leak and high-bill guidance when a pattern is worth checking.' },
-  { icon: 'water_drop', title: 'Conservation and rebates', href: 'https://www.ebmud.com/water/conservation-and-rebates', text: 'Official conservation services, rebates, landscape help, and efficiency programs.' },
-  { icon: 'warning', title: 'Alerts and outages', href: 'https://www.ebmud.com/customers/alerts', text: 'Use EBMUD directly for outages, service alerts, pressure, and urgent issues.' },
-  { icon: 'support_agent', title: 'Contact / emergency', href: 'https://www.ebmud.com/contact-us', text: 'Official support for account, emergency, billing, pressure, and water-quality issues.' }
-];
-
-const resourceCards = ebmudResources.map((item) => `
+const resourceCards = landingResources.map((item) => `
   <a class="resource-card material-card" href="${item.href}" target="_blank" rel="noreferrer">
     <md-ripple></md-ripple>
     <span class="icon-glyph" aria-hidden="true" data-icon="${item.icon}"></span>

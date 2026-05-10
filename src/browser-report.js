@@ -1,3 +1,5 @@
+import { reportOfficialLinks } from './official-resources.js';
+
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
   for (const [key, value] of Object.entries(attrs)) {
@@ -74,15 +76,6 @@ function chip(label) {
 function iconGlyph(name) {
   return el('span', { class: 'icon-glyph', 'aria-hidden': 'true', dataset: { icon: name } });
 }
-
-const officialLinks = [
-  ['Billing questions', 'https://www.ebmud.com/customers/billing-questions'],
-  ['Leaks and high bills', 'https://www.ebmud.com/customers/billing-questions/leaks-and-high-bills'],
-  ['Alerts and outages', 'https://www.ebmud.com/customers/alerts'],
-  ['Water quality', 'https://www.ebmud.com/water/about-your-water/water-quality'],
-  ['Conservation and rebates', 'https://www.ebmud.com/water/conservation-and-rebates'],
-  ['Contact / emergency', 'https://www.ebmud.com/contact-us']
-];
 
 function confidenceFor(analysis) {
   if (analysis.confidence?.label && analysis.confidence?.reason) {
@@ -298,8 +291,8 @@ function renderGlossary() {
 
 function renderOfficialNextSteps() {
   const links = el('div', { class: 'browser-official-links' });
-  for (const [label, href] of officialLinks) {
-    links.append(el('a', { href, target: '_blank', rel: 'noreferrer', text: label }));
+  for (const item of reportOfficialLinks) {
+    links.append(el('a', { href: item.href, target: '_blank', rel: 'noreferrer', text: item.title }));
   }
   return el('article', { class: 'browser-official-card' }, [
     el('h3', { text: 'When to use EBMUD directly' }),
@@ -308,13 +301,8 @@ function renderOfficialNextSteps() {
   ]);
 }
 
-export function renderBrowserReport(container, analysis, options = {}) {
-  container.replaceChildren();
-  const sourceLabel = options.sample ? 'Sample usage file analyzed locally' : 'Usage file analyzed locally';
-  const topInsight = analysis.insights[0];
-  const root = el('section', { class: 'browser-report material-card', tabindex: '-1', 'data-testid': 'browser-report' });
-
-  root.append(el('div', { class: 'browser-report-head' }, [
+function renderReportHeader(sourceLabel) {
+  return el('div', { class: 'browser-report-head' }, [
     el('div', {}, [
       el('p', { class: 'overline', text: sourceLabel }),
       el('h2', { text: 'Your water-saving map is ready.' }),
@@ -328,10 +316,12 @@ export function renderBrowserReport(container, analysis, options = {}) {
         el('md-outlined-button', { id: 'printReport', text: 'Print or save PDF' })
       ])
     ])
-  ]));
-  root.append(el('md-divider'));
+  ]);
+}
 
-  root.append(el('article', { class: 'browser-summary-card', 'data-testid': 'browser-summary' }, [
+function renderStartHere(analysis) {
+  const topInsight = analysis.insights[0];
+  return el('article', { class: 'browser-summary-card', 'data-testid': 'browser-summary' }, [
     iconGlyph(topInsight.icon),
     el('div', {}, [
       el('span', { text: 'Start here' }),
@@ -340,19 +330,11 @@ export function renderBrowserReport(container, analysis, options = {}) {
       el('p', { class: 'report-caution', text: 'This is a pattern read from your usage file, not an official EBMUD finding.' }),
       renderExpertNotes(analysis)
     ])
-  ]));
+  ]);
+}
 
-  const dataStory = renderDataStory(analysis);
-  if (dataStory) root.append(dataStory);
-  root.append(renderSavingsLab(analysis));
-  const insightList = renderInsightList(analysis);
-  if (insightList) root.append(insightList);
-  root.append(renderEvidencePanel(analysis));
-  root.append(renderNextChecks(analysis));
-  root.append(renderWeekendChecklist());
-  root.append(renderShareCard(analysis));
-
-  root.append(el('section', { class: 'key-numbers-card' }, [
+function renderKeyNumbers(analysis) {
+  return el('section', { class: 'key-numbers-card' }, [
     el('div', { class: 'section-title-row' }, [
       el('h3', { text: 'Key numbers' }),
       el('p', { text: 'GPD means gallons per day.' })
@@ -366,9 +348,11 @@ export function renderBrowserReport(container, analysis, options = {}) {
       stat('Water use in this file', `${analysis.totalCcf.toLocaleString()} CCF`, 'stat-total-ccf'),
       stat('Approx. gallons used', `${Math.round(analysis.totalGallons / 1000).toLocaleString()}k`, 'stat-total-gallons')
     ])
-  ]));
+  ]);
+}
 
-  root.append(el('div', { class: 'browser-chart-grid' }, [
+function renderCharts(analysis) {
+  return el('div', { class: 'browser-chart-grid' }, [
     el('div', { class: 'browser-chart-card' }, [
       el('div', { class: 'chart-card-head' }, [
         el('h3', { text: 'Water use over time' }),
@@ -381,12 +365,36 @@ export function renderBrowserReport(container, analysis, options = {}) {
       renderSeasonBars(analysis),
       el('p', { text: `Average-household benchmark in your usage file: ${analysis.peerComparison}.` })
     ])
-  ]));
+  ]);
+}
 
-  root.append(renderCsvNotes(analysis));
-  root.append(renderMethodDetails(analysis));
-  root.append(renderGlossary());
-  root.append(renderOfficialNextSteps());
+function reportSections(analysis) {
+  return [
+    renderStartHere(analysis),
+    renderDataStory(analysis),
+    renderSavingsLab(analysis),
+    renderInsightList(analysis),
+    renderEvidencePanel(analysis),
+    renderNextChecks(analysis),
+    renderWeekendChecklist(),
+    renderShareCard(analysis),
+    renderKeyNumbers(analysis),
+    renderCharts(analysis),
+    renderCsvNotes(analysis),
+    renderMethodDetails(analysis),
+    renderGlossary(),
+    renderOfficialNextSteps()
+  ].filter(Boolean);
+}
+
+export function renderBrowserReport(container, analysis, options = {}) {
+  container.replaceChildren();
+  const sourceLabel = options.sample ? 'Sample usage file analyzed locally' : 'Usage file analyzed locally';
+  const root = el('section', { class: 'browser-report material-card', tabindex: '-1', 'data-testid': 'browser-report' });
+
+  root.append(renderReportHeader(sourceLabel));
+  root.append(el('md-divider'));
+  for (const section of reportSections(analysis)) root.append(section);
 
   root.append(el('p', {
     class: 'browser-disclaimer',
