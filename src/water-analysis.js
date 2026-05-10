@@ -182,7 +182,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       icon: 'yard',
       priority: 100 + Math.min(25, seasonalLift / 8),
       title: 'Outdoor watering is the first thing to check.',
-      text: `${peakSeasonOutdoor ? `The peak lands in ${peak.season.toLowerCase()}` : 'Warm-season use stands out'}, and warmer-season use averages about ${seasonalLift} GPD above winter/spring. Translation: the yard is the first suspect, not because it is guilty, but because it is standing next to the hose with wet shoes.`
+      text: `${peakSeasonOutdoor ? `The peak lands in ${peak.season.toLowerCase()}` : 'Warm-season use stands out'}, and warmer-season use averages about ${seasonalLift} GPD above winter/spring. Translation: the yard is not convicted, but it is standing next to the hose with wet shoes.`
     });
   } else {
     insights.push({
@@ -294,7 +294,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       title: 'Sprinkler safari jackpot',
       gallons: formatGallons(outdoorOpportunityGallons),
       detail: `A 25% trim on the warmer-season lift would be about ${formatGallons(outdoorOpportunityGallons)} over a long watering season.`,
-      action: 'Go on a 3-minute zone-by-zone safari. Hunt broken heads, misting, sidewalk watering, runoff, and mystery swamp patches before cutting plant-friendly water.'
+      action: 'Run each zone for 3 minutes. Hunt broken heads, misting, sidewalk watering, runoff, and mystery swamp patches before cutting plant-friendly water.'
     });
   }
   if (baselineOpportunityGallons > 0) {
@@ -302,7 +302,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       title: 'Tiny villain patrol',
       gallons: formatGallons(baselineOpportunityGallons),
       detail: `Trimming just 25% of the daily-use creep would be about ${formatGallons(baselineOpportunityGallons)} over a year.`,
-      action: 'Do the cheap detective kit: toilet dye tests, a meter-stillness check, and a slow walk past fixtures, hose bibs, and valves.'
+      action: 'Do the cheap detective kit: toilet dye tests, a meter-stillness check, and a slow walk past fixtures, hose bibs, and valves. Tiny villain, tiny budget.'
     });
   }
   if (peakExcessGallons > 0) {
@@ -310,7 +310,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       title: 'Bill-spike time machine',
       gallons: formatGallons(peakExcessGallons),
       detail: `${formatMonth(peak.date)} sits about ${formatGallons(peakExcessGallons)} above normal for that billing period.`,
-      action: 'Rewind the calendar: heat wave, guests, new plants, controller changes, repairs, vacation, pool/spa fill, or one heroic laundry weekend.'
+      action: 'Rewind the calendar: heat wave, guests, new plants, controller changes, repairs, vacation, pool/spa fill, or one heroic laundry weekend. The culprit usually left footprints.'
     });
   }
   if (!savingsOpportunities.length) {
@@ -340,7 +340,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   const officialCheck = 'Use EBMUD directly for billing, rebates, outages, pressure, water quality, assistance, emergency service, or official account questions.';
   if (irrigationLikely) {
     recommendedChecks.push('Do the Sprinkler Safari: run each zone for 3 minutes and look for wet spots, broken or leaning heads, misting, weak spray, clogged drip emitters, runoff, and overspray onto pavement.');
-    recommendedChecks.push('Interrogate the controller like it stole your wallet: check watering days, rain-delay settings, start times, duplicate programs, runoff, and zones running longer than the plants need.');
+    recommendedChecks.push('Interrogate the controller like it has your credit card: check watering days, rain delay, start times, duplicate programs, runoff, and zones running longer than the plants need.');
   } else {
     recommendedChecks.push(`Open the ${formatMonth(peak.date)} case file: guests, laundry, showers, heat, landscaping, pools/spas, travel, repairs, or any controller changes.`);
   }
@@ -370,6 +370,26 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
       : 'No giant waste pocket jumps out, but the report gives a clean baseline and the first checks to keep bills boring.',
     shareText: `Mud Buddy helped me find my first water-saving hunt: ${irrigationLikely ? 'check irrigation first' : baselineRising ? 'check tiny daily-use creep' : 'compare the peak period with real life'}. ${totalOpportunityGallons > 0 ? `About ${formatGallons(totalOpportunityGallons)} of potential water to investigate.` : `Normal daily use estimate: ${baselineGpd} GPD.`} Runs locally in the browser. Not affiliated with EBMUD.`
   };
+  const actionBrief = irrigationLikely
+    ? {
+        title: 'Start outside.',
+        label: 'Most likely first check',
+        detail: `Outdoor-season use is the loudest signal. Walk the irrigation system before replacing parts or blaming showers.`,
+        proof: `${seasonalLift} GPD above cooler-season use`
+      }
+    : baselineRising
+      ? {
+          title: 'Start with quiet daily use.',
+          label: 'Most likely first check',
+          detail: 'This looks like a small daily-use mystery. Toilets, valves, fixtures, and routine changes are the first cheap checks.',
+          proof: `${Math.round(Math.abs(baselineChange))} GPD increase`
+        }
+      : {
+          title: 'Start with the peak period.',
+          label: 'Most likely first check',
+          detail: 'No single villain is yelling. Compare the highest-use period with real life, then do the cheap checks before buying anything.',
+          proof: `${formatMonth(peak.date)} was the high point`
+        };
   return {
     validRows: rows.length,
     invalidRows: invalidRows.length,
@@ -395,6 +415,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     uncertaintyNotes,
     recommendedChecks: [...recommendedChecks.filter((check) => check !== officialCheck).slice(0, 3), officialCheck],
     shareCard,
+    actionBrief,
     variabilityGpd: Math.round(gpdStdDev),
     seasonAverages: {
       Winter: Math.round(seasonAverage(rows, 'Winter')),

@@ -25,10 +25,10 @@ try {
   for (const required of [
     'Mud Buddy',
     'for EBMUD customers',
-    'Learn where your water bill is leaking money.',
-    'Analyze my data',
+    'Find the water use that is quietly costing you.',
+    'Start my water check',
     'Upload your EBMUD usage data.',
-    'A useful read, not a dashboard.',
+    'A useful answer, not a homework assignment.',
     'Try sample report',
     'How to get the file',
     'Getting the file usually takes about 3 minutes.',
@@ -60,7 +60,7 @@ try {
   }
 
   await page.getByRole('button', { name: 'Try sample report' }).first().click();
-  await page.getByRole('heading', { name: 'Your water-saving map is ready.' }).waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Your water-saving briefing is ready.' }).waitFor({ timeout: 6000 });
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   const reportTextLower = reportText.toLowerCase();
   for (const required of [
@@ -78,7 +78,7 @@ try {
     'Water-saving clues',
     'Where savings may be hiding',
     'Start with the simple checks.',
-    'This is a pattern read from your usage file, not an official EBMUD finding.',
+    'Treat this like a smart first pass: useful pattern clues, not an official EBMUD finding.',
     'Confidence and method',
     'Make this more certain',
     'Print or save PDF'

@@ -51,7 +51,7 @@ try {
   const requests = [];
   page.on('request', (request) => requests.push(request.url()));
   await page.getByText('Try sample report').first().click();
-  await page.getByRole('heading', { name: 'Your water-saving map is ready.' }).waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Your water-saving briefing is ready.' }).waitFor({ timeout: 6000 });
 
   const sampleRequests = requests.filter((requestUrl) => {
     const parsed = new URL(requestUrl);

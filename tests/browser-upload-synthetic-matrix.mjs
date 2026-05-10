@@ -79,7 +79,7 @@ try {
       'This weekend',
       'Use EBMUD directly',
       'What Mud Buddy sees',
-      'This is a pattern read from your usage file, not an official EBMUD finding.',
+      'Treat this like a smart first pass: useful pattern clues, not an official EBMUD finding.',
       'Pattern clues only',
       'Not affiliated with EBMUD'
     ]) {

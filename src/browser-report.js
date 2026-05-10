@@ -43,11 +43,19 @@ function renderTimeline(analysis) {
   }
   const baselineY = sy(analysis.baselineGpd);
   svg.append(svgEl('line', { x1: pad, y1: baselineY, x2: width - pad, y2: baselineY, stroke: 'var(--chart-baseline, #b7791f)', 'stroke-width': 4, 'stroke-linecap': 'round', opacity: 0.88 }));
+  const baselineLabel = svgEl('text', { x: width - pad, y: baselineY - 9, fill: 'var(--chart-baseline, #b7791f)', 'font-size': 13, 'font-weight': 800, 'text-anchor': 'end' });
+  baselineLabel.textContent = `normal ${analysis.baselineGpd} GPD`;
+  svg.append(baselineLabel);
   const line = rows.map((row, index) => `${index === 0 ? 'M' : 'L'} ${sx(index).toFixed(1)} ${sy(row.gpd).toFixed(1)}`).join(' ');
   svg.append(svgEl('path', { d: line, fill: 'none', stroke: 'var(--chart-primary, #c96442)', 'stroke-width': 4, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }));
+  const peakIndex = rows.reduce((bestIndex, row, index) => (row.gpd > rows[bestIndex].gpd ? index : bestIndex), 0);
   rows.forEach((row, index) => {
-    svg.append(svgEl('circle', { cx: sx(index), cy: sy(row.gpd), r: 5, fill: 'var(--chart-dot, #7fced4)', stroke: '#ffffff', 'stroke-width': 2 }));
+    svg.append(svgEl('circle', { cx: sx(index), cy: sy(row.gpd), r: index === peakIndex ? 8 : 5, fill: index === peakIndex ? 'var(--chart-primary, #c96442)' : 'var(--chart-dot, #7fced4)', stroke: '#ffffff', 'stroke-width': 2 }));
   });
+  const peak = rows[peakIndex];
+  const peakLabel = svgEl('text', { x: sx(peakIndex), y: Math.max(24, sy(peak.gpd) - 16), fill: 'var(--chart-primary, #c96442)', 'font-size': 13, 'font-weight': 800, 'text-anchor': peakIndex > rows.length - 4 ? 'end' : 'middle' });
+  peakLabel.textContent = `peak ${peak.gpd} GPD`;
+  svg.append(peakLabel);
   const label = svgEl('text', { x: pad, y: height - 15, fill: 'var(--chart-label, #5d6978)', 'font-size': 13, 'font-weight': 700 });
   label.textContent = 'GPD = gallons per day. Gold line = estimated normal daily use.';
   svg.append(label);
@@ -116,6 +124,19 @@ function renderExpertNotes(analysis) {
   const list = el('ul', { class: 'expert-note-list' });
   for (const note of analysis.expertNotes.slice(0, 3)) list.append(el('li', { text: note }));
   return list;
+}
+
+function renderActionBrief(analysis) {
+  const brief = analysis.actionBrief;
+  if (!brief) return null;
+  return el('section', { class: 'action-brief-card' }, [
+    el('div', {}, [
+      el('p', { class: 'overline', text: brief.label }),
+      el('h3', { text: brief.title }),
+      el('p', { text: brief.detail })
+    ]),
+    el('strong', { text: brief.proof })
+  ]);
 }
 
 function renderNextChecks(analysis) {
@@ -305,8 +326,8 @@ function renderReportHeader(sourceLabel) {
   return el('div', { class: 'browser-report-head' }, [
     el('div', {}, [
       el('p', { class: 'overline', text: sourceLabel }),
-      el('h2', { text: 'Your water-saving map is ready.' }),
-      el('p', { text: 'Analyzed locally in this browser. Nothing was uploaded.' })
+      el('h2', { text: 'Your water-saving briefing is ready.' }),
+      el('p', { text: 'A practical read on what changed, where money may be leaking, and what to check next. Analyzed locally in this browser.' })
     ]),
     el('div', { class: 'report-action-panel' }, [
       el('p', { class: 'report-action-note', text: 'Local only. No upload.' }),
@@ -327,7 +348,7 @@ function renderStartHere(analysis) {
       el('span', { text: 'Start here' }),
       el('h3', { text: topInsight.title }),
       el('p', { text: topInsight.text }),
-      el('p', { class: 'report-caution', text: 'This is a pattern read from your usage file, not an official EBMUD finding.' }),
+      el('p', { class: 'report-caution', text: 'Treat this like a smart first pass: useful pattern clues, not an official EBMUD finding.' }),
       renderExpertNotes(analysis)
     ])
   ]);
@@ -371,6 +392,7 @@ function renderCharts(analysis) {
 function reportSections(analysis) {
   return [
     renderStartHere(analysis),
+    renderActionBrief(analysis),
     renderDataStory(analysis),
     renderSavingsLab(analysis),
     renderInsightList(analysis),

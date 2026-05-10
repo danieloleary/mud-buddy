@@ -32,7 +32,7 @@ try {
   page.on('console', (msg) => { if (msg.type() === 'error') errors.push(msg.text()); });
   await page.goto(url);
   await page.locator('#csvInput').setInputFiles(path.join(root, 'examples', 'sample-ebmud-usage.csv'));
-  await page.getByRole('heading', { name: 'Your water-saving map is ready.' }).waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Your water-saving briefing is ready.' }).waitFor({ timeout: 6000 });
   const body = await page.locator('body').innerText();
   const lowerBody = body.toLowerCase();
   for (const required of [
@@ -44,7 +44,7 @@ try {
     'Plain-English read',
     'Water-saving clues',
     'Where savings may be hiding',
-    'This is a pattern read from your usage file, not an official EBMUD finding.',
+    'Treat this like a smart first pass: useful pattern clues, not an official EBMUD finding.',
     'Make this more certain',
     'Use EBMUD directly',
     'Water use over time',

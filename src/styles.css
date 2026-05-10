@@ -307,7 +307,7 @@ mud-buddy-app.has-browser-report .landing { display: none; }
 .browser-report-head { display: grid; grid-template-columns: 1fr minmax(230px, 340px); gap: var(--space-xl); align-items: start; }
 .browser-report h2 { font-size: clamp(28px, 3.2vw, 38px); }
 .browser-report h3 { font-size: clamp(19px, 2vw, 23px); }
-.report-action-panel, .browser-summary-card, .insight-panel, .next-checks-card, .key-numbers-card, .browser-chart-card, .browser-warning-card, .method-details, .glossary-card, .browser-official-card, .browser-disclaimer {
+.report-action-panel, .browser-summary-card, .action-brief-card, .insight-panel, .next-checks-card, .key-numbers-card, .browser-chart-card, .browser-warning-card, .method-details, .glossary-card, .browser-official-card, .browser-disclaimer {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--card-bg);
@@ -340,7 +340,33 @@ mud-buddy-app.has-browser-report .landing { display: none; }
   font-weight: 760;
   line-height: 1.35;
 }
-.insight-panel, .evidence-card, .next-checks-card, .weekend-checklist-card, .key-numbers-card, .browser-warning-card, .method-details, .glossary-card, .browser-official-card { margin-top: var(--space-md); padding: var(--space-lg); }
+.action-brief-card, .insight-panel, .evidence-card, .next-checks-card, .weekend-checklist-card, .key-numbers-card, .browser-warning-card, .method-details, .glossary-card, .browser-official-card { margin-top: var(--space-md); padding: var(--space-lg); }
+.action-brief-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(170px, auto);
+  gap: var(--space-lg);
+  align-items: center;
+  background: var(--porcelain);
+}
+.action-brief-card h3 {
+  margin-bottom: var(--space-sm);
+  font-size: clamp(24px, 3vw, 34px);
+}
+.action-brief-card p:last-child {
+  margin: 0;
+}
+.action-brief-card strong {
+  justify-self: end;
+  max-width: 260px;
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid color-mix(in srgb, var(--reservoir) 22%, var(--line));
+  border-radius: var(--radius);
+  color: var(--utility-blue-dark);
+  background: var(--md-sys-color-primary-container);
+  font-size: clamp(18px, 2.2vw, 24px);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+}
 .evidence-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-sm); }
 .evidence-prompt { margin: 0 0 var(--space-md); font-size: 14px; font-weight: 720; }
 .evidence-grid article { padding: var(--space-md); border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--porcelain); }
@@ -455,10 +481,6 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-}
-
-:root {
-  --md-ref-typeface-brand: var(--md-ref-typeface-plain);
 }
 
 .data-story-card,
@@ -631,6 +653,8 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
 .share-card-actions p { margin-bottom: 0; }
 
 @media (max-width: 760px) {
+  .action-brief-card { grid-template-columns: 1fr; }
+  .action-brief-card strong { justify-self: stretch; max-width: none; }
   .savings-opportunity-list { grid-template-columns: 1fr; }
   .share-card { grid-template-columns: 1fr; padding: var(--space-md); }
   .share-card-preview { min-height: 250px; padding: var(--space-lg); }

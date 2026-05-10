@@ -53,7 +53,7 @@ try {
     }
   });
   await page.locator('#csvInput').setInputFiles(privatePath);
-  await page.getByRole('heading', { name: 'Your water-saving map is ready.' }).waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Your water-saving briefing is ready.' }).waitFor({ timeout: 6000 });
   const outer = await page.locator('html').evaluate((node) => node.outerHTML);
   const text = await page.locator('body').innerText();
   const combined = `${outer}\n${text}`;

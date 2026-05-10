@@ -59,11 +59,11 @@ class MudBuddyApp extends HTMLElement {
       <main id="top">
         <section class="landing shell" id="home">
           <div class="landing-copy reveal">
-            <p class="overline">Save money. Save water. Keep plants alive.</p>
-            <h1>Learn where your water bill is leaking money.</h1>
-            <p class="lede">Mud Buddy turns EBMUD usage data into a private, plain-English report: what changed, what to check first, and where water may be going.</p>
+            <p class="overline">Save money. Save water. Learn what changed fast.</p>
+            <h1>Find the water use that is quietly costing you.</h1>
+            <p class="lede">Mud Buddy turns EBMUD usage data into a private, plain-English briefing: what changed, what it may mean, and the first checks that can save money and gallons.</p>
             <div class="landing-actions">
-              <md-filled-button id="heroAnalyze">Analyze my data</md-filled-button>
+              <md-filled-button id="heroAnalyze">Start my water check</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample report</md-filled-tonal-button>
               <md-text-button data-file-guide="true">How to get the file</md-text-button>
             </div>
@@ -79,7 +79,7 @@ class MudBuddyApp extends HTMLElement {
               <img src="assets/mud-buddy-kawaii-mascot.webp" alt="Cute Mud Buddy mascot holding a small water meter clipboard" />
             </div>
             <figcaption>
-              <strong>A small, friendly checkup for your household water use.</strong>
+              <strong>A friendly water detective for your home.</strong>
               <span>Built with love in Lafayette, CA.</span>
             </figcaption>
           </figure>
@@ -88,22 +88,22 @@ class MudBuddyApp extends HTMLElement {
         <section class="shell analyzer-section" id="analyze">
           <div class="analyzer-intro">
             <p class="overline">Private analyzer</p>
-            <h2>Upload your EBMUD usage data.</h2>
-            <p>Get a practical read on your usage file and a clear first thing to check. No server upload, no account changes, no extra homework.</p>
+            <h2>Upload your EBMUD usage data. Get the useful version.</h2>
+            <p>In about 30 seconds, get a practical briefing on likely drivers, water-saving opportunities, and what to check before the next bill. No server upload, no account changes, no extra homework.</p>
           </div>
 
           <div class="analyzer-grid">
             <div class="upload-panel reveal delay-1" aria-label="Browser-local usage file analyzer">
             <div class="material-card upload-card">
               <div class="card-toolbar">
-                <span>Create a private water report</span>
+                <span>Create a private water-saving briefing</span>
                 <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><span class="icon-glyph" aria-hidden="true" data-icon="shield"></span></md-icon-button>
               </div>
               <md-divider></md-divider>
               <input id="csvInput" class="sr-only-file" type="file" accept=".csv,text/csv" />
               <button class="dropzone" id="dropzone" type="button">
                 <span class="icon-glyph" aria-hidden="true" data-icon="upload_file"></span>
-                <strong>Drop your EBMUD usage file here</strong>
+                <strong>Drop your EBMUD usage data here</strong>
                 <span>or choose the file you downloaded from EBMUD</span>
               </button>
               <div class="upload-actions">
@@ -122,11 +122,11 @@ class MudBuddyApp extends HTMLElement {
 
             <aside class="material-card analyzer-helper">
               <p class="overline">What Mud Buddy does</p>
-              <h3>A useful read, not a dashboard.</h3>
+              <h3>A useful answer, not a homework assignment.</h3>
               <ul>
                 <li>What changed since your normal daily use.</li>
                 <li>Whether outdoor watering is the obvious suspect.</li>
-                <li>What to check this weekend before the next bill.</li>
+                <li>What to check first to save money and water.</li>
                 <li>When to use EBMUD directly instead of guessing.</li>
               </ul>
               <md-divider></md-divider>
@@ -168,7 +168,7 @@ class MudBuddyApp extends HTMLElement {
 
       <footer>
         <div class="shell footer-grid">
-          <p><strong>Mud Buddy</strong><br />Private water-use reports for EBMUD customers.</p>
+            <p><strong>Mud Buddy</strong><br />Private water-saving briefings for EBMUD customers.</p>
           <p>Not affiliated with EBMUD. Not a formal water audit, leak detector, plumbing inspection, billing tool, or official utility analysis.</p>
           <p>Built with love in Lafayette, CA. Goal: help neighbors save money and millions of gallons, one home at a time. <a href="docs/methodology.md">Methodology</a> | <a href="docs/privacy.md">Privacy</a> | <a href="docs/browser-control-safety.md">Browser safety</a> | <a href="https://x.com/danieloleary" target="_blank" rel="noreferrer">X</a> | <a href="https://www.linkedin.com/in/danieloleary/" target="_blank" rel="noreferrer">LinkedIn</a></p>
         </div>
