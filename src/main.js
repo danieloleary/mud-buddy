@@ -53,47 +53,63 @@ class MudBuddyApp extends HTMLElement {
           <span><strong>Mud Buddy</strong><small>for EBMUD customers</small></span>
         </a>
         <nav aria-label="Main navigation">
-          <a href="#app">Report</a>
+          <a href="#home">Home</a>
+          <a href="#analyze">Analyze</a>
           <a href="#how">Get file</a>
           <a href="#resources">Official links</a>
           <a href="#privacy">Privacy</a>
         </nav>
-        <md-filled-button id="topAnalyze">Find savings</md-filled-button>
+        <md-filled-button id="topAnalyze">Analyze usage</md-filled-button>
       </header>
 
       <main id="top">
-        <section class="hero shell" id="app">
-          <div class="hero-copy reveal">
+        <section class="landing shell" id="home">
+          <div class="landing-copy reveal">
             <p class="overline">Save money. Save water.</p>
-            <h1>Save money and water in under 30 seconds.</h1>
-            <p class="lede">Upload your EBMUD usage file. Mud Buddy gives you beautiful analysis, money-saving recommendations, and practical next checks for high bills, irrigation, leaks, and waste.</p>
-            <div class="hero-actions">
-              <md-filled-button id="heroAnalyze">Find savings in 30 seconds</md-filled-button>
+            <h1>Learn where your water bill is leaking money.</h1>
+            <p class="lede">Mud Buddy turns EBMUD usage data into a private, plain-English report: what changed, what to check first, and where savings may be hiding.</p>
+            <div class="landing-actions">
+              <md-filled-button id="heroAnalyze">Analyze my usage</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample report</md-filled-tonal-button>
-              <md-text-button data-file-guide="true">Where do I get it?</md-text-button>
+              <md-text-button data-file-guide="true">How to get the file</md-text-button>
             </div>
             <div class="trust-row" aria-label="Trust promises">
-              <md-assist-chip label="Runs in your browser"></md-assist-chip>
-              <md-assist-chip label="No server upload"></md-assist-chip>
+              <md-assist-chip label="Private in your browser"></md-assist-chip>
               <md-assist-chip label="No EBMUD login needed"></md-assist-chip>
+              <md-assist-chip label="Built for homeowners"></md-assist-chip>
             </div>
-            <figure class="mascot-card material-card">
-              <img src="assets/mud-buddy-kawaii-mascot.webp" alt="Cute Mud Buddy mascot holding a small water meter clipboard" />
-              <figcaption>Mud Buddy reads the pattern. You choose what to check next.</figcaption>
-            </figure>
           </div>
 
-          <div class="upload-panel reveal delay-1" aria-label="Browser-local usage file analyzer">
+          <figure class="landing-visual material-card reveal delay-1">
+            <div class="visual-frame">
+              <img src="assets/mud-buddy-kawaii-mascot.webp" alt="Cute Mud Buddy mascot holding a small water meter clipboard" />
+            </div>
+            <figcaption>
+              <strong>Save a ridiculous amount of water, one house at a time.</strong>
+              <span>Built with love in Lafayette, CA.</span>
+            </figcaption>
+          </figure>
+        </section>
+
+        <section class="shell analyzer-section" id="analyze">
+          <div class="analyzer-intro">
+            <p class="overline">Private analyzer</p>
+            <h2>Upload your EBMUD usage data.</h2>
+            <p>Get beautiful analysis, practical recommendations, and a clear first thing to check. No server upload, no account changes, no nerd homework.</p>
+          </div>
+
+          <div class="analyzer-grid">
+            <div class="upload-panel reveal delay-1" aria-label="Browser-local usage file analyzer">
             <div class="material-card upload-card">
               <div class="card-toolbar">
-                <span>Find savings fast</span>
+                <span>Find savings in 30 seconds</span>
                 <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><span class="icon-glyph" aria-hidden="true" data-icon="shield"></span></md-icon-button>
               </div>
               <md-divider></md-divider>
               <input id="csvInput" class="sr-only-file" type="file" accept=".csv,text/csv" />
               <button class="dropzone" id="dropzone" type="button">
                 <span class="icon-glyph" aria-hidden="true" data-icon="upload_file"></span>
-                <strong>Drop your EBMUD usage file here</strong>
+                <strong>Drop your EBMUD usage data here</strong>
                 <span>or choose the file you downloaded from EBMUD</span>
               </button>
               <div class="upload-actions">
@@ -108,12 +124,26 @@ class MudBuddyApp extends HTMLElement {
               <md-linear-progress id="uploadProgress" value="0"></md-linear-progress>
               <p id="uploadStatus" class="upload-status" aria-live="polite">Waiting for your usage file. Nothing has been uploaded or stored.</p>
             </div>
+            </div>
+
+            <aside class="material-card analyzer-helper">
+              <p class="overline">What you get</p>
+              <h3>Not a dashboard. A useful read.</h3>
+              <ul>
+                <li>What changed since your normal daily use.</li>
+                <li>Whether outdoor watering is the obvious suspect.</li>
+                <li>What to check this weekend before the next bill.</li>
+                <li>When to use EBMUD directly instead of guessing.</li>
+              </ul>
+              <md-divider></md-divider>
+              <p>Tip: if your plants are thirsty, this helps separate “needed irrigation” from “oops, the controller went feral.”</p>
+            </aside>
           </div>
         </section>
 
         <section class="shell browser-result-section" id="browserReport" aria-live="polite"></section>
 
-        <section class="shell support-grid" id="how">
+        <section class="shell get-file-section" id="how">
           <article class="material-card helper-card">
             <p class="overline">Get your usage file</p>
             <h2>Download from EBMUD, then create your report.</h2>
@@ -128,16 +158,6 @@ class MudBuddyApp extends HTMLElement {
             <div class="helper-actions">
               <md-filled-tonal-button data-file-guide="true">Show me the steps</md-filled-tonal-button>
               <md-outlined-button href="https://www.ebmud.com/customers/account" target="_blank" rel="noreferrer">Open EBMUD account page</md-outlined-button>
-            </div>
-          </article>
-
-          <article class="material-card helper-card compact-sample" id="example">
-            <p class="overline">Sample</p>
-            <h2>Try a sample report.</h2>
-            <p>See the report flow before choosing your own file.</p>
-            <div class="helper-actions">
-              <md-filled-tonal-button id="exampleTrySample">Try sample report</md-filled-tonal-button>
-              <md-outlined-button href="sample-report/index.html" target="_blank">Open sample report</md-outlined-button>
             </div>
           </article>
         </section>
@@ -201,13 +221,16 @@ class MudBuddyApp extends HTMLElement {
 
     const input = this.querySelector('#csvInput');
     const openPicker = () => input.click();
-    this.querySelector('#topAnalyze').addEventListener('click', openPicker);
-    this.querySelector('#heroAnalyze').addEventListener('click', openPicker);
+    const moveToAnalyzer = () => this.showAnalyzer(true);
+    this.querySelector('#topAnalyze').addEventListener('click', moveToAnalyzer);
+    this.querySelector('#heroAnalyze').addEventListener('click', moveToAnalyzer);
     this.querySelector('#chooseCsv').addEventListener('click', openPicker);
     this.querySelector('#dropzone').addEventListener('click', openPicker);
     this.querySelector('#trySample').addEventListener('click', () => this.loadSample());
-    this.querySelector('#heroSample').addEventListener('click', () => this.loadSample());
-    this.querySelector('#exampleTrySample')?.addEventListener('click', () => this.loadSample());
+    this.querySelector('#heroSample').addEventListener('click', () => {
+      this.showAnalyzer(false);
+      this.loadSample();
+    });
     input.addEventListener('change', async () => {
       const file = input.files?.[0];
       if (file) await this.analyzeFile(file);
@@ -226,6 +249,14 @@ class MudBuddyApp extends HTMLElement {
       const file = event.dataTransfer?.files?.[0];
       if (file) await this.analyzeFile(file);
     });
+  }
+
+  showAnalyzer(focusAction = false) {
+    this.classList.add('has-opened-analyzer');
+    this.querySelector('#analyze').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (focusAction) {
+      window.setTimeout(() => this.querySelector('#chooseCsv')?.focus(), 320);
+    }
   }
 
   setUploadState(status, progress = 0, isError = false) {
@@ -266,6 +297,7 @@ class MudBuddyApp extends HTMLElement {
   }
 
   analyzeCsvText(text, options) {
+    this.showAnalyzer(false);
     this.setUploadState('Analyzing water-use patterns locally...', 0.72);
     const parsed = parseEbmudCsv(text, { maxRows: MAX_CSV_ROWS + 1 });
     const analysis = analyzeWaterUse(parsed.rows, parsed.invalidRows, parsed.warnings);

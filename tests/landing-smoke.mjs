@@ -45,16 +45,17 @@ try {
   if (brandText.includes("by Dan O'Leary") || brandText.includes('for EBMUD -')) throw new Error(`Topbar brand implies attribution or affiliation too strongly: ${brandText}`);
   await assertNoHorizontalOverflow(page, 'desktop landing');
   await assertBoxInsideViewport(page, 'h1', 'desktop hero headline');
-  await assertBoxInsideViewport(page, '.upload-card', 'desktop upload card');
+  await assertBoxInsideViewport(page, '.landing-visual', 'desktop landing visual');
   if ((await page.locator('.brand-mark svg').count()) !== 1) throw new Error('Brand mark SVG did not render');
   const brandMarkText = (await page.locator('.brand-mark').textContent())?.trim() || '';
   if (brandMarkText) throw new Error(`Brand mark leaked fallback text: ${brandMarkText}`);
-  if ((await page.locator('.mascot-card img[src$="mud-buddy-kawaii-mascot.webp"]').count()) !== 1) throw new Error('Kawaii Mud Buddy mascot image did not render');
+  if ((await page.locator('.landing-visual img[src$="mud-buddy-kawaii-mascot.webp"]').count()) !== 1) throw new Error('Kawaii Mud Buddy mascot image did not render');
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(url);
   await assertNoHorizontalOverflow(page, 'mobile landing');
   await assertBoxInsideViewport(page, 'h1', 'mobile hero headline');
+  await page.getByRole('button', { name: 'Analyze my usage' }).click();
   await page.locator('.upload-card').scrollIntoViewIfNeeded();
   if (!(await page.locator('.upload-card').isVisible())) throw new Error('Mobile upload card is not reachable');
 
@@ -62,13 +63,14 @@ try {
   await page.goto(url);
   const text = await page.locator('body').innerText();
   for (const required of [
-    'Save money and water in under 30 seconds.',
+    'Learn where your water bill is leaking money.',
     'for EBMUD customers',
-    'Find savings fast',
-    'Drop your EBMUD usage file here',
+    'Upload your EBMUD usage data.',
+    'Find savings in 30 seconds',
+    'Drop your EBMUD usage data here',
     'Find savings in 30 seconds',
     'Try sample report',
-    'Where do I get this file?',
+    'How to get the file',
     'Getting the file usually takes about 3 minutes.',
     'This will not change your EBMUD account.',
     'Show me the steps',
@@ -81,7 +83,7 @@ try {
   ]) {
     if (!text.includes(required)) throw new Error(`Missing required text: ${required}`);
   }
-  await page.getByText('Where do I get this file?').click();
+  await page.getByText('How to get the file').click();
   if (!(await page.getByText('How to get your EBMUD usage file').isVisible())) throw new Error('Usage file guide dialog did not open');
   if (!(await page.getByText('You do not need to understand the file.').isVisible())) throw new Error('Usage file guide is not spouse-proof');
   await page.getByRole('button', { name: 'Close' }).click();
@@ -89,7 +91,7 @@ try {
     if (text.toLowerCase().includes(clutter.toLowerCase())) throw new Error(`Landing still exposes clutter text: ${clutter}`);
   }
   if ((await page.locator('md-assist-chip[label="No EBMUD login needed"]').count()) !== 1) throw new Error('Missing trust chip for no EBMUD login');
-  if ((await page.locator('md-assist-chip[label="No server upload"]').count()) !== 1) throw new Error('Missing trust chip for no server upload');
+  if ((await page.locator('md-assist-chip[label="Private in your browser"]').count()) !== 1) throw new Error('Missing trust chip for private browser analysis');
   for (const iconToken of ['computer', 'cloud_off', 'key_off', 'receipt_long', 'upload_file', 'verified_user']) {
     if (text.includes(iconToken)) throw new Error(`Landing body text leaked decorative icon token: ${iconToken}`);
   }

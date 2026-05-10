@@ -37,7 +37,7 @@ try {
   await page.goto(url);
   const body = await page.locator('body').innerText();
   if (!body.includes('Mud Buddy') || !body.includes('for EBMUD customers')) throw new Error('Subpath landing failed to render product-first brand');
-  if (!body.includes('Drop your EBMUD usage file here')) throw new Error('Subpath landing missing browser upload UI');
+  if (!body.includes('Drop your EBMUD usage data here')) throw new Error('Subpath landing missing browser upload UI');
   if (!body.includes('Official EBMUD resources')) throw new Error('Subpath landing missing official resources section');
   if (!body.includes('Runs in this browser. Your usage file is not uploaded')) throw new Error('Subpath landing missing browser-local privacy proof');
   const links = await page.$$eval('a[href], img[src], script[src], link[href]', (nodes) => nodes.map((node) => node.getAttribute('href') || node.getAttribute('src')).filter(Boolean));
