@@ -1,7 +1,7 @@
 ---
 version: mud-buddy-1.0
 name: Mud Buddy Design System
-description: A homeowner-first browser-local water utility app using Dan's Design.md direction: Claude-like warmth, X/xAI restraint, Linear precision, and one terracotta action path.
+description: A homeowner-first browser-local water utility app using Dan's Design.md direction: Claude-like warmth, X/xAI restraint, Linear precision, and an EBMUD-adjacent civic-water palette.
 colors:
   ink: "#121417"
   near-black: "#141413"
@@ -14,13 +14,13 @@ colors:
   ivory: "#FAF9F5"
   paper: "#F8F7F3"
   porcelain: "#FFFFFF"
-  terracotta: "#C96442"
-  terracotta-dark: "#9F442B"
-  reservoir: "#0D5663"
-  aqua: "#7FCED4"
-  mint: "#25A784"
-  amber: "#B7791F"
-  coral: "#D84E3F"
+  utility-blue: "#006DAA"
+  utility-blue-dark: "#004B73"
+  reservoir: "#004B73"
+  aqua: "#3CBAC6"
+  mint: "#1A8F7A"
+  amber: "#D89A00"
+  coral: "#C84A3A"
 typography:
   family: "Inter, ui-sans-serif, system-ui, sans-serif"
   display: "700 48px/1.04 Inter"
@@ -53,9 +53,9 @@ Build the actual usable app first. The first screen must make it obvious that a 
 
 ## Visual Direction
 
-Use Claude-like warmth in light mode, X/xAI restraint in density and contrast, and Linear-like precision in alignment. Prefer parchment and ivory surfaces, porcelain active controls, dark ink text, quiet borders, and terracotta as the primary action color.
+Use Claude-like warmth in light mode, X/xAI restraint in density and contrast, and Linear-like precision in alignment. Prefer parchment and ivory surfaces, porcelain active controls, dark ink text, quiet borders, and utility blue as the primary action color.
 
-Avoid generic SaaS blue as the brand. Water imagery can use reservoir teal and pale aqua as supporting colors, but terracotta owns the main action path.
+The palette should feel like a friendly sibling to EBMUD's civic-water identity: utility blue, reservoir blue, aqua, mint, and warm amber. Do not use EBMUD logos, authenticated screenshots, or anything that implies official endorsement.
 
 ## Components
 

@@ -11,7 +11,7 @@ import '@material/web/ripple/ripple.js';
 import './styles.css';
 import { parseEbmudCsv } from './ebmud-csv.js';
 import { analyzeWaterUse } from './water-analysis.js';
-import { renderBrowserReport } from './browser-report.js';
+import { buildShareText, renderBrowserReport } from './browser-report.js';
 
 const MAX_CSV_BYTES = 5 * 1024 * 1024;
 const MAX_CSV_ROWS = 5000;
@@ -35,6 +35,8 @@ const resourceCards = ebmudResources.map((item) => `
 `).join('');
 
 class MudBuddyApp extends HTMLElement {
+  lastShareText = '';
+
   connectedCallback() {
     this.render();
     this.bind();
@@ -301,12 +303,48 @@ class MudBuddyApp extends HTMLElement {
     this.setUploadState('Analyzing water-use patterns locally...', 0.72);
     const parsed = parseEbmudCsv(text, { maxRows: MAX_CSV_ROWS + 1 });
     const analysis = analyzeWaterUse(parsed.rows, parsed.invalidRows, parsed.warnings);
+    this.lastShareText = buildShareText(analysis);
     renderBrowserReport(this.querySelector('#browserReport'), analysis, options);
     this.classList.add('has-browser-report');
     this.querySelector('#analyzeAnother')?.addEventListener('click', () => this.querySelector('#csvInput').click());
     this.querySelector('#printReport')?.addEventListener('click', () => window.print());
+    this.querySelectorAll('[data-share-report="true"]').forEach((node) => {
+      node.addEventListener('click', () => this.shareReport());
+    });
+    this.querySelectorAll('[data-copy-summary="true"]').forEach((node) => {
+      node.addEventListener('click', () => this.copyShareSummary());
+    });
     this.setUploadState('Report ready. Your usage file was analyzed in this browser.', 1);
     this.querySelector('#browserReport').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  async shareReport() {
+    const text = this.lastShareText || 'Mud Buddy helped me turn EBMUD usage data into practical water-saving checks. Runs locally in the browser. Not affiliated with EBMUD.';
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: 'Mud Buddy water-saving hunt',
+          text,
+          url: window.location.href
+        });
+        this.setUploadState('Share sheet opened. Public-safe summary only.', 1);
+        return;
+      }
+      await this.copyShareSummary('Share text copied. Public-safe summary only.');
+    } catch (error) {
+      if (error?.name === 'AbortError') return;
+      await this.copyShareSummary('Share was not available, so the summary was copied instead.');
+    }
+  }
+
+  async copyShareSummary(message = 'Share text copied. Public-safe summary only.') {
+    const text = this.lastShareText || 'Mud Buddy helped me turn EBMUD usage data into practical water-saving checks. Runs locally in the browser. Not affiliated with EBMUD.';
+    try {
+      await navigator.clipboard.writeText(text);
+      this.setUploadState(message, 1);
+    } catch {
+      this.setUploadState('Copy was blocked by the browser. You can still print or save the report as a PDF.', 1, true);
+    }
   }
 
   showUploadError(error) {

@@ -170,6 +170,37 @@ function renderSavingsLab(analysis) {
   ]);
 }
 
+export function buildShareText(analysis) {
+  if (analysis?.shareCard?.shareText) return analysis.shareCard.shareText;
+  return 'Mud Buddy helped me turn EBMUD usage data into a private water-saving checklist. Runs locally in the browser. Not affiliated with EBMUD.';
+}
+
+function renderShareCard(analysis) {
+  const card = analysis.shareCard || {};
+  return el('section', { class: 'share-card', 'data-testid': 'share-card' }, [
+    el('div', { class: 'share-card-preview', role: 'group', 'aria-label': 'Shareable Mud Buddy summary card' }, [
+      el('span', { class: 'share-card-eyebrow', text: card.eyebrow || 'Mud Buddy water-saving hunt' }),
+      el('h3', { text: card.title || 'I found my first water-saving checks.' }),
+      el('p', { text: card.body || 'A private browser-local report turned usage data into practical next checks.' }),
+      el('div', { class: 'share-card-stat' }, [
+        el('strong', { text: card.stat || `${analysis.baselineGpd} GPD` }),
+        el('span', { text: card.statLabel || 'normal daily use estimate' })
+      ]),
+      el('small', { text: 'Public-safe summary. No address, account number, file name, raw rows, or EBMUD login data.' })
+    ]),
+    el('div', { class: 'share-card-actions' }, [
+      el('div', {}, [
+        el('h3', { text: 'Share the win' }),
+        el('p', { text: 'Want to nudge neighbors without oversharing? Share the summary text, or print/save the beautiful report as a PDF.' })
+      ]),
+      el('div', { class: 'report-actions' }, [
+        el('md-filled-tonal-button', { 'data-share-report': 'true', text: 'Share summary' }),
+        el('md-outlined-button', { 'data-copy-summary': 'true', text: 'Copy share text' })
+      ])
+    ])
+  ]);
+}
+
 function renderWeekendChecklist() {
   const items = [
     'Run the irrigation zones and look for obvious waste: overspray, runoff, broken heads, or soggy spots.',
@@ -293,6 +324,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
       el('p', { class: 'report-action-note', text: 'Local only. Private report.' }),
       el('div', { class: 'report-actions' }, [
         el('md-filled-tonal-button', { id: 'analyzeAnother', 'data-testid': 'analyze-another', text: 'Create another report' }),
+        el('md-filled-tonal-button', { 'data-share-report': 'true', text: 'Share summary' }),
         el('md-outlined-button', { id: 'printReport', text: 'Print or save PDF' })
       ])
     ])
@@ -318,6 +350,7 @@ export function renderBrowserReport(container, analysis, options = {}) {
   root.append(renderEvidencePanel(analysis));
   root.append(renderNextChecks(analysis));
   root.append(renderWeekendChecklist());
+  root.append(renderShareCard(analysis));
 
   root.append(el('section', { class: 'key-numbers-card' }, [
     el('div', { class: 'section-title-row' }, [

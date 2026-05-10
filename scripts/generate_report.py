@@ -21,18 +21,18 @@ GAL_PER_CCF = 748
 DECIMAL_RE = re.compile(r"^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$")
 
 C = {
-    "teal": "#0D5663",
+    "teal": "#004B73",
     "blue": "#2D333B",
     "navy": "#121417",
-    "gold": "#B7791F",
-    "coral": "#C96442",
-    "green": "#25A784",
+    "gold": "#D89A00",
+    "coral": "#006DAA",
+    "green": "#1A8F7A",
     "gray": "#5D6978",
     "light": "#FAF9F5",
     "line": "#E7EBEF",
     "ink": "#121417",
     "paper": "#F8F7F3",
-    "terracotta_dark": "#9F442B",
+    "terracotta_dark": "#004B73",
 }
 
 
@@ -517,11 +517,11 @@ def write_index(out_dir, rows, invalid, baseline, args):
       --parchment:#F5F4ED;
       --porcelain:#FFFFFF;
       --line:#E7EBEF;
-      --reservoir:#0D5663;
-      --terracotta:#C96442;
-      --terracotta-dark:#9F442B;
-      --mint:#25A784;
-      --amber:#B7791F;
+      --reservoir:#004B73;
+      --terracotta:#006DAA;
+      --terracotta-dark:#004B73;
+      --mint:#1A8F7A;
+      --amber:#D89A00;
       --radius:12px;
       --radius-sm:6px;
       --space-sm:8px;
