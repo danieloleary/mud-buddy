@@ -27,7 +27,7 @@ Water usage data can reveal household routines, occupancy patterns, irrigation b
 - Users may explicitly provide or upload an EBMUD usage file to Mud Buddy or a local AI coding agent for analysis.
 - Do not publish, commit, or bundle raw private usage files.
 - Public reports should be generated with `--public`; `--redact` is identifier-only.
-- Public ZIPs must exclude private reports, real usage files, here.now deployment state files, browser traces, and local download folders.
+- Public ZIPs must exclude private reports, real usage files, deployment state files, browser traces, and local download folders.
 
 ## Credential And Session Hard Stops
 

@@ -10,7 +10,7 @@ const requiredVisuals = ['01_timeline.svg', '02_driver_stack.svg', '03_seasonali
 await fs.access(report);
 for (const visual of requiredVisuals) await fs.access(path.join(path.dirname(report), visual));
 const html = await fs.readFile(report, 'utf8');
-for (const required of ['Mud Buddy', 'Not affiliated with EBMUD', 'Public anonymized summary', 'Excluded invalid rows: 1']) {
+for (const required of ['Mud Buddy', 'Not affiliated with EBMUD', 'Public anonymized summary', 'Excluded invalid rows: 1', 'Start here', 'Evidence before advice', 'Where savings may be hiding', 'Use EBMUD directly']) {
   if (!html.includes(required)) throw new Error(`sample report missing required text: ${required}`);
 }
 for (const forbidden of [/PRIVATE_/i, /Billing Usage/i, /C:\\Users\\/i, /\b\d{10,}\b/]) {

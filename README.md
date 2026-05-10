@@ -79,18 +79,16 @@ Use EBMUD directly for urgent issues, billing disputes, payment help, outages, p
 
 Use Mud Buddy when you want to understand patterns in your exported usage file before deciding what to check next.
 
-## For EBMUD review
+## For reviewers and partners
 
-Mud Buddy is independent today, but it is designed to be reviewable. If EBMUD wants to explore a customer-education, conservation, review, or pilot path, the guardrails are documented:
+Mud Buddy is independent today, but it is designed to be reviewable. The current partner-facing summary is intentionally short and conservative:
 
-- [EBMUD review brief](docs/ebmud-review-brief.md)
-- [EBMUD outreach packet](docs/ebmud-outreach-packet.md)
-- [Co-release proposal](docs/co-release-proposal.md)
+- [Partner note](docs/partner-note.md)
 - [Responsible use](docs/responsible-use.md)
 - [Browser-local proof](docs/browser-local-proof.md)
-- [Outreach email draft](docs/outreach-email-draft.md)
+- [Security review](docs/security-review.md)
 
-Dan's role is maker and maintainer. The app is the star.
+The app is the star. Any future EBMUD review, pilot, partnership, or co-branding would require explicit written authorization from EBMUD.
 
 ## Official EBMUD resources
 
@@ -192,7 +190,7 @@ npm run test:js-python-parity
 npm run validate
 ```
 
-Release and QA docs:
+Current release and QA docs:
 
 - [docs/release-management.md](docs/release-management.md)
 - [docs/release-checklist.md](docs/release-checklist.md)
@@ -200,6 +198,6 @@ Release and QA docs:
 - [docs/mobile-qa-checklist.md](docs/mobile-qa-checklist.md)
 - [docs/acceptance-criteria.md](docs/acceptance-criteria.md)
 - [docs/backlog.md](docs/backlog.md)
+- [docs/partner-note.md](docs/partner-note.md)
 - [SECURITY.md](SECURITY.md)
 - [SUPPORT.md](SUPPORT.md)
-

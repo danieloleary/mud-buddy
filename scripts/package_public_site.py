@@ -106,6 +106,7 @@ def copy_public_site() -> None:
         target = PUBLIC / rel
         if target.exists():
             shutil.rmtree(target, onerror=_force_remove)
+        target.mkdir(parents=True, exist_ok=True)
     if dist.exists():
         shutil.copytree(dist, PUBLIC, dirs_exist_ok=True)
     if report.exists():

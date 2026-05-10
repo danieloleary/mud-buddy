@@ -21,11 +21,9 @@ const files = [
   'docs/backlog.md',
   'docs/data-schema.md',
   'docs/plan-and-status.md',
-  'docs/ebmud-review-brief.md',
-  'docs/co-release-proposal.md',
   'docs/responsible-use.md',
   'docs/browser-local-proof.md',
-  'docs/outreach-email-draft.md',
+  'docs/partner-note.md',
   'skills/ebmud-buddy/references/browser_workflow.md'
 ];
 
@@ -66,7 +64,7 @@ const required = [
   'Mud Buddy',
   'A browser-local water-use helper for EBMUD customers.',
   'Product-first branding confirmed',
-  'EBMUD review brief',
+  'Partner note',
   'browser-local',
   'Find savings in 30 seconds',
   'Built with love in Lafayette, CA',
@@ -82,7 +80,7 @@ const required = [
   'not affiliated with, endorsed by, approved by, or officially reviewed by EBMUD',
   'unless EBMUD authorizes it in writing',
   'browser-local proof',
-  'co-release',
+  'partner note',
   'recommended next steps',
   '1.2.0',
   'visible evidence layer',
@@ -124,4 +122,4 @@ for (const phrase of forbidden) {
   if (combined.includes(phrase)) throw new Error('Outdated docs phrase remains: ' + phrase);
 }
 
-console.log('docs-consistency: OK v1.2 EBMUD-review-ready docs, browser safety, public-mode docs, and mirrors are aligned');
+console.log('docs-consistency: OK v1.2 current docs, browser safety, public-mode docs, and mirrors are aligned');

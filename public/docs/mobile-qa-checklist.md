@@ -13,13 +13,16 @@ https://danieloleary.github.io/mud-buddy/
 ## First viewport
 
 - Page loads without horizontal scrolling.
-- Brand, headline, upload card, and `Try sample report` are visible or quickly reachable.
+- Brand, headline, mascot, and main calls to action are visible or quickly reachable.
 - The headline does not clip.
-- The upload card does not feel like a secondary feature.
-- Trust chips make sense: browser-local, no server upload, no EBMUD login secret.
+- The page feels like a simple homeowner app, not a pitch deck.
+- Trust chips make sense: private in browser, no EBMUD login needed, built for homeowners.
 
-## Sample flow
+## Analyzer flow
 
+- Tap `Analyze my usage`.
+- Analyzer section scrolls into view.
+- Upload card is clear and usable.
 - Tap `Try sample report`.
 - Report renders without console-visible breakage or layout jump.
 - `Create another report` and `Print or save PDF` are visible in the report.
@@ -36,7 +39,7 @@ https://danieloleary.github.io/mud-buddy/
 
 ## Official links
 
-- `How to get your usage file` scrolls to the guidance section.
+- `How to get the file` opens useful guidance.
 - Official EBMUD resource links open public `ebmud.com` pages.
 - Footer links work.
 
@@ -50,4 +53,3 @@ Mobile launch is acceptable when:
 - report actions are not hidden in blank space;
 - privacy and non-affiliation language remain visible;
 - the app feels like a utility, not a pitch deck.
-

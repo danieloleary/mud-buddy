@@ -2,17 +2,18 @@
 
 ## Pre-release
 
-- [ ] Browser-local upload flow is implemented and visible above the fold.
+- [ ] Landing page explains the promise without crowding the upload flow.
+- [ ] Analyzer section lets a homeowner choose a usage file or try sample data.
 - [ ] Backlog items for this release are closed or explicitly deferred.
 - [ ] Version updated in `package.json` and `package-lock.json` if the release version changes.
-- [ ] CHANGELOG.md updated.
-- [ ] EBMUD review brief, responsible-use, browser-local proof, co-release proposal, and outreach draft reviewed.
+- [ ] CHANGELOG.md updated if behavior, docs, or public copy changed materially.
+- [ ] Partner note, responsible-use, browser-local proof, security review, and privacy docs reviewed.
 - [ ] Product-first branding confirmed: Mud Buddy is the app hero; Dan is maker/maintainer attribution.
 - [ ] README quick links still match the live repo/site.
 - [ ] X and LinkedIn links verified: `https://x.com/danieloleary` and `https://www.linkedin.com/in/danieloleary/`.
 - [ ] Launch copy reviewed for non-affiliation, potential-savings wording, and no certified claims.
-- [ ] Gallon-savings methodology reviewed.
-- [ ] Public sharing checklist reviewed.
+- [ ] Gallon-savings methodology reviewed if mission language changed.
+- [ ] Public sharing checklist reviewed if sharing generated reports or screenshots.
 - [ ] Security/privacy docs reviewed if workflow changed.
 
 ## Test gate
@@ -20,7 +21,7 @@
 - [ ] `npm ci`
 - [ ] `npx playwright install chromium`
 - [ ] `npm run validate`
-- [ ] `npm run test:local-real-csv`
+- [ ] `MUD_BUDDY_REAL_CSV="path/to/private.csv" npm run test:local-real-csv`
 
 ## Browser-local app gate
 
@@ -31,6 +32,7 @@
 - [ ] `npm run test:js-python-parity` passes.
 - [ ] Live app can analyze the synthetic sample data.
 - [ ] Live app can analyze Dan's private local usage file without publishing it.
+- [ ] Landing page and analyzer are visually separated on desktop and mobile.
 
 ## Public package gate
 
@@ -48,23 +50,23 @@
 - [ ] Pages workflow passes.
 - [ ] Live site opens at `https://danieloleary.github.io/mud-buddy/`.
 - [ ] Landing page loads without console errors.
-- [ ] Browser upload UI is visible and usable.
+- [ ] Analyzer upload UI is reachable and usable.
+- [ ] Sample flow works.
 - [ ] Sample report link works.
-- [ ] approved visual assets load, including `github-social-card.png`.
+- [ ] Approved visual assets load, including `github-social-card.png`.
 - [ ] Subpath routing/assets work.
 - [ ] Disclaimer is visible.
 - [ ] Privacy language is visible.
-- [ ] EBMUD-review section is visible and does not imply endorsement, approval, partnership, or official status.
-- [ ] Millions-of-gallons mission language is present and framed as potential/helped-save, with 1M gallons as the first milestone.
+- [ ] Partner/reviewer docs do not imply endorsement, approval, partnership, or official status.
+- [ ] Millions-of-gallons mission language is framed as potential/helped-save, not verified EBMUD conservation.
 
 ## Release
 
 - [ ] Tag created after all gates pass.
-- [ ] GitHub Release created from tag.
+- [ ] GitHub Release created from tag if this is a formal release.
 - [ ] Release notes copied from CHANGELOG.md.
 - [ ] Known limitations listed.
 - [ ] Social card preview checked.
 - [ ] X launch post ready.
 - [ ] LinkedIn launch post ready.
 - [ ] Feedback destination ready.
-

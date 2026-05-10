@@ -21,16 +21,18 @@ GAL_PER_CCF = 748
 DECIMAL_RE = re.compile(r"^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$")
 
 C = {
-    "teal": "#39b9c6",
-    "blue": "#2166a5",
-    "navy": "#18324a",
-    "gold": "#f2b31b",
-    "coral": "#e96f47",
-    "green": "#7c9d35",
-    "gray": "#6d7780",
-    "light": "#f5f7f8",
-    "line": "#d9e0e5",
-    "ink": "#263238",
+    "teal": "#0D5663",
+    "blue": "#2D333B",
+    "navy": "#121417",
+    "gold": "#B7791F",
+    "coral": "#C96442",
+    "green": "#25A784",
+    "gray": "#5D6978",
+    "light": "#FAF9F5",
+    "line": "#E7EBEF",
+    "ink": "#121417",
+    "paper": "#F8F7F3",
+    "terracotta_dark": "#9F442B",
 }
 
 
@@ -154,8 +156,8 @@ def esc(value) -> str:
 def svg_start(width, height):
     return [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
-        '<rect width="100%" height="100%" fill="white"/>',
-        "<style>text{font-family:Arial,Helvetica,sans-serif;fill:#263238}.title{font-size:30px;font-weight:700}.sub{font-size:17px;fill:#6d7780}.small{font-size:13px;fill:#6d7780}.label{font-size:15px}.bold{font-weight:700}.grid{stroke:#e8edf1;stroke-width:1}.axis{stroke:#ccd5dc;stroke-width:1}.note{font-size:14px;fill:#6d7780}</style>",
+        '<rect width="100%" height="100%" fill="#FAF9F5"/>',
+        "<style>text{font-family:Inter,ui-sans-serif,system-ui,sans-serif;fill:#121417}.title{font-size:30px;font-weight:760}.sub{font-size:17px;fill:#5D6978}.small{font-size:13px;fill:#5D6978}.label{font-size:15px}.bold{font-weight:720}.grid{stroke:#E7EBEF;stroke-width:1}.axis{stroke:#D8DFE5;stroke-width:1}.note{font-size:14px;fill:#5D6978}</style>",
     ]
 
 
@@ -336,6 +338,99 @@ def public_text(value, fallback="Not included in public report"):
     return fallback if not text_value else text_value
 
 
+def average(values):
+    clean = [v for v in values if v is not None]
+    return sum(clean) / len(clean) if clean else None
+
+
+def fmt_gallons(value):
+    if value is None:
+        return "n/a"
+    if abs(value) >= 1000:
+        return f"{value / 1000:.0f}k gal"
+    return f"{value:.0f} gal"
+
+
+def report_story(rows, invalid, baseline):
+    peak = max(rows, key=lambda r: r["gpd"])
+    avg_gpd = average([r["gpd"] for r in rows]) or 0
+    warm = average([r["gpd"] for r in rows if r["season"] in {"Summer", "Fall"}])
+    cool = average([r["gpd"] for r in rows if r["season"] in {"Winter", "Spring"}])
+    outdoor_lift = max(0, (warm or avg_gpd) - (cool or baseline))
+    peak_excess_gallons = max(0, peak["gpd"] - baseline) * peak["days"]
+    outdoor_opportunity = sum(max(0, r["gpd"] - baseline) * r["days"] for r in rows)
+    peer_avg = average([r.get("avg") for r in rows if r.get("avg") is not None])
+    peer_delta = (avg_gpd - peer_avg) if peer_avg is not None else None
+    baseline_drift = 0
+    if len(rows) >= 6:
+        first = average([r["gpd"] for r in rows[: max(3, len(rows) // 3)]]) or avg_gpd
+        last = average([r["gpd"] for r in rows[-max(3, len(rows) // 3) :]]) or avg_gpd
+        baseline_drift = last - first
+
+    if outdoor_lift >= 45 or peak_excess_gallons >= 3000:
+        start_title = "Check irrigation first."
+        start_body = (
+            f"The peak period sits about {peak['gpd'] - baseline:.0f} GPD above the normal-use estimate. "
+            "That is the yard waving a little orange flag, not a guaranteed leak."
+        )
+        confidence = "Higher"
+    elif baseline_drift >= 25:
+        start_title = "Check the everyday baseline."
+        start_body = (
+            "The pattern looks less like one dramatic spike and more like normal daily use creeping up. "
+            "That is where toilets, fixtures, schedule changes, and household routines hide."
+        )
+        confidence = "Medium"
+    else:
+        start_title = "Start with the boring wins."
+        start_body = (
+            "No single monster jumps out. That is good news. Do the cheap checks first: toilet dye test, "
+            "meter-stillness test, and a quick irrigation controller review."
+        )
+        confidence = "Medium"
+
+    checks = [
+        "Run a toilet dye test. It costs almost nothing and catches sneaky flappers.",
+        "Turn irrigation off and watch the meter. If it still moves, something is asking for water.",
+        "Walk the irrigation zones. Look for misting, runoff, broken heads, soggy spots, and plants getting drama-queen dry.",
+        "Compare the peak period with real-life changes: new landscaping, guests, kids, laundry, showers, or controller changes.",
+        "Use EBMUD directly for billing, outage, pressure, water-quality, rebate, assistance, or emergency questions.",
+    ]
+    opportunities = [
+        {
+            "label": "Outdoor watering opportunity",
+            "value": fmt_gallons(outdoor_opportunity),
+            "copy": "If the outdoor lift is real waste, this is the big bucket to investigate.",
+        },
+        {
+            "label": "Peak-period reality check",
+            "value": fmt_gallons(peak_excess_gallons),
+            "copy": "One high billing period can be normal yard rescue or an irrigation system doing improv comedy.",
+        },
+        {
+            "label": "Normal daily use",
+            "value": f"{baseline:.0f} GPD",
+            "copy": "This is the everyday-use estimate. If it rises, hunt fixtures before blaming the lawn.",
+        },
+    ]
+    evidence = [
+        ("Peak period", f"{peak['date'].strftime('%b %Y')} at {peak['gpd']:.0f} GPD"),
+        ("Normal-use estimate", f"{baseline:.0f} GPD"),
+        ("Outdoor signal", f"{outdoor_lift:.0f} GPD warm-season lift" if outdoor_lift else "No strong seasonal lift"),
+        ("Data quality", f"{len(rows)} usable periods, {len(invalid)} skipped"),
+    ]
+    if peer_delta is not None:
+        evidence.append(("Export benchmark", f"{abs(peer_delta):.0f} GPD {'above' if peer_delta >= 0 else 'below'} average-household benchmark"))
+    return {
+        "start_title": start_title,
+        "start_body": start_body,
+        "confidence": confidence,
+        "checks": checks,
+        "opportunities": opportunities,
+        "evidence": evidence,
+    }
+
+
 def render_context(out_dir, household, irrigation, redacted=False):
     parts = svg_start(1150, 760)
     text(parts, 60, 60, "What should you check first?", "title")
@@ -376,15 +471,22 @@ def write_index(out_dir, rows, invalid, baseline, args):
     total_ccf = sum(r["ccf"] for r in rows)
     total_gal = total_ccf * GAL_PER_CCF
     avg_gpd = sum(r["gpd"] for r in rows) / len(rows)
+    story = report_story(rows, invalid, baseline)
+    if getattr(args, "public_mode", False):
+        max_gpd = max(r["gpd"] for r in rows)
+        story["evidence"] = [
+            ("Highest-use bucket", f"Warmer-season bucket near {max_gpd:.0f} GPD"),
+            *[(label, value) for label, value in story["evidence"] if label != "Peak period"],
+        ]
     report_mode = "Public anonymized summary" if getattr(args, "public_mode", False) else ("Public-safe redacted report" if args.redact else "Private local report")
     sections = [
-        ("Your water-use timeline", "01_timeline.svg", "Use gallons per day to see real changes independent of billing-period length."),
-        ("Indoor baseline vs outdoor lift", "02_driver_stack.svg", "Estimate everyday household use versus seasonal yard or irrigation lift."),
-        ("Is this seasonal?", "03_seasonality.svg", "Summer and fall often reveal irrigation behavior."),
-        ("Did this year change?", "04_year_over_year.svg", "Spot persistent shifts rather than one-off bills."),
-        ("What should you check first?", "05_context.svg", "Blend the data with household size, daytime use, toilets, laundry, showers, plants, and irrigation reality."),
+        ("Water use over time", "01_timeline.svg", "Gallons per day keeps long and short billing periods from fooling your eyes."),
+        ("Normal use vs outdoor lift", "02_driver_stack.svg", "Separate everyday household use from seasonal yard or irrigation lift."),
+        ("Seasonal pattern", "03_seasonality.svg", "Summer and fall often reveal outdoor watering behavior."),
+        ("Year-by-year view", "04_year_over_year.svg", "Spot persistent shifts instead of panicking over one odd bill."),
+        ("Context checklist", "05_context.svg", "Blend the numbers with household changes, plants, toilets, fixtures, and irrigation reality."),
     ]
-    title = ("Mud Buddy Public Water Use Summary" if getattr(args, "public_mode", False) else (args.title or "EBMUD Water Usage Report"))
+    title = ("Mud Buddy sample water report" if getattr(args, "public_mode", False) else (args.title or "Mud Buddy water report"))
     address = "Location and account identifiers removed for public sharing" if getattr(args, "public_mode", False) else ("EBMUD service-area home" if args.redact else (args.address or "Home water account"))
     source_label = "Public aggregated source; original filename removed" if getattr(args, "public_mode", False) else ("Redacted local CSV" if args.redact else args.csv.name)
     privacy_note = (
@@ -392,6 +494,15 @@ def write_index(out_dir, rows, invalid, baseline, args):
         if getattr(args, "public_mode", False)
         else ("Public-safe summary generated locally from user-provided EBMUD-style usage data; identifiers removed. Use --public for broader sharing." if args.redact else "Private local report generated from a user-provided CSV. Review before sharing.")
     )
+    evidence_html = "\n".join(
+        f"""          <article class="mini-card"><span>{esc(label)}</span><strong>{esc(value)}</strong></article>"""
+        for label, value in story["evidence"]
+    )
+    opportunities_html = "\n".join(
+        f"""          <article class="opportunity-card"><span>{esc(item["label"])}</span><strong>{esc(item["value"])}</strong><p>{esc(item["copy"])}</p></article>"""
+        for item in story["opportunities"]
+    )
+    checks_html = "\n".join(f"<li>{esc(item)}</li>" for item in story["checks"])
     html_text = f"""<!doctype html>
 <html lang="en">
 <head>
@@ -399,56 +510,164 @@ def write_index(out_dir, rows, invalid, baseline, args):
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{esc(title)}</title>
   <style>
-    :root {{ --ink:#263238; --muted:#66747d; --paper:#f5f7f8; --line:#d9e0e5; --navy:#18324a; --teal:#39b9c6; --gold:#f2b31b; }}
+    :root {{
+      --ink:#121417;
+      --muted:#5D6978;
+      --paper:#F8F7F3;
+      --parchment:#F5F4ED;
+      --porcelain:#FFFFFF;
+      --line:#E7EBEF;
+      --reservoir:#0D5663;
+      --terracotta:#C96442;
+      --terracotta-dark:#9F442B;
+      --mint:#25A784;
+      --amber:#B7791F;
+      --radius:12px;
+      --radius-sm:6px;
+      --space-sm:8px;
+      --space-md:12px;
+      --space-lg:16px;
+      --space-xl:24px;
+      --space-xxl:32px;
+    }}
     * {{ box-sizing: border-box; }}
-    body {{ margin:0; background:var(--paper); color:var(--ink); font-family:Arial,Helvetica,sans-serif; line-height:1.45; }}
-    header {{ background:#fff; border-bottom:1px solid var(--line); padding:34px 24px 28px; position:sticky; top:0; z-index:2; }}
-    .wrap, section, footer {{ max-width:1180px; margin:0 auto; }}
-    h1 {{ margin:0 0 8px; font-size:clamp(30px,4vw,48px); line-height:1.05; }}
-    .dek {{ color:var(--muted); font-size:18px; max-width:850px; margin:0; }}
-    .mode {{ display:inline-flex; align-items:center; gap:8px; margin:0 0 14px; color:var(--navy); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }}
-    .mode::before {{ content:""; width:10px; height:10px; border-radius:999px; background:var(--gold); }}
-    .stats {{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:22px; }}
-    .stat {{ border:1px solid var(--line); border-radius:8px; padding:14px; background:#fff; }}
-    .stat strong {{ display:block; font-size:23px; color:var(--navy); }}
-    .stat span {{ display:block; color:var(--muted); font-size:13px; margin-top:3px; }}
-    .summary {{ margin-top:18px; border:1px solid var(--line); border-radius:12px; padding:16px 18px; background:#fffaf0; color:#5e542d; max-width:920px; font-size:16px; }}
-    main {{ padding:28px 24px 70px; }}
-    section {{ background:#fff; border:1px solid var(--line); border-radius:8px; margin-bottom:28px; overflow:hidden; }}
-    .head {{ padding:24px 28px 10px; border-bottom:1px solid var(--line); }}
-    h2 {{ margin:0; font-size:clamp(22px,2.5vw,30px); }}
+    html {{ scroll-behavior:smooth; }}
+    body {{ margin:0; background:var(--parchment); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,sans-serif; line-height:1.5; }}
+    a {{ color:inherit; }}
+    .topbar {{ position:sticky; top:0; z-index:4; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px max(18px,calc((100vw - 1120px)/2)); border-bottom:1px solid var(--line); background:rgba(250,249,245,.94); backdrop-filter:blur(10px); }}
+    .brand {{ display:flex; align-items:center; gap:10px; color:var(--ink); text-decoration:none; font-weight:820; }}
+    .mark {{ width:40px; height:40px; display:grid; place-items:center; border-radius:12px; color:white; background:var(--terracotta); }}
+    .mark::before {{ content:""; width:14px; height:20px; border-radius:60% 60% 60% 60%; background:white; transform:rotate(45deg); }}
+    .topbar small {{ display:block; color:var(--muted); font-size:12px; font-weight:750; }}
+    .topbar a.button {{ display:inline-flex; align-items:center; min-height:40px; padding:0 18px; border-radius:999px; background:var(--terracotta); color:white; font-size:14px; font-weight:780; text-decoration:none; }}
+    .shell {{ width:min(100% - 32px,1120px); margin:0 auto; }}
+    .hero {{ display:grid; grid-template-columns:minmax(0,1fr) minmax(270px,380px); gap:24px; align-items:start; padding-block:42px 28px; }}
+    .hero-copy {{ padding-top:10px; }}
+    .mode {{ display:inline-flex; align-items:center; gap:8px; min-height:32px; padding:0 12px; border:1px solid color-mix(in srgb,var(--reservoir) 28%,var(--line)); border-radius:999px; color:var(--reservoir); background:var(--porcelain); font-size:12px; font-weight:820; letter-spacing:.04em; text-transform:uppercase; }}
+    .mode::before {{ content:""; width:9px; height:9px; border-radius:999px; background:var(--mint); }}
+    h1 {{ max-width:720px; margin:16px 0 12px; font-size:clamp(38px,5.4vw,68px); line-height:.98; letter-spacing:-.055em; }}
+    h2 {{ margin:0; font-size:clamp(24px,3vw,34px); line-height:1.08; letter-spacing:-.035em; }}
+    h3 {{ margin:0 0 8px; font-size:20px; line-height:1.18; letter-spacing:-.02em; }}
     p {{ color:var(--muted); }}
-    .copy {{ padding:0 28px; max-width:900px; }}
-    figure {{ margin:0; padding:18px; }}
-    img {{ display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:6px; background:#fff; }}
-    footer {{ color:var(--muted); font-size:13px; padding:0 24px 48px; }}
-    @media (max-width:760px) {{ header {{ position:static; }} .stats {{ grid-template-columns:repeat(2,minmax(0,1fr)); }} }}
+    .dek {{ max-width:740px; margin:0; color:var(--muted); font-size:clamp(17px,1.6vw,20px); }}
+    .hero-card, .material-card, section {{ border:1px solid var(--line); border-radius:var(--radius); background:var(--porcelain); }}
+    .hero-card {{ padding:18px; }}
+    .hero-card strong {{ display:block; color:var(--reservoir); font-size:15px; }}
+    .hero-card p {{ margin:10px 0 0; font-size:14px; }}
+    .stats {{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-block:22px 0; }}
+    .stat {{ border:1px solid var(--line); border-radius:var(--radius); padding:16px; background:var(--porcelain); }}
+    .stat strong {{ display:block; color:var(--reservoir); font-size:clamp(24px,3vw,34px); line-height:1; letter-spacing:-.03em; }}
+    .stat span {{ display:block; margin-top:8px; color:var(--muted); font-size:13px; font-weight:730; }}
+    main {{ padding-block:0 72px; }}
+    .start-card {{ display:grid; grid-template-columns:52px 1fr minmax(160px,220px); gap:16px; align-items:start; margin-block:22px; padding:22px; border:2px solid color-mix(in srgb,var(--terracotta) 64%,var(--line)); border-radius:16px; background:color-mix(in srgb,var(--porcelain) 88%,#F7D8CA); }}
+    .start-icon {{ width:52px; height:52px; display:grid; place-items:center; border-radius:12px; background:var(--terracotta); }}
+    .start-icon::before {{ content:""; width:24px; height:24px; border:3px solid white; border-radius:999px; }}
+    .overline {{ margin:0 0 8px; color:var(--reservoir); font-size:12px; font-weight:850; letter-spacing:.1em; text-transform:uppercase; }}
+    .start-card p {{ margin:0; color:var(--muted); font-size:16px; }}
+    .confidence {{ padding:14px; border:1px solid var(--line); border-radius:12px; background:var(--porcelain); }}
+    .confidence span {{ display:block; color:var(--muted); font-size:12px; font-weight:760; }}
+    .confidence strong {{ display:block; color:var(--terracotta-dark); font-size:26px; }}
+    .grid {{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-block:18px; }}
+    .material-card {{ padding:20px; }}
+    .mini-grid, .opportunity-grid {{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }}
+    .opportunity-grid {{ grid-template-columns:repeat(3,minmax(0,1fr)); }}
+    .mini-card, .opportunity-card {{ border:1px solid var(--line); border-radius:var(--radius); padding:14px; background:var(--paper); }}
+    .mini-card span, .opportunity-card span {{ display:block; margin-bottom:6px; color:var(--reservoir); font-size:12px; font-weight:850; letter-spacing:.04em; text-transform:uppercase; }}
+    .mini-card strong {{ color:var(--ink); font-size:15px; }}
+    .opportunity-card strong {{ display:block; color:var(--terracotta-dark); font-size:clamp(25px,3vw,36px); line-height:1; }}
+    .opportunity-card p {{ margin:10px 0 0; font-size:14px; }}
+    .check-list {{ margin:10px 0 0; padding-left:22px; color:var(--muted); font-weight:700; }}
+    .check-list li {{ margin:8px 0; }}
+    .check-list li::marker {{ color:var(--terracotta); font-weight:900; }}
+    section {{ margin-bottom:22px; overflow:hidden; }}
+    .head {{ display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:22px 24px; border-bottom:1px solid var(--line); }}
+    .head p {{ max-width:760px; margin:8px 0 0; }}
+    figure {{ margin:0; padding:16px; }}
+    img {{ display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:var(--radius-sm); background:var(--porcelain); }}
+    .official {{ margin-top:22px; padding:20px; }}
+    .official-links {{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }}
+    .official-links a {{ display:inline-flex; align-items:center; min-height:36px; padding:0 12px; border:1px solid var(--line); border-radius:999px; color:var(--reservoir); background:var(--porcelain); font-size:14px; font-weight:760; text-decoration:none; }}
+    footer {{ max-width:1120px; margin:0 auto; padding:0 16px 48px; color:var(--muted); font-size:13px; }}
+    @media (max-width:880px) {{ .hero, .grid, .start-card {{ grid-template-columns:1fr; }} .stats, .opportunity-grid, .mini-grid {{ grid-template-columns:1fr 1fr; }} }}
+    @media (max-width:620px) {{ .topbar a.button {{ display:none; }} .shell {{ width:min(100% - 28px,1120px); }} .stats, .opportunity-grid, .mini-grid {{ grid-template-columns:1fr; }} h1 {{ font-size:clamp(36px,10vw,48px); }} .head {{ display:block; }} }}
+    @media print {{ .topbar {{ position:static; }} body {{ background:white; }} .hero-card, .material-card, section {{ break-inside:avoid; }} }}
   </style>
 </head>
 <body>
-  <header><div class="wrap">
-    <div class="mode">{esc(report_mode)}</div>
-    <h1>{esc(title)}</h1>
-    <p class="dek">{esc(address)}. Plain-English read of household baseline, irrigation lift, benchmarks, unusual periods, and next checks.</p>
-    <div class="stats">
-      <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{total_ccf:.0f} CCF</strong><span>{"Bucketed total" if getattr(args, "public_mode", False) else "Total valid history"}</span></div>
-      <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{total_gal/1000:.0f}k gal</strong><span>Approximate gallons</span></div>
-      <div class="stat"><strong>{len(rows)}</strong><span>Valid billing periods</span></div>
-      <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{baseline:.0f} GPD</strong><span>{"Baseline bucket" if getattr(args, "public_mode", False) else "Baseline estimate"}</span></div>
+  <nav class="topbar" aria-label="Report navigation">
+    <a class="brand" href="../" aria-label="Mud Buddy home"><span class="mark" aria-hidden="true"></span><span>Mud Buddy<small>sample report</small></span></a>
+    <a class="button" href="../">Analyze your own usage</a>
+  </nav>
+  <header class="shell hero">
+    <div class="hero-copy">
+      <div class="mode">{esc(report_mode)}</div>
+      <h1>{esc(title)}</h1>
+      <p class="dek">{esc(address)}. A homeowner-friendly read of normal daily use, outdoor watering clues, benchmark context, weird periods, and what to check next.</p>
+      <div class="stats" aria-label="Report summary statistics">
+        <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{total_ccf:.0f}</strong><span>CCF in report window</span></div>
+        <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{total_gal/1000:.0f}k</strong><span>Approximate gallons</span></div>
+        <div class="stat"><strong>{len(rows)}</strong><span>Usable periods</span></div>
+        <div class="stat"><strong>{("~" if getattr(args, "public_mode", False) else "")}{baseline:.0f}</strong><span>{"Baseline bucket" if getattr(args, "public_mode", False) else "GPD normal-use estimate"}</span></div>
+      </div>
     </div>
-    <p class="summary">What this means: use the charts below to separate everyday baseline from seasonal lift, then pick one practical next check. This is explanatory pattern-finding, not a certified audit, leak diagnosis, billing decision, or official EBMUD analysis.</p>
-  </div></header>
+    <aside class="hero-card">
+      <strong>GPD means gallons per day.</strong>
+      <p>That matters because billing periods are not always the same length. GPD is the “same-size ruler” for spotting what actually changed.</p>
+    </aside>
+  </header>
   <main>
+    <div class="shell">
+      <section class="start-card" aria-label="Start here">
+        <span class="start-icon" aria-hidden="true"></span>
+        <div>
+          <p class="overline">Start here</p>
+          <h2>{esc(story["start_title"])}</h2>
+          <p>{esc(story["start_body"])} This is the backyard-science moment: do the cheap experiment, learn something, save the water heroics for the actual culprit.</p>
+        </div>
+        <div class="confidence"><span>Confidence</span><strong>{esc(story["confidence"])}</strong><span>Pattern clue, not official finding</span></div>
+      </section>
+      <div class="grid">
+        <article class="material-card">
+          <p class="overline">What Mud Buddy sees</p>
+          <h2>Evidence before advice.</h2>
+          <div class="mini-grid">{evidence_html}
+          </div>
+        </article>
+        <article class="material-card">
+          <p class="overline">Recommended next checks</p>
+          <h2>Do the cheap experiments first.</h2>
+          <ol class="check-list">{checks_html}</ol>
+        </article>
+      </div>
+      <article class="material-card">
+        <p class="overline">Money + water lab</p>
+        <h2>Where savings may be hiding</h2>
+        <div class="opportunity-grid">{opportunities_html}
+        </div>
+      </article>
+    </div>
 """
     for heading, image, copy in sections:
-        html_text += f"""    <section>
-      <div class="head"><h2>{esc(heading)}</h2></div>
-      <p class="copy">{esc(copy)}</p>
+        html_text += f"""    <section class="shell chart-section">
+      <div class="head"><div><p class="overline">Chart</p><h2>{esc(heading)}</h2><p>{esc(copy)}</p></div></div>
       <figure><img src="{esc(image)}" alt="{esc(heading)}" /></figure>
     </section>
 """
-    html_text += f"""  </main>
-  <footer>{esc(privacy_note)} Source: {esc(source_label)}. Excluded invalid rows: {len(invalid)}. Baseline split is explanatory, not a formal water audit. Not affiliated with EBMUD.</footer>
+    html_text += f"""    <article class="shell material-card official">
+      <p class="overline">Official EBMUD resources</p>
+      <h2>Use EBMUD directly when the next step is official.</h2>
+      <p>Mud Buddy explains patterns in a usage file. EBMUD handles account, billing, emergency, rebate, conservation, outage, pressure, assistance, and water-quality actions.</p>
+      <div class="official-links">
+        <a href="https://www.ebmud.com/customers/billing-questions">Billing questions</a>
+        <a href="https://www.ebmud.com/customers/billing-questions/leaks-and-high-bills">Leaks and high bills</a>
+        <a href="https://www.ebmud.com/water/conservation-and-rebates">Conservation and rebates</a>
+        <a href="https://www.ebmud.com/customers/alerts">Alerts and outages</a>
+        <a href="https://www.ebmud.com/water/about-your-water/water-quality">Water quality</a>
+        <a href="https://www.ebmud.com/contact-us">Contact / emergency</a>
+      </div>
+    </article>
+  </main>
+  <footer>{esc(privacy_note)} Source: {esc(source_label)}. Excluded invalid rows: {len(invalid)}. Baseline split is explanatory, not a formal water audit, leak diagnosis, billing decision, plumbing inspection, or official EBMUD analysis. Not affiliated with EBMUD.</footer>
 </body>
 </html>
 """

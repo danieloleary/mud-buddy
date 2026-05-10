@@ -47,7 +47,7 @@ for (const item of manifest.flavors) {
     }
     if (!text.includes(`Excluded invalid rows: ${item.expectedInvalid}`)) throw new Error(`${item.flavor} report missing expected invalid row count`);
   }
-  if (!privateHtml.includes(`${privateSummary.total_ccf.toFixed(0)} CCF`) && !privateHtml.includes(`${Math.round(privateSummary.total_ccf)} CCF`)) {
+  if (!privateHtml.includes('CCF in report window') || !privateHtml.includes(`${Math.round(privateSummary.total_ccf)}`)) {
     throw new Error(`${item.flavor} private report missing total CCF stat`);
   }
   if (!publicHtml.includes('Public anonymized summary')) throw new Error(`${item.flavor} public report missing public label`);
