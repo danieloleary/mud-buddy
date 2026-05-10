@@ -41,6 +41,9 @@
   --danger: #c84a3a;
   --radius: 12px;
   --radius-sm: 6px;
+  --card-bg: color-mix(in srgb, var(--porcelain) 92%, var(--paper));
+  --card-subtle-bg: color-mix(in srgb, var(--porcelain) 84%, var(--md-sys-color-primary-container));
+  --card-warm-bg: color-mix(in srgb, var(--porcelain) 88%, var(--md-sys-color-tertiary-container));
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 12px;
@@ -138,7 +141,7 @@ p { color: var(--muted); font-size: 16px; line-height: 1.55; }
 .material-card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: color-mix(in srgb, var(--porcelain) 90%, var(--paper));
+  background: var(--card-bg);
   box-shadow: none;
 }
 
@@ -166,7 +169,7 @@ p { color: var(--muted); font-size: 16px; line-height: 1.55; }
   overflow: hidden;
   margin: 0;
   padding: var(--space-md);
-  background: color-mix(in srgb, var(--porcelain) 86%, var(--md-sys-color-primary-container));
+  background: var(--card-subtle-bg);
 }
 .visual-frame {
   overflow: hidden;
@@ -250,7 +253,7 @@ p { color: var(--muted); font-size: 16px; line-height: 1.55; }
   gap: var(--space-md);
   margin-top: var(--space-lg);
   padding: var(--space-xl);
-  border: 2px dashed color-mix(in srgb, var(--terracotta) 45%, white);
+  border: 1px dashed color-mix(in srgb, var(--terracotta) 50%, var(--line));
   border-radius: var(--radius);
   color: var(--reservoir);
   background: var(--porcelain);
@@ -283,7 +286,7 @@ p { color: var(--muted); font-size: 16px; line-height: 1.55; }
   padding: var(--space-md);
   border: 1px solid color-mix(in srgb, var(--reservoir) 18%, var(--line));
   border-radius: var(--radius);
-  background: color-mix(in srgb, white 86%, var(--md-sys-color-tertiary-container));
+  background: var(--card-warm-bg);
 }
 .local-proof .icon-glyph { color: var(--success); font-size: 28px; }
 .local-proof p { margin: 0; color: var(--reservoir); font-size: 14px; font-weight: 750; }
@@ -307,12 +310,12 @@ mud-buddy-app.has-browser-report .landing { display: none; }
 .report-action-panel, .browser-summary-card, .insight-panel, .next-checks-card, .key-numbers-card, .browser-chart-card, .browser-warning-card, .method-details, .glossary-card, .browser-official-card, .browser-disclaimer {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--porcelain);
+  background: var(--card-bg);
 }
 .report-action-panel { display: grid; gap: var(--space-md); padding: var(--space-md); }
 .report-action-note { margin: 0; color: var(--reservoir); font-size: 13px; font-weight: 750; }
 .browser-report md-divider { display: block; margin-block: var(--space-xl); }
-.browser-summary-card { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-md); align-items: start; padding: var(--space-xl); background: color-mix(in srgb, white 82%, var(--md-sys-color-primary-container)); }
+.browser-summary-card { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-md); align-items: start; padding: var(--space-xl); background: var(--card-subtle-bg); }
 .browser-summary-card .icon-glyph { width: 48px; height: 48px; display: grid; place-items: center; border-radius: var(--radius-sm); color: white; background: var(--terracotta); font-size: 30px; }
 .browser-summary-card span { display: block; margin-bottom: var(--space-sm); color: var(--terracotta-dark); font-size: 12px; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
 .browser-summary-card p { margin-bottom: 0; }
@@ -340,7 +343,7 @@ mud-buddy-app.has-browser-report .landing { display: none; }
 .insight-panel, .evidence-card, .next-checks-card, .weekend-checklist-card, .key-numbers-card, .browser-warning-card, .method-details, .glossary-card, .browser-official-card { margin-top: var(--space-md); padding: var(--space-lg); }
 .evidence-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-sm); }
 .evidence-prompt { margin: 0 0 var(--space-md); font-size: 14px; font-weight: 720; }
-.evidence-grid article { padding: var(--space-md); border: 1px solid var(--line); border-radius: var(--radius-sm); background: color-mix(in srgb, white 92%, var(--paper)); }
+.evidence-grid article { padding: var(--space-md); border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--porcelain); }
 .evidence-grid span { display: block; margin-bottom: var(--space-xs); color: var(--terracotta-dark); font-size: 12px; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; }
 .evidence-grid strong { display: block; color: var(--reservoir); font-size: 14px; line-height: 1.35; }
 .insight-list { display: grid; gap: var(--space-sm); }
@@ -351,7 +354,7 @@ mud-buddy-app.has-browser-report .landing { display: none; }
 .next-checks-card p, .method-details p, .browser-official-card p { margin-bottom: 0; }
 .next-check-list { display: grid; gap: var(--space-sm); margin: var(--space-md) 0 0; padding-left: 22px; color: var(--muted); font-size: 15px; font-weight: 700; }
 .next-check-list li::marker { color: var(--terracotta); font-weight: 900; }
-.weekend-checklist-card { background: color-mix(in srgb, white 86%, var(--md-sys-color-tertiary-container)); }
+.weekend-checklist-card { background: var(--card-warm-bg); }
 .weekend-checklist-card p { margin-bottom: 0; }
 .weekend-list { display: grid; gap: var(--space-sm); margin: var(--space-md) 0 0; padding: 0; list-style: none; }
 .weekend-list li { position: relative; padding-left: 30px; color: var(--reservoir); font-size: 15px; font-weight: 760; line-height: 1.4; }
@@ -360,7 +363,7 @@ mud-buddy-app.has-browser-report .landing { display: none; }
 .section-title-row p { margin: 0; font-size: 14px; font-weight: 750; }
 .primary-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); }
 .data-quality-card { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); margin-top: var(--space-md); }
-.browser-stat { min-width: 0; padding: var(--space-lg); border: 1px solid var(--line); border-radius: var(--radius); background: color-mix(in srgb, white 94%, var(--paper)); }
+.browser-stat { min-width: 0; padding: var(--space-lg); border: 1px solid var(--line); border-radius: var(--radius); background: var(--porcelain); }
 .browser-stat strong { display: block; color: var(--reservoir); font-size: 26px; line-height: 1; font-weight: 850; letter-spacing: -.02em; }
 .browser-stat span { display: block; margin-top: var(--space-sm); color: var(--muted); font-size: 13px; font-weight: 750; }
 .primary-stat { background: white; }
@@ -462,7 +465,7 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
 .savings-lab-card {
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--porcelain);
+  background: var(--card-bg);
   padding: var(--space-lg);
 }
 
@@ -524,7 +527,7 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
   padding: var(--space-lg);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: color-mix(in srgb, white 86%, var(--md-sys-color-primary-container));
+  background: var(--card-subtle-bg);
 }
 
 .share-card-preview {
@@ -538,9 +541,7 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
   border: 1px solid color-mix(in srgb, var(--utility-blue) 28%, var(--line));
   border-radius: var(--radius);
   color: white;
-  background:
-    radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--aqua) 52%, transparent), transparent 32%),
-    linear-gradient(135deg, var(--utility-blue-dark), var(--utility-blue) 58%, color-mix(in srgb, var(--aqua) 70%, var(--utility-blue)));
+  background: var(--utility-blue-dark);
 }
 
 .share-card-preview::after {
@@ -550,7 +551,7 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
   top: -36px;
   width: 160px;
   height: 160px;
-  border: 22px solid rgba(255,255,255,.16);
+  border: 18px solid rgba(255,255,255,.12);
   border-radius: 999px;
 }
 
@@ -623,7 +624,7 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
   padding: var(--space-lg);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--porcelain);
+  background: var(--card-bg);
 }
 
 .share-card-actions h3 { margin-bottom: var(--space-sm); }

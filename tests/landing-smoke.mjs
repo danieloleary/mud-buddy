@@ -55,7 +55,7 @@ try {
   await page.goto(url);
   await assertNoHorizontalOverflow(page, 'mobile landing');
   await assertBoxInsideViewport(page, 'h1', 'mobile hero headline');
-  await page.getByRole('button', { name: 'Analyze my usage' }).click();
+  await page.getByRole('button', { name: 'Analyze my data' }).click();
   await page.locator('.upload-card').scrollIntoViewIfNeeded();
   if (!(await page.locator('.upload-card').isVisible())) throw new Error('Mobile upload card is not reachable');
 
@@ -66,9 +66,9 @@ try {
     'Learn where your water bill is leaking money.',
     'for EBMUD customers',
     'Upload your EBMUD usage data.',
-    'Find savings in 30 seconds',
-    'Drop your EBMUD usage data here',
-    'Find savings in 30 seconds',
+    'Create a private water report',
+    'Drop your EBMUD usage file here',
+    'Create a private water report',
     'Try sample report',
     'How to get the file',
     'Getting the file usually takes about 3 minutes.',
@@ -102,7 +102,7 @@ try {
   }
   if ((await page.locator('#csvInput').count()) !== 1) throw new Error('Expected browser-local usage file input');
   await page.getByRole('button', { name: 'Try sample report' }).first().click();
-  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Your water-saving map is ready.' }).waitFor({ timeout: 6000 });
   if (!(await page.locator('.browser-report').isVisible())) throw new Error('Sample browser report did not render');
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   const reportTextLower = reportText.toLowerCase();

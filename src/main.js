@@ -57,7 +57,7 @@ class MudBuddyApp extends HTMLElement {
         <nav aria-label="Main navigation">
           <a href="#home">Home</a>
           <a href="#analyze">Analyze</a>
-          <a href="#how">Get file</a>
+          <a href="#how">Get data</a>
           <a href="#resources">Official links</a>
           <a href="#privacy">Privacy</a>
         </nav>
@@ -67,11 +67,11 @@ class MudBuddyApp extends HTMLElement {
       <main id="top">
         <section class="landing shell" id="home">
           <div class="landing-copy reveal">
-            <p class="overline">Save money. Save water.</p>
+            <p class="overline">Save money. Save water. Keep plants alive.</p>
             <h1>Learn where your water bill is leaking money.</h1>
-            <p class="lede">Mud Buddy turns EBMUD usage data into a private, plain-English report: what changed, what to check first, and where savings may be hiding.</p>
+            <p class="lede">Mud Buddy turns EBMUD usage data into a private, plain-English report: what changed, what to check first, and where water may be going.</p>
             <div class="landing-actions">
-              <md-filled-button id="heroAnalyze">Analyze my usage</md-filled-button>
+              <md-filled-button id="heroAnalyze">Analyze my data</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample report</md-filled-tonal-button>
               <md-text-button data-file-guide="true">How to get the file</md-text-button>
             </div>
@@ -87,7 +87,7 @@ class MudBuddyApp extends HTMLElement {
               <img src="assets/mud-buddy-kawaii-mascot.webp" alt="Cute Mud Buddy mascot holding a small water meter clipboard" />
             </div>
             <figcaption>
-              <strong>Save a ridiculous amount of water, one house at a time.</strong>
+              <strong>A small, friendly checkup for your household water use.</strong>
               <span>Built with love in Lafayette, CA.</span>
             </figcaption>
           </figure>
@@ -97,25 +97,25 @@ class MudBuddyApp extends HTMLElement {
           <div class="analyzer-intro">
             <p class="overline">Private analyzer</p>
             <h2>Upload your EBMUD usage data.</h2>
-            <p>Get beautiful analysis, practical recommendations, and a clear first thing to check. No server upload, no account changes, no nerd homework.</p>
+            <p>Get a practical read on your usage file and a clear first thing to check. No server upload, no account changes, no extra homework.</p>
           </div>
 
           <div class="analyzer-grid">
             <div class="upload-panel reveal delay-1" aria-label="Browser-local usage file analyzer">
             <div class="material-card upload-card">
               <div class="card-toolbar">
-                <span>Find savings in 30 seconds</span>
+                <span>Create a private water report</span>
                 <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><span class="icon-glyph" aria-hidden="true" data-icon="shield"></span></md-icon-button>
               </div>
               <md-divider></md-divider>
               <input id="csvInput" class="sr-only-file" type="file" accept=".csv,text/csv" />
               <button class="dropzone" id="dropzone" type="button">
                 <span class="icon-glyph" aria-hidden="true" data-icon="upload_file"></span>
-                <strong>Drop your EBMUD usage data here</strong>
+                <strong>Drop your EBMUD usage file here</strong>
                 <span>or choose the file you downloaded from EBMUD</span>
               </button>
               <div class="upload-actions">
-                <md-filled-button id="chooseCsv">Find savings in 30 seconds</md-filled-button>
+                <md-filled-button id="chooseCsv">Choose usage file</md-filled-button>
                 <md-filled-tonal-button id="trySample">Try sample report</md-filled-tonal-button>
                 <md-text-button data-file-guide="true">Where do I get this file?</md-text-button>
               </div>
@@ -129,8 +129,8 @@ class MudBuddyApp extends HTMLElement {
             </div>
 
             <aside class="material-card analyzer-helper">
-              <p class="overline">What you get</p>
-              <h3>Not a dashboard. A useful read.</h3>
+              <p class="overline">What Mud Buddy does</p>
+              <h3>A useful read, not a dashboard.</h3>
               <ul>
                 <li>What changed since your normal daily use.</li>
                 <li>Whether outdoor watering is the obvious suspect.</li>
@@ -138,7 +138,7 @@ class MudBuddyApp extends HTMLElement {
                 <li>When to use EBMUD directly instead of guessing.</li>
               </ul>
               <md-divider></md-divider>
-              <p>Tip: if your plants are thirsty, this helps separate “needed irrigation” from “oops, the controller went feral.”</p>
+              <p>Tip: this helps separate normal outdoor watering from patterns worth checking.</p>
             </aside>
           </div>
         </section>
@@ -149,13 +149,13 @@ class MudBuddyApp extends HTMLElement {
           <article class="material-card helper-card">
             <p class="overline">Get your usage file</p>
             <h2>Download from EBMUD, then create your report.</h2>
-            <p>Getting the file usually takes about 3 minutes. Once you have it, Mud Buddy shows where to save in under 30 seconds. Log into EBMUD yourself, open Track Usage or My Water Report, and download your billing usage file. Look for a Download your data or Export button.</p>
+            <p>Getting the file usually takes about 3 minutes. Once you have it, Mud Buddy creates a private report in your browser. Log into EBMUD yourself, open Track Usage or My Water Report, and download your billing usage file. Look for a Download your data or Export button.</p>
             <p class="helper-reassurance">This will not change your EBMUD account. Mud Buddy never needs your login, MFA code, or browser session.</p>
             <div class="mini-steps">
               <span><strong>1</strong> Log into EBMUD yourself</span>
               <span><strong>2</strong> Open Track Usage or My Water Report</span>
               <span><strong>3</strong> Download your usage file</span>
-              <span><strong>4</strong> Come back and create your private report</span>
+              <span><strong>4</strong> Come back and choose the file</span>
             </div>
             <div class="helper-actions">
               <md-filled-tonal-button data-file-guide="true">Show me the steps</md-filled-tonal-button>
@@ -198,7 +198,7 @@ class MudBuddyApp extends HTMLElement {
             <li>Log into your EBMUD account yourself.</li>
             <li>Open Track Usage or My Water Report.</li>
             <li>Look for Download your data or Export.</li>
-            <li>Save the usage file, then come back here and choose Find savings in 30 seconds.</li>
+            <li>Save the usage file, then come back here and choose the file.</li>
           </ol>
           <p class="dialog-note">Mud Buddy does not change your EBMUD account and never needs your password, MFA code, cookies, or browser session.</p>
         </form>
@@ -270,11 +270,11 @@ class MudBuddyApp extends HTMLElement {
 
   async analyzeFile(file) {
     if (!/\.csv$/i.test(file.name) && file.type !== 'text/csv') {
-      this.setUploadState('That does not look like an EBMUD usage file. Please choose the billing usage export, from EBMUD.', 0, true);
+      this.setUploadState('That does not look like EBMUD usage data. Please choose the billing usage export from EBMUD.', 0, true);
       return;
     }
     if (file.size > MAX_CSV_BYTES) {
-      this.setUploadState('That usage file is too large for the browser demo. Please use an EBMUD billing usage export under 5 MB.', 0, true);
+      this.setUploadState('That usage file is too large for the browser app. Please use an EBMUD billing usage export under 5 MB.', 0, true);
       return;
     }
     this.setUploadState('Reading the selected usage file locally in your browser...', 0.35);
@@ -287,7 +287,7 @@ class MudBuddyApp extends HTMLElement {
   }
 
   async loadSample() {
-    this.setUploadState('Loading the synthetic sample report...', 0.3);
+    this.setUploadState('Loading a sample report...', 0.3);
     try {
       const response = await fetch('examples/sample-ebmud-usage.csv', { cache: 'no-store' });
       if (!response.ok) throw new Error('Sample usage file was not available. Try the sample report instead.');

@@ -28,7 +28,7 @@ try {
   const requests = [];
   page.on('request', (request) => requests.push(request.url()));
   await page.locator('#csvInput').setInputFiles(path.join(root, 'examples', 'sample-ebmud-usage.csv'));
-  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Your water-saving map is ready.' }).waitFor({ timeout: 6000 });
   const unexpected = requests.filter((requestUrl) => !requestUrl.startsWith('data:') && !requestUrl.startsWith('blob:'));
   if (unexpected.length) throw new Error(`Unexpected network request after upload:\n${unexpected.join('\n')}`);
   await browser.close();

@@ -50,7 +50,7 @@ try {
   const page = await browser.newPage({ viewport: { width: 1000, height: 800 } });
   await page.goto(url);
   await page.locator('#csvInput').setInputFiles(wrongType);
-  await expectStatus(page, 'does not look like an EBMUD usage file');
+  await expectStatus(page, 'does not look like EBMUD usage data');
   await page.locator('#csvInput').setInputFiles(empty);
   await expectStatus(page, 'does not include enough rows');
   await page.locator('#csvInput').setInputFiles(missing);
@@ -64,7 +64,7 @@ try {
   await page.locator('#csvInput').setInputFiles(tooManyRows);
   await expectStatus(page, 'too many rows');
   await page.locator('#csvInput').setInputFiles(quoted);
-  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Your water-saving map is ready.' }).waitFor({ timeout: 6000 });
   let reportText = await page.locator('[data-testid="browser-report"]').innerText();
   if (!reportText.toLowerCase().includes('row skipped') || !reportText.includes('1')) throw new Error('Quoted/N/A fixture did not render invalid-row note');
 

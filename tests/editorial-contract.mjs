@@ -26,9 +26,9 @@ try {
     'Mud Buddy',
     'for EBMUD customers',
     'Learn where your water bill is leaking money.',
-    'Analyze my usage',
+    'Analyze my data',
     'Upload your EBMUD usage data.',
-    'Not a dashboard. A useful read.',
+    'A useful read, not a dashboard.',
     'Try sample report',
     'How to get the file',
     'Getting the file usually takes about 3 minutes.',
@@ -60,7 +60,7 @@ try {
   }
 
   await page.getByRole('button', { name: 'Try sample report' }).first().click();
-  await page.getByRole('heading', { name: 'Report ready.' }).waitFor({ timeout: 6000 });
+  await page.getByRole('heading', { name: 'Your water-saving map is ready.' }).waitFor({ timeout: 6000 });
   const reportText = await page.locator('[data-testid="browser-report"]').innerText();
   const reportTextLower = reportText.toLowerCase();
   for (const required of [
@@ -75,12 +75,12 @@ try {
     'What Mud Buddy sees',
     'Plain-English read',
     'What is probably happening?',
-    'Money + water lab',
+    'Water-saving clues',
     'Where savings may be hiding',
-    'Do the cheap experiments first.',
+    'Start with the simple checks.',
     'This is a pattern read from your usage file, not an official EBMUD finding.',
     'Confidence and method',
-    'What would make this more certain',
+    'Make this more certain',
     'Print or save PDF'
   ]) {
     if (!reportTextLower.includes(required.toLowerCase())) throw new Error(`Browser report still needs homeowner wording: ${required}`);

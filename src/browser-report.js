@@ -130,7 +130,7 @@ function renderNextChecks(analysis) {
   for (const check of nextChecksFor(analysis)) list.append(el('li', { text: check }));
   return el('section', { class: 'next-checks-card' }, [
     el('h3', { text: 'Recommended next checks' }),
-    el('p', { text: 'Do the cheap experiments first. The goal is to catch waste before it turns into another expensive bill.' }),
+    el('p', { text: 'Start with the simple checks. The goal is to catch waste before the next bill.' }),
     list
   ]);
 }
@@ -155,12 +155,12 @@ function renderSavingsLab(analysis) {
     ]));
   }
   const subhead = analysis.totalOpportunityGallons > 0
-    ? `First savings hunt: about ${Math.round(analysis.totalOpportunityGallons / 1000).toLocaleString()}k gallons of potential waste to investigate.`
-    : 'No giant waste pocket jumps out. Keep the baseline and watch the next bill.';
+    ? `Worth checking: about ${Math.round(analysis.totalOpportunityGallons / 1000).toLocaleString()}k gallons of possible extra use.`
+    : 'No obvious waste pocket jumps out. Keep the baseline and watch the next bill.';
   return el('section', { class: 'savings-lab-card' }, [
     el('div', { class: 'section-title-row' }, [
       el('div', {}, [
-        el('p', { class: 'overline', text: 'Money + water lab' }),
+        el('p', { class: 'overline', text: 'Water-saving clues' }),
         el('h3', { text: 'Where savings may be hiding' })
       ]),
       el('p', { text: subhead })
@@ -190,8 +190,8 @@ function renderShareCard(analysis) {
     ]),
     el('div', { class: 'share-card-actions' }, [
       el('div', {}, [
-        el('h3', { text: 'Share the win' }),
-        el('p', { text: 'Want to nudge neighbors without oversharing? Share the summary text, or print/save the beautiful report as a PDF.' })
+        el('h3', { text: 'Share safely' }),
+        el('p', { text: 'Want to nudge neighbors without oversharing? Share the safe summary text, or print/save the report as a PDF.' })
       ]),
       el('div', { class: 'report-actions' }, [
         el('md-filled-tonal-button', { 'data-share-report': 'true', text: 'Share summary' }),
@@ -203,16 +203,16 @@ function renderShareCard(analysis) {
 
 function renderWeekendChecklist() {
   const items = [
-    'Run the irrigation zones and look for obvious waste: overspray, runoff, broken heads, or soggy spots.',
+    'Run irrigation zones and look for overspray, runoff, broken heads, or soggy spots.',
     'Do a toilet dye test on the toilets that get used most.',
     'Turn off water inside and outside, then watch the meter for movement.',
-    'Print or save this report and compare it with the next EBMUD bill.'
+    'Print or save this report, then compare it with the next EBMUD bill.'
   ];
   const list = el('ul', { class: 'weekend-list' });
   for (const item of items) list.append(el('li', { text: item }));
   return el('section', { class: 'weekend-checklist-card' }, [
     el('h3', { text: 'This weekend' }),
-    el('p', { text: 'If you only have 20 minutes, do these small checks first.' }),
+    el('p', { text: 'If you only have 20 minutes, start here.' }),
     list
   ]);
 }
@@ -231,7 +231,7 @@ function renderEvidencePanel(analysis) {
       el('h3', { text: 'What Mud Buddy sees' }),
       el('p', { text: analysis.confidence?.label ? `Confidence: ${analysis.confidence.label}` : 'Pattern clues, not diagnosis.' })
     ]),
-    el('p', { class: 'evidence-prompt', text: 'What would make this more certain: match these clues against household changes, recent weather, and simple field checks.' }),
+    el('p', { class: 'evidence-prompt', text: 'Make this more certain by comparing these clues with household changes, recent weather, and quick field checks.' }),
     list
   ]);
 }
@@ -317,11 +317,11 @@ export function renderBrowserReport(container, analysis, options = {}) {
   root.append(el('div', { class: 'browser-report-head' }, [
     el('div', {}, [
       el('p', { class: 'overline', text: sourceLabel }),
-      el('h2', { text: 'Report ready.' }),
+      el('h2', { text: 'Your water-saving map is ready.' }),
       el('p', { text: 'Analyzed locally in this browser. Nothing was uploaded.' })
     ]),
     el('div', { class: 'report-action-panel' }, [
-      el('p', { class: 'report-action-note', text: 'Local only. Private report.' }),
+      el('p', { class: 'report-action-note', text: 'Local only. No upload.' }),
       el('div', { class: 'report-actions' }, [
         el('md-filled-tonal-button', { id: 'analyzeAnother', 'data-testid': 'analyze-another', text: 'Create another report' }),
         el('md-filled-tonal-button', { 'data-share-report': 'true', text: 'Share summary' }),
