@@ -4,14 +4,16 @@
 
 - Keep the live app focused on the homeowner path: landing, analyzer, report, official EBMUD resources.
 - Keep `npm run validate`, explicit Dan-local usage-file QA, GitHub Actions, Pages deploy, and live smoke checks green.
-- Run quiet beta with 3-5 trusted EBMUD customers.
+- Run quiet beta with 3-5 trusted people on Monday, May 11, 2026.
 - Confirm at least one non-Dan real usage file works through browser-local upload.
 - Fix only launch-blocking confusion, broken links, mobile layout issues, privacy concerns, or real usage-file parser failures.
+- Target public launch on Tuesday, May 12, 2026 if quiet beta is clean.
+- Use Wednesday, May 13, 2026 as the backup launch day if one more polish/debug loop is needed.
 
 ## Public Launch
 
 - Launch Mud Buddy as a browser-local homeowner app for EBMUD customers.
-- Keep the primary promise simple: analyze EBMUD usage data in the browser, get a private water-use report, and know what to check next.
+- Keep the primary promise simple: upload EBMUD usage data in the browser, get a private water-saving briefing, and know what to check first.
 - Keep the millions-of-gallons mission framed as helped-save or potential savings, not verified EBMUD conservation totals.
 - Keep real EBMUD access manual-login-only; Mud Buddy never handles credentials or session material.
 - Keep partner language conservative: no official, approved, endorsed, partner, or co-branded wording unless EBMUD authorizes it in writing.
