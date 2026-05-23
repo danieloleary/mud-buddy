@@ -45,11 +45,11 @@ try {
   if (brandText.includes("by Dan O'Leary") || brandText.includes('for EBMUD -')) throw new Error(`Topbar brand implies attribution or affiliation too strongly: ${brandText}`);
   await assertNoHorizontalOverflow(page, 'desktop landing');
   await assertBoxInsideViewport(page, 'h1', 'desktop hero headline');
-  await assertBoxInsideViewport(page, '.landing-visual', 'desktop landing visual');
+  await assertBoxInsideViewport(page, '.upload-card', 'desktop upload card');
   if ((await page.locator('.brand-mark svg').count()) !== 1) throw new Error('Brand mark SVG did not render');
   const brandMarkText = (await page.locator('.brand-mark').textContent())?.trim() || '';
   if (brandMarkText) throw new Error(`Brand mark leaked fallback text: ${brandMarkText}`);
-  if ((await page.locator('.landing-visual img[src$="mud-buddy-kawaii-mascot.webp"]').count()) !== 1) throw new Error('Kawaii Mud Buddy mascot image did not render');
+  if ((await page.locator('.mascot-card img[src$="mud-buddy-kawaii-mascot.webp"]').count()) !== 1) throw new Error('Kawaii Mud Buddy mascot image did not render');
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(url);

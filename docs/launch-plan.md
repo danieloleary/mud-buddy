@@ -52,7 +52,7 @@ No server upload, no password, no account changes, and no official EBMUD claims.
 Required gates:
 
 - `npm run validate`
-- `MUD_BUDDY_REAL_CSV="C:\Users\danie\Downloads\Billing Usage for 84355595214.csv" npm run test:local-real-csv`
+- `MUD_BUDDY_REAL_CSV="path/to/private-ebmud-usage.csv" npm run test:local-real-csv`
 - Browser upload test proves a homeowner can upload a usage file and see the in-page report.
 - Editorial contract proves the public page leads with homeowner copy, analyzer, sample data, usage-file help, privacy, and official EBMUD resources instead of maintainer/test language.
 - Synthetic source policy proves default QA fixtures come from committed sample data, not Dan's Downloads folder.
@@ -68,7 +68,7 @@ Required gates:
 Current proof as of May 11, 2026:
 
 - Full local `npm run validate` passed after the report/pitch polish pass.
-- Dan's private EBMUD usage file parsed locally: 32 valid rows, 1 invalid row, 483 CCF, 182 GPD baseline.
+- Dan's private EBMUD usage file parsed locally during private QA. Do not publish the source path, account number, filename, private report, or raw rows.
 - GitHub CI and GitHub Pages deploy passed on `main`.
 - Live GitHub Pages smoke passed for landing and browser upload.
 

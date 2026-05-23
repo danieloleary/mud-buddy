@@ -146,55 +146,58 @@ p { color: var(--muted); font-size: 16px; line-height: 1.55; }
 }
 
 .landing {
-  min-height: calc(100svh - 82px);
+  min-height: calc(100svh - 72px);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 390px);
+  grid-template-columns: minmax(320px, .88fr) minmax(360px, 1.12fr);
   align-items: center;
-  gap: clamp(28px, 5vw, 72px);
-  padding-block: clamp(36px, 7vw, 88px);
+  gap: clamp(24px, 4vw, 56px);
+  padding-block: clamp(28px, 5vw, 64px);
 }
 .landing-copy {
   max-width: 680px;
 }
 .landing h1 {
   max-width: 680px;
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: .96;
-  letter-spacing: -.055em;
+  font-size: clamp(38px, 5vw, 60px);
+  line-height: 1;
+  letter-spacing: -.05em;
 }
 .landing-actions, .upload-actions, .helper-actions, .report-actions { display: flex; flex-wrap: wrap; gap: var(--space-md); }
 .landing-actions { margin-top: var(--space-xl); }
 .trust-row { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-lg); }
-.landing-visual {
-  overflow: hidden;
+.landing-product {
+  display: grid;
+  gap: var(--space-md);
+  align-self: stretch;
+}
+.mascot-card {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  align-items: center;
+  gap: var(--space-md);
   margin: 0;
   padding: var(--space-md);
-  background: var(--card-subtle-bg);
-}
-.visual-frame {
-  overflow: hidden;
-  border-radius: var(--radius);
   background: var(--porcelain);
 }
-.landing-visual img {
-  width: 100%;
+.mascot-card img {
+  width: 76px;
+  height: 76px;
   display: block;
-  aspect-ratio: 1;
+  border-radius: var(--radius);
   object-fit: cover;
 }
-.landing-visual figcaption {
+.mascot-card figcaption {
   display: grid;
   gap: var(--space-xs);
-  padding: var(--space-md) var(--space-xs) var(--space-xs);
 }
-.landing-visual strong {
+.mascot-card strong {
   color: var(--ink);
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.25;
 }
-.landing-visual span {
+.mascot-card span {
   color: var(--reservoir);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 760;
 }
 .analyzer-section {
@@ -211,7 +214,7 @@ p { color: var(--muted); font-size: 16px; line-height: 1.55; }
 }
 .analyzer-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-lg);
   align-items: start;
 }
@@ -300,7 +303,9 @@ mud-buddy-app.has-browser-report .analyzer-intro { max-width: 900px; }
 mud-buddy-app.has-browser-report .dropzone { min-height: 132px; padding: var(--space-lg); }
 mud-buddy-app.has-browser-report .dropzone .icon-glyph { width: 42px; height: 42px; font-size: 26px; }
 mud-buddy-app.has-browser-report .dropzone strong { font-size: clamp(21px, 2vw, 26px); }
-mud-buddy-app.has-browser-report .landing { display: none; }
+mud-buddy-app.has-browser-report .landing { min-height: auto; padding-block: 20px; }
+mud-buddy-app.has-browser-report .landing-copy,
+mud-buddy-app.has-browser-report .mascot-card { display: none; }
 
 .browser-report { padding: clamp(18px, 2.6vw, 30px); --chart-bg: var(--paper); --chart-grid: var(--line); --chart-primary: var(--terracotta); --chart-baseline: var(--sand); --chart-dot: var(--aqua); --chart-label: var(--muted); }
 .browser-report:focus-visible { outline: 3px solid color-mix(in srgb, var(--terracotta) 70%, white); outline-offset: 6px; }
@@ -450,7 +455,6 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
   .topbar nav { display: none; }
   .landing, .analyzer-grid, .browser-report-head, .browser-chart-grid { grid-template-columns: 1fr; }
   .landing { min-height: auto; }
-  .landing-visual { max-width: 420px; }
   .resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer-grid { grid-template-columns: 1fr; }
 }
@@ -462,7 +466,8 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
   h1 { font-size: clamp(34px, 9vw, 42px); }
   .landing { padding-block: 28px 22px; }
   .landing h1 { font-size: clamp(38px, 10vw, 48px); }
-  .landing-visual { display: none; }
+  .mascot-card { grid-template-columns: 56px 1fr; }
+  .mascot-card img { width: 56px; height: 56px; }
   .landing-actions md-filled-button, .landing-actions md-filled-tonal-button, .landing-actions md-text-button, .upload-actions md-filled-button, .upload-actions md-filled-tonal-button, .report-actions md-filled-tonal-button, .report-actions md-outlined-button { width: 100%; }
   .dropzone { min-height: 190px; padding: var(--space-lg); }
   .primary-kpis, .data-quality-card, .evidence-grid, .resource-grid { grid-template-columns: 1fr; }

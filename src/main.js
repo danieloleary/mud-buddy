@@ -61,7 +61,7 @@ class MudBuddyApp extends HTMLElement {
           <div class="landing-copy reveal">
             <p class="overline">Save money. Save water. Learn what changed fast.</p>
             <h1>Find the water use that is quietly costing you.</h1>
-            <p class="lede">Mud Buddy turns EBMUD usage data into a private, plain-English briefing: what changed, what it may mean, and the first checks that can save money and gallons.</p>
+            <p class="lede">Upload your EBMUD usage data. Mud Buddy turns it into a private, plain-English briefing: what changed, what it may mean, and the first checks that can save money and gallons.</p>
             <div class="landing-actions">
               <md-filled-button id="heroAnalyze">Start my water check</md-filled-button>
               <md-filled-tonal-button id="heroSample">Try sample report</md-filled-tonal-button>
@@ -74,26 +74,7 @@ class MudBuddyApp extends HTMLElement {
             </div>
           </div>
 
-          <figure class="landing-visual material-card reveal delay-1">
-            <div class="visual-frame">
-              <img src="assets/mud-buddy-kawaii-mascot.webp" alt="Cute Mud Buddy mascot holding a small water meter clipboard" />
-            </div>
-            <figcaption>
-              <strong>A friendly water detective for your home.</strong>
-              <span>Built with love in Lafayette, CA.</span>
-            </figcaption>
-          </figure>
-        </section>
-
-        <section class="shell analyzer-section" id="analyze">
-          <div class="analyzer-intro">
-            <p class="overline">Private analyzer</p>
-            <h2>Upload your EBMUD usage data. Get the useful version.</h2>
-            <p>In about 30 seconds, get a practical briefing on likely drivers, water-saving opportunities, and what to check before the next bill. No server upload, no account changes, no extra homework.</p>
-          </div>
-
-          <div class="analyzer-grid">
-            <div class="upload-panel reveal delay-1" aria-label="Browser-local usage file analyzer">
+          <div class="landing-product reveal delay-1">
             <div class="material-card upload-card">
               <div class="card-toolbar">
                 <span>Create a private water-saving briefing</span>
@@ -118,8 +99,24 @@ class MudBuddyApp extends HTMLElement {
               <md-linear-progress id="uploadProgress" value="0"></md-linear-progress>
               <p id="uploadStatus" class="upload-status" aria-live="polite">Waiting for your usage file. Nothing has been uploaded or stored.</p>
             </div>
-            </div>
+            <figure class="mascot-card material-card">
+              <img src="assets/mud-buddy-kawaii-mascot.webp" alt="Cute Mud Buddy mascot holding a small water meter clipboard" />
+              <figcaption>
+                <strong>A friendly water detective for your home.</strong>
+                <span>Built with love in Lafayette, CA.</span>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
 
+        <section class="shell analyzer-section" id="analyze">
+          <div class="analyzer-intro">
+            <p class="overline">What you get</p>
+            <h2>A useful water briefing, not a dashboard.</h2>
+            <p>In about 30 seconds, Mud Buddy gives you likely drivers, water-saving opportunities, official EBMUD next steps, and a simple first thing to check before the next bill.</p>
+          </div>
+
+          <div class="analyzer-grid">
             <aside class="material-card analyzer-helper">
               <p class="overline">What Mud Buddy does</p>
               <h3>A useful answer, not a homework assignment.</h3>
@@ -131,6 +128,18 @@ class MudBuddyApp extends HTMLElement {
               </ul>
               <md-divider></md-divider>
               <p>Tip: this helps separate normal outdoor watering from patterns worth checking.</p>
+            </aside>
+            <aside class="material-card analyzer-helper">
+              <p class="overline">Privacy boundary</p>
+              <h3>Your browser does the work.</h3>
+              <ul>
+                <li>No EBMUD password.</li>
+                <li>No server upload.</li>
+                <li>No browser storage.</li>
+                <li>No account, billing, or settings changes.</li>
+              </ul>
+              <md-divider></md-divider>
+              <p>Use EBMUD directly for billing, emergency, pressure, outage, rebate, assistance, or water-quality issues.</p>
             </aside>
           </div>
         </section>
@@ -247,7 +256,7 @@ class MudBuddyApp extends HTMLElement {
 
   showAnalyzer(focusAction = false) {
     this.classList.add('has-opened-analyzer');
-    this.querySelector('#analyze').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.querySelector('.upload-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
     if (focusAction) {
       window.setTimeout(() => this.querySelector('#chooseCsv')?.focus(), 320);
     }
