@@ -1,12 +1,11 @@
-import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
+import { spawnPython } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.env.PYTHON || 'python';
 const tempHome = path.join(root, 'tests', 'output', 'synthetic-source-home');
 const outDir = path.join(root, 'tests', 'output', 'synthetic-source-policy');
 
@@ -20,7 +19,7 @@ PRIVATE-DOWNLOAD-SHOULD-NOT-BE-USED,2026-01-01,30,,9,224,150,90,high,SFR,PRIVATE
 await fs.writeFile(path.join(tempHome, 'Downloads', 'Billing Usage Private Trap.csv'), fakePrivateCsv, 'utf8');
 
 await new Promise((resolve, reject) => {
-  const child = spawn(py, ['scripts/generate_synthetic_flavors.py', '--out', outDir], {
+  const child = spawnPython(['scripts/generate_synthetic_flavors.py', '--out', outDir], {
     cwd: root,
     env: {
       ...process.env,

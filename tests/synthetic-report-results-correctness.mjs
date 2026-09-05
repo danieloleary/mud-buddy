@@ -1,11 +1,10 @@
-import { spawnSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnPythonSync } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.env.PYTHON || 'python';
 const flavorsDir = path.join(root, 'tests', 'output', 'synthetic-flavors');
 const reportsDir = path.join(root, 'tests', 'output', 'synthetic-results-correctness');
 const manifestPath = path.join(flavorsDir, 'manifest.json');
@@ -13,14 +12,14 @@ const manifestPath = path.join(flavorsDir, 'manifest.json');
 try {
   await fs.access(manifestPath);
 } catch {
-  const result = spawnSync(py, ['scripts/generate_synthetic_flavors.py'], { cwd: root, encoding: 'utf8' });
+  const result = spawnPythonSync(['scripts/generate_synthetic_flavors.py'], { cwd: root, encoding: 'utf8' });
   if (result.status !== 0) throw new Error(result.stderr || result.stdout);
 }
 
 function runSummary(csvPath, outPath, isPublic = false) {
   const args = ['scripts/generate_report.py', csvPath, '--out', outPath, '--summary-json'];
   if (isPublic) args.push('--public');
-  const result = spawnSync(py, args, { cwd: root, encoding: 'utf8' });
+  const result = spawnPythonSync(args, { cwd: root, encoding: 'utf8' });
   if (result.status !== 0) throw new Error(result.stderr || result.stdout);
   const start = result.stdout.indexOf('{');
   if (start < 0) throw new Error('summary-json output missing JSON');

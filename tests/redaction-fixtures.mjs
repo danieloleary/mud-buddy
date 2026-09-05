@@ -1,11 +1,10 @@
-import { spawnSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnPythonSync } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.env.PYTHON || 'python';
 const out = path.join(root, 'tests', 'output', 'redaction-fixtures');
 
 async function write(rel, text = 'fixture') {
@@ -15,7 +14,7 @@ async function write(rel, text = 'fixture') {
   return file;
 }
 function scan(target) {
-  return spawnSync(py, ['scripts/check_public_redaction.py', '--path', target, '--strict'], { cwd: root, encoding: 'utf8' });
+  return spawnPythonSync(['scripts/check_public_redaction.py', '--path', target, '--strict'], { cwd: root, encoding: 'utf8' });
 }
 async function expectFail(name, setup) {
   const dir = path.join(out, name);
@@ -53,7 +52,7 @@ await expectFail('tests-output', async (dir) => { await fs.mkdir(path.join(dir, 
 await expectFail('zip-leakage', async (dir) => {
   const zipPath = path.join(dir, 'leaky.zip');
   const code = `from zipfile import ZipFile\nwith ZipFile(r'''${zipPath}''','w') as z:\n    z.writestr('generated/private-report/index.html','private')\n`;
-  const result = spawnSync(py, ['-c', code], { encoding: 'utf8' });
+  const result = spawnPythonSync(['-c', code], { encoding: 'utf8' });
   if (result.status !== 0) throw new Error(result.stderr || result.stdout);
 });
 for (const [name, member] of [
@@ -65,7 +64,7 @@ for (const [name, member] of [
   await expectFailMessage(name, async (dir) => {
     const zipPath = path.join(dir, 'leaky.zip');
     const code = `from zipfile import ZipFile\nwith ZipFile(r'''${zipPath}''','w') as z:\n    z.writestr(r'''${member}''','private')\n`;
-    const result = spawnSync(py, ['-c', code], { encoding: 'utf8' });
+    const result = spawnPythonSync(['-c', code], { encoding: 'utf8' });
     if (result.status !== 0) throw new Error(result.stderr || result.stdout);
   }, 'unsafe ZIP member');
 }

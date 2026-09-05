@@ -1,14 +1,13 @@
-import { spawnSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import fssync from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseCsv } from '../src/ebmud-csv.js';
+import { resolvePython, spawnPythonSync } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.env.PYTHON || 'python';
 
 async function findCsv() {
   if (process.env.MUD_BUDDY_REAL_CSV) return process.env.MUD_BUDDY_REAL_CSV;
@@ -26,8 +25,8 @@ async function findCsv() {
   }
 }
 function run(args) {
-  const result = spawnSync(py, args, { cwd: root, encoding: 'utf8' });
-  if (result.status !== 0) throw new Error(`${py} ${args.join(' ')} failed:\n${result.stdout}\n${result.stderr}`);
+  const result = spawnPythonSync(args, { cwd: root, encoding: 'utf8' });
+  if (result.status !== 0) throw new Error(`${resolvePython()} ${args.join(' ')} failed:\n${result.stdout}\n${result.stderr}`);
   return result.stdout;
 }
 function parseSummary(stdout) {
@@ -72,6 +71,6 @@ assertNoLeak(publicText, /[A-Za-z]:\\Users\\[^\s'"<>]+/i, 'local Windows path');
 assertNoLeak(publicText, /\b\d{10,}\b/, 'account-like long number');
 const forbidArgs = accounts.flatMap((account) => ['--forbid', account]);
 forbidArgs.push('--forbid', path.basename(source));
-const scan = spawnSync(py, ['scripts/check_public_redaction.py', '--path', publicOut, '--strict', ...forbidArgs], { cwd: root, encoding: 'utf8' });
+const scan = spawnPythonSync(['scripts/check_public_redaction.py', '--path', publicOut, '--strict', ...forbidArgs], { cwd: root, encoding: 'utf8' });
 if (scan.status !== 0) throw new Error(`standalone real public-report redaction scan failed:\n${scan.stdout}\n${scan.stderr}`);
 console.log(`local-real-csv-e2e: OK ${privateSummary.valid_rows} valid rows, ${privateSummary.invalid_rows} invalid rows, ${privateSummary.total_ccf} CCF private total, baseline ${privateSummary.baseline_gpd} GPD`);

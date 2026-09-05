@@ -2,11 +2,12 @@
 
 ## Target launch window
 
-Current target: ship publicly on **Tuesday, May 12, 2026** if the final quiet-beta checks are clean. Use **Wednesday, May 13, 2026** as the backup launch day if any real-user confusion, parser issue, mobile layout issue, or EBMUD-safety wording concern appears.
+Status as of 2026-09-05: public launch is deferred and Mud Buddy is running as a personal beta. The original target (ship publicly on Tuesday, May 12, 2026, with Wednesday, May 13, 2026 as the backup day) passed without a broad launch because the quiet-beta gate (at least one non-Dan real usage file through the live app) was never closed. No new public launch date is set; the sequence below is preserved so it can be reused once quiet beta is clean.
 
-Default posture:
+Deferred posture:
 
-- Launch Tuesday if the app feels boringly solid.
+- Do not set a new launch date until quiet beta is clean.
+- When a date is set: launch Tuesday if the app feels boringly solid.
 - Wait until Wednesday if one more sleep would make the public story clearer.
 - Do not slip for nice-to-have polish. Slip only for trust, privacy, parsing, mobile usability, or official-resource safety.
 
@@ -65,7 +66,7 @@ Required gates:
   - `MUD_BUDDY_URL="https://danieloleary.github.io/mud-buddy/" npm run test:landing`
   - `MUD_BUDDY_URL="https://danieloleary.github.io/mud-buddy/" npm run test:browser-upload`
 
-Current proof as of May 11, 2026:
+Historical proof from May 2026 (kept for the record; launch deferred as of 2026-09-05):
 
 - Full local `npm run validate` passed after the report/pitch polish pass.
 - Dan's private EBMUD usage file parsed locally during private QA. Do not publish the source path, account number, filename, private report, or raw rows.
@@ -79,9 +80,9 @@ Manual checks:
 - Run the real EBMUD workflow manually once: user logs in, downloads usage file, browser-local report renders.
 - Confirm the public package ZIP doesn't include private usage files, private reports, local paths, traces, screenshots, or deployment state.
 
-## Launch sequence
+## Launch sequence (deferred May 2026 plan; reuse when a new date is set)
 
-### Monday, May 11: Quiet app sanity pass
+### Quiet beta: app sanity pass (was Monday, May 11)
 
 Share privately with 3-5 trusted people, ideally including at least one EBMUD customer who is not Dan. Ask:
 
@@ -100,7 +101,7 @@ Don't broaden launch until at least one non-Dan real usage file has worked throu
 
 Don't add a backend, accounts, analytics, credential automation, or certified savings claims during quiet beta.
 
-### Tuesday, May 12: Public launch if green
+### Public launch, if green (was Tuesday, May 12)
 
 Post first on X, then LinkedIn, from Dan's personal account.
 
@@ -136,7 +137,7 @@ Suggested LinkedIn post:
 > Live app: https://danieloleary.github.io/mud-buddy/
 > Repo: https://github.com/danieloleary/mud-buddy
 
-### Wednesday, May 13: Backup launch or second wave
+### Backup launch or second wave (was Wednesday, May 13)
 
 Use Wednesday if Tuesday's quiet feedback reveals any launch-blocking issue. If Tuesday launches cleanly, use Wednesday for:
 

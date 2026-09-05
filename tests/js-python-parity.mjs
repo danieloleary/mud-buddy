@@ -1,13 +1,12 @@
-import { spawnSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseEbmudCsv } from '../src/ebmud-csv.js';
 import { analyzeWaterUse } from '../src/water-analysis.js';
+import { spawnPythonSync } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.env.PYTHON || 'python';
 const outRoot = path.join(root, 'tests', 'output', 'js-python-parity');
 
 process.on('uncaughtException', (error) => {
@@ -31,7 +30,7 @@ PUBLIC-SAMPLE,2026-06-01,30,,6,1e3,150,90,average,SFR,MTR
 
 function runSummary(csvPath, label) {
   const out = path.join(outRoot, label.replace(/[^a-z0-9_-]/gi, '-'));
-  const result = spawnSync(py, ['scripts/generate_report.py', csvPath, '--out', out, '--summary-json'], { cwd: root, encoding: 'utf8' });
+  const result = spawnPythonSync(['scripts/generate_report.py', csvPath, '--out', out, '--summary-json'], { cwd: root, encoding: 'utf8' });
   if (result.status !== 0) throw new Error(result.stderr || result.stdout);
   const start = result.stdout.indexOf('{');
   if (start < 0) throw new Error('Python summary-json output missing JSON for ' + label);
@@ -66,7 +65,7 @@ const manifestPath = path.join(root, 'tests', 'output', 'synthetic-flavors', 'ma
 try {
   await fs.access(manifestPath);
 } catch {
-  const result = spawnSync(py, ['scripts/generate_synthetic_flavors.py'], { cwd: root, encoding: 'utf8' });
+  const result = spawnPythonSync(['scripts/generate_synthetic_flavors.py'], { cwd: root, encoding: 'utf8' });
   if (result.status !== 0) throw new Error(result.stderr || result.stdout);
 }
 const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));

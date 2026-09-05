@@ -1,11 +1,10 @@
-import { spawnSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnPythonSync } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.env.PYTHON || 'python';
 const portalPath = path.join(root, 'tests', 'mock-ebmud-portal', 'index.html');
 const html = await fs.readFile(portalPath, 'utf8');
 for (const forbidden of [/type=["']password/i, /localStorage\s*[.=]/, /sessionStorage\s*[.=]/, /document\.cookie/i, /Authorization:\s*Bearer/i]) {
@@ -23,12 +22,12 @@ await fs.rm(malformedDir, { recursive: true, force: true });
 await fs.mkdir(malformedDir, { recursive: true });
 const malformed = path.join(malformedDir, 'malformed.csv');
 await fs.writeFile(malformed, 'not,the,right,columns\n1,2,3,4\n', 'utf8');
-const bad = spawnSync(py, ['scripts/generate_report.py', malformed, '--out', path.join(malformedDir, 'bad-report')], { cwd: root, encoding: 'utf8' });
+const bad = spawnPythonSync(['scripts/generate_report.py', malformed, '--out', path.join(malformedDir, 'bad-report')], { cwd: root, encoding: 'utf8' });
 if (bad.status === 0) throw new Error('malformed CSV unexpectedly generated a report');
 const mockReport = path.join(root, 'tests', 'output', 'mock-report');
 try {
   await fs.access(path.join(mockReport, 'index.html'));
-  const scan = spawnSync(py, ['scripts/check_public_redaction.py', '--path', mockReport, '--strict'], { cwd: root, encoding: 'utf8' });
+  const scan = spawnPythonSync(['scripts/check_public_redaction.py', '--path', mockReport, '--strict'], { cwd: root, encoding: 'utf8' });
   if (scan.status !== 0) throw new Error(`mock public report redaction scan failed:\n${scan.stdout}\n${scan.stderr}`);
 } catch {
   console.log('browser-flow-safety: mock report absent, skipping generated-report scan; run test:browser-flow first for full chain');

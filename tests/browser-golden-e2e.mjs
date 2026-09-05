@@ -1,8 +1,9 @@
-import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawn } from 'node:child_process';
 import { chromium } from '@playwright/test';
+import { spawnPython } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -24,7 +25,7 @@ try {
   await fs.access(syntheticCsv);
 } catch {
   await new Promise((resolve, reject) => {
-    const child = spawn(process.env.PYTHON || 'python', ['scripts/generate_synthetic_flavors.py'], { cwd: root, stdio: 'inherit' });
+    const child = spawnPython(['scripts/generate_synthetic_flavors.py'], { cwd: root, stdio: 'inherit' });
     child.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`generate_synthetic_flavors exited ${code}`)));
   });
 }

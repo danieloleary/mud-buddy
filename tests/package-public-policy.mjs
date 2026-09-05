@@ -1,18 +1,17 @@
-import { spawnSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnPythonSync } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
-const py = process.env.PYTHON || 'python';
 const zipPath = path.join(root, 'public-site', 'mud-buddy-by-danno.zip');
 try { await fs.access(zipPath); } catch { throw new Error('public ZIP missing; run npm run package:public first'); }
 const code = `import json\nfrom zipfile import ZipFile\nwith ZipFile(r'''${zipPath}''') as z:\n    print(json.dumps(sorted(z.namelist())))\n`;
-const result = spawnSync(py, ['-c', code], { cwd: root, encoding: 'utf8' });
+const result = spawnPythonSync(['-c', code], { cwd: root, encoding: 'utf8' });
 if (result.status !== 0) throw new Error(result.stderr || result.stdout);
 const names = JSON.parse(result.stdout);
-const policyResult = spawnSync(py, ['scripts/public_release_policy.py'], { cwd: root, encoding: 'utf8' });
+const policyResult = spawnPythonSync(['scripts/public_release_policy.py'], { cwd: root, encoding: 'utf8' });
 if (policyResult.status !== 0) throw new Error(policyResult.stderr || policyResult.stdout);
 const policy = JSON.parse(policyResult.stdout);
 const allowedRaster = new Set(policy.knownPublicAssets.filter((name) => /\.(png|jpe?g|gif|webp)$/i.test(name)));

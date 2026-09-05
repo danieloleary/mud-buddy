@@ -1,7 +1,7 @@
-import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnPython } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -14,7 +14,7 @@ await fs.writeFile(csvPath, `Account Number,Reading Date,Days in Read Period,Met
 
 const privateOut = path.join(output, 'private-report');
 await new Promise((resolve, reject) => {
-  const child = spawn(process.env.PYTHON || 'python', ['scripts/generate_report.py', csvPath, '--out', privateOut], { cwd: root, stdio: 'inherit' });
+  const child = spawnPython(['scripts/generate_report.py', csvPath, '--out', privateOut], { cwd: root, stdio: 'inherit' });
   child.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`private report generator exited ${code}`)));
 });
 const html = await fs.readFile(path.join(privateOut, 'index.html'), 'utf8');

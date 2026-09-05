@@ -231,6 +231,47 @@ function renderWeekendChecklist() {
   ]);
 }
 
+function renderFixtureWorksheet(analysis) {
+  const intro = analysis.baselineChange >= 30
+    ? 'Your baseline drifted upward, so start with the toilet dye test. That pattern is worth checking before assuming the change is only lifestyle or irrigation.'
+    : 'Work top to bottom when you have 20 minutes. Each step is a pattern worth checking, not a diagnosis.';
+  const items = [
+    'Toilet dye test: drop food coloring in the tank, wait 15 minutes without flushing. Color in the bowl is a possible leak clue worth a flapper check.',
+    'Meter-stillness check: turn off all water inside and outside, then watch the meter for about 10 minutes. Movement with everything off is worth checking.',
+    'Look and listen: jiggle the handle, check the fill valve and flapper chain, and listen for hissing or refilling between flushes.',
+    'Faucets and showers: check aerators, look under sinks, and note steady drips. Small drips add up across billing periods.'
+  ];
+  const list = el('ul', { class: 'worksheet-list' });
+  for (const item of items) list.append(el('li', { text: item }));
+  return el('section', { class: 'worksheet-card', 'data-testid': 'fixture-worksheet' }, [
+    el('p', { class: 'overline', text: 'Local worksheet' }),
+    el('h3', { text: 'Fixture and toilet checks' }),
+    el('p', { text: intro }),
+    list,
+    el('p', { class: 'tiny-disclaimer', text: 'Possible leak clues only. Not a leak diagnosis, plumbing inspection, or official EBMUD finding. This worksheet stays in this browser.' })
+  ]);
+}
+
+function renderHelpedSaveWorksheet(analysis) {
+  const potential = analysis.totalOpportunityGallons > 0
+    ? `This file holds about ${Math.round(analysis.totalOpportunityGallons / 1000).toLocaleString()}k gallons of potential extra use worth checking.`
+    : 'No obvious waste pocket jumps out of this file, so treat small steady habits as the potential win.';
+  const items = [
+    'Write down the one check you finished first and what you found.',
+    'Re-run this report after the next bill and compare the normal daily use estimate.',
+    'Share only the public-safe summary text with neighbors; keep the usage file local.'
+  ];
+  const list = el('ul', { class: 'worksheet-list' });
+  for (const item of items) list.append(el('li', { text: item }));
+  return el('section', { class: 'worksheet-card', 'data-testid': 'helped-save-worksheet' }, [
+    el('p', { class: 'overline', text: 'Local worksheet' }),
+    el('h3', { text: 'Helped-save estimate' }),
+    el('p', { text: `${potential} Log what you fix and let the next bill show what it may have helped save.` }),
+    list,
+    el('p', { class: 'tiny-disclaimer', text: 'Potential helped-save gallons are investigation targets, not certified savings. Actual bills depend on rates, tiers, drought rules, and household behavior. This worksheet stays in this browser.' })
+  ]);
+}
+
 function renderEvidencePanel(analysis) {
   if (!Array.isArray(analysis.evidencePoints) || !analysis.evidencePoints.length) return null;
   const list = el('div', { class: 'evidence-grid' });
@@ -399,6 +440,8 @@ function reportSections(analysis) {
     renderEvidencePanel(analysis),
     renderNextChecks(analysis),
     renderWeekendChecklist(),
+    renderFixtureWorksheet(analysis),
+    renderHelpedSaveWorksheet(analysis),
     renderShareCard(analysis),
     renderKeyNumbers(analysis),
     renderCharts(analysis),

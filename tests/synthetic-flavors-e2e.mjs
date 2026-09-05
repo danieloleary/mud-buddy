@@ -1,7 +1,7 @@
-import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolvePython, spawnPython } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -10,10 +10,10 @@ const reportsDir = path.join(root, 'tests', 'output', 'synthetic-reports');
 const requiredVisuals = ['01_timeline.svg', '02_driver_stack.svg', '03_seasonality.svg', '04_year_over_year.svg', '05_context.svg'];
 const forbidden = [/Billing Usage for/i, /C:\\Users\\[^\s<>'"]+/i, /PRIVATE_ADDRESS_SENTINEL/, /PRIVATE_ACCOUNT_SENTINEL/, /\b\d{10,}\b/];
 
-async function run(command, args, options = {}) {
+async function runPython(args, options = {}) {
   await new Promise((resolve, reject) => {
-    const child = spawn(command, args, { cwd: root, stdio: 'inherit', ...options });
-    child.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`${command} ${args.join(' ')} exited ${code}`)));
+    const child = spawnPython(args, { cwd: root, stdio: 'inherit', ...options });
+    child.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`${resolvePython()} ${args.join(' ')} exited ${code}`)));
   });
 }
 
@@ -22,7 +22,7 @@ async function readManifest() {
   try {
     return JSON.parse(await fs.readFile(manifestPath, 'utf8'));
   } catch {
-    await run(process.env.PYTHON || 'python', ['scripts/generate_synthetic_flavors.py']);
+    await runPython(['scripts/generate_synthetic_flavors.py']);
     return JSON.parse(await fs.readFile(manifestPath, 'utf8'));
   }
 }
@@ -46,8 +46,8 @@ for (const item of manifest.flavors) {
 
   const privateOut = path.join(reportsDir, item.flavor, 'private');
   const publicOut = path.join(reportsDir, item.flavor, 'public');
-  await run(process.env.PYTHON || 'python', ['scripts/generate_report.py', csvPath, '--out', privateOut]);
-  await run(process.env.PYTHON || 'python', ['scripts/generate_report.py', csvPath, '--out', publicOut, '--public']);
+  await runPython(['scripts/generate_report.py', csvPath, '--out', privateOut]);
+  await runPython(['scripts/generate_report.py', csvPath, '--out', publicOut, '--public']);
 
   for (const out of [privateOut, publicOut]) {
     await fs.access(path.join(out, 'index.html'));

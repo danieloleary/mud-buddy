@@ -4,11 +4,11 @@
 
 - Keep the live app focused on the homeowner path: landing, analyzer, report, official EBMUD resources.
 - Keep `npm run validate`, explicit Dan-local usage-file QA, GitHub Actions, Pages deploy, and live smoke checks green.
-- Run quiet beta with 3-5 trusted people on Monday, May 11, 2026.
+- Status as of 2026-09-05: public launch is deferred and Mud Buddy is running as a personal beta. The May 11-13, 2026 quiet-beta and launch window passed without a broad launch, and the non-Dan real usage-file gate is still open (see `plan-and-status.md`).
+- Still to do before any broad launch: run quiet beta with 3-5 trusted people.
 - Confirm at least one non-Dan real usage file works through browser-local upload.
 - Fix only launch-blocking confusion, broken links, mobile layout issues, privacy concerns, or real usage-file parser failures.
-- Target public launch on Tuesday, May 12, 2026 if quiet beta is clean.
-- Use Wednesday, May 13, 2026 as the backup launch day if one more polish/debug loop is needed.
+- No new public launch date is set; pick one only after quiet beta is clean.
 
 ## Public Launch
 

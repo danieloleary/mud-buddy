@@ -390,6 +390,11 @@ mud-buddy-app.has-browser-report .mascot-card { display: none; }
 .weekend-list { display: grid; gap: var(--space-sm); margin: var(--space-md) 0 0; padding: 0; list-style: none; }
 .weekend-list li { position: relative; padding-left: 30px; color: var(--reservoir); font-size: 15px; font-weight: 760; line-height: 1.4; }
 .weekend-list li::before { content: ''; position: absolute; left: 0; top: .18em; width: 18px; height: 18px; border: 2px solid var(--terracotta); border-radius: var(--radius-sm); background: white; }
+.worksheet-card { margin-top: var(--space-md); padding: var(--space-lg); background: var(--porcelain); }
+.worksheet-card p { margin-bottom: 0; }
+.worksheet-list { display: grid; gap: var(--space-sm); margin: var(--space-md) 0 0; padding: 0; list-style: none; }
+.worksheet-list li { position: relative; padding-left: 30px; color: var(--reservoir); font-size: 15px; font-weight: 700; line-height: 1.4; }
+.worksheet-list li::before { content: ''; position: absolute; left: 0; top: .18em; width: 18px; height: 18px; border: 2px solid var(--reservoir); border-radius: var(--radius-sm); background: white; }
 .section-title-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-md); margin-bottom: var(--space-md); }
 .section-title-row p { margin: 0; font-size: 14px; font-weight: 750; }
 .primary-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); }
@@ -478,10 +483,23 @@ md-dialog { max-width: min(560px, calc(100vw - 32px)); }
 
 @media print {
   .topbar, .landing, .analyzer-section, .get-file-section, .resource-strip, footer, .report-action-panel, .share-card-actions { display: none !important; }
-  body { background: white; }
+  body { background: white; color: var(--ink); }
   .shell { width: 100%; }
   .browser-result-section { padding: 0; }
-  .browser-report { border: 0; padding: 0; }
+  .browser-report { border: 0; padding: 0; background: white; box-shadow: none; }
+  .browser-report a { color: var(--ink); }
+  .share-card-preview { background: white !important; color: var(--ink) !important; border: 1px solid var(--slate); }
+  .share-card-preview::after { display: none; }
+  .share-card-preview h3, .share-card-preview p, .share-card-preview small, .share-card-stat strong, .share-card-stat span, .share-card-eyebrow { color: var(--ink) !important; }
+  .share-card-eyebrow { border-color: var(--slate); background: white; }
+  .share-card-preview small { color: var(--slate) !important; }
+  .browser-summary-card, .action-brief-card, .next-checks-card, .weekend-checklist-card, .key-numbers-card, .browser-chart-card, .evidence-card, .browser-official-card, .glossary-card, .method-details, .share-card, .browser-warning-card, .worksheet-card { break-inside: avoid; }
+  .browser-report h2, .browser-report h3 { break-after: avoid; }
+  .weekend-list li::before, .season-row i { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .method-details:not([open]) > :not(summary) { display: block !important; }
+  .method-details summary { list-style: none; }
+  .method-details summary::-webkit-details-marker { display: none; }
+  @page { margin: 12mm; }
 }
 
 @media (prefers-reduced-motion: reduce) {

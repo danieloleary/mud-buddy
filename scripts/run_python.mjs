@@ -1,4 +1,5 @@
 import { spawnSync } from 'node:child_process';
+import { pythonCommands } from './python-launcher.mjs';
 
 const args = process.argv.slice(2);
 if (!args.length) {
@@ -6,9 +7,7 @@ if (!args.length) {
   process.exit(1);
 }
 
-const commands = process.env.PYTHON
-  ? [process.env.PYTHON]
-  : (process.platform === 'win32' ? ['python'] : ['python', 'python3']);
+const commands = pythonCommands();
 
 let lastError;
 for (const command of commands) {

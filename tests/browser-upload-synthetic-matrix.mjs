@@ -1,23 +1,23 @@
-import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawn } from 'node:child_process';
 import { chromium } from '@playwright/test';
 import { parseEbmudCsv } from '../src/ebmud-csv.js';
 import { analyzeWaterUse } from '../src/water-analysis.js';
+import { spawnPython } from '../scripts/python-launcher.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const flavorsDir = path.join(root, 'tests', 'output', 'synthetic-flavors');
 const manifestPath = path.join(flavorsDir, 'manifest.json');
 const expectationsPath = path.join(root, 'tests', 'fixtures', 'synthetic-browser-expectations.json');
-const py = process.env.PYTHON || 'python';
 
 try {
   await fs.access(manifestPath);
 } catch {
   await new Promise((resolve, reject) => {
-    const child = spawn(py, ['scripts/generate_synthetic_flavors.py'], { cwd: root, stdio: 'inherit' });
+    const child = spawnPython(['scripts/generate_synthetic_flavors.py'], { cwd: root, stdio: 'inherit' });
     child.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`generate_synthetic_flavors exited ${code}`)));
   });
 }
