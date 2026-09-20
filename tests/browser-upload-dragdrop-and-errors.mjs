@@ -63,6 +63,19 @@ try {
   await expectStatus(page, 'too large');
   await page.locator('#csvInput').setInputFiles(tooManyRows);
   await expectStatus(page, 'too many rows');
+  for (const [name, contents, expected] of [
+    ['unclosed.csv', 'Reading Date,Days in Read Period,CCF,Customer GPD\n2026-06-01,30,6,"150', 'Malformed CSV'],
+    ['ragged.csv', 'Reading Date,Days in Read Period,CCF,Customer GPD\n2026-06-01,30,6,150,99', 'fields'],
+    ['duplicate.csv', 'Reading Date,Days in Read Period,CCF,Customer GPD\n2026-06-01,30,6,150\n6/1/2026,30,6,150', 'Repeated reading dates']
+  ]) {
+    await page.locator('#csvInput').setInputFiles({ name, mimeType: 'text/csv', buffer: Buffer.from(contents) });
+    await expectStatus(page, expected);
+  }
+  await page.locator('#csvInput').setInputFiles({ name: 'summer-only.csv', mimeType: 'text/csv', buffer: Buffer.from(' customer gpd ,CCF, days in read period , reading date\n150,6,30,6/1/2026\n150,6,30,7/1/2026') });
+  await page.getByRole('heading', { name: 'Your water-saving briefing is ready.' }).waitFor();
+  const seasonalText = await page.locator('[data-testid="browser-report"]').innerText();
+  if (!seasonalText.includes('No data') || !seasonalText.includes('Not enough seasonal data') || !seasonalText.includes('Seasonal comparison unavailable') || seasonalText.includes('Start outside.')) throw new Error('Summer-only report invented seasonal evidence');
+  if (!(await page.locator('.action-brief-card').innerText()).includes('gallons/day')) throw new Error('First check does not explain its evidence');
   await page.locator('#csvInput').setInputFiles(quoted);
   await page.getByRole('heading', { name: 'Your water-saving briefing is ready.' }).waitFor({ timeout: 6000 });
   let reportText = await page.locator('[data-testid="browser-report"]').innerText();

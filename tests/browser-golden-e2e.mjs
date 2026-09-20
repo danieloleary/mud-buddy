@@ -43,6 +43,16 @@ async function waitFor(target, tries = 80) {
   throw new Error(`Timed out waiting for ${target}`);
 }
 
+async function uploadAndWait(page, csvPath) {
+  const previousReport = await page.$('[data-testid="browser-report"]');
+  await page.locator('#csvInput').setInputFiles(csvPath);
+  if (previousReport) {
+    await page.waitForFunction((node) => !node.isConnected, previousReport);
+    await previousReport.dispose();
+  }
+  await page.getByRole('heading', { name: 'Your water-saving briefing is ready.' }).waitFor();
+}
+
 try {
   await waitFor(url);
   const browser = await chromium.launch({ headless: true });
@@ -54,7 +64,7 @@ try {
   await page.waitForTimeout(250);
   await page.screenshot({ path: path.join(outDir, 'desktop-landing.png'), fullPage: false });
 
-  await page.locator('#csvInput').setInputFiles(sampleCsv);
+  await uploadAndWait(page, sampleCsv);
   await page.getByRole('heading', { name: 'Your water-saving briefing is ready.' }).waitFor({ timeout: 6000 });
   await page.screenshot({ path: path.join(outDir, 'desktop-sample-upload-report.png'), fullPage: false });
   await page.locator('[data-testid="browser-report"]').screenshot({ path: path.join(outDir, 'desktop-sample-full-report.png') });
@@ -65,7 +75,7 @@ try {
     if (!reportTextLower.includes(required.toLowerCase())) throw new Error(`Golden sample report missing: ${required}`);
   }
 
-  await page.locator('#csvInput').setInputFiles(syntheticCsv);
+  await uploadAndWait(page, syntheticCsv);
   await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Usage file analyzed locally'), null, { timeout: 6000 });
   reportText = await page.locator('[data-testid="browser-report"]').innerText();
   reportTextLower = reportText.toLowerCase();
@@ -79,7 +89,7 @@ try {
   for (const scenario of scenarioCsvs) {
     const scenarioPath = path.join(syntheticDir, scenario);
     const scenarioName = scenario.replace(/\.csv$/i, '');
-    await page.locator('#csvInput').setInputFiles(scenarioPath);
+    await uploadAndWait(page, scenarioPath);
     await page.waitForFunction(() => document.querySelector('[data-testid="browser-report"]')?.textContent?.includes('Usage file analyzed locally'), null, { timeout: 6000 });
     const scenarioText = await page.locator('[data-testid="browser-report"]').innerText();
     for (const required of ['Start here', 'Normal daily use estimate', 'Outdoor watering clue', 'Water use over time']) {
