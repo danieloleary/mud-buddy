@@ -68,10 +68,11 @@ function renderSeasonBars(analysis) {
   for (const [season, value] of Object.entries(analysis.seasonAverages)) {
     const row = el('div', { class: 'season-row' });
     row.append(el('span', { text: season }));
+    const hasData = analysis.rows.some((period) => period.season === season);
     const bar = el('i');
-    bar.style.width = `${Math.max(6, (value / max) * 100)}%`;
+    bar.style.width = hasData ? `${Math.max(0, (value / max) * 100)}%` : '0%';
     row.append(el('b', {}, [bar]));
-    row.append(el('strong', { text: `${value} GPD` }));
+    row.append(el('strong', { text: hasData ? `${value} GPD` : 'No data' }));
     wrapper.append(row);
   }
   return wrapper;
@@ -403,7 +404,7 @@ function renderKeyNumbers(analysis) {
     ]),
     el('div', { class: 'primary-kpis', 'data-testid': 'primary-kpis' }, [
       stat('Normal daily use estimate', `${analysis.baselineGpd} GPD`, 'kpi-baseline', true),
-      stat('Outdoor watering clue', `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
+      stat('Outdoor watering clue', analysis.hasSeasonComparison === false ? 'Not enough seasonal data' : `${analysis.seasonalLift} GPD`, 'kpi-seasonal-lift', true),
       stat('Highest-use period', `${analysis.peakPeriod.label} (${analysis.peakPeriod.gpd} GPD)`, 'kpi-peak', true)
     ]),
     el('div', { class: 'data-quality-card' }, [
