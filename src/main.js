@@ -81,6 +81,7 @@ class MudBuddyApp extends HTMLElement {
                 <md-icon-button aria-label="Open privacy boundary" id="openChecklist"><span class="icon-glyph" aria-hidden="true" data-icon="shield"></span></md-icon-button>
               </div>
               <md-divider></md-divider>
+              <details class="file-format-help"><summary>Which usage files work?</summary><p>Use a comma-separated billing CSV with Reading Date, Days in Read Period, CCF, and Customer GPD. Dates: YYYY-MM-DD or M/D/YYYY (month/day/year). Column order, capitalization, and extra spaces are okay.</p></details>
               <input id="csvInput" class="sr-only-file" type="file" accept=".csv,text/csv" />
               <button class="dropzone" id="dropzone" type="button">
                 <span class="icon-glyph" aria-hidden="true" data-icon="upload_file"></span>

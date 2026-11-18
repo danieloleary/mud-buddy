@@ -74,7 +74,9 @@ function computeWaterMetrics(rows, invalidRows) {
   const peak = rows.reduce((best, row) => (row.gpd > best.gpd ? row : best), rows[0]);
   const winterSpring = avg(rows.filter((row) => ['Winter', 'Spring'].includes(row.season)).map((row) => row.gpd));
   const summerFall = avg(rows.filter((row) => ['Summer', 'Fall'].includes(row.season)).map((row) => row.gpd));
-  const seasonalLift = Math.max(0, Math.round(summerFall - winterSpring));
+  const hasSeasonComparison = rows.some((row) => ['Winter', 'Spring'].includes(row.season))
+    && rows.some((row) => ['Summer', 'Fall'].includes(row.season));
+  const seasonalLift = hasSeasonComparison ? Math.max(0, Math.round(summerFall - winterSpring)) : 0;
   const seasonalLiftPct = winterSpring > 0 ? seasonalLift / winterSpring : 0;
   const peerRows = rows.filter((row) => Number.isFinite(row.avg));
   const peerRatio = peerRows.length ? avg(peerRows.map((row) => row.gpd / row.avg)) : null;
@@ -102,6 +104,7 @@ function computeWaterMetrics(rows, invalidRows) {
     gpdStdDev,
     gpdRange,
     peak,
+    hasSeasonComparison,
     winterSpring,
     summerFall,
     seasonalLift,
@@ -136,7 +139,9 @@ function detectWaterPatterns(metrics, rows) {
 }
 
 export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
+  warnings = [...warnings];
   const metrics = computeWaterMetrics(rows, invalidRows);
+  if (!metrics.hasSeasonComparison) warnings.push('Seasonal comparison unavailable: this file needs both winter/spring and summer/fall billing periods.');
   const patterns = detectWaterPatterns(metrics, rows);
   const {
     baselineGpd,
@@ -146,6 +151,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     gpdStdDev,
     peak,
     seasonalLift,
+    hasSeasonComparison,
     peerRatio,
     baselineChange,
     peakDelta,
@@ -188,8 +194,8 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     insights.push({
       icon: 'home',
       priority: 45,
-      title: 'Outdoor watering is not the obvious driver.',
-      text: 'Compare routines, guests, laundry, showers, fixtures, and read-period length before blaming the yard.'
+      title: hasSeasonComparison ? 'Outdoor watering is not the obvious driver.' : 'There is not enough seasonal coverage.',
+      text: hasSeasonComparison ? 'Compare routines, guests, laundry, showers, fixtures, and read-period length before blaming the yard.' : 'This file cannot compare warmer-season and cooler-season use. Add more billing history before drawing an outdoor-watering conclusion.'
     });
   }
 
@@ -244,7 +250,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   }
   insights.sort((a, b) => b.priority - a.priority);
 
-  const confidence = hasPartialData || invalidRows.length + warnings.length >= 3
+  const confidence = hasPartialData || invalidRows.length + warnings.filter((warning) => !/^Row \d+ skipped:/.test(warning)).length >= 3
     ? {
         label: 'Limited',
         reason: 'There is enough to form a first hypothesis, but not enough clean history to treat any pattern as settled.'
@@ -266,7 +272,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     },
     {
       label: 'Outdoor signal',
-      value: seasonalLift > 0
+      value: !hasSeasonComparison ? 'Seasonal comparison unavailable: both warmer and cooler periods are needed.' : seasonalLift > 0
         ? `Summer/fall averages ${seasonalLift} GPD above winter/spring.`
         : 'Summer/fall does not sit above winter/spring in this usage file.'
     },
@@ -330,7 +336,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
 
   const expertNotes = [
     `Peak period: ${formatMonth(peak.date)} at ${Math.round(peak.gpd)} GPD, about ${Math.max(0, peakDelta)} GPD above normal daily use.`,
-    `Outdoor-season lift: ${seasonalLift} GPD above winter/spring.`,
+    hasSeasonComparison ? `Outdoor-season lift: ${seasonalLift} GPD above winter/spring.` : 'Outdoor-season lift is unavailable without both warmer and cooler billing periods.',
     totalOpportunityGallons > 0
       ? `Fast savings target: the first practical hunt is roughly ${formatGallons(totalOpportunityGallons)} (${ccfOpportunity} CCF) of potential water to investigate, not a certified savings claim.`
       : 'GPD is an average over a billing period, not a live daily meter trace.'
@@ -373,22 +379,22 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
   const actionBrief = irrigationLikely
     ? {
         title: 'Start outside.',
-        label: 'Most likely first check',
-        detail: `Outdoor-season use is the loudest signal. Walk the irrigation system before replacing parts or blaming showers.`,
-        proof: `${seasonalLift} GPD above cooler-season use`
+        label: 'Your first household check',
+        detail: 'If you use irrigation, watch one scheduled watering cycle. Look for water hitting pavement, broken heads, or runoff, and write down what you find. Without irrigation, compare warm-season household routines. This pattern does not prove a leak.',
+        proof: `Summer/fall: ${round(metrics.summerFall, 1)} gallons/day; winter/spring: ${round(metrics.winterSpring, 1)}. Difference: about ${seasonalLift} gallons/day.`
       }
     : baselineRising
       ? {
           title: 'Start with quiet daily use.',
-          label: 'Most likely first check',
-          detail: 'This looks like a small daily-use mystery. Toilets, valves, fixtures, and routine changes are the first cheap checks.',
-          proof: `${Math.round(Math.abs(baselineChange))} GPD increase`
+          label: 'Your first household check',
+          detail: 'Check whether guests, routines, or watering changed. If the rise is unexplained, put food coloring in one toilet tank and wait 15 minutes without flushing. Color appearing in the bowl is a reason to inspect that toilet. Billing averages alone cannot prove a leak.',
+          proof: `Later periods average ${round(metrics.firstThirdAvg + baselineChange, 1)} gallons/day versus ${round(metrics.firstThirdAvg, 1)} earlier: about ${Math.round(baselineChange)} more gallons/day.`
         }
       : {
           title: 'Start with the peak period.',
-          label: 'Most likely first check',
-          detail: 'No single villain is yelling. Compare the highest-use period with real life, then do the cheap checks before buying anything.',
-          proof: `${formatMonth(peak.date)} was the high point`
+          label: 'Your first household check',
+          detail: 'Look back at the billing period ending at this reading. Write down one change in guests, laundry, watering, or repairs that might explain it. Compare the next period before assuming a cause.',
+          proof: `${formatMonth(peak.date)}: ${Math.round(peak.gpd)} gallons/day, versus a file baseline estimate of ${baselineGpd}. These are billing-period averages, not daily readings.`
         };
   return {
     validRows: rows.length,
@@ -398,6 +404,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     avgGpd,
     baselineGpd,
     seasonalLift,
+    hasSeasonComparison,
     peakPeriod: {
       label: formatMonth(peak.date),
       gpd: Math.round(peak.gpd),
@@ -413,7 +420,7 @@ export function analyzeWaterUse(rows, invalidRows = [], warnings = []) {
     ccfOpportunity,
     expertNotes,
     uncertaintyNotes,
-    recommendedChecks: [...recommendedChecks.filter((check) => check !== officialCheck).slice(0, 3), officialCheck],
+    recommendedChecks: [actionBrief.detail, ...recommendedChecks.filter((check) => check !== officialCheck).slice(0, 3), officialCheck],
     shareCard,
     actionBrief,
     variabilityGpd: Math.round(gpdStdDev),

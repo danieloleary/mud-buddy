@@ -91,3 +91,36 @@ try {
 assert(missingError.includes('Missing required EBMUD column'), 'missing columns should produce a clear error');
 
 console.log('csv-parser-analysis: OK browser parser handles sample, BOM, quoted values/newlines, N/A, malformed values, row caps, strict dates, and missing columns');
+
+// Friend-beta exports: harmless formatting variations must not change the totals.
+const header = 'Reading Date,Days in Read Period,CCF,Customer GPD';
+const variants = parseEbmudCsv('\uFEFF customer  gpd ,CCF, days in read period , reading date ,Note\r150,6,30,6/1/2026,"synthetic, only"\r175,7,30,2026-07-01,extra\r');
+assert(variants.rows.length === 2 && variants.rows[0].month === 6, 'US dates, reordered headers, case/spacing, extra columns and CR endings should parse');
+const summerOnly = analyzeWaterUse(variants.rows);
+assert(summerOnly.seasonalLift === 0, 'missing cooler-season data must not count as zero-use evidence');
+assert(!summerOnly.insights.some((item) => item.title === 'Outdoor watering is the first thing to check.'), 'summer-only data must not imply an irrigation signal');
+assert(summerOnly.evidencePoints.some((item) => item.value.includes('comparison unavailable')), 'missing seasonal evidence must be explained');
+assert(summerOnly.recommendedChecks[0] === summerOnly.actionBrief.detail, 'first checklist action must agree with the leading action');
+assert(analysis.actionBrief.proof.includes('gallons/day'), 'first check must explain units beside its evidence');
+
+for (const [label, csv, message] of [
+  ['empty', '', 'enough rows'],
+  ['header only', header, 'enough rows'],
+  ['unclosed quote', `${header}\n2026-01-01,30,6,"150`, 'Malformed CSV'],
+  ['quote in plain field', `${header}\n2026-01-01,30,6,15"0"`, 'Malformed CSV'],
+  ['text after closing quote', `${header}\n2026-01-01,30,6,"150"junk`, 'Malformed CSV'],
+  ['missing cell', `${header}\n2026-01-01,30,6`, 'fields'],
+  ['extra cell', `${header}\n2026-01-01,30,6,150,999`, 'fields'],
+  ['duplicate heading', `${header}, ccf\n2026-01-01,30,6,150,7`, 'Duplicate column'],
+  ['duplicate date', `${header}\n2026-01-01,30,6,150\n1/1/2026,30,6,150`, 'Repeated reading dates'],
+  ['impossible US date', `${header}\n2/30/2026,30,6,150`, 'No valid'],
+  ['ambiguous short year', `${header}\n1/2/26,30,6,150`, 'No valid'],
+  ['fractional days', `${header}\n2026-01-01,30.5,6,150`, 'No valid']
+]) {
+  let failure;
+  try { parseEbmudCsv(csv); } catch (error) { failure = error.message; }
+  assert(failure?.includes(message), `${label} should fail helpfully: ${failure}`);
+}
+const partial = parseEbmudCsv(`${header}\n2/30/2026,30,6,150\n2/28/2026,30,6,150`);
+assert(partial.warnings.some((warning) => warning.includes('Row 2 skipped') && warning.includes('YYYY-MM-DD')), 'skipped dates must have an actionable report note');
+console.log('friend-beta parser/evidence: OK unfamiliar formats, malformed structures, duplicate dates, missing seasons, and first-check agreement');

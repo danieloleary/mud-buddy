@@ -26,6 +26,10 @@ Mud Buddy's normal-use, outdoor-watering, and benchmark labels are heuristic pat
 
 You can also choose `Try sample report` on the site to see the flow with synthetic public-safe data.
 
+The browser accepts comma-separated billing CSVs with `Reading Date`, `Days in Read Period`, `CCF`, and `Customer GPD`. Column order, capitalization, extra whitespace, and additional columns are supported. Dates may be `YYYY-MM-DD` or US `M/D/YYYY` with a four-digit year. It rejects malformed quoting, uneven rows, duplicate headings, and repeated reading dates rather than risking a misleading total. Invalid usage values or dates are skipped with notes.
+
+Seasonal clues require both winter/spring and summer/fall periods. The first household check explains the measured comparison and what to do; billing averages do not prove a leak or a billing error. These format improvements apply to the browser analyzer.
+
 The file step usually takes about 3 minutes. Mud Buddy doesn't change your EBMUD account.
 
 ## Quiet beta ask

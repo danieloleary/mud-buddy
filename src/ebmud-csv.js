@@ -29,6 +29,8 @@ export function parseCsv(text, { maxRows = Infinity } = {}) {
   let row = [];
   let cell = '';
   let quoted = false;
+  let closedQuote = false;
+  const malformed = () => { throw new Error('Malformed CSV quoting. Export the billing usage file again, or save it as a comma-separated CSV with matching quotes.'); };
   const pushRow = () => {
     rows.push(row);
     if (rows.length > maxRows) throw new Error(TOO_MANY_ROWS_MESSAGE);
@@ -42,26 +44,33 @@ export function parseCsv(text, { maxRows = Infinity } = {}) {
         i += 1;
       } else if (ch === '"') {
         quoted = false;
+        closedQuote = true;
       } else {
         cell += ch;
       }
       continue;
     }
+    if (closedQuote && ![',', '\n', '\r'].includes(ch)) malformed();
     if (ch === '"') {
+      if (cell) malformed();
       quoted = true;
     } else if (ch === ',') {
       row.push(cell);
       cell = '';
-    } else if (ch === '\n') {
+      closedQuote = false;
+    } else if (ch === '\n' || ch === '\r') {
+      if (ch === '\r' && input[i + 1] === '\n') i += 1;
       row.push(cell.replace(/\r$/, ''));
       pushRow();
       row = [];
       cell = '';
+      closedQuote = false;
     } else {
       cell += ch;
     }
   }
-  if (cell || row.length) {
+  if (quoted) malformed();
+  if (cell || row.length || closedQuote) {
     row.push(cell.replace(/\r$/, ''));
     pushRow();
   }
@@ -69,6 +78,8 @@ export function parseCsv(text, { maxRows = Infinity } = {}) {
 }
 
 function parseStrictDate(dateText) {
+  const usDate = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(dateText);
+  if (usDate) dateText = `${usDate[3]}-${usDate[1].padStart(2, '0')}-${usDate[2].padStart(2, '0')}`;
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateText);
   if (!match) return null;
   const [, yearText, monthText, dayText] = match;
@@ -90,21 +101,30 @@ function parseStrictDate(dateText) {
 export function parseEbmudCsv(csvText, options = {}) {
   const table = parseCsv(csvText, options);
   if (table.length < 2) {
-    throw new Error('This usage file does not include enough rows to analyze.');
+    throw new Error('This usage file does not include enough rows to analyze. Choose a CSV with a header and at least one billing period.');
   }
 
-  const headers = table[0].map((header) => String(header ?? '').trim());
+  const normalizeHeader = (header) => String(header ?? '').trim().replace(/\s+/g, ' ').toLowerCase();
+  const knownColumns = [...REQUIRED_COLUMNS, 'Average Households GPD', 'Top 20% GPD', 'WaterScore'];
+  const headers = table[0].map((header) => knownColumns.find((column) => normalizeHeader(column) === normalizeHeader(header)) ?? normalizeHeader(header));
+  if (new Set(headers).size !== headers.length) {
+    throw new Error('Duplicate column headings make this usage file ambiguous. Export one billing usage table with unique column headings.');
+  }
   const missing = REQUIRED_COLUMNS.filter((column) => !headers.includes(column));
   if (missing.length) {
-    throw new Error(`Missing required EBMUD column${missing.length > 1 ? 's' : ''}: ${missing.join(', ')}`);
+    throw new Error(`Missing required EBMUD column${missing.length > 1 ? 's' : ''}: ${missing.join(', ')}. Choose the billing usage CSV with these headings; columns may be in any order.`);
   }
 
   const rows = [];
+  const readingDates = new Set();
   const invalidRows = [];
   const warnings = [];
 
   for (let index = 1; index < table.length; index += 1) {
     const values = table[index];
+    if (values.length !== headers.length) {
+      throw new Error(`CSV row ${index + 1} has ${values.length} fields; the header has ${headers.length}. Export the file again and keep commas inside quoted values.`);
+    }
     const record = Object.fromEntries(headers.map((header, i) => [header, values[i] ?? '']));
     const dateText = String(record['Reading Date'] ?? '').trim();
     const date = parseStrictDate(dateText);
@@ -117,11 +137,11 @@ export function parseEbmudCsv(csvText, options = {}) {
     if (!date || ccf === null || gpd === null || days === null) {
       invalidRows.push({
         rowNumber: index + 1,
-        reason: !date ? 'Missing or invalid reading date' : 'Missing required usage value'
+        reason: !date ? 'Missing or invalid reading date (use YYYY-MM-DD or M/D/YYYY)' : 'Missing required usage value'
       });
       continue;
     }
-    if (days <= 0) {
+    if (!Number.isInteger(days) || days <= 0) {
       invalidRows.push({
         rowNumber: index + 1,
         reason: 'Invalid read period length'
@@ -142,6 +162,10 @@ export function parseEbmudCsv(csvText, options = {}) {
       warnings.push(`Row ${index + 1} has an unusual ${days}-day read period.`);
     }
 
+    if (readingDates.has(date.getTime())) {
+      throw new Error('Repeated reading dates could double-count usage or combine meters. Choose one meter’s billing history with one row per reading date.');
+    }
+    readingDates.add(date.getTime());
     rows.push({
       date,
       dateLabel: dateText,
@@ -160,11 +184,12 @@ export function parseEbmudCsv(csvText, options = {}) {
 
   rows.sort((a, b) => a.date - b.date);
   if (!rows.length) {
-    throw new Error('No valid EBMUD usage rows were found. Check that this is the billing usage file from EBMUD.');
+    throw new Error('No valid EBMUD usage rows were found. Check that this is the billing usage file from EBMUD. Dates must use YYYY-MM-DD or M/D/YYYY, with numeric days, CCF, and Customer GPD.');
   }
   if (!rows.some((row) => row.ccf > 0 || row.gpd > 0)) {
     throw new Error('No positive water usage values were found. Check that this is the billing usage file from EBMUD.');
   }
 
+  for (const invalid of invalidRows.slice(0, 4)) warnings.push(`Row ${invalid.rowNumber} skipped: ${invalid.reason}.`);
   return { rows, invalidRows, warnings };
 }
